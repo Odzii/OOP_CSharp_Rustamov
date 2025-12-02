@@ -6,11 +6,11 @@ class Program
     {
         while (true)
         {
-            Console.Write("Введите ваше имя (или q / пусто для выхода): ");
+            Console.Write("Введите ваше имя (или для любителей Vi :q / пусто для выхода): ");
             var name = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(name) ||
-                string.Equals(name, "q", StringComparison.OrdinalIgnoreCase))
+                string.Equals(name, ":q", StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("Выход из программы...");
                 break;
@@ -29,7 +29,7 @@ class Program
             {
                 Console.WriteLine($"Привет, {name}!");
             }
-            Console.WriteLine($"Привет, {name}");
+            Console.WriteLine($"Привет, {name}!");
 
             Console.Write("Введите ваш возраст: ");
             var ageInput = Console.ReadLine();
