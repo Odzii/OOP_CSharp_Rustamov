@@ -37,7 +37,12 @@ class Program
             {
                 Console.WriteLine($"Тебе, {age} лет.");
                 if (age < 18) Console.WriteLine("РКН не одобряет");
-                else Console.WriteLine("РКН одобряет.");
+                else if (age >= 18 && age <= 121) Console.WriteLine("РКН одобряет.");
+                else
+                {
+                    Console.WriteLine("Доступ в интернет ограничен, нельзя обманывать РКН.");
+                    break;
+                }     
             }
             else
             {
