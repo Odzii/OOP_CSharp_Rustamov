@@ -31,8 +31,9 @@ class Program
 	}
 	else
 	    Console.WriteLine("Пожалуйста, введите целое число.");
-
-	    static string GetAgeCategory(int age)
+	
+    }
+    static string GetAgeCategory(int age)
     {
         if (age < 7)
             return "дошкольник";
@@ -41,7 +42,5 @@ class Program
         if (age < 60)
             return "взрослый";
         return "пенсионер";
-    }
-	
     }
 }
