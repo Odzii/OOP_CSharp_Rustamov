@@ -4,6 +4,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, Git! I've created the second commit!");
+        Console.Write("Введите ваше имя: ");
+	var name = Console.ReadLine();
+	Console.WriteLine($"Привет, {name}");
     }
 }
