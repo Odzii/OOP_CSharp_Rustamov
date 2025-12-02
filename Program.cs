@@ -11,7 +11,11 @@ class Program
 	Console.Write("Введите ваш возраст: ");
 	var ageInput = Console.ReadLine();
 	if (int.TryParse(ageInput, out int age))
+	{
             Console.WriteLine($"Тебе, {age} лет.");
+	    if (age < 18) Console.WriteLine("РКН не одобряет");	
+	    else Console.WriteLine("РКН одобряет.");
+	}
 	else
 	    Console.WriteLine("Пожалуйста, введите целое число.");
     }
