@@ -54,4 +54,14 @@ class Program
 
         Console.WriteLine("Программа завершена.");
     }
+    static string GetAgeCategory(int age)
+    {
+        if (age < 7)
+            return "дошкольник";
+        if (age < 18)
+            return "школьник";
+        if (age < 60)
+            return "взрослый";
+        return "пенсионер";
+    }
 }
