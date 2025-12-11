@@ -120,8 +120,27 @@ namespace Person
 
         static void Main(string[] args)
         {
-            Person person = new Person("Ruslan", "Rustamov", 162222, Gender.Male);
-            Console.WriteLine(person.Gender);
+            var list = new PersonList();
+
+            var p1 = new Person("Ruslan", "Rustamov", 16, Gender.Male);
+            var p2 = new Person("Ivan", "Ivanov", 20, Gender.Male);
+
+            list.Add(p1);
+            list.Add(p2);
+
+            Console.WriteLine($"Всего людей в списке: {list.Count}"); // 2
+
+            var first = list.GetAt(0);
+            Console.WriteLine($"Первый в списке: {first.Name} {first.Surname}");
+
+            int index = list.IndexOf(p2);
+            Console.WriteLine($"Index p2: {index}"); // 1
+
+            list.RemoveAt(0);
+            Console.WriteLine($"После RemoveAt(0) Count = {list.Count}"); // 1
+
+            list.Clear();
+            Console.WriteLine($"После Clear Count = {list.Count}"); // 0
         }
     }
 }
