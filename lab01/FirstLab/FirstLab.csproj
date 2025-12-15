@@ -7,4 +7,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Person\Person.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Person">
+      <HintPath>..\Person\bin\Debug\net8.0\Person.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -2,21 +2,23 @@
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-namespace Person
+namespace Lab01
 {
     /// <summary>
-    /// Представляет человека с именем и фамилией, возрастом и полом. <see cref="Person"/>
+    /// <see cref="Person"/>
+    /// Представляет человека с именем и фамилией, возрастом и 
+    /// половой принадлежностью.
     /// </summary>
 
     public class Person
     {
         /// <summary>
-        /// Имя человека
+        /// Имя
         /// </summary>
-        private string _name;
+        private string _name;                                                  
         
         /// <summary>
-        /// Фамилия человека
+        /// Фамилия
         /// </summary>
         private string _surname;
         
@@ -26,7 +28,7 @@ namespace Person
         private int _age;
         
         /// <summary>
-        /// Пол человека
+        /// Пол
         /// </summary>
         private Gender _gender;
 
@@ -40,12 +42,16 @@ namespace Person
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException(
-                        "Имя не может быть пустым, содержать только пробелы или быть null.",
+                        "Имя не может быть пустым, " +
+                        "содержать только пробелы или быть null.",
                         nameof(value)
                     );
 
                 if (value.Any(char.IsDigit))
-                    throw new ArgumentException("Имя не может содержать цифр.", nameof(Name));
+                    throw new ArgumentException(
+                        "Имя не может содержать цифр.",
+                        nameof(Name)
+                    );
                 
                 _name = value;
              }
@@ -59,10 +65,16 @@ namespace Person
             get { return _surname; }
             set {
                 if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("Фамилия не может быть пустой или Null.", nameof(Surname));
+                    throw new ArgumentException(
+                        "Фамилия не может быть пустой или Null.",
+                        nameof(Surname)
+                    );
 
                 if (value.Any(char.IsDigit))
-                    throw new ArgumentException("Фамилия не может содержать цифр.", nameof(Surname));
+                    throw new ArgumentException(
+                        "Фамилия не может содержать цифр.",
+                        nameof(Surname)
+                    );
 
                 _surname = value; }
         }
@@ -97,13 +109,16 @@ namespace Person
             set
             {
                 if (value == Gender.Unknown)
-                    throw new ArgumentException("Пол должен быть явно указан Male или Female.", nameof(value));
+                    throw new ArgumentException(
+                        "Пол должен быть явно указан Male или Female.",
+                        nameof(value)
+                    );
                 _gender = value;
             }
         }
 
         /// <summary>
-        /// Инициализирует новый экземпляр класс <see cref="Person""/>.
+        /// Инициализация нового экземпляра класс <see cref="Person"/>
         /// </summary>
         /// <param name="name"></param>
         /// <param name="surname"></param>
@@ -115,32 +130,6 @@ namespace Person
             Surname = surname;
             Age = age;
             Gender = gender;
-        }
-
-
-        static void Main(string[] args)
-        {
-            var list = new PersonList();
-
-            var p1 = new Person("Ruslan", "Rustamov", 16, Gender.Male);
-            var p2 = new Person("Ivan", "Ivanov", 20, Gender.Male);
-
-            list.Add(p1);
-            list.Add(p2);
-
-            Console.WriteLine($"Всего людей в списке: {list.Count}"); // 2
-
-            var first = list.GetAt(0);
-            Console.WriteLine($"Первый в списке: {first.Name} {first.Surname}");
-
-            int index = list.IndexOf(p2);
-            Console.WriteLine($"Index p2: {index}"); // 1
-
-            list.RemoveAt(0);
-            Console.WriteLine($"После RemoveAt(0) Count = {list.Count}"); // 1
-
-            list.Clear();
-            Console.WriteLine($"После Clear Count = {list.Count}"); // 0
         }
     }
 }

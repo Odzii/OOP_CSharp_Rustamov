@@ -1,9 +1,18 @@
-﻿namespace Person
+﻿namespace Lab01
 {
     public enum Gender
     {
-        Unknown = 0,
-        Male = 1,
-        Female = 2
+        /// <summary>
+        /// Неизвестный пол
+        /// </summary>
+        Unknown,
+        /// <summary>
+        /// Мужской пол
+        /// </summary>
+        Male,
+        /// <summary>
+        /// Женский пол
+        /// </summary>
+        Female
     }
 }

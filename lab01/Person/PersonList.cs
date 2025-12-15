@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Person
+namespace Lab01
 {
     /// <summary>
     /// Представляет список объектов <see cref="PersonList"/>,
-    /// представляющий операции добавления, удаления и поиска.
+    /// представляющий операции добавления, удаления и поиска
+    /// для объекта <see cref="Person">.
     /// </summary>
     public class PersonList
     {
@@ -21,7 +22,7 @@ namespace Person
         /// Инициализирует пустой список людей.
         /// </summary>
         public PersonList()
-        { 
+        {
             _items = new List<Person>();
         }
 
@@ -38,38 +39,67 @@ namespace Person
         public void Add(Person person)
         {
             if (person is null)
-                throw new ArgumentNullException(nameof(person), "Невозможно добавить null в список.");
-            
+                throw new ArgumentNullException(
+                    nameof(person),
+                    "Невозможно добавить null в список."
+                );
+
             _items.Add(person);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void RemoveAt(int index)
         {
             if (index < 0 || index >= _items.Count)
-                throw new ArgumentOutOfRangeException(nameof(index), "Индекс находится вне диапазона списка.");
+                throw new ArgumentOutOfRangeException(
+                    nameof(index),
+                    "Индекс находится вне диапазона списка."
+                );
 
             _items.RemoveAt(index);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public Person GetAt(int index)
         {
             if (index < 0 || index >= _items.Count)
-                throw new ArgumentOutOfRangeException(nameof(index), "Индекс находится вне диапазона списка.");
+                throw new ArgumentOutOfRangeException(
+                    nameof(index),
+                    "Индекс находится вне диапазона списка."
+                );
 
             return _items[index];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public int IndexOf(Person person)
-        { 
-                if (person is null)
-                    throw new ArgumentNullException(nameof(person));
+        {
+            if (person is null)
+                throw new ArgumentNullException(
+                    "null не может быть экземпляром класса.",
+                    nameof(person)
+                );
 
-                return _items.IndexOf(person); 
+            return _items.IndexOf(person);
         }
 
         public void Clear()
-        { 
-            _items.Clear(); 
+        {
+            _items.Clear();
         }
     }
 }
