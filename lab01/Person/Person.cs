@@ -15,22 +15,32 @@ namespace Lab01
         /// <summary>
         /// Имя
         /// </summary>
-        private string _name;                                                  
-        
+        private string _name;
+
         /// <summary>
         /// Фамилия
         /// </summary>
         private string _surname;
-        
+
         /// <summary>
         /// Возраст человека
         /// </summary>
         private int _age;
-        
+
         /// <summary>
         /// Пол
         /// </summary>
         private Gender _gender;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private const int minAge = 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private const int maxAge = 123;
 
         /// <summary>
         /// Получает или задает имя человека
@@ -38,7 +48,7 @@ namespace Lab01
         public string Name
         {
             get => _name;
-            set 
+            set
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException(
@@ -52,9 +62,9 @@ namespace Lab01
                         "Имя не может содержать цифр.",
                         nameof(Name)
                     );
-                
+
                 _name = value;
-             }
+            }
         }
 
         /// <summary>
@@ -63,7 +73,8 @@ namespace Lab01
         public string Surname
         {
             get { return _surname; }
-            set {
+            set
+            {
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException(
                         "Фамилия не может быть пустой или Null.",
@@ -76,7 +87,8 @@ namespace Lab01
                         nameof(Surname)
                     );
 
-                _surname = value; }
+                _surname = value;
+            }
         }
 
         /// <summary>
@@ -88,8 +100,6 @@ namespace Lab01
             get => _age;
             set
             {
-                const int minAge = 0;
-                const int maxAge = 150;
                 if (value < minAge || value > maxAge)
                     throw new ArgumentOutOfRangeException(
                         nameof(Age),
@@ -125,11 +135,104 @@ namespace Lab01
         /// <param name="age"></param>
         /// <param name="gender"></param>
         public Person(string name, string surname, int age, Gender gender)
-        {   
+        {
             Name = name;
             Surname = surname;
             Age = age;
             Gender = gender;
+        }
+
+        /// <summary>
+        /// Создает пустой экземпляр класса.
+        /// </summary>
+        public Person() { }
+
+        public void ReadFromConsole()
+        {
+            Console.Write("Введите имя: ");
+            Name = Console.ReadLine();
+
+            Console.Write("Введите фамилию: ");
+            Surname = Console.ReadLine();
+
+            Age = ReadAge();
+
+            Gender = ReadGender();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private Gender ReadGender()
+        {
+            while (true)
+            {
+                Console.WriteLine("Введите пол, формат входных данных:" +
+                    "m/f или Male/Female."
+                );
+
+                var input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Пол не распознан. Повторите ввод.");
+                    continue;
+                }
+
+                input = input.Trim();
+
+                switch (input.ToLower())
+                {
+                    case "m":
+                        return Gender.Male;
+                    case "f":
+                        return Gender.Female;
+                    case "u":
+                        return Gender.Unknown;
+                }
+
+                if (Enum.TryParse(input, true, out Gender gender))
+                {
+                    return gender;
+                }
+
+                Console.WriteLine("Пол не распознан. Повторите ввод.");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private static int ReadAge()
+        {
+            while (true)
+            {
+                Console.Write($"Введите возраст ({minAge}-{maxAge}): ");
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int age) && age >= minAge && age <= maxAge)
+                {
+                    return age;
+                }
+
+                Console.WriteLine("Некорректный возраст. Повторите ввод.");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Print()
+        {
+            Console.WriteLine(
+                "Имя: {0}, Фамилия: {1}, Возраст: {2}, Пол: {3}",
+                Name,
+                Surname,
+                Age,
+                Gender
+            );
         }
     }
 }
