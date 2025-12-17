@@ -105,6 +105,9 @@ namespace FirstLab
             //    secondList.Count);
             //ReadKeyForContinue();
 
+            Person p1 = Person.GetRandomPerson();
+            p1.Print();
+
             Console.WriteLine($"Задание 4: метод чтения персоны с клавиатуры " +
                 $"вывод персоны на экран."
             );

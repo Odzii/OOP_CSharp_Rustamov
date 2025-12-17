@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Text;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 namespace Lab01
 {
     /// <summary>
@@ -233,6 +235,50 @@ namespace Lab01
                 Age,
                 Gender
             );
+        }
+
+        /// <summary>
+        /// Позволяет создать случайного человека
+        /// </summary>
+        /// <returns>Экземпляр класса Person
+        /// со случайными значениями полей</returns>
+        public static Person GetRandomPerson()
+        {
+            Random random = new Random();
+
+            string[] MalesNames = ReadFile("DataRandomPerson/MalesNames.txt");
+            string[] FemalesNamesPerson = ReadFile("DataRandomPerson/FemalesNamesPerson.txt");
+            string[] DataSurnamesPerson = ReadFile("DataRandomPerson/DataSurnamesPerson.txt");
+
+            Gender sex = random.Next(1,3) == 1 ? Gender.Male : Gender.Female;
+            string firstName = sex == Gender.Male
+                ? MalesNames[random.Next(MalesNames.Length)]
+                : FemalesNamesPerson[random.Next(FemalesNamesPerson.Length)];
+
+            string lastName = DataSurnamesPerson[random.Next(DataSurnamesPerson.Length)];
+            if (sex == Gender.Female)
+            {
+                lastName += "а";
+            }
+
+            int age = random.Next(minAge, maxAge + 1);
+
+            return new Person(firstName, lastName, age, sex);
+        }
+
+        /// <summary>
+        /// Метод чтения строк в файле
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private static string[] ReadFile(string path)
+        {
+            if (!File.Exists(path))
+                return Array.Empty<string>();
+
+            return File.ReadAllLines(path, Encoding.UTF8)
+                .Where(value => !string.IsNullOrWhiteSpace(value))
+                .ToArray();
         }
     }
 }
