@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Text;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 namespace Lab01
@@ -149,21 +150,19 @@ namespace Lab01
         /// </summary>
         public Person() { }
 
+
         public void ReadFromConsole()
         {
-            Console.Write("Введите имя: ");
-            Name = Console.ReadLine();
-
-            Console.Write("Введите фамилию: ");
-            Surname = Console.ReadLine();
-
+            string language = String.Empty;
+            (Name, language) = ReadValidatedWord("Введите имя: ");
+            (Surname, language) = ReadValidatedWord("Введите фамилию: ", language);
             Age = ReadAge();
-
             Gender = ReadGender();
         }
 
+        //TODO: добавить больше вариантов выбора пола
         /// <summary>
-        /// 
+        /// Чтение пола при использовании ReadFromConsole.
         /// </summary>
         /// <returns></returns>
         private Gender ReadGender()
@@ -171,32 +170,33 @@ namespace Lab01
             while (true)
             {
                 Console.WriteLine("Введите пол, формат входных данных:" +
-                    "m/f или Male/Female."
+                    "Male/Female."
                 );
 
                 var input = Console.ReadLine();
+                bool flag = Enum.IsDefined(typeof(Gender), input);
 
-                if (string.IsNullOrWhiteSpace(input))
+                //if (string.IsNullOrWhiteSpace(input))
+                //{
+                //    Console.WriteLine("Пол не может быть null. Повторите ввод.");
+                //    continue;
+                //}
+
+                //input = input.Trim();
+
+                //switch (input.ToLower())
+                //{
+                //    case "m":
+                //        return Gender.Male;
+                //    case "f":
+                //        return Gender.Female;
+                //    case "u":
+                //        return Gender.Unknown;
+                //}
+
+                if (flag)
                 {
-                    Console.WriteLine("Пол не распознан. Повторите ввод.");
-                    continue;
-                }
-
-                input = input.Trim();
-
-                switch (input.ToLower())
-                {
-                    case "m":
-                        return Gender.Male;
-                    case "f":
-                        return Gender.Female;
-                    case "u":
-                        return Gender.Unknown;
-                }
-
-                if (Enum.TryParse(input, true, out Gender gender))
-                {
-                    return gender;
+                    return (Gender)Enum.Parse(typeof(Gender), input, true);
                 }
 
                 Console.WriteLine("Пол не распознан. Повторите ввод.");
@@ -204,7 +204,7 @@ namespace Lab01
         }
 
         /// <summary>
-        /// 
+        /// Чтение возраста при использовании ReadFromConsole.
         /// </summary>
         /// <returns></returns>
         private static int ReadAge()
@@ -224,7 +224,69 @@ namespace Lab01
         }
 
         /// <summary>
-        /// 
+        /// Проверка слова на содержание только заданных символов
+        /// и преобразование слова, где первая буква верхнем регистре,
+        /// а другие в нижнем регистре
+        /// </summary>
+        /// <param name="message"></param>Сообщение при вводе.
+        /// <returns></returns>Возвращает слово 
+        /// в котором первая буква в верхнем регистре, остальные в нижнем.
+        private (string, string) ReadValidatedWord(string message, string language="") 
+        {
+            while(true)
+            {
+                string languageDetected = "";
+
+                Console.Write(message);
+                var input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Пустая строка. Повторите ввод.");
+                    continue;
+                }
+                else
+                {
+                    if (Regex.IsMatch(input, 
+                        @"^[А-Яа-яЁё]+(?:-[А-Яа-яЁё]+)?$"))
+                    {
+                        languageDetected = "russian";
+                    }
+                    else if (Regex.IsMatch(input, 
+                        @"^[A-Za-z]+(?:-[A-Za-z]+)?$"))
+                    {
+                        languageDetected = "english";
+                    }
+                    else 
+                    {
+                        Console.WriteLine("Ввод некорректен, " +
+                            "повторите попытку.");
+                    }
+                    if (!languageDetected.Equals(""))
+                    {
+                        if (language.Equals("") || languageDetected.Equals(language))
+                            return (input, languageDetected);
+                        else 
+                        {
+                            Console.WriteLine("Ввод некорректен, " +
+                            "повторите попытку.");
+                            languageDetected = "";
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private static readonly Regex Ru = new(
+            @"^[А-Яа-яЁё]+(?:-[А-Яа-яЁё]+)?$",
+            RegexOptions.Compiled);
+
+        private static readonly Regex En = new(
+        @"^[A-Za-z]+(?:-[A-Za-z]+)?$",
+        RegexOptions.Compiled);
+
+        /// <summary>
+        /// Вывод имени, фамилии, возраста и пола для объекта Person
         /// </summary>
         public void Print()
         {
@@ -237,6 +299,7 @@ namespace Lab01
             );
         }
 
+        // TODO: [HIGH] добавить проверку, если слово оканчивается на гласную 
         /// <summary>
         /// Позволяет создать случайного человека
         /// </summary>

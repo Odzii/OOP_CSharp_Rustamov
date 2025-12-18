@@ -3,15 +3,21 @@ namespace FirstLab
 {
     internal class Program
     {
+        /// <summary>
+        /// Вывод сообщения о нажатии клавиши для продолжения работы.
+        /// </summary>
         static void ReadKeyForContinue()
         {
             Console.WriteLine("Нажмите любую клавишу для продолжения...");
             Console.ReadKey(true);
         }
 
-        // Создать метод, позволяющий создать список
-        // для экземпляра класса Person 
-
+        /// <summary>
+        ///Создать метод, позволяющий создать список
+        ///для экземпляра класса Person.
+        /// </summary>
+        /// <param name="personList"></param>
+        /// <param name="listName"></param>
         private static void PrintList(PersonList personList, string listName)
         {
             int count = personList.Count;
