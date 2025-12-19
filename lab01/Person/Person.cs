@@ -151,48 +151,43 @@ namespace Lab01
         public Person() { }
 
 
-        public void ReadFromConsole()
+        public static Person ReadFromConsole()
         {
             string language = String.Empty;
-            (Name, language) = ReadValidatedWord("Введите имя: ");
-            (Surname, language) = ReadValidatedWord("Введите фамилию: ", language);
-            Age = ReadAge();
-            Gender = ReadGender();
+            Person person = new Person();
+            (person.Name, language) = person.ReadValidatedWord("Введите имя: ");
+            (person.Surname, _) = person.ReadValidatedWord("Введите фамилию: ", language);
+            person.Age = person.ReadAge();
+            person.Gender = person.ReadGender();
+            Console.WriteLine("Создан экземпляр класса Person:");
+            person.Print();
+            return person;
         }
 
-        //TODO: добавить больше вариантов выбора пола
         /// <summary>
         /// Чтение пола при использовании ReadFromConsole.
         /// </summary>
         /// <returns></returns>
         private Gender ReadGender()
         {
+            List<string> listFemale = new List<string> { "ж", "женский", "f" };
+            List<string> listMale = new List<string> { "м", "мужской", "m" };
+
             while (true)
             {
                 Console.WriteLine("Введите пол, формат входных данных:" +
-                    "Male/Female."
+                    "Male/Female или m/f, Женский/Мужской или ж/м " +
+                    "без учета регистра."
                 );
 
-                var input = Console.ReadLine();
+                var input = Console.ReadLine().ToLower();
+
+                if (listFemale.Contains(input)) input = "Female";
+                else if (listMale.Contains(input)) input = " Male";
+                
+                CapitalizeFirstLetter(input);
+
                 bool flag = Enum.IsDefined(typeof(Gender), input);
-
-                //if (string.IsNullOrWhiteSpace(input))
-                //{
-                //    Console.WriteLine("Пол не может быть null. Повторите ввод.");
-                //    continue;
-                //}
-
-                //input = input.Trim();
-
-                //switch (input.ToLower())
-                //{
-                //    case "m":
-                //        return Gender.Male;
-                //    case "f":
-                //        return Gender.Female;
-                //    case "u":
-                //        return Gender.Unknown;
-                //}
 
                 if (flag)
                 {
@@ -207,7 +202,7 @@ namespace Lab01
         /// Чтение возраста при использовании ReadFromConsole.
         /// </summary>
         /// <returns></returns>
-        private static int ReadAge()
+        private int ReadAge()
         {
             while (true)
             {
@@ -231,9 +226,9 @@ namespace Lab01
         /// <param name="message"></param>Сообщение при вводе.
         /// <returns></returns>Возвращает слово 
         /// в котором первая буква в верхнем регистре, остальные в нижнем.
-        private (string, string) ReadValidatedWord(string message, string language="") 
+        private (string, string) ReadValidatedWord(string message, string language = "")
         {
-            while(true)
+            while (true)
             {
                 string languageDetected = "";
 
@@ -246,17 +241,17 @@ namespace Lab01
                 }
                 else
                 {
-                    if (Regex.IsMatch(input, 
+                    if (Regex.IsMatch(input,
                         @"^[А-Яа-яЁё]+(?:-[А-Яа-яЁё]+)?$"))
                     {
                         languageDetected = "russian";
                     }
-                    else if (Regex.IsMatch(input, 
+                    else if (Regex.IsMatch(input,
                         @"^[A-Za-z]+(?:-[A-Za-z]+)?$"))
                     {
                         languageDetected = "english";
                     }
-                    else 
+                    else
                     {
                         Console.WriteLine("Ввод некорректен, " +
                             "повторите попытку.");
@@ -264,8 +259,8 @@ namespace Lab01
                     if (!languageDetected.Equals(""))
                     {
                         if (language.Equals("") || languageDetected.Equals(language))
-                            return (input, languageDetected);
-                        else 
+                            return (CapitalizeFirstLetter(input), languageDetected);
+                        else
                         {
                             Console.WriteLine("Ввод некорректен, " +
                             "повторите попытку.");
@@ -276,14 +271,6 @@ namespace Lab01
             }
 
         }
-
-        private static readonly Regex Ru = new(
-            @"^[А-Яа-яЁё]+(?:-[А-Яа-яЁё]+)?$",
-            RegexOptions.Compiled);
-
-        private static readonly Regex En = new(
-        @"^[A-Za-z]+(?:-[A-Za-z]+)?$",
-        RegexOptions.Compiled);
 
         /// <summary>
         /// Вывод имени, фамилии, возраста и пола для объекта Person
@@ -309,24 +296,39 @@ namespace Lab01
         {
             Random random = new Random();
 
-            string[] MalesNames = ReadFile("DataRandomPerson/MalesNames.txt");
-            string[] FemalesNamesPerson = ReadFile("DataRandomPerson/FemalesNamesPerson.txt");
-            string[] DataSurnamesPerson = ReadFile("DataRandomPerson/DataSurnamesPerson.txt");
+            string[] malesNames = ReadFile("DataRandomPerson/MalesNames.txt");
+            string[] femalesNamesPerson = ReadFile("DataRandomPerson/FemalesNamesPerson.txt");
+            string[] dataSurnamesPerson = ReadFile("DataRandomPerson/DataSurnamesPerson.txt");
 
-            Gender sex = random.Next(1,3) == 1 ? Gender.Male : Gender.Female;
+            Gender sex = random.Next(1, 3) == 1 ? Gender.Male : Gender.Female;
             string firstName = sex == Gender.Male
-                ? MalesNames[random.Next(MalesNames.Length)]
-                : FemalesNamesPerson[random.Next(FemalesNamesPerson.Length)];
+                ? malesNames[random.Next(malesNames.Length)]
+                : femalesNamesPerson[random.Next(femalesNamesPerson.Length)];
 
-            string lastName = DataSurnamesPerson[random.Next(DataSurnamesPerson.Length)];
-            if (sex == Gender.Female)
+            string lastName = dataSurnamesPerson[random.Next(dataSurnamesPerson.Length)];
+            if (sex == Gender.Female && !EndsWithRussianVowel(lastName))
             {
                 lastName += "а";
             }
 
             int age = random.Next(minAge, maxAge + 1);
+            Person person = new Person(firstName, lastName, age, sex);
+            person.Print();
+            return person;
+        }
 
-            return new Person(firstName, lastName, age, sex);
+        private static bool EndsWithRussianVowel(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return false;
+            }
+
+            char lastChar = char.ToLower(text[text.Length - 1]);
+
+            const string vowels = "аеёиоуыэюя";
+
+            return vowels.IndexOf(lastChar) >= 0;
         }
 
         /// <summary>
@@ -342,6 +344,23 @@ namespace Lab01
             return File.ReadAllLines(path, Encoding.UTF8)
                 .Where(value => !string.IsNullOrWhiteSpace(value))
                 .ToArray();
+        }
+
+        private static string CapitalizeFirstLetter(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return text;
+            }
+
+            text = text.ToLower();
+
+            if (text.Length == 1)
+            {
+                return text.ToUpper();
+            }
+
+            return char.ToUpper(text[0]) + text.Substring(1);
         }
     }
 }
