@@ -1,17 +1,23 @@
-﻿namespace Lab01
+﻿namespace LabFirst
 {
+    //TODO: добавить русские наименования гендеров и реализовать логику
+    /// <summary>
+    /// Пол человека.
+    /// </summary>
     public enum Gender
     {
         /// <summary>
-        /// Неизвестный пол
+        /// Пол не указан.
         /// </summary>
         Unknown,
+
         /// <summary>
-        /// Мужской пол
+        /// Мужской пол.
         /// </summary>
         Male,
+
         /// <summary>
-        /// Женский пол
+        /// Женский пол.
         /// </summary>
         Female
     }

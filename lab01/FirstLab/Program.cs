@@ -1,71 +1,76 @@
-﻿using Lab01;
-using static System.Net.Mime.MediaTypeNames;
+﻿using System;
+using System.Collections.Generic;
+
+using LabFirst;
+
 namespace FirstLab
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            /// Шаг 1 - создание двух списков с тремя объектами Person
-            var (firstList, secondList) = TestCreateTwoListOfPerson();
+            // Шаг 1 - создание двух списков с тремя объектами Person
+            var (firstList, secondList) = CreateInitialPersonLists();
 
-            var testDictionary = new Dictionary<string, Action>
+            var tests = new List<(string Title, Action Run)>
             {
-                ["Вывод в консоль созданных списков"] = () =>
-                    TestPrintOfTwoList(firstList, secondList),
-                ["Добавление нового объекта типа Person"] = () =>
-                    TestAddPerson(firstList),
-                ["Проверка ссылочного типа данных"] = () =>
-                    TestCopyReferenceEquals(firstList, secondList),
-                ["Удаление объекта Person"] = () =>
-                    TestRemovePerson(firstList, secondList),
-                ["Полная очистка списка"] = () =>
-                    TestClearList(secondList, nameof(secondList)),
-                ["Создание случайного экземпляра класса"] = () =>
-                    Person.GetRandomPerson(),
-                ["Чтение с клавиатуры для создания объекта Person"] = () =>
-                    Person.ReadFromConsole()
+                ("Вывод в консоль созданных списков",
+                    () => ShowLists(firstList, secondList)),
+
+                ("Добавление нового объекта типа Person",
+                    () => DemoAddPerson(firstList)),
+
+                ("Проверка ссылочного типа данных",
+                    () => DemoReferenceCopy(firstList, secondList)),
+
+                ("Удаление объекта Person",
+                    () => DemoRemovePerson(firstList, secondList)),
+
+                ("Полная очистка списка",
+                    () => DemoClearList(secondList, nameof(secondList))),
+
+                ("Создание случайного экземпляра класса",
+                    () => { _ = Person.GetRandomPerson(); }),
+
+                ("Чтение с клавиатуры для создания объекта Person",
+                    () => { _ = Person.ReadFromConsole(); })
             };
 
-            foreach (var item in testDictionary)
+            foreach (var test in tests)
             {
-                ColorTitle(item.Key);
-                item.Value();
-                ReadKeyForContinue();
+                WriteTitle(test.Title);
+                test.Run();
+                WaitForKeyPress();
             }
         }
 
         /// <summary>
         /// Вывод сообщения о нажатии клавиши для продолжения работы.
         /// </summary>
-        static void ReadKeyForContinue()
+        private static void WaitForKeyPress()
         {
             Console.WriteLine("Нажмите любую клавишу для продолжения...");
             Console.ReadKey(true);
             Console.WriteLine();
         }
 
-        static void ColorTitle(string text)
+        private static void WriteTitle(string text)
         {
-            Action forConsoleWriteLine = new Action(() => {
+            void PrintSeparator()
+            {
                 Console.ForegroundColor = ConsoleColor.Green;
-                for (int i = 0; i < text.Length; i++)
-                    Console.Write("-");
-                Console.WriteLine();
+                Console.WriteLine(new string('-', text.Length));
                 Console.ResetColor();
             }
-            );
-            forConsoleWriteLine();
+
+            PrintSeparator();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(text);
-            forConsoleWriteLine();
+            Console.ResetColor();
+            PrintSeparator();
         }
 
-        /// <summary>
-        ///Вывод в консоль, значения списка с экземплярами класса Person.
-        /// </summary>
-        /// <param name="personList"></param>
-        /// <param name="listName"></param>
-        private static void PrintList(PersonList personList, string listName)
+        private static void PrintPersonList(PersonList personList, string listName)
         {
             int count = personList.Count;
 
@@ -75,78 +80,63 @@ namespace FirstLab
             {
                 Person person = personList.GetAt(i);
 
-                Console.WriteLine(
-                    "  [{0}] Имя: {1} | Фамилия: {2} | Возраст: {3} | Пол: {4}",
-                    i,
-                    person.Name,
-                    person.Surname,
-                    person.Age,
-                    person.Gender);
+                person.Print();
             }
 
             Console.WriteLine();
         }
 
-
-        private static Person[] CreateSixPersons()
+        private static Person[] CreateSamplePersons()
         {
-            var firstListPersonOne = new Person("Ruslan", "Rustamov", 16,
-                Gender.Male);
-            var firstListPersonTwo = new Person("Александр", "Македонский", 20,
-                Gender.Male);
-            var firstListPersonThree = new Person("James", "Bond",
-                110, Gender.Female);
-            var secondListPersonOne = new Person("Борис", "Бритва", 16,
-                Gender.Male);
-            var secondListPersonTwo = new Person("Жаргалма", "Цыдыпова", 20,
-                Gender.Male);
-            var secondListPersonThree = new Person("Дмитрий", "Цырен-Галсанов",
-                110, Gender.Female);
-
-            Person[] arrayPerson = { firstListPersonOne, firstListPersonTwo,
-                firstListPersonThree, secondListPersonOne,
-                secondListPersonTwo, secondListPersonThree };
-            return arrayPerson;
+            return new[]
+            {
+                new Person("Ruslan", "Rustamov", 16, Gender.Male),
+                new Person("Александр", "Македонский", 20, Gender.Male),
+                new Person("James", "Bond", 110, Gender.Female),
+                new Person("Борис", "Бритва", 16, Gender.Male),
+                new Person("Жаргалма", "Цыдыпова", 20, Gender.Male),
+                new Person("Дмитрий", "Цырен-Галсанов", 110, Gender.Female),
+            };
         }
 
-
-        public static (PersonList, PersonList) TestCreateTwoListOfPerson()
+        private static (PersonList, PersonList) CreateInitialPersonLists()
         {
             var firstList = new PersonList();
             var secondList = new PersonList();
 
-            Person[] arrayOfPersons = CreateSixPersons();
+            Person[] arrayOfPersons = CreateSamplePersons();
 
             for (int i = 0; i < 3; i++)
             {
                 firstList.Add(arrayOfPersons[i]);
                 secondList.Add(arrayOfPersons[i + 3]);
             }
-            ColorTitle($"Созданы списки: {nameof(firstList)} и" +
+            WriteTitle($"Созданы списки: {nameof(firstList)} и" +
                 $" {nameof(secondList)}.");
-            ReadKeyForContinue();
+            WaitForKeyPress();
             return (firstList, secondList);
         }
 
-        public static void TestPrintOfTwoList(
+        private static void ShowLists(
             PersonList firstList,
             PersonList secondList
         )
         {
-            PrintList(firstList, "firstList");
-            PrintList(secondList, "secondList");
+            PrintPersonList(firstList, nameof(firstList));
+            PrintPersonList(secondList, nameof(secondList));
 
         }
 
-        public static void TestAddPerson(PersonList firstList)
+        private static void DemoAddPerson(PersonList firstList)
         {
-            Person firstListPersonFour = new Person("Oleg", "Rasputin", 44, Gender.Female);
+            Person firstListPersonFour =
+                new Person("Oleg", "Rasputin", 44, Gender.Female);
             firstList.Add(firstListPersonFour);
             firstListPersonFour.Print();
-            PrintList(firstList, "firstList");
+            PrintPersonList(firstList, nameof(firstList));
         }
 
-        public static void TestCopyReferenceEquals(
+        private static void DemoReferenceCopy(
             PersonList firstList,
             PersonList secondList
         )
@@ -164,17 +154,17 @@ namespace FirstLab
             );
         }
 
-        public static void TestRemovePerson(
+        private static void DemoRemovePerson(
             PersonList firstList,
             PersonList secondList
         )
         {
             firstList.RemoveAt(1);
-            PrintList(firstList, "firstList");
-            PrintList(secondList, "secondList");
+            PrintPersonList(firstList, "firstList");
+            PrintPersonList(secondList, "secondList");
         }
 
-        public static void TestClearList(PersonList personList, string name)
+        private static void DemoClearList(PersonList personList, string name)
         {
             personList.Clear();
             Console.WriteLine("Количество элементов в списке {0}: {1}",

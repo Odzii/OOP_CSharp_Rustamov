@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Lab01
+namespace LabFirst
 {
     /// <summary>
-    /// Представляет список объектов <see cref="PersonList"/>,
-    /// представляющий операции добавления, удаления и поиска
-    /// для объекта <see cref="Person">.
+    /// Представляет список объектов <see cref="Person"/> и операции добавления,
+    /// удаления и поиска.
     /// </summary>
     public class PersonList
     {
@@ -32,10 +28,12 @@ namespace Lab01
         public int Count => _items.Count;
 
         /// <summary>
-        /// Добавляет человека в список
+        /// Добавляет человека в список.
         /// </summary>
-        /// <param name="person"></param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="person">
+        /// Добавляемый объект <see cref="Person"/>.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Если <paramref name="person"/> равен null.</exception>
         public void Add(Person person)
         {
             if (person is null)
@@ -48,10 +46,11 @@ namespace Lab01
         }
 
         /// <summary>
-        /// 
+        /// Удаляет элемент из списка по индексу.
         /// </summary>
-        /// <param name="index"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <param name="index">Индекс удаляемого элемента.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Если индекс вне диапазона списка.</exception>
         public void RemoveAt(int index)
         {
             if (index < 0 || index >= _items.Count)
@@ -64,11 +63,12 @@ namespace Lab01
         }
 
         /// <summary>
-        /// 
+        /// Возвращает элемент списка по индексу.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <param name="index">Индекс элемента.</param>
+        /// <returns>Элемент типа <see cref="Person"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Если индекс вне диапазона списка.</exception>
         public Person GetAt(int index)
         {
             if (index < 0 || index >= _items.Count)
@@ -81,22 +81,26 @@ namespace Lab01
         }
 
         /// <summary>
-        /// 
+        /// Возвращает индекс указанного человека в списке.
         /// </summary>
-        /// <param name="person"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="person">Искомый объект <see cref="Person"/>.</param>
+        /// <returns>Индекс элемента или -1, если элемент не найден.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// Если <paramref name="person"/> равен null.</exception>
         public int IndexOf(Person person)
         {
             if (person is null)
                 throw new ArgumentNullException(
-                    "null не может быть экземпляром класса.",
-                    nameof(person)
+                    nameof(person),
+                    "Нельзя передавать null."
                 );
 
             return _items.IndexOf(person);
         }
 
+        /// <summary>
+        /// Очищает список.
+        /// </summary>
         public void Clear()
         {
             _items.Clear();

@@ -5,7 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
-namespace Lab01
+
+namespace LabFirst
 {
     /// <summary>
     /// <see cref="Person"/>
@@ -36,14 +37,22 @@ namespace Lab01
         private Gender _gender;
 
         /// <summary>
-        /// 
+        /// Минимальный возраст
         /// </summary>
-        private const int minAge = 0;
+        private const int _minAge = 0;
 
         /// <summary>
-        /// 
+        /// Максимальный возраст
         /// </summary>
-        private const int maxAge = 123;
+        private const int _maxAge = 123;
+
+        private bool _isRussian;
+
+        /// <summary>
+        /// Показывает, что имя/фамилия человека заданы на русском языке.
+        /// </summary>
+        public bool IsRussian => _isRussian;
+
 
         /// <summary>
         /// Получает или задает имя человека
@@ -63,7 +72,7 @@ namespace Lab01
                 if (value.Any(char.IsDigit))
                     throw new ArgumentException(
                         "Имя не может содержать цифр.",
-                        nameof(Name)
+                        nameof(value)
                     );
 
                 _name = value;
@@ -81,13 +90,13 @@ namespace Lab01
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException(
                         "Фамилия не может быть пустой или Null.",
-                        nameof(Surname)
+                        nameof(value)
                     );
 
                 if (value.Any(char.IsDigit))
                     throw new ArgumentException(
                         "Фамилия не может содержать цифр.",
-                        nameof(Surname)
+                        nameof(value)
                     );
 
                 _surname = value;
@@ -95,18 +104,25 @@ namespace Lab01
         }
 
         /// <summary>
-        /// Получает или задает возраст человека в полных годах.
-        /// Значение ограничивается диапазоном от 0 до 150 включительно.
+        /// Получает или задаёт возраст человека в полных годах.
         /// </summary>
+        /// <value>
+        /// Допустимый диапазон: 
+        /// <see cref="MinAge"/>–<see cref="MaxAge"/> (включительно).
+        /// </value>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Бросается, если значение меньше <see cref="_minAge"/> 
+        /// или больше <see cref="_maxAge"/>.
+        /// </exception>
         public int Age
         {
             get => _age;
             set
             {
-                if (value < minAge || value > maxAge)
+                if (value < _minAge || value > _maxAge)
                     throw new ArgumentOutOfRangeException(
-                        nameof(Age),
-                        $"Возраст должен быть от {minAge} до {maxAge}."
+                        nameof(value),
+                        $"Возраст должен быть от {_minAge} до {_maxAge}."
                     );
 
                 _age = value;
@@ -114,8 +130,13 @@ namespace Lab01
         }
 
         /// <summary>
-        /// Получить или и проверить гендер человека.
+        /// Получает или задаёт пол человека.
         /// </summary>
+        /// <value>Допустимые значения: <see cref="Gender.Male"/> 
+        /// или <see cref="Gender.Female"/>.</value>
+        /// <exception cref="ArgumentException">
+        /// Бросается, если установлено значение <see cref="Gender.Unknown"/>.
+        /// </exception>
         public Gender Gender
         {
             get => _gender;
@@ -148,19 +169,39 @@ namespace Lab01
         /// <summary>
         /// Создает пустой экземпляр класса.
         /// </summary>
-        public Person() { }
+        public Person()
+        {
+        }
 
-
+        /// <summary>
+        /// Считывает из консоли данные о человеке 
+        /// (имя, фамилию, возраст и пол),
+        /// выполняя валидацию введённых значений, 
+        /// и возвращает созданный объект.
+        /// </summary>
+        /// <returns></returns>
         public static Person ReadFromConsole()
         {
             string language = String.Empty;
+
             Person person = new Person();
-            (person.Name, language) = person.ReadValidatedWord("Введите имя: ");
-            (person.Surname, _) = person.ReadValidatedWord("Введите фамилию: ", language);
-            person.Age = person.ReadAge();
-            person.Gender = person.ReadGender();
+
+            (person.Name, language) =
+                person.ReadValidatedWord("Введите имя: ");
+
+            person._isRussian = language == "russian";
+
+            (person.Surname, _) =
+                person.ReadValidatedWord("Введите фамилию: ", language);
+            person.Age =
+                person.ReadAge();
+            person.Gender =
+                person.ReadGender();
+
             Console.WriteLine("Создан экземпляр класса Person:");
+
             person.Print();
+
             return person;
         }
 
@@ -183,9 +224,9 @@ namespace Lab01
                 var input = Console.ReadLine().ToLower();
 
                 if (listFemale.Contains(input)) input = "Female";
-                else if (listMale.Contains(input)) input = " Male";
-                
-                CapitalizeFirstLetter(input);
+                if (listMale.Contains(input)) input = "Male";
+
+                input = CapitalizeFirstLetter(input);
 
                 bool flag = Enum.IsDefined(typeof(Gender), input);
 
@@ -206,10 +247,11 @@ namespace Lab01
         {
             while (true)
             {
-                Console.Write($"Введите возраст ({minAge}-{maxAge}): ");
+                Console.Write($"Введите возраст ({_minAge}-{_maxAge}): ");
                 string input = Console.ReadLine();
 
-                if (int.TryParse(input, out int age) && age >= minAge && age <= maxAge)
+                if (int.TryParse(input, out int age)
+                    && age >= _minAge && age <= _maxAge)
                 {
                     return age;
                 }
@@ -219,14 +261,19 @@ namespace Lab01
         }
 
         /// <summary>
-        /// Проверка слова на содержание только заданных символов
-        /// и преобразование слова, где первая буква верхнем регистре,
-        /// а другие в нижнем регистре
+        /// Проверяет ввод слова (рус/англ, допускается одно тире) и приводит к виду: ПерваяБукваЗаглавная.
         /// </summary>
-        /// <param name="message"></param>Сообщение при вводе.
-        /// <returns></returns>Возвращает слово 
-        /// в котором первая буква в верхнем регистре, остальные в нижнем.
-        private (string, string) ReadValidatedWord(string message, string language = "")
+        /// <param name="message">Сообщение, выводимое перед вводом.</param>
+        /// <param name="language">
+        /// Ограничение языка ("russian"/"english"). Если пусто — язык определяется по первому слову.
+        /// </param>
+        /// <returns>
+        /// Кортеж: (нормализованное слово, определённый язык).
+        /// </returns>
+        private (string, string) ReadValidatedWord(
+            string message,
+            string language = ""
+        )
         {
             while (true)
             {
@@ -258,8 +305,10 @@ namespace Lab01
                     }
                     if (!languageDetected.Equals(""))
                     {
-                        if (language.Equals("") || languageDetected.Equals(language))
-                            return (CapitalizeFirstLetter(input), languageDetected);
+                        if (language.Equals("")
+                            || languageDetected.Equals(language))
+                            return (CapitalizeFirstLetter(input),
+                                languageDetected);
                         else
                         {
                             Console.WriteLine("Ввод некорректен, " +
@@ -278,15 +327,31 @@ namespace Lab01
         public void Print()
         {
             Console.WriteLine(
-                "Имя: {0}, Фамилия: {1}, Возраст: {2}, Пол: {3}",
+                "Имя: {0}, " +
+                "Фамилия: {1}, " +
+                "Возраст: {2}, " +
+                "Пол: {3}",
                 Name,
                 Surname,
                 Age,
-                Gender
+                FormatGender(Gender, IsRussian)
             );
         }
 
-        // TODO: [HIGH] добавить проверку, если слово оканчивается на гласную 
+        /// <summary>
+        /// Формар вывода Gender в методе Print
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <param name="isRussian"></param>
+        /// <returns></returns>
+        private static string FormatGender(Gender gender, bool isRussian)
+        {
+            if (isRussian)
+                return gender == Gender.Male ? "Мужской" : "Женский";
+
+            return gender == Gender.Male ? "Male" : "Female";
+        }
+
         /// <summary>
         /// Позволяет создать случайного человека
         /// </summary>
@@ -296,22 +361,26 @@ namespace Lab01
         {
             Random random = new Random();
 
-            string[] malesNames = ReadFile("DataRandomPerson/MalesNames.txt");
-            string[] femalesNamesPerson = ReadFile("DataRandomPerson/FemalesNamesPerson.txt");
-            string[] dataSurnamesPerson = ReadFile("DataRandomPerson/DataSurnamesPerson.txt");
+            string[] malesNames =
+                ReadFile("DataRandomPerson/MalesNames.txt");
+            string[] femalesNamesPerson =
+                ReadFile("DataRandomPerson/FemalesNamesPerson.txt");
+            string[] dataSurnamesPerson =
+                ReadFile("DataRandomPerson/DataSurnamesPerson.txt");
 
             Gender sex = random.Next(1, 3) == 1 ? Gender.Male : Gender.Female;
             string firstName = sex == Gender.Male
                 ? malesNames[random.Next(malesNames.Length)]
                 : femalesNamesPerson[random.Next(femalesNamesPerson.Length)];
 
-            string lastName = dataSurnamesPerson[random.Next(dataSurnamesPerson.Length)];
+            string lastName =
+                dataSurnamesPerson[random.Next(dataSurnamesPerson.Length)];
             if (sex == Gender.Female && !EndsWithRussianVowel(lastName))
             {
                 lastName += "а";
             }
 
-            int age = random.Next(minAge, maxAge + 1);
+            int age = random.Next(_minAge, _maxAge + 1);
             Person person = new Person(firstName, lastName, age, sex);
             person.Print();
             return person;
@@ -346,6 +415,13 @@ namespace Lab01
                 .ToArray();
         }
 
+        // TODO выполнен: корректная капитализация составных слов через дефис
+        /// <summary>
+        /// В верхний регистр первый символ, а также символ после разделителя
+        /// "-" в верхний регистр. 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private static string CapitalizeFirstLetter(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
@@ -353,14 +429,39 @@ namespace Lab01
                 return text;
             }
 
-            text = text.ToLower();
+            text = text.Trim();
 
-            if (text.Length == 1)
+            string[] parts = text.Split('-', 
+                StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < parts.Length; i++)
             {
-                return text.ToUpper();
+                parts[i] = CapitalizeSingleWord(parts[i]);
             }
 
-            return char.ToUpper(text[0]) + text.Substring(1);
+            return string.Join("-", parts);
+        }
+
+        /// <summary>
+        /// Первый симвом в верхний регистр, остальные в нижний
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        private static string CapitalizeSingleWord(string word)
+        {
+            if (string.IsNullOrWhiteSpace(word))
+            {
+                return word;
+            }
+
+            word = word.ToLower();
+
+            if (word.Length == 1)
+            {
+                return word.ToUpper();
+            }
+
+            return char.ToUpper(word[0]) + word.Substring(1);
         }
     }
 }
