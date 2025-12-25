@@ -30,10 +30,10 @@ namespace FirstLab
                     () => DemoClearList(secondList, nameof(secondList))),
 
                 ("Создание случайного экземпляра класса",
-                    () => { _ = Person.GetRandomPerson(); }),
+                    () => DemoGetRandomPerson()),
 
                 ("Чтение с клавиатуры для создания объекта Person",
-                    () => { _ = Person.ReadFromConsole(); })
+                     () => DemoReadFromConsole())
             };
 
             foreach (var test in tests)
@@ -169,6 +169,22 @@ namespace FirstLab
             personList.Clear();
             Console.WriteLine("Количество элементов в списке {0}: {1}",
                 name, personList.Count);
+        }
+
+        /// <summary>
+        /// Обертка для метода GetRandom Person
+        /// </summary>
+        private static void DemoGetRandomPerson()
+        {
+            var p = Person.GetRandomPerson();
+        }
+
+        /// <summary>
+        /// Обертка для метода ReadFromConsole
+        /// </summary>
+        private static void DemoReadFromConsole()
+        {
+            var p = Person.ReadFromConsole();
         }
 
     }
