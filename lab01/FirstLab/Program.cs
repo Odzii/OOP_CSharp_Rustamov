@@ -5,8 +5,10 @@ using LabFirst;
 
 namespace FirstLab
 {
+    //TODO: XML
     internal class Program
     {
+        //TODO: XML
         private static void Main(string[] args)
         {
             // Шаг 1 - создание двух списков с тремя объектами Person

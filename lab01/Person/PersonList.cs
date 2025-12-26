@@ -36,6 +36,7 @@ namespace LabFirst
         /// Если <paramref name="person"/> равен null.</exception>
         public void Add(Person person)
         {
+            //TODO: {}
             if (person is null)
                 throw new ArgumentNullException(
                     nameof(person),
@@ -53,6 +54,7 @@ namespace LabFirst
         /// Если индекс вне диапазона списка.</exception>
         public void RemoveAt(int index)
         {
+            //TODO: {}
             if (index < 0 || index >= _items.Count)
                 throw new ArgumentOutOfRangeException(
                     nameof(index),
@@ -71,6 +73,7 @@ namespace LabFirst
         /// Если индекс вне диапазона списка.</exception>
         public Person GetAt(int index)
         {
+            //TODO: {}
             if (index < 0 || index >= _items.Count)
                 throw new ArgumentOutOfRangeException(
                     nameof(index),
@@ -89,6 +92,7 @@ namespace LabFirst
         /// Если <paramref name="person"/> равен null.</exception>
         public int IndexOf(Person person)
         {
+            //TODO: {}
             if (person is null)
                 throw new ArgumentNullException(
                     nameof(person),

@@ -46,13 +46,13 @@ namespace LabFirst
         /// </summary>
         private const int _maxAge = 123;
 
+        //TODO: XML
         private bool _isRussian;
 
         /// <summary>
         /// Показывает, что имя/фамилия человека заданы на русском языке.
         /// </summary>
         public bool IsRussian => _isRussian;
-
 
         /// <summary>
         /// Получает или задает имя человека
@@ -62,6 +62,7 @@ namespace LabFirst
             get => _name;
             set
             {
+                //TODO: {}
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException(
                         "Имя не может быть пустым, " +
@@ -69,6 +70,7 @@ namespace LabFirst
                         nameof(value)
                     );
 
+                //TODO: {}
                 if (value.Any(char.IsDigit))
                     throw new ArgumentException(
                         "Имя не может содержать цифр.",
@@ -87,12 +89,14 @@ namespace LabFirst
             get { return _surname; }
             set
             {
+                //TODO: {}
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException(
                         "Фамилия не может быть пустой или Null.",
                         nameof(value)
                     );
 
+                //TODO: {}
                 if (value.Any(char.IsDigit))
                     throw new ArgumentException(
                         "Фамилия не может содержать цифр.",
@@ -119,6 +123,7 @@ namespace LabFirst
             get => _age;
             set
             {
+                //TODO: {}
                 if (value < _minAge || value > _maxAge)
                     throw new ArgumentOutOfRangeException(
                         nameof(value),
@@ -142,6 +147,7 @@ namespace LabFirst
             get => _gender;
             set
             {
+                //TODO: {}
                 if (value == Gender.Unknown)
                     throw new ArgumentException(
                         "Пол должен быть явно указан Male или Female.",
@@ -189,6 +195,7 @@ namespace LabFirst
             (person.Name, language) =
                 person.ReadValidatedWord("Введите имя: ");
 
+
             person._isRussian = language == "russian";
 
             (person.Surname, _) =
@@ -211,6 +218,7 @@ namespace LabFirst
         /// <returns>Экземпляр объекта типа Person</returns>
         private Gender ReadGender()
         {
+            //TODO: RSDN
             List<string> listFemale = new List<string> { "ж", "женский", "f" };
             List<string> listMale = new List<string> { "м", "мужской", "m" };
 
@@ -223,11 +231,13 @@ namespace LabFirst
 
                 var input = Console.ReadLine().ToLower();
 
+                //TODO: {}
                 if (listFemale.Contains(input)) input = "Female";
                 if (listMale.Contains(input)) input = "Male";
 
                 input = CapitalizeFirstLetter(input);
 
+                //TODO: rename
                 bool flag = Enum.IsDefined(typeof(Gender), input);
 
                 if (flag)
@@ -277,6 +287,7 @@ namespace LabFirst
         {
             while (true)
             {
+                //TODO: refactor
                 string languageDetected = "";
 
                 Console.Write(message);
@@ -321,6 +332,7 @@ namespace LabFirst
 
         }
 
+        //TODO: remove
         /// <summary>
         /// Вывод имени, фамилии, возраста и пола для объекта Person
         /// </summary>
@@ -347,10 +359,13 @@ namespace LabFirst
         /// <returns> Гендер в правильном формате </returns>
         private static string FormatGender(Gender gender, bool isRussian)
         {
-            if (isRussian)
-                return gender == Gender.Male ? "Мужской" : "Женский";
-
-            return gender == Gender.Male ? "Male" : "Female";
+            return isRussian 
+                ? gender == Gender.Male 
+                    ? "Мужской" 
+                    : "Женский"
+                : gender == Gender.Male 
+                    ? "Male" 
+                    : "Female";
         }
 
         /// <summary>
@@ -369,7 +384,9 @@ namespace LabFirst
             string[] dataSurnamesPerson =
                 ReadFile("DataRandomPerson/DataSurnamesPerson.txt");
 
-            Gender sex = random.Next(1, 3) == 1 ? Gender.Male : Gender.Female;
+            Gender sex = random.Next(1, 3) == 1 
+                ? Gender.Male 
+                : Gender.Female;
             string firstName = sex == Gender.Male
                 ? malesNames[random.Next(malesNames.Length)]
                 : femalesNamesPerson[random.Next(femalesNamesPerson.Length)];
@@ -383,10 +400,12 @@ namespace LabFirst
 
             int age = random.Next(_minAge, _maxAge + 1);
             Person person = new Person(firstName, lastName, age, sex);
+            //TODO: remove
             person.Print();
             return person;
         }
 
+        //TODO: XML
         private static bool EndsWithRussianVowel(string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -401,6 +420,7 @@ namespace LabFirst
             return vowels.IndexOf(lastChar) >= 0;
         }
 
+        //TODO: remove
         /// <summary>
         /// Метод чтения строк в файле
         /// </summary>
