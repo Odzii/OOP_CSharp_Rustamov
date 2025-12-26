@@ -225,7 +225,6 @@ namespace LabFirst
         /// <returns>Экземпляр объекта типа Person</returns>
         private Gender ReadGender()
         {
-            //TODO: RSDN+
             List<string> femaleTokens =
                 new List<string> { "ж", "женский", "f" };
             List<string> maleTokens =
@@ -359,7 +358,6 @@ namespace LabFirst
         private static readonly Regex EnglishWordRegex =
             new(@"^[A-Za-z]+(-[A-Za-z]+)?$", RegexOptions.Compiled);
 
-        //TODO: remove+ удален Print
 
         /// <summary>
         /// Формар вывода Gender в методе Print
