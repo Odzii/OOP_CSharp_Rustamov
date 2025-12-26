@@ -5,7 +5,6 @@ using LabFirst;
 
 namespace FirstLab
 {
-    //TODO: XML+
     /// <summary>
     /// Точка входа в приложение.
     /// Содержит демонстрационные сценарии 
@@ -13,7 +12,6 @@ namespace FirstLab
     /// </summary>
     internal class Program
     {
-        //TODO: XML+
         /// <summary>
         /// Инициализация списка для работы
         /// с методами класса Person и PersonList

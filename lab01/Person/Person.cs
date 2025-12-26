@@ -46,7 +46,6 @@ namespace LabFirst
         /// </summary>
         private const int _maxAge = 123;
 
-        //TODO: XML +
         /// <summary>
         /// Логическая переменная для определения языка
         /// </summary>
@@ -65,7 +64,6 @@ namespace LabFirst
             get => _name;
             set
             {
-                //TODO: {}+
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException(
@@ -75,7 +73,6 @@ namespace LabFirst
                     );
                 }
 
-                //TODO: {}+
                 if (value.Any(char.IsDigit))
                 {
                     throw new ArgumentException(
@@ -96,7 +93,6 @@ namespace LabFirst
             get { return _surname; }
             set
             {
-                //TODO: {}+
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException(
@@ -105,7 +101,6 @@ namespace LabFirst
                     );
                 }
 
-                //TODO: {}+
                 if (value.Any(char.IsDigit))
                 {
                     throw new ArgumentException(
@@ -134,7 +129,6 @@ namespace LabFirst
             get => _age;
             set
             {
-                //TODO: {}+
                 if (value < _minAge || value > _maxAge)
                 {
                     throw new ArgumentOutOfRangeException(
@@ -160,7 +154,6 @@ namespace LabFirst
             get => _gender;
             set
             {
-                //TODO: {}+
                 if (value == Gender.Unknown)
                 {
                     throw new ArgumentException(
@@ -232,7 +225,7 @@ namespace LabFirst
         /// <returns>Экземпляр объекта типа Person</returns>
         private Gender ReadGender()
         {
-            //TODO: RSDN+
+            //TODO: RSDN
             List<string> FemaleTokens =
                 new List<string> { "ж", "женский", "f" };
             List<string> MaleTokens =
@@ -247,7 +240,6 @@ namespace LabFirst
 
                 var input = Console.ReadLine().ToLower();
 
-                //TODO: {}+
                 if (FemaleTokens.Contains(input))
                 {
                     input = "Female";
@@ -260,7 +252,6 @@ namespace LabFirst
 
                 input = CapitalizeFirstLetter(input);
 
-                //TODO: rename+
                 bool isGenderDefined = Enum.IsDefined(typeof(Gender), input);
 
                 if (isGenderDefined)
@@ -310,7 +301,6 @@ namespace LabFirst
             Language language = Language.Null
         )
         {
-            //TODO: refacoring+
             while (true)
             {
                 Console.Write(message);
@@ -369,7 +359,7 @@ namespace LabFirst
         private static readonly Regex EnglishWordRegex =
             new(@"^[A-Za-z]+(-[A-Za-z]+)?$", RegexOptions.Compiled);
 
-        //TODO: remove+
+        //TODO: remove
         /// <summary>
         /// Вывод имени, фамилии, возраста и пола для объекта Person
         /// </summary>
@@ -449,7 +439,6 @@ namespace LabFirst
             }
 
             int age = _random.Next(_minAge, _maxAge + 1);
-            //TODO: remove+ Удалил Print()
 
             return new Person(firstName, lastName, age, sex);
         }
@@ -476,9 +465,6 @@ namespace LabFirst
 
             return vowels.IndexOf(lastChar) >= 0;
         }
-
-        //TODO: remove+ Метод строк вынесен в отдельный класс
-
 
         /// <summary>
         /// В верхний регистр первый символ, а также символ после разделителя
