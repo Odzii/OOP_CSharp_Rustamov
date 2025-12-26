@@ -154,10 +154,10 @@ namespace LabFirst
         /// <summary>
         /// Инициализация нового экземпляра класс <see cref="Person"/>
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="surname"></param>
-        /// <param name="age"></param>
-        /// <param name="gender"></param>
+        /// <param name="name">Имя</param>
+        /// <param name="surname">Фамилия</param>
+        /// <param name="age">Возраст</param>
+        /// <param name="gender">Гендер</param>
         public Person(string name, string surname, int age, Gender gender)
         {
             Name = name;
@@ -179,7 +179,7 @@ namespace LabFirst
         /// выполняя валидацию введённых значений, 
         /// и возвращает созданный объект.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Объект Person</returns>
         public static Person ReadFromConsole()
         {
             string language = String.Empty;
@@ -208,7 +208,7 @@ namespace LabFirst
         /// <summary>
         /// Чтение пола при использовании ReadFromConsole.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Экземпляр объекта типа Person</returns>
         private Gender ReadGender()
         {
             List<string> listFemale = new List<string> { "ж", "женский", "f" };
@@ -341,9 +341,10 @@ namespace LabFirst
         /// <summary>
         /// Формар вывода Gender в методе Print
         /// </summary>
-        /// <param name="gender"></param>
-        /// <param name="isRussian"></param>
-        /// <returns></returns>
+        /// <param name="gender"> Гендер человека </param>
+        /// <param name="isRussian"> 
+        /// Булевое значение хранящее тип языка </param>
+        /// <returns> Гендер в правильном формате </returns>
         private static string FormatGender(Gender gender, bool isRussian)
         {
             if (isRussian)
@@ -403,8 +404,8 @@ namespace LabFirst
         /// <summary>
         /// Метод чтения строк в файле
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path"> Путь к файлу </param>
+        /// <returns> Процесс с открытым файлом </returns>
         private static string[] ReadFile(string path)
         {
             if (!File.Exists(path))
@@ -420,8 +421,8 @@ namespace LabFirst
         /// В верхний регистр первый символ, а также символ после разделителя
         /// "-" в верхний регистр. 
         /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
+        /// <param name="text">Слово</param>
+        /// <returns> Слово в правильном регистре </returns>
         private static string CapitalizeFirstLetter(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
@@ -445,8 +446,8 @@ namespace LabFirst
         /// <summary>
         /// Первый симвом в верхний регистр, остальные в нижний
         /// </summary>
-        /// <param name="word"></param>
-        /// <returns></returns>
+        /// <param name="word"> Слово для проверки </param>
+        /// <returns> Слово в правильном регистре </returns>
         private static string CapitalizeSingleWord(string word)
         {
             if (string.IsNullOrWhiteSpace(word))
