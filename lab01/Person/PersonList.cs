@@ -36,12 +36,14 @@ namespace LabFirst
         /// Если <paramref name="person"/> равен null.</exception>
         public void Add(Person person)
         {
-            //TODO: {}
+            //TODO: {}+
             if (person is null)
+            {
                 throw new ArgumentNullException(
                     nameof(person),
                     "Невозможно добавить null в список."
                 );
+            }
 
             _items.Add(person);
         }
@@ -54,12 +56,14 @@ namespace LabFirst
         /// Если индекс вне диапазона списка.</exception>
         public void RemoveAt(int index)
         {
-            //TODO: {}
+            //TODO: {}+
             if (index < 0 || index >= _items.Count)
+            {
                 throw new ArgumentOutOfRangeException(
                     nameof(index),
                     "Индекс находится вне диапазона списка."
                 );
+            }
 
             _items.RemoveAt(index);
         }
@@ -73,12 +77,14 @@ namespace LabFirst
         /// Если индекс вне диапазона списка.</exception>
         public Person GetAt(int index)
         {
-            //TODO: {}
+            //TODO: {}+
             if (index < 0 || index >= _items.Count)
+            {
                 throw new ArgumentOutOfRangeException(
                     nameof(index),
                     "Индекс находится вне диапазона списка."
                 );
+            }
 
             return _items[index];
         }
@@ -92,12 +98,14 @@ namespace LabFirst
         /// Если <paramref name="person"/> равен null.</exception>
         public int IndexOf(Person person)
         {
-            //TODO: {}
+            //TODO: {}+
             if (person is null)
+            {
                 throw new ArgumentNullException(
                     nameof(person),
                     "Нельзя передавать null."
                 );
+            }
 
             return _items.IndexOf(person);
         }

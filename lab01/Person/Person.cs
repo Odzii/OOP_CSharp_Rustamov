@@ -46,7 +46,10 @@ namespace LabFirst
         /// </summary>
         private const int _maxAge = 123;
 
-        //TODO: XML
+        //TODO: XML +
+        /// <summary>
+        /// Логическая переменная для определения языка
+        /// </summary>
         private bool _isRussian;
 
         /// <summary>
@@ -62,20 +65,24 @@ namespace LabFirst
             get => _name;
             set
             {
-                //TODO: {}
+                //TODO: {}+
                 if (string.IsNullOrWhiteSpace(value))
+                {
                     throw new ArgumentException(
                         "Имя не может быть пустым, " +
                         "содержать только пробелы или быть null.",
                         nameof(value)
                     );
+                }
 
-                //TODO: {}
+                //TODO: {}+
                 if (value.Any(char.IsDigit))
+                {
                     throw new ArgumentException(
                         "Имя не может содержать цифр.",
                         nameof(value)
                     );
+                }
 
                 _name = value;
             }
@@ -89,19 +96,23 @@ namespace LabFirst
             get { return _surname; }
             set
             {
-                //TODO: {}
+                //TODO: {}+
                 if (string.IsNullOrEmpty(value))
+                {
                     throw new ArgumentException(
                         "Фамилия не может быть пустой или Null.",
                         nameof(value)
                     );
+                }
 
-                //TODO: {}
+                //TODO: {}+
                 if (value.Any(char.IsDigit))
+                {
                     throw new ArgumentException(
                         "Фамилия не может содержать цифр.",
                         nameof(value)
                     );
+                }
 
                 _surname = value;
             }
@@ -123,12 +134,14 @@ namespace LabFirst
             get => _age;
             set
             {
-                //TODO: {}
+                //TODO: {}+
                 if (value < _minAge || value > _maxAge)
+                {
                     throw new ArgumentOutOfRangeException(
                         nameof(value),
                         $"Возраст должен быть от {_minAge} до {_maxAge}."
                     );
+                }
 
                 _age = value;
             }
@@ -147,12 +160,15 @@ namespace LabFirst
             get => _gender;
             set
             {
-                //TODO: {}
+                //TODO: {}+
                 if (value == Gender.Unknown)
+                {
                     throw new ArgumentException(
                         "Пол должен быть явно указан Male или Female.",
                         nameof(value)
                     );
+                }
+
                 _gender = value;
             }
         }
@@ -188,26 +204,24 @@ namespace LabFirst
         /// <returns>Объект Person</returns>
         public static Person ReadFromConsole()
         {
-            string language = String.Empty;
-
             Person person = new Person();
 
+            Language language;
+
             (person.Name, language) =
-                person.ReadValidatedWord("Введите имя: ");
+                person.ReadValidatedWord("Введите имя: ", Language.Null);
 
-
-            person._isRussian = language == "russian";
+            person._isRussian = language == Language.Russian;
 
             (person.Surname, _) =
                 person.ReadValidatedWord("Введите фамилию: ", language);
+
             person.Age =
                 person.ReadAge();
             person.Gender =
                 person.ReadGender();
 
             Console.WriteLine("Создан экземпляр класса Person:");
-
-            person.Print();
 
             return person;
         }
@@ -218,9 +232,11 @@ namespace LabFirst
         /// <returns>Экземпляр объекта типа Person</returns>
         private Gender ReadGender()
         {
-            //TODO: RSDN
-            List<string> listFemale = new List<string> { "ж", "женский", "f" };
-            List<string> listMale = new List<string> { "м", "мужской", "m" };
+            //TODO: RSDN+
+            List<string> FemaleTokens =
+                new List<string> { "ж", "женский", "f" };
+            List<string> MaleTokens =
+                new List<string> { "м", "мужской", "m" };
 
             while (true)
             {
@@ -231,16 +247,23 @@ namespace LabFirst
 
                 var input = Console.ReadLine().ToLower();
 
-                //TODO: {}
-                if (listFemale.Contains(input)) input = "Female";
-                if (listMale.Contains(input)) input = "Male";
+                //TODO: {}+
+                if (FemaleTokens.Contains(input))
+                {
+                    input = "Female";
+                }
+
+                if (MaleTokens.Contains(input))
+                {
+                    input = "Male";
+                }
 
                 input = CapitalizeFirstLetter(input);
 
-                //TODO: rename
-                bool flag = Enum.IsDefined(typeof(Gender), input);
+                //TODO: rename+
+                bool isGenderDefined = Enum.IsDefined(typeof(Gender), input);
 
-                if (flag)
+                if (isGenderDefined)
                 {
                     return (Gender)Enum.Parse(typeof(Gender), input, true);
                 }
@@ -271,68 +294,82 @@ namespace LabFirst
         }
 
         /// <summary>
-        /// Проверяет ввод слова (рус/англ, допускается одно тире) и приводит к виду: ПерваяБукваЗаглавная.
+        /// Проверяет ввод слова (рус/англ, допускается одно тире) и приводит 
+        /// к виду: ПерваяБукваЗаглавная.
         /// </summary>
         /// <param name="message">Сообщение, выводимое перед вводом.</param>
         /// <param name="language">
-        /// Ограничение языка ("russian"/"english"). Если пусто — язык определяется по первому слову.
+        /// Ограничение языка ("russian"/"english"). Если пусто — 
+        /// язык определяется по первому слову.
         /// </param>
         /// <returns>
         /// Кортеж: (нормализованное слово, определённый язык).
         /// </returns>
-        private (string, string) ReadValidatedWord(
+        private (string Word, Language Language) ReadValidatedWord(
             string message,
-            string language = ""
+            Language language = Language.Null
         )
         {
+            //TODO: refacoring+
             while (true)
             {
-                //TODO: refactor
-                string languageDetected = "";
-
                 Console.Write(message);
-                var input = Console.ReadLine();
+                string input = (Console.ReadLine() ?? string.Empty).Trim();
+
                 if (string.IsNullOrWhiteSpace(input))
                 {
-                    Console.WriteLine("Пустая строка. Повторите ввод.");
+                    Console.WriteLine("Ввод некорректен. Пустая строка.");
                     continue;
                 }
-                else
-                {
-                    if (Regex.IsMatch(input,
-                        @"^[А-Яа-яЁё]+(?:-[А-Яа-яЁё]+)?$"))
-                    {
-                        languageDetected = "russian";
-                    }
-                    else if (Regex.IsMatch(input,
-                        @"^[A-Za-z]+(?:-[A-Za-z]+)?$"))
-                    {
-                        languageDetected = "english";
-                    }
-                    else
-                    {
-                        Console.WriteLine("Ввод некорректен, " +
-                            "повторите попытку.");
-                    }
-                    if (!languageDetected.Equals(""))
-                    {
-                        if (language.Equals("")
-                            || languageDetected.Equals(language))
-                            return (CapitalizeFirstLetter(input),
-                                languageDetected);
-                        else
-                        {
-                            Console.WriteLine("Ввод некорректен, " +
-                            "повторите попытку.");
-                            languageDetected = "";
-                        }
-                    }
-                }
-            }
 
+                bool isRussian = RussianWordRegex.IsMatch(input);
+                bool isEnglish = EnglishWordRegex.IsMatch(input);
+
+                if (language == Language.Null)
+                {
+                    if (isRussian)
+                    {
+                        return (CapitalizeFirstLetter(input), Language.Russian);
+                    }
+
+                    if (isEnglish)
+                    {
+                        return (CapitalizeFirstLetter(input), Language.English);
+                    }
+
+                    Console.WriteLine("Ввод некорректен. " +
+                        "Допустимы только русские или английские буквы (и одно тире).");
+                    continue;
+                }
+
+                if (language == Language.Russian && isRussian)
+                {
+                    return (CapitalizeFirstLetter(input), Language.Russian);
+                }
+
+                if (language == Language.English && isEnglish)
+                {
+                    return (CapitalizeFirstLetter(input), Language.English);
+                }
+
+                Console.WriteLine("Ввод некорректен. " +
+                    "Язык фамилии должен совпадать с языком имени.");
+            }
         }
 
-        //TODO: remove
+        /// <summary>
+        /// Русские символы
+        /// </summary>
+        private static readonly Regex RussianWordRegex =
+            new(@"^[А-Яа-яЁё]+(-[А-Яа-яЁё]+)?$", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Английские буквы
+        /// </summary>
+        private static readonly Regex EnglishWordRegex =
+            new(@"^[A-Za-z]+(-[A-Za-z]+)?$", RegexOptions.Compiled);
+
+        //TODO: remove+
         /// <summary>
         /// Вывод имени, фамилии, возраста и пола для объекта Person
         /// </summary>
@@ -359,53 +396,73 @@ namespace LabFirst
         /// <returns> Гендер в правильном формате </returns>
         private static string FormatGender(Gender gender, bool isRussian)
         {
-            return isRussian 
-                ? gender == Gender.Male 
-                    ? "Мужской" 
+            return isRussian
+                ? gender == Gender.Male
+                    ? "Мужской"
                     : "Женский"
-                : gender == Gender.Male 
-                    ? "Male" 
+                : gender == Gender.Male
+                    ? "Male"
                     : "Female";
         }
 
         /// <summary>
-        /// Позволяет создать случайного человека
+        /// Инициализация объекта Random
         /// </summary>
-        /// <returns>Экземпляр класса Person
-        /// со случайными значениями полей</returns>
+        private static readonly Random _random = new Random();
+
+        /// <summary>
+        /// Создание случайного объекта Person
+        /// </summary>
+        /// <returns>Экземпляр класса Person</returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public static Person GetRandomPerson()
         {
-            Random random = new Random();
-
             string[] malesNames =
-                ReadFile("DataRandomPerson/MalesNames.txt");
+                PersonDataReader.ReadNames("DataRandomPerson/MalesNames.txt");
+
             string[] femalesNamesPerson =
-                ReadFile("DataRandomPerson/FemalesNamesPerson.txt");
+                PersonDataReader.ReadNames("DataRandomPerson/FemalesNamesPerson.txt");
+
             string[] dataSurnamesPerson =
-                ReadFile("DataRandomPerson/DataSurnamesPerson.txt");
+                PersonDataReader.ReadNames("DataRandomPerson/DataSurnamesPerson.txt");
 
-            Gender sex = random.Next(1, 3) == 1 
-                ? Gender.Male 
-                : Gender.Female;
+            if (malesNames.Length == 0
+                || femalesNamesPerson.Length == 0
+                || dataSurnamesPerson.Length == 0)
+            {
+                throw new InvalidOperationException(
+                    "Файлы с именами/фамилиями пустые или не найдены."
+                );
+            }
+
+            Gender sex = _random.Next(0, 2) == 0 ? Gender.Male : Gender.Female;
+
             string firstName = sex == Gender.Male
-                ? malesNames[random.Next(malesNames.Length)]
-                : femalesNamesPerson[random.Next(femalesNamesPerson.Length)];
+                ? malesNames[_random.Next(malesNames.Length)]
+                : femalesNamesPerson[_random.Next(femalesNamesPerson.Length)];
 
-            string lastName =
-                dataSurnamesPerson[random.Next(dataSurnamesPerson.Length)];
+            string lastName = dataSurnamesPerson[_random.Next(dataSurnamesPerson.Length)];
+
             if (sex == Gender.Female && !EndsWithRussianVowel(lastName))
             {
                 lastName += "а";
             }
 
-            int age = random.Next(_minAge, _maxAge + 1);
-            Person person = new Person(firstName, lastName, age, sex);
-            //TODO: remove
-            person.Print();
-            return person;
+            int age = _random.Next(_minAge, _maxAge + 1);
+            //TODO: remove+ Удалил Print()
+
+            return new Person(firstName, lastName, age, sex);
         }
 
-        //TODO: XML
+
+        //TODO: XML+
+        /// <summary>
+        /// Проверяет, оканчивается ли строка русской гласной буквой.
+        /// </summary>
+        /// <param name="text">Проверяемая строка.</param>
+        /// <returns>
+        /// <c>true</c>, если строка не пустая и её последний символ — русская гласная буква; иначе <c>false</c>.
+        /// </returns>
         private static bool EndsWithRussianVowel(string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -420,23 +477,9 @@ namespace LabFirst
             return vowels.IndexOf(lastChar) >= 0;
         }
 
-        //TODO: remove
-        /// <summary>
-        /// Метод чтения строк в файле
-        /// </summary>
-        /// <param name="path"> Путь к файлу </param>
-        /// <returns> Процесс с открытым файлом </returns>
-        private static string[] ReadFile(string path)
-        {
-            if (!File.Exists(path))
-                return Array.Empty<string>();
+        //TODO: remove+ Метод строк вынесен в отдельный класс
 
-            return File.ReadAllLines(path, Encoding.UTF8)
-                .Where(value => !string.IsNullOrWhiteSpace(value))
-                .ToArray();
-        }
 
-        // TODO выполнен: корректная капитализация составных слов через дефис
         /// <summary>
         /// В верхний регистр первый символ, а также символ после разделителя
         /// "-" в верхний регистр. 
@@ -452,7 +495,7 @@ namespace LabFirst
 
             text = text.Trim();
 
-            string[] parts = text.Split('-', 
+            string[] parts = text.Split('-',
                 StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < parts.Length; i++)

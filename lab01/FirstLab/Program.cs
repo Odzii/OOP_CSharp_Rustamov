@@ -5,10 +5,20 @@ using LabFirst;
 
 namespace FirstLab
 {
-    //TODO: XML
+    //TODO: XML+
+    /// <summary>
+    /// Точка входа в приложение.
+    /// Содержит демонстрационные сценарии 
+    /// работы с классами <see cref="Person"/> и <see cref="PersonList"/>.
+    /// </summary>
     internal class Program
     {
-        //TODO: XML
+        //TODO: XML+
+        /// <summary>
+        /// Инициализация списка для работы
+        /// с методами класса Person и PersonList
+        /// </summary>
+        /// <param name="args"></param>
         private static void Main(string[] args)
         {
             // Шаг 1 - создание двух списков с тремя объектами Person
@@ -98,7 +108,7 @@ namespace FirstLab
 
             Console.WriteLine();
         }
-        
+
         /// <summary>
         /// Создает 6 объектов класса Person
         /// </summary>
@@ -228,6 +238,7 @@ namespace FirstLab
         private static void DemoGetRandomPerson()
         {
             var p = Person.GetRandomPerson();
+            p.Print();
         }
 
         /// <summary>
@@ -236,6 +247,7 @@ namespace FirstLab
         private static void DemoReadFromConsole()
         {
             var p = Person.ReadFromConsole();
+            p.Print();
         }
 
     }
