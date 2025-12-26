@@ -225,10 +225,10 @@ namespace LabFirst
         /// <returns>Экземпляр объекта типа Person</returns>
         private Gender ReadGender()
         {
-            //TODO: RSDN
-            List<string> FemaleTokens =
+            //TODO: RSDN+
+            List<string> femaleTokens =
                 new List<string> { "ж", "женский", "f" };
-            List<string> MaleTokens =
+            List<string> maleTokens =
                 new List<string> { "м", "мужской", "m" };
 
             while (true)
@@ -240,12 +240,12 @@ namespace LabFirst
 
                 var input = Console.ReadLine().ToLower();
 
-                if (FemaleTokens.Contains(input))
+                if (femaleTokens.Contains(input))
                 {
                     input = "Female";
                 }
 
-                if (MaleTokens.Contains(input))
+                if (maleTokens.Contains(input))
                 {
                     input = "Male";
                 }
@@ -359,23 +359,7 @@ namespace LabFirst
         private static readonly Regex EnglishWordRegex =
             new(@"^[A-Za-z]+(-[A-Za-z]+)?$", RegexOptions.Compiled);
 
-        //TODO: remove
-        /// <summary>
-        /// Вывод имени, фамилии, возраста и пола для объекта Person
-        /// </summary>
-        public void Print()
-        {
-            Console.WriteLine(
-                "Имя: {0}, " +
-                "Фамилия: {1}, " +
-                "Возраст: {2}, " +
-                "Пол: {3}",
-                Name,
-                Surname,
-                Age,
-                FormatGender(Gender, IsRussian)
-            );
-        }
+        //TODO: remove+ удален Print
 
         /// <summary>
         /// Формар вывода Gender в методе Print
@@ -443,8 +427,6 @@ namespace LabFirst
             return new Person(firstName, lastName, age, sex);
         }
 
-
-        //TODO: XML+
         /// <summary>
         /// Проверяет, оканчивается ли строка русской гласной буквой.
         /// </summary>

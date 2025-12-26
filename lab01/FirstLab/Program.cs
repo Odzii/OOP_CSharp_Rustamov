@@ -101,7 +101,7 @@ namespace FirstLab
             {
                 Person person = personList.GetAt(i);
 
-                person.Print();
+                PrintPerson(person);
             }
 
             Console.WriteLine();
@@ -173,7 +173,7 @@ namespace FirstLab
             Person firstListPersonFour =
                 new Person("Oleg", "Rasputin", 44, Gender.Female);
             firstList.Add(firstListPersonFour);
-            firstListPersonFour.Print();
+            PrintPerson(firstListPersonFour);
             PrintPersonList(firstList, nameof(firstList));
         }
 
@@ -236,7 +236,7 @@ namespace FirstLab
         private static void DemoGetRandomPerson()
         {
             var p = Person.GetRandomPerson();
-            p.Print();
+            PrintPerson(p);
         }
 
         /// <summary>
@@ -245,7 +245,46 @@ namespace FirstLab
         private static void DemoReadFromConsole()
         {
             var p = Person.ReadFromConsole();
-            p.Print();
+            PrintPerson(p);
+        }
+
+        /// <summary>
+        /// Выводит информацию о человеке в консоль в одну строку.
+        /// </summary>
+        /// <param name="person">Экземпляр <see cref="Person"/> для вывода.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Если <paramref name="person"/> равен <c>null</c>.</exception>
+        private static void PrintPerson(Person person)
+        {
+            Console.Write($"Имя: {person.Name} ");
+            Console.Write($"Фамилия: {person.Surname} ");
+            Console.Write($"Возраст: {person.Age} ");
+
+            string genderText = GetGenderText(person);
+            Console.Write($"Пол: {genderText}");
+
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Возвращает текстовое представление пола человека для вывода в консоль.
+        /// Для русскоязычных персон возвращает «Мужской»/«Женский», иначе — <c>Male</c>/<c>Female</c>.
+        /// </summary>
+        /// <param name="person">Экземпляр <see cref="Person"/>, 
+        /// для которого требуется получить текст пола.</param>
+        /// <returns>Строковое представление пола.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// Если <paramref name="person"/> равен <c>null</c>.</exception>
+        private static string GetGenderText(Person person)
+        {
+            // Если у тебя есть флаг/свойство языка (например, IsRussian)
+            // то для русских выводим "Мужской/Женский", иначе "Male/Female".
+            bool isRussian = person.IsRussian;
+
+            if (!isRussian)
+                return person.Gender.ToString(); // Male/Female
+
+            return person.Gender == Gender.Male ? "Мужской" : "Женский";
         }
 
     }
