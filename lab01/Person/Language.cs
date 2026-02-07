@@ -1,7 +1,7 @@
 ﻿namespace LabFirst
 {
     /// <summary>
-    /// Язык введенных данных.
+    /// Определяет язык, на котором записаны имя и фамилия.
     /// </summary>
     public enum Language
     {

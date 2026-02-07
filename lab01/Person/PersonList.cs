@@ -1,25 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace LabFirst
 {
     /// <summary>
-    /// Представляет список объектов <see cref="Person"/> и операции добавления,
-    /// удаления и поиска.
+    /// Представляет список объектов <see cref="Person"/> 
+    /// и базовые операции добавления, удаления и поиска.
     /// </summary>
-    public class PersonList
+    public class PersonList : IEnumerable<Person>
     {
-        /// <summary>
-        /// Внутреннее хранилище элементов.
-        /// </summary>
-        private readonly List<Person> _items;
+        private readonly List<Person> _items = new();
 
         /// <summary>
-        /// Инициализирует пустой список людей.
+        /// Инициализирует новый экземпляр класса <see cref="PersonList"/>.
         /// </summary>
         public PersonList()
         {
-            _items = new List<Person>();
         }
 
         /// <summary>
@@ -28,18 +25,27 @@ namespace LabFirst
         public int Count => _items.Count;
 
         /// <summary>
+        /// Возвращает элемент списка по индексу.
+        /// </summary>
+        /// <param name="index">Индекс элемента.</param>
+        /// <returns>Элемент типа <see cref="Person"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Бросается, если <paramref name="index"/> находится вне диапазона списка.
+        /// </exception>
+        public Person this[int index] => GetAt(index);
+
+        /// <summary>
         /// Добавляет человека в список.
         /// </summary>
-        /// <param name="person">
-        /// Добавляемый объект <see cref="Person"/>.</param>
+        /// <param name="person">Добавляемый объект <see cref="Person"/>.</param>
         /// <exception cref="ArgumentNullException">
-        /// Если <paramref name="person"/> равен null.</exception>
+        /// Бросается, если <paramref name="person"/> равен <see langword="null"/>.
+        /// </exception>
         public void Add(Person person)
         {
             if (person is null)
             {
-                throw new ArgumentNullException(
-                    nameof(person),
+                throw new ArgumentNullException(nameof(person), 
                     "Невозможно добавить null в список."
                 );
             }
@@ -52,17 +58,12 @@ namespace LabFirst
         /// </summary>
         /// <param name="index">Индекс удаляемого элемента.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Если индекс вне диапазона списка.</exception>
+        /// Бросается, если <paramref name="index"/> 
+        /// находится вне диапазона списка.
+        /// </exception>
         public void RemoveAt(int index)
         {
-            if (index < 0 || index >= _items.Count)
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(index),
-                    "Индекс находится вне диапазона списка."
-                );
-            }
-
+            ValidateIndex(index);
             _items.RemoveAt(index);
         }
 
@@ -72,17 +73,12 @@ namespace LabFirst
         /// <param name="index">Индекс элемента.</param>
         /// <returns>Элемент типа <see cref="Person"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Если индекс вне диапазона списка.</exception>
+        /// Бросается, если <paramref name="index"/> 
+        /// находится вне диапазона списка.
+        /// </exception>
         public Person GetAt(int index)
         {
-            if (index < 0 || index >= _items.Count)
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(index),
-                    "Индекс находится вне диапазона списка."
-                );
-            }
-
+            ValidateIndex(index);
             return _items[index];
         }
 
@@ -92,13 +88,13 @@ namespace LabFirst
         /// <param name="person">Искомый объект <see cref="Person"/>.</param>
         /// <returns>Индекс элемента или -1, если элемент не найден.</returns>
         /// <exception cref="ArgumentNullException">
-        /// Если <paramref name="person"/> равен null.</exception>
+        /// Бросается, если <paramref name="person"/> равен <see langword="null"/>.
+        /// </exception>
         public int IndexOf(Person person)
         {
             if (person is null)
             {
-                throw new ArgumentNullException(
-                    nameof(person),
+                throw new ArgumentNullException(nameof(person), 
                     "Нельзя передавать null."
                 );
             }
@@ -112,6 +108,36 @@ namespace LabFirst
         public void Clear()
         {
             _items.Clear();
+        }
+
+        /// <summary>
+        /// Возвращает перечислитель по элементам списка.
+        /// </summary>
+        /// <returns>Перечислитель <see cref="Person"/>.</returns>
+        public IEnumerator<Person> GetEnumerator()
+        {
+            return _items.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Возвращает непараметризованный перечислитель по элементам списка.
+        /// </summary>
+        /// <returns>Перечислитель.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private void ValidateIndex(int index)
+        {
+            if ((uint)index >= (uint)_items.Count)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(index),
+                    index,
+                    "Индекс находится вне диапазона списка."
+                );
+            }
         }
     }
 }

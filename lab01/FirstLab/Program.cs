@@ -235,7 +235,15 @@ namespace FirstLab
         /// </summary>
         private static void DemoGetRandomPerson()
         {
-            var p = Person.GetRandomPerson();
+            var source = new FileNameSource(
+                "DataRandomPerson/MalesNames.txt",
+                "DataRandomPerson/FemalesNamesPerson.txt",
+                "DataRandomPerson/DataSurnamesPerson.txt"
+            );
+
+            var factory = new RandomPersonFactory(source, new Random());
+            var p = factory.Create();
+
             PrintPerson(p);
         }
 
@@ -244,7 +252,9 @@ namespace FirstLab
         /// </summary>
         private static void DemoReadFromConsole()
         {
-            var p = Person.ReadFromConsole();
+            var factory = new ConsolePersonFactory(Console.In, Console.Out);
+            var p = factory.Create();
+
             PrintPerson(p);
         }
 
@@ -268,7 +278,8 @@ namespace FirstLab
 
         /// <summary>
         /// Возвращает текстовое представление пола человека для вывода в консоль.
-        /// Для русскоязычных персон возвращает «Мужской»/«Женский», иначе — <c>Male</c>/<c>Female</c>.
+        /// Для русскоязычных персон возвращает «Мужской»/«Женский», 
+        /// иначе — <c>Male</c>/<c>Female</c>.
         /// </summary>
         /// <param name="person">Экземпляр <see cref="Person"/>, 
         /// для которого требуется получить текст пола.</param>
@@ -277,12 +288,10 @@ namespace FirstLab
         /// Если <paramref name="person"/> равен <c>null</c>.</exception>
         private static string GetGenderText(Person person)
         {
-            // Если у тебя есть флаг/свойство языка (например, IsRussian)
-            // то для русских выводим "Мужской/Женский", иначе "Male/Female".
             bool isRussian = person.IsRussian;
 
             if (!isRussian)
-                return person.Gender.ToString(); // Male/Female
+                return person.Gender.ToString();
 
             return person.Gender == Gender.Male ? "Мужской" : "Женский";
         }

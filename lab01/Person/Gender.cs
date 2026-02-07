@@ -1,7 +1,7 @@
 ﻿namespace LabFirst
 {
     /// <summary>
-    /// Пол человека.
+    /// Определяет пол человека.
     /// </summary>
     public enum Gender
     {
