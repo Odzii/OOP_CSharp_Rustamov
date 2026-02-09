@@ -217,7 +217,9 @@ namespace LabFirst
         /// </exception>
         private string SetNamePart(string value, bool isName)
         {
-            string paramName = isName ? nameof(Name) : nameof(Surname);
+            string paramName = isName 
+                ? nameof(Name) 
+                : nameof(Surname);
 
             var (normalized, language) = 
                 NormalizeAndDetectLanguage(
@@ -225,7 +227,10 @@ namespace LabFirst
                     paramName
                 );
 
-            string otherPart = isName ? _surname : _name;
+            string otherPart = isName 
+                ? _surname 
+                : _name;
+
             Language otherLanguage = DetectLanguage(otherPart);
 
             if (otherLanguage != Language.Null && otherLanguage != language)
@@ -281,7 +286,9 @@ namespace LabFirst
                 );
             }
 
-            Language language = isRussian ? Language.Russian : Language.English;
+            Language language = isRussian 
+                ? Language.Russian 
+                : Language.English;
             return (CapitalizeHyphenated(input), language);
         }
 
