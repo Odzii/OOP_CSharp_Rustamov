@@ -387,5 +387,41 @@ namespace LabFirst
                     ? "-"
                     : WorkplaceName)}";
         }
+
+        // TODO: XML
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string GetInfo()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(base.GetInfo());
+
+            if (Status == MaritalStatus.Married)
+            {
+                stringBuilder.AppendLine($"Состоит в браке: " +
+                    $"{Partner!.ToBaseString()}");
+            }
+            else
+            {
+                stringBuilder.AppendLine($"Не состоит в браке.");
+            }
+
+            stringBuilder.AppendLine($"Паспорт: " +
+                $"{PassportSeries}\t{PassportNumber}");
+            stringBuilder.AppendLine($"Кем выдан: " +
+                $"{PassportIssuedBy}");
+            stringBuilder.AppendLine($"Дата выдачи: " +
+                $"{PassportIssueDate:dd.MM.yyyy}");
+
+            stringBuilder.AppendLine(
+                string.IsNullOrWhiteSpace(WorkplaceName)
+                ? "Безработный"
+                : $"Место работы: {WorkplaceName}"
+            );
+
+            return stringBuilder.ToString().TrimEnd();
+        }
     }
 }

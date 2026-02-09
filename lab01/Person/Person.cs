@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace LabFirst
@@ -178,7 +179,7 @@ namespace LabFirst
         /// <returns>
         /// Строка в формате: "{Name}\t{Surname}\t{Age}\t{Gender}".
         /// </returns>
-        public override string ToString()
+        public string ToBaseString()
         {
             return $"{Name}\t{Surname}\t{Age}\t{Gender}";
         }
@@ -187,16 +188,16 @@ namespace LabFirst
         /// Регулярное выражение для проверки слова на русском языке.
         /// </summary>
         private static readonly Regex RussianWordRegex =
-            new(@"^[А-Яа-яЁё]+(-[А-Яа-яЁё]+)?$", 
-                RegexOptions.Compiled 
+            new(@"^[А-Яа-яЁё]+(-[А-Яа-яЁё]+)?$",
+                RegexOptions.Compiled
                 | RegexOptions.CultureInvariant);
 
         /// <summary>
         /// Регулярное выражение для проверки слова на английском языке.
         /// </summary>
         private static readonly Regex EnglishWordRegex =
-            new(@"^[A-Za-z]+(-[A-Za-z]+)?$", 
-                RegexOptions.Compiled 
+            new(@"^[A-Za-z]+(-[A-Za-z]+)?$",
+                RegexOptions.Compiled
                 | RegexOptions.CultureInvariant);
 
         /// <summary>
@@ -217,18 +218,18 @@ namespace LabFirst
         /// </exception>
         private string SetNamePart(string value, bool isName)
         {
-            string paramName = isName 
-                ? nameof(Name) 
+            string paramName = isName
+                ? nameof(Name)
                 : nameof(Surname);
 
-            var (normalized, language) = 
+            var (normalized, language) =
                 NormalizeAndDetectLanguage(
-                    value, 
+                    value,
                     paramName
                 );
 
-            string otherPart = isName 
-                ? _surname 
+            string otherPart = isName
+                ? _surname
                 : _name;
 
             Language otherLanguage = DetectLanguage(otherPart);
@@ -258,7 +259,7 @@ namespace LabFirst
         /// Бросается, если значение пустое/пробельное 
         /// или не соответствует ожидаемому формату.
         /// </exception>
-        private static (string Normalized, Language Language) 
+        private static (string Normalized, Language Language)
             NormalizeAndDetectLanguage(
                 string value,
                 string paramName
@@ -286,8 +287,8 @@ namespace LabFirst
                 );
             }
 
-            Language language = isRussian 
-                ? Language.Russian 
+            Language language = isRussian
+                ? Language.Russian
                 : Language.English;
             return (CapitalizeHyphenated(input), language);
         }
@@ -364,6 +365,23 @@ namespace LabFirst
             }
 
             return char.ToUpperInvariant(lower[0]) + lower.Substring(1);
+        }
+
+        // TODO: XML
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetInfo()
+        {
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine($"Имя: {Name}");
+            stringBuilder.AppendLine($"Фамилия: {Surname}");
+            stringBuilder.AppendLine($"Возраст: {Age}");
+            stringBuilder.AppendLine($"Пол: {Gender}");
+
+            return stringBuilder.ToString().TrimEnd();
         }
     }
 }

@@ -294,6 +294,6 @@ namespace FirstLab
                 return person.Gender.ToString();
 
             return person.Gender == Gender.Male ? "Мужской" : "Женский";
-        }
+        }        
     }
 }

@@ -169,5 +169,48 @@ namespace LabFirst
                 + $"\tFather: {fatherInfo}"
                 + $"EducationPlaceName: {placeEducationName}";
         }
+
+        // TODO: XML
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string GetInfo()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine(base.GetInfo());
+
+            if (Mother is null && Father is null)
+            {
+                stringBuilder.AppendLine("Родители: не указаны");
+            }
+            else if (Mother is not null && Father is null)
+            {
+                stringBuilder.AppendLine($"Мать: " +
+                    $"{Mother.ToBaseString()}");
+                stringBuilder.AppendLine("Отец: не указан");
+            }
+            else if (Mother is null && Father is not null)
+            {
+                stringBuilder.AppendLine("Мать: не указана");
+                stringBuilder.AppendLine($"Отец: " +
+                    $"{Father.ToBaseString()}");
+            }
+            else
+            {
+                stringBuilder.AppendLine($"Мать: " +
+                    $"{Mother.ToBaseString()}");
+                stringBuilder.AppendLine($"Отец: " +
+                    $"{Father.ToBaseString()}");
+            }
+
+            stringBuilder.AppendLine(
+                string.IsNullOrWhiteSpace(EducationPlaceName)
+                ? "Детский сад/школа: не указано"
+                : $"Детский сад/школа: {EducationPlaceName}");
+
+            return stringBuilder.ToString().TrimEnd();
+        }
     }
 }
