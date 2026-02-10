@@ -10,7 +10,7 @@ namespace LabFirst
     /// <summary>
     /// Взрослый человек: паспорт, семейное положение, место работы
     /// </summary>
-    internal class Adult : Person
+    public class Adult : Person
     {
         /// <summary>
         /// Минимальный возраст взрослого человека.
@@ -23,28 +23,6 @@ namespace LabFirst
         private bool IsMarried
             => Status == MaritalStatus.Married;
 
-        /// <summary>
-        /// Отчество объекта.
-        /// </summary>
-        private string? _middleName;
-
-        /// <summary>
-        /// Задает/читает отчетство
-        /// </summary>
-        public string? MiddleName
-        {
-            get => _middleName;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    _middleName = null;
-                    return;
-                }
-
-                _middleName = value;
-            }
-        }
 
         /// <summary>
         /// Задает серию паспорта.
@@ -141,49 +119,6 @@ namespace LabFirst
 
         }
 
-        /// <summary>
-        /// Взрослый человек с ФИО и основными паспортными данными.
-        /// </summary>
-        /// <param name="name">Имя</param>
-        /// <param name="surname">Фамилия</param>
-        /// <param name="middleName">Отчество</param>
-        /// <param name="age">Возраст</param>
-        /// <param name="gender">Пол</param>
-        /// <param name="passportSeries">Серия паспорта</param>
-        /// <param name="passportNumber">Номер паспорта</param>
-        /// <param name="passportIssuedBy">Кем выдан</param>
-        /// <param name="issueDate">Дата выдачи</param>
-        /// <param name="workplaceName">Место работы</param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public Adult(
-            string name,
-            string surname,
-            string middleName,
-            int age,
-            Gender gender,
-            string passportSeries,
-            string passportNumber,
-            string passportIssuedBy,
-            DateOnly issueDate,
-            string workplaceName = ""
-        ) : base(name, surname, _minAge, gender)
-        {
-            MiddleName = middleName;
-
-            Age = age;
-
-            SetPassport(
-                passportSeries,
-                passportNumber,
-                passportIssuedBy,
-                issueDate
-            );
-
-            if (!string.IsNullOrWhiteSpace(workplaceName))
-            {
-                SetWorkplace(workplaceName);
-            }
-        }
 
         /// <summary>
         /// Взрослый человек с именем и фамилией, основными паспортными данными.
@@ -281,7 +216,7 @@ namespace LabFirst
             PassportIssueDate = issueDate;
         }
 
-        ///TODO: добавить обработку в случае, если метода работы нет.
+        ///TODO: feature
         /// <summary>
         /// Задать место работы. Принимает на вход
         /// место работы.
@@ -290,13 +225,13 @@ namespace LabFirst
         /// <exception cref="ArgumentNullException"></exception>
         public void SetWorkplace(string workplaceName)
         {
-            if (string.IsNullOrWhiteSpace(workplaceName))
-            {
-                throw new ArgumentNullException(
-                    "Название места работв не может быть пустым",
-                    nameof(workplaceName)
-                );
-            }
+            //if (string.IsNullOrWhiteSpace(workplaceName))
+            //{
+            //    throw new ArgumentNullException(
+            //        "Название места работв не может быть пустым",
+            //        nameof(workplaceName)
+            //    );
+            //}
 
             WorkplaceName = workplaceName.Trim();
         }

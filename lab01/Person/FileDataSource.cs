@@ -6,7 +6,7 @@ namespace LabFirst
     /// <summary>
     /// Источник имён и фамилий, загружающий данные из текстовых файлов.
     /// </summary>
-    public sealed class FileNameSource : INameSource
+    public sealed class FileDataSource : IPersonNameSource, IAdultDataSource, IChildEducationSource
     {
         /// <summary>
         /// Получает список мужских имён.
@@ -23,8 +23,33 @@ namespace LabFirst
         /// </summary>
         public IReadOnlyList<string> Surnames { get; }
 
+        //TODO: XML
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="FileNameSource"/>,
+        ///  
+        /// </summary>
+        public IReadOnlyList<string> WorkplaceNames { get; }
+
+        //TODO: XML
+        /// <summary>
+        /// 
+        /// </summary>
+        public IReadOnlyList<string> PassportsIssuedBy { get; }
+
+
+        /// <summary>
+        /// Получает список мест образования
+        /// </summary>
+        public IReadOnlyList<string> KinderGardens { get; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public IReadOnlyList<string> Schools { get; }
+
+
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="FileDataSource"/>,
         /// загружая данные по указанным путям.
         /// </summary>
         /// <param name="malePath">Путь к файлу со списком мужских имён.</param>
@@ -38,23 +63,35 @@ namespace LabFirst
         /// Бросается, если какой-либо файл не найден 
         /// либо не содержит ни одной непустой строки.
         /// </exception>
-        public FileNameSource(
+        public FileDataSource(
             string malePath, 
             string femalePath, 
-            string surnamePath
+            string surnamePath,
+            string passportsIssuedByPath,
+            string workplaceNamesPath,
+            string kinderGardens,
+            string schools
+
         )
         {
-            ValidatePath(malePath, nameof(malePath));
-            ValidatePath(femalePath, nameof(femalePath));
-            ValidatePath(surnamePath, nameof(surnamePath));
+            MaleNames = LoadRequired(malePath, "мужских имён");
+            FemaleNames = LoadRequired(femalePath, "женских имён");
+            Surnames = LoadRequired(surnamePath, "фамилий");
 
-            MaleNames = PersonDataReader.ReadNames(malePath);
-            FemaleNames = PersonDataReader.ReadNames(femalePath);
-            Surnames = PersonDataReader.ReadNames(surnamePath);
+            PassportsIssuedBy = LoadRequired(
+                passportsIssuedByPath, 
+                "мест выдачи паспорта"
+            );
 
-            ThrowIfEmpty(MaleNames, malePath, "мужских имён");
-            ThrowIfEmpty(FemaleNames, femalePath, "женских имён");
-            ThrowIfEmpty(Surnames, surnamePath, "фамилий");
+            WorkplaceNames = LoadRequired(
+                workplaceNamesPath, 
+                "мест работы"
+            );
+            KinderGardens = LoadRequired(
+                kinderGardens, 
+                "дестких садов"
+            );
+            Schools = LoadRequired(schools, "школ");
         }
 
         private static void ValidatePath(string path, string paramName)
@@ -69,12 +106,15 @@ namespace LabFirst
             }
         }
 
-        private static void ThrowIfEmpty(
-            IReadOnlyList<string> items, 
+        private static IReadOnlyList<string> LoadRequired(
             string path, 
             string description
         )
         {
+            ValidatePath(path, nameof(path));
+
+            IReadOnlyList<string> items = PersonDataReader.ReadNames(path);
+
             if (items.Count == 0)
             {
                 throw new InvalidOperationException(
@@ -82,6 +122,8 @@ namespace LabFirst
                     $"\"{path}\"."
                 );
             }
+
+            return items;
         }
     }
 }

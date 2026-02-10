@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LabFirst.Helpers;
+using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -34,12 +35,12 @@ namespace LabFirst
         /// <summary>
         /// Минимальный допустимый возраст.
         /// </summary>
-        public const int MinAge = 0;
+        public const int MinAge = AgeRules.PersonMinAge;
 
         /// <summary>
         /// аксимальный допустимый возраст.
         /// </summary>
-        public const int MaxAge = 123;
+        public const int MaxAge = AgeRules.PersonMaxAge;
 
         /// <summary>
         /// Получает язык, на котором записаны <see cref="Name"/> 
@@ -181,6 +182,7 @@ namespace LabFirst
         /// </returns>
         public string ToBaseString()
         {
+           string Gender = RussianVowelsHelper.GetGenderText(this);
             return $"{Name}\t{Surname}\t{Age}\t{Gender}";
         }
 
@@ -375,6 +377,8 @@ namespace LabFirst
         public virtual string GetInfo()
         {
             var stringBuilder = new StringBuilder();
+
+            string Gender = RussianVowelsHelper.GetGenderText(this);
 
             stringBuilder.AppendLine($"Имя: {Name}");
             stringBuilder.AppendLine($"Фамилия: {Surname}");

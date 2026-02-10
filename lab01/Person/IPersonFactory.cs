@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LabFirst
 {
-    public interface IPersonFactory
+    public interface IPersonFactory<out T> where T: Person
     {
-        Person Create();
+        T Create();
     }
 }

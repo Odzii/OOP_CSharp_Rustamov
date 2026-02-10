@@ -9,12 +9,12 @@ namespace LabFirst
     /// <summary>
     /// Ребенок: родители и детский сад/школа.
     /// </summary>
-    internal class Child : Person
+    public class Child : Person
     {
         /// <summary>
         /// Максимальный возраст ребенка.
         /// </summary>
-        private const int MaxAge = AgeRules.ChildMaxAge;
+        private const int ChildMaxAge = AgeRules.ChildMaxAge;
 
         /// <summary>
         /// Мать ребенка (может быть Null).
@@ -49,7 +49,7 @@ namespace LabFirst
 
             set
             {
-                if (value > MaxAge)
+                if (value > ChildMaxAge)
                 {
                     throw new ArgumentOutOfRangeException(
                         nameof(value),
@@ -80,7 +80,7 @@ namespace LabFirst
             Adult? mother = null,
             Adult? father = null,
             string? educationPlaceName = null
-        ) : base(name, surname, MaxAge, gender)
+        ) : base(name, surname, ChildMaxAge, gender)
         {
             Age = age;
 
@@ -143,33 +143,6 @@ namespace LabFirst
             EducationPlaceName = null;
         }
 
-        /// <summary>
-        /// Формат вывода основных данных о 
-        /// <see cref="Child"/>
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            string motherInfo = 
-                Mother is null 
-                ? "-" 
-                : $"{Mother.Name} {Mother.Surname}";
-
-            string fatherInfo = 
-                Father is null 
-                ? "-" 
-                : $"{Father.Name} {Father.Surname}";
-            string placeEducationName = 
-                string.IsNullOrWhiteSpace(EducationPlaceName) 
-                ? "-" 
-                : EducationPlaceName;
-
-            return base.ToString()
-                + $"\tMother: {motherInfo}"
-                + $"\tFather: {fatherInfo}"
-                + $"EducationPlaceName: {placeEducationName}";
-        }
-
         // TODO: XML
         /// <summary>
         /// 
@@ -200,9 +173,9 @@ namespace LabFirst
             else
             {
                 stringBuilder.AppendLine($"Мать: " +
-                    $"{Mother.ToBaseString()}");
+                    $"{Mother!.ToBaseString()}");
                 stringBuilder.AppendLine($"Отец: " +
-                    $"{Father.ToBaseString()}");
+                    $"{Father!.ToBaseString()}");
             }
 
             stringBuilder.AppendLine(

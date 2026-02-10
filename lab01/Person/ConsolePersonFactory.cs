@@ -8,7 +8,7 @@ namespace LabFirst
     /// Создаёт экземпляры <see cref="Person"/>, 
     /// запрашивая данные у пользователя через консоль.
     /// </summary>
-    public sealed class ConsolePersonFactory : IPersonFactory
+    public sealed class ConsolePersonFactory : IPersonFactory<Person>
     {
         private static readonly HashSet<string> FemaleTokens =
             new(StringComparer.OrdinalIgnoreCase)
