@@ -14,7 +14,7 @@ namespace LabFirst
         /// <summary>
         /// Максимальный возраст ребенка.
         /// </summary>
-        private const int ChildMaxAge = AgeRules.ChildMaxAge;
+        private const int ChildMaxAge = Limits.ChildMaxAge;
 
         /// <summary>
         /// Мать ребенка (может быть Null).
@@ -107,20 +107,20 @@ namespace LabFirst
         /// </returns>
         public void SetParents(Adult? mother, Adult? father)
         {
-            if (mother is not null && mother.Age < AgeRules.AdultMinAge)
+            if (mother is not null && mother.Age < Limits.AdultMinAge)
             {
                 throw new ArgumentException(
                     $"Мать должна быть {nameof(Adult)} " +
-                    $"или/и возраст не меньше {AgeRules.AdultMinAge}",
+                    $"или/и возраст не меньше {Limits.AdultMinAge}",
                     nameof(mother)
                 );
             }
 
-            if (father is not null && father.Age < AgeRules.AdultMinAge)
+            if (father is not null && father.Age < Limits.AdultMinAge)
             {
                 throw new ArgumentException(
                     $"Отец должен быть {nameof(Adult)} " +
-                    $"или/и возраст не меньше {AgeRules.AdultMinAge}",
+                    $"или/и возраст не меньше {Limits.AdultMinAge}",
                     nameof(father)
                 );
             }

@@ -32,7 +32,7 @@ namespace LabFirst
                 Surname = basePerson.Surname
             };
 
-            child.Age = _random.Next(0, AgeRules.ChildMaxAge + 1);
+            child.Age = _random.Next(0, Limits.ChildMaxAge + 1);
 
             Adult? mother = baseAdult.Gender == Gender.Female ? baseAdult : baseAdult.Partner;
             Adult? father = baseAdult.Gender == Gender.Male ? baseAdult : baseAdult.Partner;

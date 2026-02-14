@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LabFirst
+﻿namespace LabFirst
 {
     /// <summary>
     /// Класс хранит пороговые значения возраста
@@ -12,8 +6,9 @@ namespace LabFirst
     /// <see cref="Person"/>, 
     /// <see cref="Adult"/>, 
     /// <see cref="Child"/>
+    /// А также ограничения по длине цифр серии и номера паспорта
     /// </summary>
-    internal class AgeRules
+    internal class Limits
     {
         /// <summary>
         /// Минимально допустимый возраст для 
@@ -35,5 +30,13 @@ namespace LabFirst
         /// <see cref="Child"/>.
         /// </summary>
         public const int ChildMaxAge = AdultMinAge - 1;
+        /// <summary>
+        /// Длина номера паспорта РФ
+        /// </summary>
+        public const int LenghtNumbers = 6;
+        /// <summary>
+        /// Длина серии паспорта РФ
+        /// </summary>
+        public const int LengthSeries = 4;
     }
 }

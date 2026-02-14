@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace LabFirst
@@ -15,14 +17,41 @@ namespace LabFirst
         /// <summary>
         /// Минимальный возраст взрослого человека.
         /// </summary>
-        private const int _minAge = AgeRules.AdultMinAge;
+        private const int _minAge = Limits.AdultMinAge;
         /// <summary>
         /// Возращает true, если <see cref="Adult"/> женат/замужен.
         /// </summary>
         private bool IsMarried
             => Status == MaritalStatus.Married;
-
-
+        /// <summary>
+        /// Регулярное выражение для количества чисел в серии паспорта.
+        /// </summary>
+        private static string seriesRegex = 
+            String.Format(
+                @"^(\d){0}$", 
+                "{" + $"{Limits.LengthSeries}" + "}"
+            );
+        /// <summary>
+        /// Паттерн для номера паспорта
+        /// </summary>
+        private static string numbersRegex 
+            = String.Format(@"^(\d){0}$", 
+                "{" + $"{Limits.LenghtNumbers}" + "}"
+            );
+        /// <summary>
+        /// Паттерн для серии паспорта
+        /// </summary>
+        private static readonly Regex CountSeries =
+            new(pattern: seriesRegex,
+                RegexOptions.Compiled
+            );
+        /// <summary>
+        /// Регулярное выражение для количества чисел в серии паспорта.
+        /// </summary>
+        private static readonly Regex CountNumbers =
+            new(pattern: numbersRegex,
+                RegexOptions.Compiled
+            );
         /// <summary>
         /// Задает серию паспорта.
         /// </summary>
@@ -32,7 +61,6 @@ namespace LabFirst
             private set;
         }
             = string.Empty;
-
         /// <summary>
         /// Задает номер паспорта.
         /// </summary>
@@ -42,7 +70,6 @@ namespace LabFirst
             private set;
         }
             = string.Empty;
-
         /// <summary>
         /// Задает место выдачи паспорта.
         /// </summary>
@@ -177,7 +204,9 @@ namespace LabFirst
             DateOnly issueDate
         )
         {
-            if (string.IsNullOrWhiteSpace(series))
+            if (string.IsNullOrWhiteSpace(series) 
+                | !CountSeries.IsMatch(series)
+            )
             {
                 throw new ArgumentException(
                     "Серия паспорта не может быть пустой.",
@@ -185,7 +214,9 @@ namespace LabFirst
                 );
             }
 
-            if (string.IsNullOrWhiteSpace(number))
+            if (string.IsNullOrWhiteSpace(number) 
+                | !CountNumbers.IsMatch(number)
+            )
             {
                 throw new ArgumentException(
                     "Номер паспорта не может быть пустым.",

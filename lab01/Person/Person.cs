@@ -31,11 +31,11 @@ namespace LabFirst
         /// <summary>
         /// Минимальный допустимый возраст.
         /// </summary>
-        public const int MinAge = AgeRules.PersonMinAge;
+        public const int MinAge = Limits.PersonMinAge;
         /// <summary>
         /// аксимальный допустимый возраст.
         /// </summary>
-        public const int MaxAge = AgeRules.PersonMaxAge;
+        public const int MaxAge = Limits.PersonMaxAge;
         /// <summary>
         /// Получает язык, на котором записаны <see cref="Name"/> 
         /// и <see cref="Surname"/>.

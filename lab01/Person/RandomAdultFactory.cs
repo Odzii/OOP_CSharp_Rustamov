@@ -136,7 +136,7 @@ namespace LabFirst
 
             adult.Surname = surname;
 
-            adult.Age = _random.Next(AgeRules.AdultMinAge, AgeRules.PersonMaxAge + 1);
+            adult.Age = _random.Next(Limits.AdultMinAge, Limits.PersonMaxAge + 1);
 
             string series = _random.Next(0, Pow10(PassportSeriesLength))
                 .ToString($"D{PassportSeriesLength}");
@@ -177,14 +177,14 @@ namespace LabFirst
         /// <returns></returns>
         private static int ClampAdultAge(int age)
         {
-            if (age < AgeRules.AdultMinAge)
+            if (age < Limits.AdultMinAge)
             {
-                return AgeRules.AdultMinAge;
+                return Limits.AdultMinAge;
             }
 
-            if (age > AgeRules.PersonMaxAge)
+            if (age > Limits.PersonMaxAge)
             {
-                return AgeRules.PersonMaxAge;
+                return Limits.PersonMaxAge;
             }
 
             return age;
@@ -229,7 +229,7 @@ namespace LabFirst
 
             DateOnly birthDate = NextDate(random, birthFrom, birthTo);
 
-            DateOnly issueFrom = birthDate.AddYears(AgeRules.AdultMinAge);
+            DateOnly issueFrom = birthDate.AddYears(Limits.AdultMinAge);
             if (issueFrom > today) issueFrom = today;
 
             return NextDate(random, issueFrom, today);
