@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 
 namespace LabFirst
 {
@@ -128,6 +126,11 @@ namespace LabFirst
             return GetEnumerator();
         }
 
+        /// <summary>
+        /// Валидация индекса списка <see cref="PersonList"/>.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private void ValidateIndex(int index)
         {
             if ((uint)index >= (uint)_items.Count)

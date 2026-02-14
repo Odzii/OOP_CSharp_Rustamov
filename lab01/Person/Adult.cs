@@ -16,7 +16,6 @@ namespace LabFirst
         /// Минимальный возраст взрослого человека.
         /// </summary>
         private const int _minAge = AgeRules.AdultMinAge;
-
         /// <summary>
         /// Возращает true, если <see cref="Adult"/> женат/замужен.
         /// </summary>
@@ -93,7 +92,7 @@ namespace LabFirst
         }
 
         /// <summary>
-        /// 
+        /// Валидация возраста
         /// </summary>
         public new int Age
         {
@@ -160,7 +159,7 @@ namespace LabFirst
             }
         }
 
-        /// TODO: Добавить методы для корректного ввода параметров паспорта.
+        /// TODO: Добавить методы для корректного ввода параметров паспорта. Т.е только цмфры типа D4-D6.
         /// <summary>
         /// Задать основные значения в паспорте. Такие как:
         /// </summary>
@@ -225,14 +224,6 @@ namespace LabFirst
         /// <exception cref="ArgumentNullException"></exception>
         public void SetWorkplace(string workplaceName)
         {
-            //if (string.IsNullOrWhiteSpace(workplaceName))
-            //{
-            //    throw new ArgumentNullException(
-            //        "Название места работв не может быть пустым",
-            //        nameof(workplaceName)
-            //    );
-            //}
-
             WorkplaceName = workplaceName.Trim();
         }
 
@@ -272,7 +263,6 @@ namespace LabFirst
                     );
             }
 
-            // Устанавливается симметричная связь между объектами
             Partner = parhner;
             parhner.Partner = this;
 
@@ -305,29 +295,10 @@ namespace LabFirst
         }
 
         /// <summary>
-        /// Получение основных данных паспорта для вывода.
+        /// Возращает основную иформацию об <see cref="Adult"/>,
+        /// в виде строки типа <see cref="String"/>.
         /// </summary>
-        /// <returns>
-        /// <see cref="PassportSeries"/>
-        /// <see cref="PassportNumber"/>
-        /// <see cref="Status"/>
-        /// <see cref="WorkplaceName"/>
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString()
-                + $"\tPassport: {PassportSeries} {PassportNumber}"
-                + $"\tMarital: {Status}"
-                + $"\tWork: {(string.IsNullOrEmpty(WorkplaceName)
-                    ? "-"
-                    : WorkplaceName)}";
-        }
-
-        // TODO: XML
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <returns>Строку.</returns>
         public override string GetInfo()
         {
             StringBuilder stringBuilder = new StringBuilder();

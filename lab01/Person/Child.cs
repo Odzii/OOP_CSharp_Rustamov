@@ -33,7 +33,10 @@ namespace LabFirst
             get;
             private set;
         }
-
+        
+        /// <summary>
+        /// Наименования места образования.
+        /// </summary>
         public string? EducationPlaceName
         {
             get;
@@ -92,6 +95,16 @@ namespace LabFirst
             }
         }
 
+        /// <summary>
+        /// Установить родителей для <see cref="Child"/>.
+        /// </summary>
+        /// <param name="mother"></param>
+        /// <param name="father"></param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns>
+        /// <see cref="Father"/> Отец и
+        /// <see cref="Mother"/> мать.
+        /// </returns>
         public void SetParents(Adult? mother, Adult? father)
         {
             if (mother is not null && mother.Age < AgeRules.AdultMinAge)
@@ -143,9 +156,9 @@ namespace LabFirst
             EducationPlaceName = null;
         }
 
-        // TODO: XML
         /// <summary>
-        /// 
+        /// Возращает основную иформацию об <see cref="Child"/>,
+        /// в виде строки типа <see cref="String"/>.
         /// </summary>
         /// <returns></returns>
         public override string GetInfo()

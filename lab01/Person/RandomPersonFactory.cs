@@ -4,15 +4,34 @@ using LabFirst.Helpers;
 namespace LabFirst
 {
     /// <summary>
-    /// Создаёт случайные экземпляры <see cref="Person"/> на основе источника имён.
+    /// Создаёт случайный экземпляр класса <see cref="Person"/> 
+    /// на основе источника имён.
     /// </summary>
     public sealed class RandomPersonFactory : IPersonFactory<Person>
     {
+        /// <summary>
+        /// Максимальное число полов
+        /// </summary>
         private const int GenderVariantsCount = 2;
-
+        /// <summary>
+        /// Путь к файлу с именами и фамилиями.
+        /// </summary>
         private readonly IPersonNameSource _names;
+        /// <summary>
+        /// Инициализация класса <see cref="Random"/>.
+        /// </summary>
         private readonly Random _random;
 
+        /// <summary>
+        /// Инициализация файла хранящего путь с параметрами, 
+        /// которые необходимы для создания случайного экземпляра
+        /// класса <see cref="Person"/>.
+        /// </summary>
+        /// <param name="names">Имя, фамилия.</param>
+        /// <param name="random">
+        /// Экземпляр класса <see cref="Random"/>.
+        /// </param>
+        /// <exception cref="ArgumentNullException"></exception>
         public RandomPersonFactory(IPersonNameSource names, Random random)
         {
             _names = names ?? throw new ArgumentNullException(nameof(names));
@@ -22,7 +41,9 @@ namespace LabFirst
         /// <summary>
         /// Создаёт случайного человека.
         /// </summary>
-        /// <returns>Случайно сгенерированный экземпляр <see cref="Person"/>.</returns>
+        /// <returns>
+        /// Случайно сгенерированный экземпляр <see cref="Person"/>
+        /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Бросается, если в <see cref="IPersonNameSource"/> отсутствуют данные
         /// (пустые списки имён/фамилий).
@@ -43,6 +64,10 @@ namespace LabFirst
             return new Person(name, surname, age, gender);
         }
 
+        /// <summary>
+        /// Выбор <see cref="Gender"/>, из числа доступных.
+        /// </summary>
+        /// <returns></returns>
         private Gender CreateRandomGender()
         {
             return _random.Next(GenderVariantsCount) == 0

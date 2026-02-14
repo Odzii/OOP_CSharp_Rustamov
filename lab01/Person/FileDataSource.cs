@@ -23,18 +23,15 @@ namespace LabFirst
         /// </summary>
         public IReadOnlyList<string> Surnames { get; }
 
-        //TODO: XML
         /// <summary>
-        ///  
+        ///  Место работы
         /// </summary>
         public IReadOnlyList<string> WorkplaceNames { get; }
 
-        //TODO: XML
         /// <summary>
-        /// 
+        /// Место выдачи пассорта
         /// </summary>
         public IReadOnlyList<string> PassportsIssuedBy { get; }
-
 
         /// <summary>
         /// Получает список мест образования
@@ -46,17 +43,22 @@ namespace LabFirst
         /// </summary>
         public IReadOnlyList<string> Schools { get; }
 
-
-
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="FileDataSource"/>,
         /// загружая данные по указанным путям.
         /// </summary>
-        /// <param name="malePath">Путь к файлу со списком мужских имён.</param>
-        /// <param name="femalePath">Путь к файлу со списком женских имён.</param>
-        /// <param name="surnamePath">Путь к файлу со списком фамилий.</param>
+        /// <param name="malePath">
+        /// Путь к файлу со списком мужских имён.
+        /// </param>
+        /// <param name="femalePath">
+        /// Путь к файлу со списком женских имён.
+        /// </param>
+        /// <param name="surnamePath">
+        /// Путь к файлу со списком фамилий.
+        /// </param>
         /// <exception cref="ArgumentException">
-        /// Бросается, если какой-либо путь равен <see langword="null"/>, 
+        /// Бросается, если какой-либо путь равен 
+        /// <see langword="null"/>, 
         /// пустой строке или состоит только из пробелов.
         /// </exception>
         /// <exception cref="InvalidOperationException">
@@ -94,6 +96,12 @@ namespace LabFirst
             Schools = LoadRequired(schools, "школ");
         }
 
+        /// <summary>
+        /// Валидация переменной пути
+        /// </summary>
+        /// <param name="path">Путь</param>
+        /// <param name="paramName">Параметр</param>
+        /// <exception cref="ArgumentException"></exception>
         private static void ValidatePath(string path, string paramName)
         {
             if (string.IsNullOrWhiteSpace(path))
@@ -106,6 +114,15 @@ namespace LabFirst
             }
         }
 
+        /// <summary>
+        /// Проверка содержимого файла, а также имени файла.
+        /// </summary>
+        /// <param name="path">Путь</param>
+        /// <param name="description">Описание файла</param>
+        /// <returns>Содержимое файла</returns>
+        /// <exception cref="InvalidOperationException">
+        /// Бросает исключение, если файл пустой или не найден.
+        /// </exception>
         private static IReadOnlyList<string> LoadRequired(
             string path, 
             string description

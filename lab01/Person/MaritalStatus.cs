@@ -1,5 +1,8 @@
 ﻿namespace LabFirst
 {
+    /// <summary>
+    /// Определяет статус для <see cref="Adult"/>.
+    /// </summary>
     public enum MaritalStatus
     {
         /// <summary>

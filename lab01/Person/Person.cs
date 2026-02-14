@@ -16,32 +16,26 @@ namespace LabFirst
         /// Имя
         /// </summary>
         private string _name = string.Empty;
-
         /// <summary>
         /// Фамилия
         /// </summary>
         private string _surname = string.Empty;
-
         /// <summary>
         /// Пол
         /// </summary>
         private Gender _gender = Gender.Unknown;
-
         /// <summary>
         /// Возраст человека
         /// </summary>
         private int _age;
-
         /// <summary>
         /// Минимальный допустимый возраст.
         /// </summary>
         public const int MinAge = AgeRules.PersonMinAge;
-
         /// <summary>
         /// аксимальный допустимый возраст.
         /// </summary>
         public const int MaxAge = AgeRules.PersonMaxAge;
-
         /// <summary>
         /// Получает язык, на котором записаны <see cref="Name"/> 
         /// и <see cref="Surname"/>.
@@ -51,14 +45,12 @@ namespace LabFirst
         /// что имя и фамилия ещё не заданы.
         /// </remarks>
         private Language _language = Language.Null;
-
         /// <summary>
         /// Возвращает значение, указывающее, что <see cref="Name"/> 
         /// и <see cref="Surname"/>
         /// записаны на русском языке.
         /// </summary>
         public bool IsRussian => _language == Language.Russian;
-
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Person"/>.
         /// </summary>
@@ -369,9 +361,9 @@ namespace LabFirst
             return char.ToUpperInvariant(lower[0]) + lower.Substring(1);
         }
 
-        // TODO: XML
         /// <summary>
-        /// 
+        /// Возращает основную иформацию об <see cref="Person"/>,
+        /// в виде строки типа <see cref="String"/>.
         /// </summary>
         /// <returns></returns>
         public virtual string GetInfo()

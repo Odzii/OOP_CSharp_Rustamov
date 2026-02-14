@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using LabFirst;
+﻿using LabFirst;
 
 namespace SecondLab
 {
@@ -21,8 +19,6 @@ namespace SecondLab
 
             );
 
-            // Если у тебя уже есть фабрики с файлами — подставь их.
-            // Ниже — условно:
             IPersonFactory<Person> personFactory = new RandomPersonFactory(source, random);
             IPersonFactory<Adult> adultFactory = new RandomAdultFactory(source, random);
             IPersonFactory<Child> childFactory = new RandomChildFactory(source, random);
