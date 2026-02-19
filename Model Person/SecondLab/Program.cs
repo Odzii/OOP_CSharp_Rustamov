@@ -11,6 +11,7 @@ namespace SecondLab
         {
             var random = new Random();
 
+            //TODO: magic (to const)
             var source = new FileDataSource(
                 malePath: "DataRandomPerson/MalesNames.txt",
                 femalePath: "DataRandomPerson/FemalesNamesPerson.txt",

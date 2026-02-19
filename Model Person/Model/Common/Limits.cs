@@ -1,5 +1,6 @@
 ﻿namespace Model.Common
 {
+    //TODO: refactor
     /// <summary>
     /// Класс хранит пороговые значения возраста
     /// для классов 

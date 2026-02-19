@@ -153,6 +153,7 @@
 
             adult.SetPassport(series, number, issuedBy, issueDate);
 
+            //TODO: magic (to const)
             if (_random.NextDouble() < 0.85)
             {
                 string work = _random.NextItem(
@@ -244,6 +245,7 @@
         private static int Pow10(int n)
         {
             int x = 1;
+            //TODO: {}
             for (int i = 0; i < n; i++) x *= 10;
             return x;
         }

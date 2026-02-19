@@ -17,6 +17,7 @@ namespace Model.Models
         /// </summary>
         private bool IsMarried
             => Status == MaritalStatus.Married;
+        //TODO: RSDN
         /// <summary>
         /// Регулярное выражение для количества чисел в серии паспорта.
         /// </summary>
@@ -112,6 +113,7 @@ namespace Model.Models
             private set;
         }
 
+        //TODO: refactor
         /// <summary>
         /// Валидация возраста
         /// </summary>
@@ -120,6 +122,7 @@ namespace Model.Models
             get => base.Age;
             set
             {
+                //TODO: duplication
                 if (value < _minAge)
                 {
                     throw new ArgumentOutOfRangeException(
@@ -180,7 +183,6 @@ namespace Model.Models
             }
         }
 
-        /// TODO: Добавить методы для корректного ввода параметров паспорта. Т.е только цмфры типа D4-D6.
         /// <summary>
         /// Задать основные значения в паспорте. Такие как:
         /// </summary>
@@ -233,14 +235,14 @@ namespace Model.Models
                     nameof(issueDate)
                 );
             }
-
+            //TODO: refactor
             PassportSeries = series.Trim();
             PassportNumber = number.Trim();
             PassportIssuedBy = issuedBy.Trim();
             PassportIssueDate = issueDate;
         }
 
-        ///TODO: feature
+        //TODO: to property
         /// <summary>
         /// Задать место работы. Принимает на вход
         /// место работы.
@@ -252,12 +254,14 @@ namespace Model.Models
             WorkplaceName = workplaceName.Trim();
         }
 
+        //TODO: remove
         /// <summary>
         /// Очистить место работу у выбранного <see cref="Adult"/>
         /// </summary>
         public void ClearWorkplace()
             => WorkplaceName = null;
 
+        //TODO: XML
         public void Marry(Adult parhner)
         {
             if (parhner is null)
@@ -309,7 +313,7 @@ namespace Model.Models
                     "Развод невозможен: нет зарегистрированного брака."
                 );
             }
-
+            //TODO: RSDN
             Adult ex = Partner;
 
             Partner = null;

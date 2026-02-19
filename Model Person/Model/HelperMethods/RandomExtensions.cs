@@ -1,9 +1,11 @@
 ﻿namespace Model.Helpers
 {
+    //TODO: XML
     internal static class RandomExtensions
     {
         public static T NextItem<T>(this Random random, IReadOnlyList<T> items, string listName)
         {
+            //TODO: {}
             if (random is null)
                 throw new ArgumentNullException(nameof(random));
 

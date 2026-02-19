@@ -1,5 +1,6 @@
 ﻿namespace Model.Factories
 {
+    //TODO: XML
     public sealed class RandomChildFactory : IPersonFactory<Child>
     {
         private readonly Random _random;
@@ -41,6 +42,7 @@
 
             child.SetParents(mother, father);
 
+            //TODO: magic (to const)
             string education = child.Age < 7
                 ? _random.NextItem(_childData.KinderGardens, 
                     nameof(_childData.KinderGardens))

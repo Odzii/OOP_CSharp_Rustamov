@@ -70,7 +70,6 @@
             string workplaceNamesPath,
             string kinderGardens,
             string schools
-
         )
         {
             MaleNames = LoadRequired(malePath, "мужских имён");

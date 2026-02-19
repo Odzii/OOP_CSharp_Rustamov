@@ -1,5 +1,6 @@
 ﻿namespace Model.Helpers
 {
+    //TODO: XML
     internal static class RussianVowelsHelper
     {
         private const string RussianVowels = "аеёиоуыэюя";

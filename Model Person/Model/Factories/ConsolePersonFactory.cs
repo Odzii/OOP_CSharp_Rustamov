@@ -6,6 +6,7 @@
     /// </summary>
     public sealed class ConsolePersonFactory : IPersonFactory<Person>
     {
+        //TODO: refactor
         /// <summary>
         /// Список женских <see cref="Gender"/> 
         /// </summary>
@@ -17,6 +18,7 @@
                 "f",
                 "female",
             };
+        //TODO: refactor
         /// <summary>
         /// Список мужских <see cref="Gender"/>
         /// </summary>

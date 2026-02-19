@@ -8,6 +8,7 @@ namespace Model.Collections
     /// </summary>
     public class PersonList : IEnumerable<Person>
     {
+        //TODO: XML
         private readonly List<Person> _items = new();
 
         /// <summary>

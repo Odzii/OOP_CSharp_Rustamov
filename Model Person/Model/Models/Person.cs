@@ -7,17 +7,19 @@ namespace Model.Models
     /// <see cref="Person"/>
     /// Представляет человека с именем и фамилией, возрастом и полом.
     /// </summary>
-
+    /// TODO: abstract
     public class Person
     {
         /// <summary>
         /// Имя
         /// </summary>
         private string _name = string.Empty;
+
         /// <summary>
         /// Фамилия
         /// </summary>
         private string _surname = string.Empty;
+
         /// <summary>
         /// Пол
         /// </summary>
@@ -43,6 +45,7 @@ namespace Model.Models
         /// что имя и фамилия ещё не заданы.
         /// </remarks>
         private Language _language = Language.Null;
+        //TODO: refactor
         /// <summary>
         /// Возвращает значение, указывающее, что <see cref="Name"/> 
         /// и <see cref="Surname"/>
@@ -172,6 +175,7 @@ namespace Model.Models
         /// </returns>
         public string ToBaseString()
         {
+            //TODO: RSDN
            string Gender = RussianVowelsHelper.GetGenderText(this);
             return $"{Name}\t{Surname}\t{Age}\t{Gender}";
         }

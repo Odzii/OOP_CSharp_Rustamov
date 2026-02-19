@@ -52,6 +52,7 @@ namespace Model.Models
                 {
                     throw new ArgumentOutOfRangeException(
                         nameof(value),
+                        //TODO: magic (to const)
                         $"Для Child возраст должен быть не больше 18 лет"
                     );
                 }
