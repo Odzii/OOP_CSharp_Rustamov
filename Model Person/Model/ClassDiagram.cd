@@ -1,112 +1,149 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="LabFirst.Person">
-    <Position X="0.75" Y="1.75" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAEAcAAAAAAAAADAQUAAAYQCBAAAAEgQAAAAAgAEIAA=</HashCode>
-      <FileName>Person.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="LabFirst.PersonList" BaseTypeListCollapsed="true">
-    <Position X="11.75" Y="0.5" Width="1.75" />
+  <Class Name="Model.Collections.PersonList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEIAAAAAAAAIABAACAAAAAQAABIAAAAECAAAAABAAAA=</HashCode>
-      <FileName>PersonList.cs</FileName>
+      <FileName>Collections\PersonList.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="LabFirst.Adult">
-    <Position X="4" Y="4.5" Width="1.75" />
+  <Class Name="Model.Common.Limits" Collapsed="true">
+    <Position X="20.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAiAGBYIEACAEAEAQAAAAIAAAAEAAAAAAAAEAAIg=</HashCode>
-      <FileName>Adult.cs</FileName>
+      <HashCode>AAAAAACAAAAAAIABAAAAEAAAAQAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Limits.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="LabFirst.AgeRules">
-    <Position X="7" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAAAAAAAEAAAAQAAAgAAAAAAAAAAAAA=</HashCode>
-      <FileName>AgeRules.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="LabFirst.Child">
-    <Position X="4" Y="0.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>ACAAAAAAAAAACAAEAEAAAQAAAACgAEIAAAABAAAAAAA=</HashCode>
-      <FileName>Child.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="LabFirst.ConsolePersonFactory" BaseTypeListCollapsed="true">
-    <Position X="9.25" Y="0.5" Width="2" />
+  <Class Name="Model.Factories.ConsolePersonFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAIAAAAIBAAQAAAAABAAAEAAAAAAAAAAAAA=</HashCode>
-      <FileName>ConsolePersonFactory.cs</FileName>
+      <FileName>Factories\ConsolePersonFactory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="LabFirst.FileNameSource" BaseTypeListCollapsed="true">
-    <Position X="7" Y="2.25" Width="1.75" />
+  <Class Name="Model.Factories.RandomAdultFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAAACAAAAAAAAAAAAAAAAAAgAAAIAAIA=</HashCode>
-      <FileName>FileNameSource.cs</FileName>
+      <HashCode>AgEAAABAAAAAAAEAAAAAAEACAAAAEMAAAACAAAAAAAE=</HashCode>
+      <FileName>Factories\RandomAdultFactory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="LabFirst.PersonDataReader">
-    <Position X="9.25" Y="3.75" Width="1.5" />
+  <Class Name="Model.Factories.RandomChildFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAQAAAAAAAEgAAAAAAAAAAAE=</HashCode>
+      <FileName>Factories\RandomChildFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Model.Factories.RandomPersonFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAACAgAAE=</HashCode>
+      <FileName>Factories\RandomPersonFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Model.Helpers.RandomExtensions" Collapsed="true">
+    <Position X="22" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HelperMethods\RandomExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Helpers.RussianVowelsHelper" Collapsed="true">
+    <Position X="18.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAICAAAAAAAAAAAAQAAAAAAAAQAAAAgEAAAA=</HashCode>
+      <FileName>HelperMethods\RussianVowelsHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Models.Adult" Collapsed="true">
+    <Position X="12" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAiAGBYAEACAAAEAAIIAAIAAIAEAAAAAAAAEAAIg=</HashCode>
+      <FileName>Models\Adult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Models.Child" Collapsed="true">
+    <Position X="14.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAACAAAAEAAAAAAAQCgAEIAAAABAAAAAAA=</HashCode>
+      <FileName>Models\Child.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Models.Person" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAcAAAAAAAAADAQUAAAYQCBAAAAEgQAAAAAgAEIAA=</HashCode>
+      <FileName>Models\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Sources.FileDataSource" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAEAAAACAACAAAAAAACAAAAAAAAIAhAAAIAAAA=</HashCode>
+      <FileName>Sources\FileDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Model.Sources.PersonDataReader" Collapsed="true">
+    <Position X="22" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PersonDataReader.cs</FileName>
+      <FileName>Sources\PersonDataReader.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="LabFirst.RandomPersonFactory" BaseTypeListCollapsed="true">
-    <Position X="14.5" Y="0.5" Width="2" />
+  <Interface Name="Model.Interfaces.IAdultDataSource" Collapsed="true">
+    <Position X="16.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAIAAAAAAAAAAAAAQAAAAQEAAAAAAAiEgAAE=</HashCode>
-      <FileName>RandomPersonFactory.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Person.RandomChildFactory">
-    <Position X="16.75" Y="0.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>RandomChildFactory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Interface Name="LabFirst.INameSource">
-    <Position X="7" Y="5.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAgAAAIAAAA=</HashCode>
-      <FileName>INameSource.cs</FileName>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IAdultDataSource.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="LabFirst.IPersonFactory&lt;T&gt;">
-    <Position X="9" Y="5.5" Width="1.5" />
+  <Interface Name="Model.Interfaces.IChildEducationSource" Collapsed="true">
+    <Position X="18.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IChildEducationSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Model.Interfaces.IPersonFactory&lt;T&gt;" Collapsed="true">
+    <Position X="20.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
-      <FileName>IPersonFactory.cs</FileName>
+      <FileName>Interfaces\IPersonFactory.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Enum Name="LabFirst.Gender">
-    <Position X="11" Y="5.5" Width="1.5" />
+  <Interface Name="Model.Interfaces.IPersonNameSource" Collapsed="true">
+    <Position X="22" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAgAAAIAAAA=</HashCode>
+      <FileName>Interfaces\IPersonNameSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Model.Enums.Gender" Collapsed="true">
+    <Position X="16.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAABA=</HashCode>
-      <FileName>Gender.cs</FileName>
+      <FileName>Enums\Gender.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="LabFirst.Language">
-    <Position X="13" Y="5.5" Width="1.5" />
+  <Enum Name="Model.Enums.Language" Collapsed="true">
+    <Position X="18.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAABAAAAAAAAAIAAAAAAAA=</HashCode>
-      <FileName>Language.cs</FileName>
+      <FileName>Enums\Language.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="LabFirst.MaritalStatus">
-    <Position X="14.75" Y="5.5" Width="1.5" />
+  <Enum Name="Model.Enums.MaritalStatus" Collapsed="true">
+    <Position X="20.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAEACAA=</HashCode>
-      <FileName>MaritalStatus.cs</FileName>
+      <FileName>Enums\MaritalStatus.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
