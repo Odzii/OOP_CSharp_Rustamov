@@ -1,4 +1,5 @@
-﻿using LabFirst.Helpers;
+﻿using LabFirst;
+using LabFirst.Helpers;
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -41,7 +42,7 @@ namespace LabFirst
         /// и <see cref="Surname"/>.
         /// </summary>
         /// <remarks>
-        /// Значение <see cref="LabFirst.Language.Null"/> означает, 
+        /// Значение <see cref="Language.Null"/> означает, 
         /// что имя и фамилия ещё не заданы.
         /// </remarks>
         private Language _language = Language.Null;
@@ -56,8 +57,8 @@ namespace LabFirst
         /// </summary>
         /// <remarks>
         /// По умолчанию имя и фамилия пустые, возраст равен 0,
-        /// пол равен <see cref="LabFirst.Gender.Unknown"/>, 
-        /// язык равен <see cref="LabFirst.Language.Null"/>.
+        /// пол равен <see cref="Gender.Unknown"/>, 
+        /// язык равен <see cref="Language.Null"/>.
         /// </remarks>
         public Person()
         {
@@ -292,9 +293,9 @@ namespace LabFirst
         /// </summary>
         /// <param name="value">Значение для анализа.</param>
         /// <returns>
-        /// <see cref="LabFirst.Language.Russian"/> 
-        /// или <see cref="LabFirst.Language.English"/>, если язык распознан;
-        /// иначе <see cref="LabFirst.Language.Null"/>.
+        /// <see cref="Language.Russian"/> 
+        /// или <see cref="Language.English"/>, если язык распознан;
+        /// иначе <see cref="Language.Null"/>.
         /// </returns>
         private static Language DetectLanguage(string value)
         {
@@ -363,7 +364,7 @@ namespace LabFirst
 
         /// <summary>
         /// Возращает основную иформацию об <see cref="Person"/>,
-        /// в виде строки типа <see cref="String"/>.
+        /// в виде строки типа <see cref="string"/>.
         /// </summary>
         /// <returns></returns>
         public virtual string GetInfo()

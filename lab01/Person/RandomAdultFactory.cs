@@ -20,11 +20,11 @@ namespace LabFirst
         /// <summary>
         /// Длина серии паспорта
         /// </summary>
-        private const int PassportSeriesLength = 4;
+        private const int PassportSeriesLength = Limits.LengthSeries;
         /// <summary>
         /// Длмна номера паспорта
         /// </summary>
-        private const int PassportNumberLength = 6;
+        private const int PassportNumberLength = Limits.LenghtNumbers;
         /// <summary>
         /// Вероятность брака
         /// </summary>

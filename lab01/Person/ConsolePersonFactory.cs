@@ -10,6 +10,9 @@ namespace LabFirst
     /// </summary>
     public sealed class ConsolePersonFactory : IPersonFactory<Person>
     {
+        /// <summary>
+        /// Список женских <see cref="Gender"/> 
+        /// </summary>
         private static readonly HashSet<string> FemaleTokens =
             new(StringComparer.OrdinalIgnoreCase)
             {
@@ -18,7 +21,9 @@ namespace LabFirst
                 "f",
                 "female",
             };
-
+        /// <summary>
+        /// Список мужских <see cref="Gender"/>
+        /// </summary>
         private static readonly HashSet<string> MaleTokens =
             new(StringComparer.OrdinalIgnoreCase)
             {
@@ -27,12 +32,10 @@ namespace LabFirst
                 "m",
                 "male",
             };
-
         /// <summary>
         /// Создание объекта для чтения данных с консоли
         /// </summary>
         private readonly TextReader _input;
-
         /// <summary>
         /// Создание объекта для вывода данных на консоль
         /// </summary>
@@ -77,6 +80,17 @@ namespace LabFirst
             return person;
         }
 
+        /// <summary>
+        /// Читает ввод с клавиатуры
+        /// </summary>
+        /// <param name="prompt">
+        /// Текст описания
+        /// Имя объекта <see cref="Person"/>
+        /// </param>
+        /// <param name="assign">
+        /// Значение принимаемое на вход
+        /// </param>
+        /// <exception cref="ArgumentNullException"></exception>
         private void ReadAndAssignNamePart(string prompt, Action<string> assign)
         {
             if (assign is null)

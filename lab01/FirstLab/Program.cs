@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 
 using LabFirst;
+using Person;
+using Person.Person;
 
 namespace FirstLab
 {
