@@ -1,7 +1,4 @@
-﻿using System;
-using LabFirst.Helpers;
-
-namespace LabFirst
+﻿namespace Model.Factories
 {
     public sealed class RandomChildFactory : IPersonFactory<Child>
     {

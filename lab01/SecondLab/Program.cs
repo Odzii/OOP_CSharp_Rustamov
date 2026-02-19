@@ -1,4 +1,7 @@
-﻿using LabFirst;
+﻿using Model.Factories;
+using Model.Interfaces;
+using Model.Models;
+using Model.Sources;
 
 namespace SecondLab
 {

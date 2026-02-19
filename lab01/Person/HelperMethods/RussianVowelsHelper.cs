@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LabFirst.Helpers
+﻿namespace Model.Helpers
 {
     internal static class RussianVowelsHelper
     {

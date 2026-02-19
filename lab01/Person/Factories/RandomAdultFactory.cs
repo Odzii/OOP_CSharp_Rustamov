@@ -1,7 +1,4 @@
-﻿using System;
-using LabFirst.Helpers;
-
-namespace LabFirst
+﻿namespace Model.Factories
 {
     /// <summary>
     /// Создаёт случайные экземпляры <see cref="Adult"/> 

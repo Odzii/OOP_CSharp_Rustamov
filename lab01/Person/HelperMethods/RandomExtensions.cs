@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LabFirst.Helpers
+﻿namespace Model.Helpers
 {
     internal static class RandomExtensions
     {

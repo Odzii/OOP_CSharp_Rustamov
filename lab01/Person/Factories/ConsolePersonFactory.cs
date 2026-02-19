@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace LabFirst
+﻿namespace Model.Factories
 {
     /// <summary>
     /// Создаёт экземпляры <see cref="Person"/>, 

@@ -1,4 +1,4 @@
-﻿namespace LabFirst
+﻿namespace Model.Enums
 {
     /// <summary>
     /// Определяет статус для <see cref="Adult"/>.

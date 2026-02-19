@@ -1,4 +1,4 @@
-﻿namespace LabFirst
+﻿namespace Model.Enums
 {
     /// <summary>
     /// Определяет язык, на котором записаны имя и фамилия.

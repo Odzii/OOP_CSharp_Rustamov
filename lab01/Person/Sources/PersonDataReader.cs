@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace LabFirst
+namespace Model.Sources
 {
     /// <summary>
     /// Содержит вспомогательные методы для чтения данных о людях 

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
-namespace LabFirst
+namespace Model.Models
 {
     /// <summary>
     /// Ребенок: родители и детский сад/школа.

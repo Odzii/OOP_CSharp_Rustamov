@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LabFirst
+﻿namespace Model.Sources
 {
     /// <summary>
     /// Источник имён и фамилий, загружающий данные из текстовых файлов.
