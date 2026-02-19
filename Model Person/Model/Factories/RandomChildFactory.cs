@@ -31,14 +31,21 @@
 
             child.Age = _random.Next(0, Limits.ChildMaxAge + 1);
 
-            Adult? mother = baseAdult.Gender == Gender.Female ? baseAdult : baseAdult.Partner;
-            Adult? father = baseAdult.Gender == Gender.Male ? baseAdult : baseAdult.Partner;
+            Adult? mother = baseAdult.Gender == Gender.Female 
+                ? baseAdult 
+                : baseAdult.Partner;
+
+            Adult? father = baseAdult.Gender == Gender.Male 
+                ? baseAdult 
+                : baseAdult.Partner;
 
             child.SetParents(mother, father);
 
             string education = child.Age < 7
-                ? _random.NextItem(_childData.KinderGardens, nameof(_childData.KinderGardens))
-                : _random.NextItem(_childData.Schools, nameof(_childData.Schools));
+                ? _random.NextItem(_childData.KinderGardens, 
+                    nameof(_childData.KinderGardens))
+                : _random.NextItem(_childData.Schools, 
+                    nameof(_childData.Schools));
 
             child.SetEducationPlace(education);
 

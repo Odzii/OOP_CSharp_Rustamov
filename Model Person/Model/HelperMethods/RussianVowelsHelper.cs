@@ -4,10 +4,15 @@
     {
         private const string RussianVowels = "аеёиоуыэюя";
 
-        public static string FixFemaleRussianSurname(string surname, Gender gender)
+        public static string FixFemaleRussianSurname(
+            string surname, 
+            Gender gender
+        )
         {
             if (string.IsNullOrWhiteSpace(surname))
+            {
                 return surname;
+            }
 
             if (gender == Gender.Female
                 && LooksLikeRussianWord(surname)
@@ -24,8 +29,11 @@
             foreach (char ch in text)
             {
                 if (IsCyrillicLetter(ch))
+                {
                     return true;
+                }
             }
+
             return false;
         }
 

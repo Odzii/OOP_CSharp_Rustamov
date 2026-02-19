@@ -129,7 +129,10 @@
                 nameof(_adultData.Surnames)
             );
 
-            surname = RussianVowelsHelper.FixFemaleRussianSurname(surname, gender);
+            surname = RussianVowelsHelper.FixFemaleRussianSurname(
+                surname, 
+                gender
+            );
 
             adult.Surname = surname;
 
