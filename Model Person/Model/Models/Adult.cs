@@ -1,6 +1,6 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
+﻿using Model.HelperMethods;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Model.Models
 {
@@ -19,85 +19,7 @@ namespace Model.Models
         /// Возращает true, если <see cref="Adult"/> женат/замужен.
         /// </summary>
         private bool _isMarried
-            => Status == MaritalStatus.Married;
-
-        //TODO: RSDN +
-        /// <summary>
-        /// Регулярное выражение для количества чисел в серии паспорта.
-        /// </summary>
-        private static string _seriesRegex = 
-            String.Format(
-                @"^(\d){0}$", 
-                "{" + $"{Limits.LengthSeries}" + "}"
-            );
-
-        /// <summary>
-        /// Паттерн для номера паспорта
-        /// </summary>
-        private static string _numbersRegex 
-            = String.Format(@"^(\d){0}$", 
-                "{" + $"{Limits.LenghtNumbers}" + "}"
-            );
-
-        /// <summary>
-        /// Паттерн для серии паспорта
-        /// </summary>
-        private static readonly Regex _countSeries =
-            new(pattern: _seriesRegex,
-                RegexOptions.Compiled
-            );
-
-        /// <summary>
-        /// Регулярное выражение для количества чисел в серии паспорта.
-        /// </summary>
-        private static readonly Regex _countNumbers =
-            new(pattern: _numbersRegex,
-                RegexOptions.Compiled
-            );
-
-        //TODO: Class and validation
-        /// <summary>
-        /// Задает серию паспорта.
-        /// </summary>
-        public string PassportSeries
-        {
-            get;
-            private set;
-        }
-            = string.Empty;
-
-        //TODO: Class and validation
-        /// <summary>
-        /// Задает номер паспорта.
-        /// </summary>
-        public string PassportNumber
-        {
-            get;
-            private set;
-        }
-            = string.Empty;
-
-        //TODO: Class and validatio
-        /// <summary>
-        /// Задает место выдачи паспорта.
-        /// </summary>
-        public string PassportIssuedBy
-        {
-            get;
-            private set;
-        }
-            = string.Empty;
-
-        //TODO: Class and validatio
-        /// <summary>
-        /// Задает дату выдачи паспорта
-        /// </summary>
-        public DateOnly PassportIssueDate
-        {
-            get;
-            private set;
-        }
-            = default;
+            => Status == MaritalStatus.Married;   
 
         /// <summary>
         /// Задает текущее семейное положение
@@ -114,7 +36,11 @@ namespace Model.Models
         /// </summary>
         private string _workplaceName = string.Empty;
 
-        // TODO: validation
+        /// <summary>
+        /// Паспорт <see cref="Passport"/>
+        /// </summary>
+        private Passport _passport;
+
         /// <summary>
         /// Партнер/супруг(-а)
         /// </summary>
@@ -156,14 +82,15 @@ namespace Model.Models
 
         }
 
-        //TODO: XML
         /// <summary>
-        /// 
+        /// Конструктор класса, в котором инициализируются 
+        /// объект <see cref="Adult"/> с именем, фамилией
+        /// возрастор и полом.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="surname"></param>
-        /// <param name="age"></param>
-        /// <param name="gender"></param>
+        /// <param name="name"> имя</param>
+        /// <param name="surname"> фамилия </param>
+        /// <param name="age"> возраст </param>
+        /// <param name="gender"> пол</param>
         public Adult(
             string name,
             string surname,
@@ -215,7 +142,6 @@ namespace Model.Models
             WorkplaceName = workplaceName;
         }
 
-        // TODO: Refactoring add class
         /// <summary>
         /// Задать основные значения в паспорте. Такие как:
         /// </summary>
@@ -233,46 +159,8 @@ namespace Model.Models
             DateOnly issueDate
         )
         {
-            if (string.IsNullOrWhiteSpace(series) 
-                | !_countSeries.IsMatch(series)
-            )
-            {
-                throw new ArgumentException(
-                    "Серия паспорта не может быть пустой.",
-                    nameof(series)
-                );
-            }
-
-            if (string.IsNullOrWhiteSpace(number) 
-                | !_countNumbers.IsMatch(number)
-            )
-            {
-                throw new ArgumentException(
-                    "Номер паспорта не может быть пустым.",
-                    nameof(number)
-                );
-            }
-
-            if (string.IsNullOrWhiteSpace(issuedBy))
-            {
-                throw new ArgumentException(
-                    "Кем выдан паспорт — обязательное поле.",
-                    nameof(issuedBy)
-                );
-            }
-
-            if (issueDate == default)
-            {
-                throw new ArgumentException(
-                    "Дата выдачи паспорта должна быть задана.",
-                    nameof(issueDate)
-                );
-            }
-            //TODO: refactor
-            PassportSeries = series.Trim();
-            PassportNumber = number.Trim();
-            PassportIssuedBy = issuedBy.Trim();
-            PassportIssueDate = issueDate;
+            Passport passport = new Passport(series, number, issuedBy, issueDate);
+            _passport = passport;
         }
 
         //TODO: to property + 
@@ -374,12 +262,19 @@ namespace Model.Models
                 stringBuilder.AppendLine($"Не состоит в браке.");
             }
 
-            stringBuilder.AppendLine($"Паспорт: " +
-                $"{PassportSeries}\t{PassportNumber}");
-            stringBuilder.AppendLine($"Кем выдан: " +
-                $"{PassportIssuedBy}");
-            stringBuilder.AppendLine($"Дата выдачи: " +
-                $"{PassportIssueDate:dd.MM.yyyy}");
+            if (_passport is not null)
+            {
+                stringBuilder.AppendLine($"Паспорт: " +
+                $"{_passport.Series}\t{_passport.Number}");
+                stringBuilder.AppendLine($"Кем выдан: " +
+                    $"{_passport.IssuedBy}");
+                stringBuilder.AppendLine($"Дата выдачи: " +
+                    $"{_passport.IssueDate:dd.MM.yyyy}");
+            }
+            else 
+            {
+                stringBuilder.AppendLine("Пасспорт: данные отсутвуют");
+            }
 
             stringBuilder.AppendLine(
                 string.IsNullOrWhiteSpace(WorkplaceName)

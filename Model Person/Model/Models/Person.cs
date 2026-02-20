@@ -175,9 +175,9 @@ namespace Model.Models
         /// </returns>
         public string ToBaseString()
         {
-            //TODO: RSDN
-           string Gender = RussianVowelsHelper.GetGenderText(this);
-            return $"{Name}\t{Surname}\t{Age}\t{Gender}";
+            //TODO: RSDN +
+           string gender = RussianVowelsHelper.GetGenderText(this);
+            return $"{Name}\t{Surname}\t{Age}\t{gender}";
         }
 
         /// <summary>

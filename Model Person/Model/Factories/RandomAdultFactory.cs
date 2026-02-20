@@ -1,4 +1,7 @@
-﻿namespace Model.Factories
+﻿using Model.HelperMethods;
+using System.Xml.Linq;
+
+namespace Model.Factories
 {
     /// <summary>
     /// Создаёт случайные экземпляры <see cref="Adult"/> 
@@ -14,17 +17,22 @@
         /// <summary>
         /// Путь к файлам с названием места работы и выдачи паспорта. 
         /// </summary>
-        private readonly FileDataSource _adultData;
+        private readonly IPersonNameSource _names;
+
+        /// <summary>
+        /// Путь к файлам с названием места работы и выдачи паспорта. 
+        /// </summary>
+        private readonly IAdultDataSource _adultData;
 
         /// <summary>
         /// Длина серии паспорта
         /// </summary>
-        private const int PassportSeriesLength = Limits.LengthSeries;
+        private const int PassportSeriesLength = Passport.LengthSeries;
 
         /// <summary>
         /// Длмна номера паспорта
         /// </summary>
-        private const int PassportNumberLength = Limits.LenghtNumbers;
+        private const int PassportNumberLength = Passport.LenghtNumbers;
 
         /// <summary>
         /// Вероятность брака
@@ -51,13 +59,19 @@
         /// <exception cref="ArgumentNullException">
         /// В случае, если на вход поданы некорректные данные.
         /// </exception>
-        public RandomAdultFactory(FileDataSource adultData, Random random)
+        public RandomAdultFactory(
+            IPersonNameSource names,
+            IAdultDataSource adultData, 
+            Random random)
         {
+            _names = names 
+                ?? throw new ArgumentNullException(nameof(names),
+                "Источник имён не задан (null).");
             _adultData = 
                 adultData 
                 ?? throw new ArgumentNullException(
                     nameof(adultData),
-                    $"Для {adultData} поданы неверный тип данных на вход."
+                    $"Для {adultData} подан неверный тип данных на вход."
                 );
             _random = 
                 random 
@@ -127,16 +141,16 @@
 
             adult.Name = gender == Gender.Male
                 ? _random.NextItem(
-                    _adultData.MaleNames, 
-                    nameof(_adultData.MaleNames))
+                    _names.MaleNames, 
+                    nameof(_names.MaleNames))
                 : _random.NextItem(
-                    _adultData.FemaleNames, 
-                    nameof(_adultData.FemaleNames)
+                    _names.FemaleNames, 
+                    nameof(_names.FemaleNames)
                 );
 
             string surname = _random.NextItem(
-                _adultData.Surnames, 
-                nameof(_adultData.Surnames)
+                _names.Surnames, 
+                nameof(_names.Surnames)
             );
 
             surname = RussianVowelsHelper.FixFemaleRussianSurname(
@@ -240,7 +254,7 @@
 
             DateOnly birthDate = NextDate(random, birthFrom, birthTo);
 
-            DateOnly issueFrom = birthDate.AddYears(Limits.AdultMinAge);
+            DateOnly issueFrom = birthDate.AddYears(Adult.MinAgeAdult);
             if (issueFrom > today) issueFrom = today;
 
             return NextDate(random, issueFrom, today);

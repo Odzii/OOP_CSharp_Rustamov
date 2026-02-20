@@ -22,7 +22,11 @@ namespace Model.Sources
         {
             if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
             {
-                return Array.Empty<string>();
+                throw new ArgumentException(
+                    "Путь к файлу не может быть пустым, " +
+                    "состоять только из пробелов или быть null.",
+                    path
+                );
             }
 
             var result = new List<string>();

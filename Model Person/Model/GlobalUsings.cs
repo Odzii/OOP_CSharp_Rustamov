@@ -1,5 +1,4 @@
 ﻿global using Model.Collections;
-global using Model.Common;
 global using Model.Enums;
 global using Model.Factories;
 global using Model.Helpers;

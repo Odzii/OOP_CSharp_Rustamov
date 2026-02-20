@@ -52,8 +52,9 @@ namespace Model.Models
                 {
                     throw new ArgumentOutOfRangeException(
                         nameof(value),
-                        //TODO: magic (to const)
-                        $"Для Child возраст должен быть не больше 18 лет"
+                        //TODO: magic (to const) +
+                        $"Для Child возраст должен быть не больше " +
+                        $"{Child.MaxAgeChild} лет"
                     );
                 }
 
@@ -157,7 +158,9 @@ namespace Model.Models
         /// Возращает основную иформацию об <see cref="Child"/>,
         /// в виде строки типа <see cref="String"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns> 
+        /// текстовое представление <see cref="Child"/>
+        /// </returns>
         public override string GetInfo()
         {
             StringBuilder stringBuilder = new StringBuilder();
