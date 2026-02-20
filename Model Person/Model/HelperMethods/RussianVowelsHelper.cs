@@ -121,7 +121,7 @@
         /// </exception>
         public static string GetGenderText(Person person)
         {
-            bool isRussian = person.IsRussian;
+            bool isRussian = person.Language == Language.Russian;
 
             if (!isRussian)
                 return person.Gender.ToString();

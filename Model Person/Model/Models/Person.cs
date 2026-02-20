@@ -46,18 +46,17 @@ namespace Model.Models
         /// и <see cref="Surname"/>.
         /// </summary>
         /// <remarks>
-        /// Значение <see cref="Language.Null"/> означает, 
+        /// Значение <see cref="Language.Null"/> означает, _language
         /// что имя и фамилия ещё не заданы.
         /// </remarks>
         private Language _language = Language.Null;
 
-        //TODO: refactor
+        //TODO: refactor + delete flag IsRussian
+
         /// <summary>
-        /// Возвращает значение, указывающее, что <see cref="Name"/> 
-        /// и <see cref="Surname"/>
-        /// записаны на русском языке.
+        /// Возвращает язык, на котором записаны имя и фамилия.
         /// </summary>
-        public bool IsRussian => _language == Language.Russian;
+        public Language Language => _language;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Person"/>.
