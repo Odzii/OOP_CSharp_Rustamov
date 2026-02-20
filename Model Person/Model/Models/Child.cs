@@ -10,7 +10,7 @@ namespace Model.Models
         /// <summary>
         /// Максимальный возраст ребенка.
         /// </summary>
-        private const int ChildMaxAge = Limits.ChildMaxAge;
+        public const int MaxAgeChild = Adult.MinAgeAdult - 1;
 
         /// <summary>
         /// Мать ребенка (может быть Null).
@@ -48,7 +48,7 @@ namespace Model.Models
 
             set
             {
-                if (value > ChildMaxAge)
+                if (value > MaxAgeChild)
                 {
                     throw new ArgumentOutOfRangeException(
                         nameof(value),
@@ -80,7 +80,7 @@ namespace Model.Models
             Adult? mother = null,
             Adult? father = null,
             string? educationPlaceName = null
-        ) : base(name, surname, ChildMaxAge, gender)
+        ) : base(name, surname, MaxAgeChild, gender)
         {
             Age = age;
 
@@ -104,20 +104,20 @@ namespace Model.Models
         /// </returns>
         public void SetParents(Adult? mother, Adult? father)
         {
-            if (mother is not null && mother.Age < Limits.AdultMinAge)
+            if (mother is not null && mother.Age < Adult.MinAgeAdult)
             {
                 throw new ArgumentException(
                     $"Мать должна быть {nameof(Adult)} " +
-                    $"или/и возраст не меньше {Limits.AdultMinAge}",
+                    $"или/и возраст не меньше {Adult.MinAgeAdult}",
                     nameof(mother)
                 );
             }
 
-            if (father is not null && father.Age < Limits.AdultMinAge)
+            if (father is not null && father.Age < Adult.MinAgeAdult)
             {
                 throw new ArgumentException(
                     $"Отец должен быть {nameof(Adult)} " +
-                    $"или/и возраст не меньше {Limits.AdultMinAge}",
+                    $"или/и возраст не меньше {Adult.MinAgeAdult}",
                     nameof(father)
                 );
             }

@@ -3,12 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace Model.Models
 {
+
     /// <summary>
     /// <see cref="Person"/>
     /// Представляет человека с именем и фамилией, возрастом и полом.
     /// </summary>
-    /// TODO: abstract
-    public class Person
+    /// TODO: abstract +
+    public abstract class Person
     {
         /// <summary>
         /// Имя
@@ -24,18 +25,22 @@ namespace Model.Models
         /// Пол
         /// </summary>
         private Gender _gender = Gender.Unknown;
+
         /// <summary>
         /// Возраст человека
         /// </summary>
         private int _age;
+
         /// <summary>
         /// Минимальный допустимый возраст.
         /// </summary>
-        public const int MinAge = Limits.PersonMinAge;
+        public const int MinAgePerson = 0;
+
         /// <summary>
         /// аксимальный допустимый возраст.
         /// </summary>
-        public const int MaxAge = Limits.PersonMaxAge;
+        public const int MaxAgePerson = 123;
+
         /// <summary>
         /// Получает язык, на котором записаны <see cref="Name"/> 
         /// и <see cref="Surname"/>.
@@ -45,6 +50,7 @@ namespace Model.Models
         /// что имя и фамилия ещё не заданы.
         /// </remarks>
         private Language _language = Language.Null;
+
         //TODO: refactor
         /// <summary>
         /// Возвращает значение, указывающее, что <see cref="Name"/> 
@@ -52,6 +58,7 @@ namespace Model.Models
         /// записаны на русском языке.
         /// </summary>
         public bool IsRussian => _language == Language.Russian;
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Person"/>.
         /// </summary>
@@ -81,7 +88,7 @@ namespace Model.Models
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Бросается, если <paramref name="age"/> 
-        /// выходит за диапазон <see cref="MinAge"/>–<see cref="MaxAge"/>.
+        /// выходит за диапазон <see cref="MinAgePerson"/>–<see cref="MaxAgePerson"/>.
         /// </exception>
         public Person(string name, string surname, int age, Gender gender)
         {
@@ -121,7 +128,7 @@ namespace Model.Models
         /// Получает или задаёт возраст человека в полных годах.
         /// </summary>
         /// <value>
-        /// Допустимый диапазон: <see cref="MinAge"/>–<see cref="MaxAge"/> 
+        /// Допустимый диапазон: <see cref="MinAgePerson"/>–<see cref="MaxAgePerson"/> 
         /// (включительно).
         /// </value>
         /// <exception cref="ArgumentOutOfRangeException">
@@ -132,14 +139,7 @@ namespace Model.Models
             get => _age;
             set
             {
-                if (value < MinAge || value > MaxAge)
-                {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        $"Возраст должен быть от {MinAge} до {MaxAge}."
-                    );
-                }
-
+                ValidateAge(value);
                 _age = value;
             }
         }
@@ -380,6 +380,26 @@ namespace Model.Models
             stringBuilder.AppendLine($"Пол: {Gender}");
 
             return stringBuilder.ToString().TrimEnd();
+        }
+
+        /// <summary>
+        /// Проверка корректного задания возраста <see cref="Person"/>
+        /// </summary>
+        /// <param name="value">
+        /// Возраст (целочисленный тип)
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Бросает исключение о выходе за пределы.
+        /// </exception>
+        protected virtual void ValidateAge(int value)
+        {
+            if (value < MinAgePerson || value > MaxAgePerson)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(value),
+                    $"Возраст должен быть от {MinAgePerson} до {MaxAgePerson}."
+                );
+            }
         }
     }
 }

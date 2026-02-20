@@ -10,22 +10,32 @@
         /// Инициализация экземпляра класса <see cref="Random"/>.
         /// </summary>
         private readonly Random _random;
+
         /// <summary>
         /// Путь к файлам с названием места работы и выдачи паспорта. 
         /// </summary>
         private readonly FileDataSource _adultData;
+
         /// <summary>
         /// Длина серии паспорта
         /// </summary>
         private const int PassportSeriesLength = Limits.LengthSeries;
+
         /// <summary>
         /// Длмна номера паспорта
         /// </summary>
         private const int PassportNumberLength = Limits.LenghtNumbers;
+
         /// <summary>
         /// Вероятность брака
         /// </summary>
         private const double MarriageProbability = 0.6;
+
+        /// <summary>
+        /// Вероятность того, что <see cref="Adult"/>
+        /// будет иметь работу.
+        /// </summary>
+        private const double JobProbability = 0.85;
 
         /// <summary>
         /// Инициализация файла хранящего путь с параметрами, 
@@ -136,7 +146,7 @@
 
             adult.Surname = surname;
 
-            adult.Age = _random.Next(Limits.AdultMinAge, Limits.PersonMaxAge + 1);
+            adult.Age = _random.Next(Adult.MinAgeAdult, Person.MaxAgePerson + 1);
 
             string series = _random.Next(0, Pow10(PassportSeriesLength))
                 .ToString($"D{PassportSeriesLength}");
@@ -153,19 +163,19 @@
 
             adult.SetPassport(series, number, issuedBy, issueDate);
 
-            //TODO: magic (to const)
-            if (_random.NextDouble() < 0.85)
+            //TODO: magic (to const) + 
+            if (_random.NextDouble() < JobProbability)
             {
                 string work = _random.NextItem(
                     _adultData.WorkplaceNames,
                     nameof(_adultData.WorkplaceNames)
                 );
 
-                adult.SetWorkplace(work);
+                adult.WorkplaceName = work;
             }
             else
             {
-                adult.ClearWorkplace();
+                adult.WorkplaceName = string.Empty;
             }
 
             return adult;
@@ -178,14 +188,14 @@
         /// <returns></returns>
         private static int ClampAdultAge(int age)
         {
-            if (age < Limits.AdultMinAge)
+            if (age < Adult.MinAgeAdult)
             {
-                return Limits.AdultMinAge;
+                return Adult.MinAgeAdult;
             }
 
-            if (age > Limits.PersonMaxAge)
+            if (age > Person.MaxAgePerson)
             {
-                return Limits.PersonMaxAge;
+                return Person.MaxAgePerson;
             }
 
             return age;
@@ -245,8 +255,11 @@
         private static int Pow10(int n)
         {
             int x = 1;
-            //TODO: {}
-            for (int i = 0; i < n; i++) x *= 10;
+            //TODO: {} + 
+            for (int i = 0; i < n; i++)
+            {
+                x *= 10;
+            }
             return x;
         }
     }

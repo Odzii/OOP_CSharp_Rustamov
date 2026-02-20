@@ -54,8 +54,10 @@ namespace SecondLab
 
             if (fourth is Adult a)
             {
-                // метод только Adult
-                a.ClearWorkplace();
+                // метод только Adult 
+                //TODO: add method Marry
+                /// <see cref="Adult.Marry(Adult)"/>
+                a.WorkplaceName = string.Empty;
                 Console.WriteLine("Вызван Adult.ClearWorkplace() — место работы очищено.");
             }
             else if (fourth is Child c)

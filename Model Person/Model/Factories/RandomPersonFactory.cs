@@ -1,5 +1,6 @@
 ﻿namespace Model.Factories
 {
+    
     /// <summary>
     /// Создаёт случайный экземпляр класса <see cref="Person"/> 
     /// на основе источника имён.
@@ -9,11 +10,13 @@
         /// <summary>
         /// Максимальное число полов
         /// </summary>
-        private const int GenderVariantsCount = 2;
+        private const int _genderVariantsCount = 2;
+
         /// <summary>
         /// Путь к файлу с именами и фамилиями.
         /// </summary>
         private readonly IPersonNameSource _names;
+
         /// <summary>
         /// Инициализация класса <see cref="Random"/>.
         /// </summary>
@@ -56,9 +59,11 @@
             string surname = _random.NextItem(_names.Surnames, nameof(_names.Surnames));
             surname = RussianVowelsHelper.FixFemaleRussianSurname(surname, gender);
 
-            int age = _random.Next(Person.MinAge, Person.MaxAge + 1);
+            int age = _random.Next(Person.MinAgePerson, Person.MaxAgePerson + 1);
 
-            return new Person(name, surname, age, gender);
+            return age < Adult.MinAgeAdult
+                ? new Child(name, surname, age, gender)
+                : new Adult(name, surname, age, gender);
         }
 
         /// <summary>
@@ -67,7 +72,7 @@
         /// <returns></returns>
         private Gender CreateRandomGender()
         {
-            return _random.Next(GenderVariantsCount) == 0
+            return _random.Next(_genderVariantsCount) == 0
                 ? Gender.Male
                 : Gender.Female;
         }

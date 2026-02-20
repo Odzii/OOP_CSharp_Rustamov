@@ -1,8 +1,10 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace Model.Models
 {
+    
     /// <summary>
     /// Взрослый человек: паспорт, семейное положение, место работы
     /// </summary>
@@ -11,42 +13,49 @@ namespace Model.Models
         /// <summary>
         /// Минимальный возраст взрослого человека.
         /// </summary>
-        private const int _minAge = Limits.AdultMinAge;
+        public const int MinAgeAdult = 18;
+
         /// <summary>
         /// Возращает true, если <see cref="Adult"/> женат/замужен.
         /// </summary>
-        private bool IsMarried
+        private bool _isMarried
             => Status == MaritalStatus.Married;
-        //TODO: RSDN
+
+        //TODO: RSDN +
         /// <summary>
         /// Регулярное выражение для количества чисел в серии паспорта.
         /// </summary>
-        private static string seriesRegex = 
+        private static string _seriesRegex = 
             String.Format(
                 @"^(\d){0}$", 
                 "{" + $"{Limits.LengthSeries}" + "}"
             );
+
         /// <summary>
         /// Паттерн для номера паспорта
         /// </summary>
-        private static string numbersRegex 
+        private static string _numbersRegex 
             = String.Format(@"^(\d){0}$", 
                 "{" + $"{Limits.LenghtNumbers}" + "}"
             );
+
         /// <summary>
         /// Паттерн для серии паспорта
         /// </summary>
-        private static readonly Regex CountSeries =
-            new(pattern: seriesRegex,
+        private static readonly Regex _countSeries =
+            new(pattern: _seriesRegex,
                 RegexOptions.Compiled
             );
+
         /// <summary>
         /// Регулярное выражение для количества чисел в серии паспорта.
         /// </summary>
-        private static readonly Regex CountNumbers =
-            new(pattern: numbersRegex,
+        private static readonly Regex _countNumbers =
+            new(pattern: _numbersRegex,
                 RegexOptions.Compiled
             );
+
+        //TODO: Class and validation
         /// <summary>
         /// Задает серию паспорта.
         /// </summary>
@@ -56,6 +65,8 @@ namespace Model.Models
             private set;
         }
             = string.Empty;
+
+        //TODO: Class and validation
         /// <summary>
         /// Задает номер паспорта.
         /// </summary>
@@ -65,6 +76,8 @@ namespace Model.Models
             private set;
         }
             = string.Empty;
+
+        //TODO: Class and validatio
         /// <summary>
         /// Задает место выдачи паспорта.
         /// </summary>
@@ -75,6 +88,7 @@ namespace Model.Models
         }
             = string.Empty;
 
+        //TODO: Class and validatio
         /// <summary>
         /// Задает дату выдачи паспорта
         /// </summary>
@@ -96,6 +110,12 @@ namespace Model.Models
             = MaritalStatus.Single;
 
         /// <summary>
+        /// Место работы
+        /// </summary>
+        private string _workplaceName = string.Empty;
+
+        // TODO: validation
+        /// <summary>
         /// Партнер/супруг(-а)
         /// </summary>
         public Adult? Partner
@@ -104,44 +124,55 @@ namespace Model.Models
             private set;
         }
 
+        //TODO: validation + 
         /// <summary>
         /// Место работы.
         /// </summary>
         public string? WorkplaceName
         {
-            get;
-            private set;
-        }
-
-        //TODO: refactor
-        /// <summary>
-        /// Валидация возраста
-        /// </summary>
-        public new int Age
-        {
-            get => base.Age;
+            get => _workplaceName;
             set
             {
-                //TODO: duplication
-                if (value < _minAge)
+                if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        $"Для Adult возраст не должен быть меньше {_minAge}.");
-                }    
+                    _workplaceName = string.Empty;
+                    return;
+                }
 
-                base.Age = value;
+                _workplaceName = value;
             }
         }
+
+        //TODO: refactor +
+        // delete property age and add ovveride
+        /// <see cref="ValidateAge(int)"/>
+        //TODO: duplication + solve with virtual in Person
 
         /// <summary>
         /// Создает пустой объект <see cref="Adult"/>
         /// </summary>
-        public Adult()
+        public Adult() : base()
         {
 
         }
 
+        //TODO: XML
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="surname"></param>
+        /// <param name="age"></param>
+        /// <param name="gender"></param>
+        public Adult(
+            string name,
+            string surname,
+            int age,
+            Gender gender
+            ) : base(name, surname, MinAgeAdult, gender)
+        {
+            Age = age;
+        }
 
         /// <summary>
         /// Взрослый человек с именем и фамилией, основными паспортными данными.
@@ -165,10 +196,14 @@ namespace Model.Models
             string passportNumber,
             string passportIssuedBy,
             DateOnly issueDate,
-            string workplaceName = ""
-        ) : base(name, surname, _minAge, gender)
+            string workplaceName
+        ) : this(
+                name,
+                surname,
+                age,
+                gender
+            )
         {
-            Age = age;
 
             SetPassport(
                 passportSeries,
@@ -177,12 +212,10 @@ namespace Model.Models
                 issueDate
             );
 
-            if (!string.IsNullOrWhiteSpace(workplaceName))
-            {
-                SetWorkplace(workplaceName);
-            }
+            WorkplaceName = workplaceName;
         }
 
+        // TODO: Refactoring add class
         /// <summary>
         /// Задать основные значения в паспорте. Такие как:
         /// </summary>
@@ -201,7 +234,7 @@ namespace Model.Models
         )
         {
             if (string.IsNullOrWhiteSpace(series) 
-                | !CountSeries.IsMatch(series)
+                | !_countSeries.IsMatch(series)
             )
             {
                 throw new ArgumentException(
@@ -211,7 +244,7 @@ namespace Model.Models
             }
 
             if (string.IsNullOrWhiteSpace(number) 
-                | !CountNumbers.IsMatch(number)
+                | !_countNumbers.IsMatch(number)
             )
             {
                 throw new ArgumentException(
@@ -242,26 +275,24 @@ namespace Model.Models
             PassportIssueDate = issueDate;
         }
 
-        //TODO: to property
-        /// <summary>
-        /// Задать место работы. Принимает на вход
-        /// место работы.
-        /// </summary>
-        /// <param name="workplaceName">Место работы</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public void SetWorkplace(string workplaceName)
-        {
-            WorkplaceName = workplaceName.Trim();
-        }
+        //TODO: to property + 
 
-        //TODO: remove
-        /// <summary>
-        /// Очистить место работу у выбранного <see cref="Adult"/>
-        /// </summary>
-        public void ClearWorkplace()
-            => WorkplaceName = null;
+        //TODO: remove + 
 
-        //TODO: XML
+        //TODO: XML + 
+        /// <summary>
+        /// Установить брак с партнером <see cref="Adult"/>
+        /// противоположного пола.
+        /// </summary>
+        /// <param name="parhner">
+        /// Объект <see cref="Adult"/>
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Если <paramref name="parhner"/> равен null.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Если <paramref name="parhner"/> уже состоит в браке.
+        /// </exception>
         public void Marry(Adult parhner)
         {
             if (parhner is null)
@@ -279,13 +310,13 @@ namespace Model.Models
                     );
             }
 
-            if (this.IsMarried)
+            if (this._isMarried)
             {
                 throw new InvalidOperationException(
                     "Этот человек уже состоит в браке.");
             }
 
-            if (parhner.IsMarried)
+            if (parhner._isMarried)
             {
                 throw new InvalidOperationException(
                     "Партнер уже состоит в браке."
@@ -307,20 +338,20 @@ namespace Model.Models
         /// </exception>
         public void Divorce()
         {
-            if (!IsMarried || Partner is null)
+            if (!_isMarried || Partner is null)
             {
                 throw new InvalidOperationException(
                     "Развод невозможен: нет зарегистрированного брака."
                 );
             }
-            //TODO: RSDN
-            Adult ex = Partner;
+            //TODO: RSDN + 
+            Adult exPartner = Partner;
 
             Partner = null;
             Status = MaritalStatus.Divorced;
 
-            ex.Partner = null;
-            ex.Status = MaritalStatus.Divorced;
+            exPartner.Partner = null;
+            exPartner.Status = MaritalStatus.Divorced;
         }
 
         /// <summary>
@@ -357,6 +388,28 @@ namespace Model.Models
             );
 
             return stringBuilder.ToString().TrimEnd();
+        }
+
+        /// <summary>
+        /// Проверка корректного задания возраста <see cref="Adult"/>
+        /// </summary>
+        /// <param name="value">
+        /// Возраст (целочисленный тип)
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Бросает исключение о выходе за пределы.
+        /// </exception>
+        protected override void ValidateAge(int value)
+        {
+            base.ValidateAge(value);
+
+            if ( value < MinAgeAdult)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(value),
+                    $"Для Adult возраст не должен быть меньше {MinAgeAdult}."
+                );
+            }
         }
     }
 }

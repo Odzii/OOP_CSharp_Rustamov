@@ -30,7 +30,7 @@
                 Surname = basePerson.Surname
             };
 
-            child.Age = _random.Next(0, Limits.ChildMaxAge + 1);
+            child.Age = _random.Next(0, Child.MaxAgeChild + 1);
 
             Adult? mother = baseAdult.Gender == Gender.Female 
                 ? baseAdult 
