@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using LabFirst;
+using Model.Collections;
+using Model.Enums;
+using Model.Factories;
+using Model.Sources;
+using Model.Models;
 
 namespace FirstLab
 {
@@ -235,10 +239,14 @@ namespace FirstLab
         /// </summary>
         private static void DemoGetRandomPerson()
         {
-            var source = new FileNameSource(
-                "DataRandomPerson/MalesNames.txt",
-                "DataRandomPerson/FemalesNamesPerson.txt",
-                "DataRandomPerson/DataSurnamesPerson.txt"
+            var source = new FileDataSource(
+                malePath: "DataRandomPerson/MalesNames.txt",
+                femalePath: "DataRandomPerson/FemalesNamesPerson.txt",
+                surnamePath: "DataRandomPerson/DataSurnamesPerson.txt",
+                passportsIssuedByPath: "DataRandomPerson/DataPassportIssuedBy.txt",
+                workplaceNamesPath: "DataRandomPerson/DataWorkplaces.txt",
+                kinderGardens: "DataRandomPerson/DataKinderGardens.txt",
+                schools: "DataRandomPerson/DataSchools.txt"
             );
 
             var factory = new RandomPersonFactory(source, new Random());
@@ -294,7 +302,6 @@ namespace FirstLab
                 return person.Gender.ToString();
 
             return person.Gender == Gender.Male ? "Мужской" : "Женский";
-        }
-
+        }        
     }
 }

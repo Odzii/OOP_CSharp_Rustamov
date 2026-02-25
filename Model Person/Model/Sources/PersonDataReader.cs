@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace LabFirst
+namespace Model.Sources
 {
     /// <summary>
     /// Содержит вспомогательные методы для чтения данных о людях 
@@ -25,10 +25,14 @@ namespace LabFirst
         {
             if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
             {
-                return Array.Empty<string>();
+                throw new ArgumentException(
+                    "Путь к файлу не может быть пустым, " +
+                    "состоять только из пробелов или быть null.",
+                    nameof(path)
+                );
             }
 
-            var result = new List<string>();
+            List<string> result = new List<string>();
 
             foreach (string line in File.ReadLines(path, Encoding.UTF8))
             {

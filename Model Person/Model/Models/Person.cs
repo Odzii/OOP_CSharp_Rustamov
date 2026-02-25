@@ -1,14 +1,15 @@
-﻿using System;
+﻿using System.Text;
 using System.Text.RegularExpressions;
 
-namespace LabFirst
+namespace Model.Models
 {
+
     /// <summary>
     /// <see cref="Person"/>
     /// Представляет человека с именем и фамилией, возрастом и полом.
     /// </summary>
-
-    public class Person
+    // TODO: abstract +
+    public abstract class Person
     {
         /// <summary>
         /// Имя
@@ -33,37 +34,53 @@ namespace LabFirst
         /// <summary>
         /// Минимальный допустимый возраст.
         /// </summary>
-        public const int MinAge = 0;
+        public const int MinAgePerson = 0;
 
         /// <summary>
         /// аксимальный допустимый возраст.
         /// </summary>
-        public const int MaxAge = 123;
+        public const int MaxAgePerson = 123;
 
         /// <summary>
         /// Получает язык, на котором записаны <see cref="Name"/> 
         /// и <see cref="Surname"/>.
         /// </summary>
         /// <remarks>
-        /// Значение <see cref="LabFirst.Language.Null"/> означает, 
+        /// Значение <see cref="Language.Null"/> означает, _language
         /// что имя и фамилия ещё не заданы.
         /// </remarks>
         private Language _language = Language.Null;
 
+        // TODO: refactor + deleted flag IsRussian
+
         /// <summary>
-        /// Возвращает значение, указывающее, что <see cref="Name"/> 
-        /// и <see cref="Surname"/>
-        /// записаны на русском языке.
+        /// Возвращает язык, на котором записаны имя и фамилия.
         /// </summary>
-        public bool IsRussian => _language == Language.Russian;
+        public Language Language => _language;
+
+        /// <summary>
+        /// Регулярное выражение для проверки слова на русском языке.
+        /// </summary>
+        private static readonly Regex _russianWordRegex =
+            new(@"^[А-Яа-яЁё]+(-[А-Яа-яЁё]+)?$",
+                RegexOptions.Compiled
+                | RegexOptions.CultureInvariant);
+
+        /// <summary>
+        /// Регулярное выражение для проверки слова на английском языке.
+        /// </summary>
+        private static readonly Regex _englishWordRegex =
+            new(@"^[A-Za-z]+(-[A-Za-z]+)?$",
+                RegexOptions.Compiled
+                | RegexOptions.CultureInvariant);
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Person"/>.
         /// </summary>
         /// <remarks>
         /// По умолчанию имя и фамилия пустые, возраст равен 0,
-        /// пол равен <see cref="LabFirst.Gender.Unknown"/>, 
-        /// язык равен <see cref="LabFirst.Language.Null"/>.
+        /// пол равен <see cref="Gender.Unknown"/>, 
+        /// язык равен <see cref="Language.Null"/>.
         /// </remarks>
         public Person()
         {
@@ -86,7 +103,8 @@ namespace LabFirst
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Бросается, если <paramref name="age"/> 
-        /// выходит за диапазон <see cref="MinAge"/>–<see cref="MaxAge"/>.
+        /// выходит за диапазон 
+        /// <see cref="MinAgePerson"/>–<see cref="MaxAgePerson"/>.
         /// </exception>
         public Person(string name, string surname, int age, Gender gender)
         {
@@ -126,7 +144,8 @@ namespace LabFirst
         /// Получает или задаёт возраст человека в полных годах.
         /// </summary>
         /// <value>
-        /// Допустимый диапазон: <see cref="MinAge"/>–<see cref="MaxAge"/> 
+        /// Допустимый диапазон: 
+        /// <see cref="MinAgePerson"/>–<see cref="MaxAgePerson"/> 
         /// (включительно).
         /// </value>
         /// <exception cref="ArgumentOutOfRangeException">
@@ -137,14 +156,7 @@ namespace LabFirst
             get => _age;
             set
             {
-                if (value < MinAge || value > MaxAge)
-                {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        $"Возраст должен быть от {MinAge} до {MaxAge}."
-                    );
-                }
-
+                ValidateAge(value);
                 _age = value;
             }
         }
@@ -152,7 +164,7 @@ namespace LabFirst
         /// <summary>
         /// Получает или задаёт пол человека.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentException">
         /// Бросается, если установлено неизвестное значение перечисления.
         /// </exception>
         public Gender Gender
@@ -178,26 +190,12 @@ namespace LabFirst
         /// <returns>
         /// Строка в формате: "{Name}\t{Surname}\t{Age}\t{Gender}".
         /// </returns>
-        public override string ToString()
+        internal string ToBaseString()
         {
-            return $"{Name}\t{Surname}\t{Age}\t{Gender}";
+            // TODO: RSDN +
+            string gender = RussianVowelsHelper.GetGenderText(this);
+            return $"{Name}\t{Surname}\t{Age}\t{gender}";
         }
-
-        /// <summary>
-        /// Регулярное выражение для проверки слова на русском языке.
-        /// </summary>
-        private static readonly Regex RussianWordRegex =
-            new(@"^[А-Яа-яЁё]+(-[А-Яа-яЁё]+)?$", 
-                RegexOptions.Compiled 
-                | RegexOptions.CultureInvariant);
-
-        /// <summary>
-        /// Регулярное выражение для проверки слова на английском языке.
-        /// </summary>
-        private static readonly Regex EnglishWordRegex =
-            new(@"^[A-Za-z]+(-[A-Za-z]+)?$", 
-                RegexOptions.Compiled 
-                | RegexOptions.CultureInvariant);
 
         /// <summary>
         /// Нормализует имя или фамилию, проверяет допустимые символы 
@@ -205,8 +203,8 @@ namespace LabFirst
         /// </summary>
         /// <param name="value">Исходное значение имени или фамилии.</param>
         /// <param name="isName">
-        /// Признак того, что обрабатывается имя. Если <see langword="false"/>, 
-        /// обрабатывается фамилия.
+        /// Признак того, что обрабатывается имя. 
+        /// Если <see langword="false"/>, обрабатывается фамилия.
         /// </param>
         /// <returns>Нормализованная строка
         /// (с приведением регистра и обработкой дефиса).</returns>
@@ -217,21 +215,27 @@ namespace LabFirst
         /// </exception>
         private string SetNamePart(string value, bool isName)
         {
-            string paramName = isName ? nameof(Name) : nameof(Surname);
+            string paramName = isName
+                ? nameof(Name)
+                : nameof(Surname);
 
-            var (normalized, language) = 
+            var (normalized, language) =
                 NormalizeAndDetectLanguage(
-                    value, 
+                    value,
                     paramName
                 );
 
-            string otherPart = isName ? _surname : _name;
+            string otherPart = isName
+                ? _surname
+                : _name;
+
             Language otherLanguage = DetectLanguage(otherPart);
 
             if (otherLanguage != Language.Null && otherLanguage != language)
             {
                 throw new ArgumentException(
-                    "Имя и фамилия должны быть написаны на одном языке (рус/англ).",
+                    "Имя и фамилия должны быть написаны на одном языке " +
+                    "(рус/англ).",
                     paramName
                 );
             }
@@ -253,7 +257,7 @@ namespace LabFirst
         /// Бросается, если значение пустое/пробельное 
         /// или не соответствует ожидаемому формату.
         /// </exception>
-        private static (string Normalized, Language Language) 
+        private static (string Normalized, Language Language)
             NormalizeAndDetectLanguage(
                 string value,
                 string paramName
@@ -270,18 +274,21 @@ namespace LabFirst
 
             string input = value.Trim();
 
-            bool isRussian = RussianWordRegex.IsMatch(input);
-            bool isEnglish = EnglishWordRegex.IsMatch(input);
+            bool isRussian = _russianWordRegex.IsMatch(input);
+            bool isEnglish = _englishWordRegex.IsMatch(input);
 
             if (!isRussian && !isEnglish)
             {
                 throw new ArgumentException(
-                    "Допустимы только русские или английские буквы и одно тире.",
+                    "Допустимы только русские или английские буквы " +
+                    "и одно тире.",
                     paramName
                 );
             }
 
-            Language language = isRussian ? Language.Russian : Language.English;
+            Language language = isRussian
+                ? Language.Russian
+                : Language.English;
             return (CapitalizeHyphenated(input), language);
         }
 
@@ -290,9 +297,9 @@ namespace LabFirst
         /// </summary>
         /// <param name="value">Значение для анализа.</param>
         /// <returns>
-        /// <see cref="LabFirst.Language.Russian"/> 
-        /// или <see cref="LabFirst.Language.English"/>, если язык распознан;
-        /// иначе <see cref="LabFirst.Language.Null"/>.
+        /// <see cref="Language.Russian"/> 
+        /// или <see cref="Language.English"/>, если язык распознан;
+        /// иначе <see cref="Language.Null"/>.
         /// </returns>
         private static Language DetectLanguage(string value)
         {
@@ -303,12 +310,12 @@ namespace LabFirst
 
             string input = value.Trim();
 
-            if (RussianWordRegex.IsMatch(input))
+            if (_russianWordRegex.IsMatch(input))
             {
                 return Language.Russian;
             }
 
-            if (EnglishWordRegex.IsMatch(input))
+            if (_englishWordRegex.IsMatch(input))
             {
                 return Language.English;
             }
@@ -317,7 +324,8 @@ namespace LabFirst
         }
 
         /// <summary>
-        /// Приводит строку (включая части через дефис) к нормализованному регистру.
+        /// Приводит строку (включая части через дефис) 
+        /// к нормализованному регистру.
         /// </summary>
         /// <param name="text">Исходное значение.</param>
         /// <returns>Нормализованное значение, 
@@ -326,7 +334,10 @@ namespace LabFirst
         {
             text = text.Trim();
 
-            string[] parts = text.Split('-', StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = text.Split(
+                '-', 
+                StringSplitOptions.RemoveEmptyEntries
+            );
 
             for (int i = 0; i < parts.Length; i++)
             {
@@ -357,6 +368,46 @@ namespace LabFirst
             }
 
             return char.ToUpperInvariant(lower[0]) + lower.Substring(1);
+        }
+
+        /// <summary>
+        /// Возращает основную иформацию об <see cref="Person"/>,
+        /// в виде строки типа <see cref="string"/>.
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetInfo()
+        {
+            var stringBuilder = new StringBuilder();
+
+            string gender = RussianVowelsHelper.GetGenderText(this);
+
+            stringBuilder.AppendLine($"Имя: {Name}");
+            stringBuilder.AppendLine($"Фамилия: {Surname}");
+            stringBuilder.AppendLine($"Возраст: {Age}");
+            stringBuilder.AppendLine($"Пол: {gender}");
+
+            return stringBuilder.ToString().TrimEnd();
+        }
+
+        /// <summary>
+        /// Проверка корректного задания возраста <see cref="Person"/>
+        /// </summary>
+        /// <param name="value">
+        /// Возраст (целочисленный тип)
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Бросает исключение о выходе за пределы.
+        /// </exception>
+        protected virtual void ValidateAge(int value)
+        {
+            if (value < MinAgePerson || value > MaxAgePerson)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(value),
+                    $"Возраст должен быть " +
+                    $"от {MinAgePerson} до {MaxAgePerson}."
+                );
+            }
         }
     }
 }
