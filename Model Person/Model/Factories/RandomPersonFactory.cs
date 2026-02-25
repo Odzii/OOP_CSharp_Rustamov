@@ -1,4 +1,6 @@
-﻿namespace Model.Factories
+﻿using System;
+
+namespace Model.Factories
 {
     
     /// <summary>
@@ -8,9 +10,9 @@
     public sealed class RandomPersonFactory : IPersonFactory<Person>
     {
         /// <summary>
-        /// Максимальное число полов
+        /// Количество возможных значений пола, используемых при генерации.
         /// </summary>
-        private const int _genderVariantsCount = 2;
+        private const int GenderVariantsCount = 2;
 
         /// <summary>
         /// Путь к файлу с именами и фамилиями.
@@ -31,7 +33,10 @@
         /// <param name="random">
         /// Экземпляр класса <see cref="Random"/>.
         /// </param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException">
+        /// Бросается, если <paramref name="names"/> 
+        /// или <paramref name="random"/> равны <see langword="null"/>.
+        /// </exception>
         public RandomPersonFactory(IPersonNameSource names, Random random)
         {
             _names = names ?? throw new ArgumentNullException(nameof(names));
@@ -53,13 +58,29 @@
             Gender gender = CreateRandomGender();
 
             string name = gender == Gender.Male
-                ? _random.NextItem(_names.MaleNames, nameof(_names.MaleNames))
-                : _random.NextItem(_names.FemaleNames, nameof(_names.FemaleNames));
+                ? _random.NextItem(
+                    _names.MaleNames, 
+                    nameof(_names.MaleNames)
+                )
+                : _random.NextItem(
+                    _names.FemaleNames, 
+                    nameof(_names.FemaleNames)
+                );
 
-            string surname = _random.NextItem(_names.Surnames, nameof(_names.Surnames));
-            surname = RussianVowelsHelper.FixFemaleRussianSurname(surname, gender);
+            string surname = _random.NextItem(
+                _names.Surnames,
+                nameof(_names.Surnames)
+            );
 
-            int age = _random.Next(Person.MinAgePerson, Person.MaxAgePerson + 1);
+            surname = RussianVowelsHelper.FixFemaleRussianSurname(
+                surname, 
+                gender
+            );
+
+            int age = _random.Next(
+                Person.MinAgePerson, 
+                Person.MaxAgePerson + 1
+            );
 
             return age < Adult.MinAgeAdult
                 ? new Child(name, surname, age, gender)
@@ -69,10 +90,10 @@
         /// <summary>
         /// Выбор <see cref="Gender"/>, из числа доступных.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Случайно выбранный пол.</returns>
         private Gender CreateRandomGender()
         {
-            return _random.Next(_genderVariantsCount) == 0
+            return _random.Next(GenderVariantsCount) == 0
                 ? Gender.Male
                 : Gender.Female;
         }

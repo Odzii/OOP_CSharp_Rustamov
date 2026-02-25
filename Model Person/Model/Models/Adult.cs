@@ -1,5 +1,4 @@
-﻿using Model.HelperMethods;
-using System.Text;
+﻿using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Model.Models
@@ -16,19 +15,9 @@ namespace Model.Models
         public const int MinAgeAdult = 18;
 
         /// <summary>
-        /// Возращает true, если <see cref="Adult"/> женат/замужен.
-        /// </summary>
-        private bool _isMarried
-            => Status == MaritalStatus.Married;   
-
-        /// <summary>
         /// Задает текущее семейное положение
         /// </summary>
-        public MaritalStatus Status
-        {
-            get;
-            private set;
-        }
+        public MaritalStatus Status { get; private set; } 
             = MaritalStatus.Single;
 
         /// <summary>
@@ -39,7 +28,7 @@ namespace Model.Models
         /// <summary>
         /// Паспорт <see cref="Passport"/>
         /// </summary>
-        private Passport _passport;
+        private Passport? _passport;
 
         /// <summary>
         /// Партнер/супруг(-а)
@@ -50,7 +39,13 @@ namespace Model.Models
             private set;
         }
 
-        //TODO: validation + 
+        /// <summary>
+        /// Возращает true, если <see cref="Adult"/> женат/замужен.
+        /// </summary>
+        private bool IsMarried
+            => Status == MaritalStatus.Married;
+
+        // TODO: validation + 
         /// <summary>
         /// Место работы.
         /// </summary>
@@ -69,7 +64,7 @@ namespace Model.Models
             }
         }
 
-        //TODO: refactor +
+        // TODO: refactor +
         // delete property age and add ovveride
         /// <see cref="ValidateAge(int)"/>
         //TODO: duplication + solve with virtual in Person
@@ -102,7 +97,8 @@ namespace Model.Models
         }
 
         /// <summary>
-        /// Взрослый человек с именем и фамилией, основными паспортными данными.
+        /// Взрослый человек с именем и фамилией, 
+        /// основными паспортными данными.
         /// </summary>
         /// <param name="name">Имя</param>
         /// <param name="surname">Фамилия</param>
@@ -159,7 +155,13 @@ namespace Model.Models
             DateOnly issueDate
         )
         {
-            Passport passport = new Passport(series, number, issuedBy, issueDate);
+            Passport passport = new Passport(
+                series, 
+                number, 
+                issuedBy, 
+                issueDate
+            );
+
             _passport = passport;
         }
 
@@ -172,50 +174,51 @@ namespace Model.Models
         /// Установить брак с партнером <see cref="Adult"/>
         /// противоположного пола.
         /// </summary>
-        /// <param name="parhner">
+        /// <param name="partner">
         /// Объект <see cref="Adult"/>
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// Если <paramref name="parhner"/> равен null.
+        /// Если <paramref name="partner"/> равен null.
         /// </exception>
         /// <exception cref="InvalidOperationException">
-        /// Если <paramref name="parhner"/> уже состоит в браке.
+        /// Если <paramref name="partner"/> уже состоит в браке.
         /// </exception>
-        public void Marry(Adult parhner)
+        public void Marry(Adult partner)
         {
-            if (parhner is null)
+            if (partner is null)
             {
                 throw new ArgumentNullException(
-                    "Значение не может быть null, партнер должен быть указан.",
-                    nameof(parhner)
+                    "Значение не может быть null, " +
+                    "партнер должен быть указан.",
+                    nameof(partner)
                     );
             }
 
-            if (ReferenceEquals(this, parhner))
+            if (ReferenceEquals(this, partner))
             {
                 throw new InvalidOperationException(
                     "Нельзя вступить в брак с самим собой."
                     );
             }
 
-            if (this._isMarried)
+            if (this.IsMarried)
             {
                 throw new InvalidOperationException(
                     "Этот человек уже состоит в браке.");
             }
 
-            if (parhner._isMarried)
+            if (partner.IsMarried)
             {
                 throw new InvalidOperationException(
                     "Партнер уже состоит в браке."
                     );
             }
 
-            Partner = parhner;
-            parhner.Partner = this;
+            Partner = partner;
+            partner.Partner = this;
 
             Status = MaritalStatus.Married;
-            parhner.Status = MaritalStatus.Married;
+            partner.Status = MaritalStatus.Married;
         }
 
         /// <summary>
@@ -226,7 +229,7 @@ namespace Model.Models
         /// </exception>
         public void Divorce()
         {
-            if (!_isMarried || Partner is null)
+            if (!IsMarried || Partner is null)
             {
                 throw new InvalidOperationException(
                     "Развод невозможен: нет зарегистрированного брака."
@@ -279,7 +282,7 @@ namespace Model.Models
             stringBuilder.AppendLine(
                 string.IsNullOrWhiteSpace(WorkplaceName)
                 ? "Безработный"
-                : $"Место работы: {WorkplaceName}"
+                : $"Место работы: { WorkplaceName }"
             );
 
             return stringBuilder.ToString().TrimEnd();
@@ -294,15 +297,15 @@ namespace Model.Models
         /// <exception cref="ArgumentOutOfRangeException">
         /// Бросает исключение о выходе за пределы.
         /// </exception>
-        protected override void ValidateAge(int value)
+        protected override void ValidateAge( int value )
         {
-            base.ValidateAge(value);
+            base.ValidateAge( value );
 
-            if ( value < MinAgeAdult)
+            if ( value < MinAgeAdult )
             {
                 throw new ArgumentOutOfRangeException(
                     nameof(value),
-                    $"Для Adult возраст не должен быть меньше {MinAgeAdult}."
+                    $"Для Adult возраст не должен быть меньше { MinAgeAdult }."
                 );
             }
         }

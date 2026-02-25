@@ -1,4 +1,7 @@
-﻿namespace Model.Sources
+﻿using System;
+using System.Collections.Generic;
+
+namespace Model.Sources
 {
     /// <summary>
     /// Источник имён и фамилий для <see cref="Person"/>, 
@@ -53,11 +56,13 @@
                 "мужских имён",
                 nameof(malePath)
             );
+
             FemaleNames = FileSourceLoader.LoadRequired(
                 femalePath,
                 "женских имён",
                 nameof(femalePath)
             );
+
             Surnames = FileSourceLoader.LoadRequired(
                 surnamePath,
                 "фамилий",

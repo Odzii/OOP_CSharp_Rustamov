@@ -8,7 +8,7 @@ namespace Model.Models
     /// <see cref="Person"/>
     /// Представляет человека с именем и фамилией, возрастом и полом.
     /// </summary>
-    /// TODO: abstract +
+    // TODO: abstract +
     public abstract class Person
     {
         /// <summary>
@@ -51,12 +51,28 @@ namespace Model.Models
         /// </remarks>
         private Language _language = Language.Null;
 
-        //TODO: refactor + delete flag IsRussian
+        // TODO: refactor + deleted flag IsRussian
 
         /// <summary>
         /// Возвращает язык, на котором записаны имя и фамилия.
         /// </summary>
         public Language Language => _language;
+
+        /// <summary>
+        /// Регулярное выражение для проверки слова на русском языке.
+        /// </summary>
+        private static readonly Regex _russianWordRegex =
+            new(@"^[А-Яа-яЁё]+(-[А-Яа-яЁё]+)?$",
+                RegexOptions.Compiled
+                | RegexOptions.CultureInvariant);
+
+        /// <summary>
+        /// Регулярное выражение для проверки слова на английском языке.
+        /// </summary>
+        private static readonly Regex _englishWordRegex =
+            new(@"^[A-Za-z]+(-[A-Za-z]+)?$",
+                RegexOptions.Compiled
+                | RegexOptions.CultureInvariant);
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Person"/>.
@@ -87,7 +103,8 @@ namespace Model.Models
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Бросается, если <paramref name="age"/> 
-        /// выходит за диапазон <see cref="MinAgePerson"/>–<see cref="MaxAgePerson"/>.
+        /// выходит за диапазон 
+        /// <see cref="MinAgePerson"/>–<see cref="MaxAgePerson"/>.
         /// </exception>
         public Person(string name, string surname, int age, Gender gender)
         {
@@ -127,7 +144,8 @@ namespace Model.Models
         /// Получает или задаёт возраст человека в полных годах.
         /// </summary>
         /// <value>
-        /// Допустимый диапазон: <see cref="MinAgePerson"/>–<see cref="MaxAgePerson"/> 
+        /// Допустимый диапазон: 
+        /// <see cref="MinAgePerson"/>–<see cref="MaxAgePerson"/> 
         /// (включительно).
         /// </value>
         /// <exception cref="ArgumentOutOfRangeException">
@@ -146,7 +164,7 @@ namespace Model.Models
         /// <summary>
         /// Получает или задаёт пол человека.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentException">
         /// Бросается, если установлено неизвестное значение перечисления.
         /// </exception>
         public Gender Gender
@@ -172,28 +190,12 @@ namespace Model.Models
         /// <returns>
         /// Строка в формате: "{Name}\t{Surname}\t{Age}\t{Gender}".
         /// </returns>
-        public string ToBaseString()
+        internal string ToBaseString()
         {
-            //TODO: RSDN +
-           string gender = RussianVowelsHelper.GetGenderText(this);
+            // TODO: RSDN +
+            string gender = RussianVowelsHelper.GetGenderText(this);
             return $"{Name}\t{Surname}\t{Age}\t{gender}";
         }
-
-        /// <summary>
-        /// Регулярное выражение для проверки слова на русском языке.
-        /// </summary>
-        private static readonly Regex RussianWordRegex =
-            new(@"^[А-Яа-яЁё]+(-[А-Яа-яЁё]+)?$",
-                RegexOptions.Compiled
-                | RegexOptions.CultureInvariant);
-
-        /// <summary>
-        /// Регулярное выражение для проверки слова на английском языке.
-        /// </summary>
-        private static readonly Regex EnglishWordRegex =
-            new(@"^[A-Za-z]+(-[A-Za-z]+)?$",
-                RegexOptions.Compiled
-                | RegexOptions.CultureInvariant);
 
         /// <summary>
         /// Нормализует имя или фамилию, проверяет допустимые символы 
@@ -201,8 +203,8 @@ namespace Model.Models
         /// </summary>
         /// <param name="value">Исходное значение имени или фамилии.</param>
         /// <param name="isName">
-        /// Признак того, что обрабатывается имя. Если <see langword="false"/>, 
-        /// обрабатывается фамилия.
+        /// Признак того, что обрабатывается имя. 
+        /// Если <see langword="false"/>, обрабатывается фамилия.
         /// </param>
         /// <returns>Нормализованная строка
         /// (с приведением регистра и обработкой дефиса).</returns>
@@ -232,7 +234,8 @@ namespace Model.Models
             if (otherLanguage != Language.Null && otherLanguage != language)
             {
                 throw new ArgumentException(
-                    "Имя и фамилия должны быть написаны на одном языке (рус/англ).",
+                    "Имя и фамилия должны быть написаны на одном языке " +
+                    "(рус/англ).",
                     paramName
                 );
             }
@@ -271,13 +274,14 @@ namespace Model.Models
 
             string input = value.Trim();
 
-            bool isRussian = RussianWordRegex.IsMatch(input);
-            bool isEnglish = EnglishWordRegex.IsMatch(input);
+            bool isRussian = _russianWordRegex.IsMatch(input);
+            bool isEnglish = _englishWordRegex.IsMatch(input);
 
             if (!isRussian && !isEnglish)
             {
                 throw new ArgumentException(
-                    "Допустимы только русские или английские буквы и одно тире.",
+                    "Допустимы только русские или английские буквы " +
+                    "и одно тире.",
                     paramName
                 );
             }
@@ -306,12 +310,12 @@ namespace Model.Models
 
             string input = value.Trim();
 
-            if (RussianWordRegex.IsMatch(input))
+            if (_russianWordRegex.IsMatch(input))
             {
                 return Language.Russian;
             }
 
-            if (EnglishWordRegex.IsMatch(input))
+            if (_englishWordRegex.IsMatch(input))
             {
                 return Language.English;
             }
@@ -320,7 +324,8 @@ namespace Model.Models
         }
 
         /// <summary>
-        /// Приводит строку (включая части через дефис) к нормализованному регистру.
+        /// Приводит строку (включая части через дефис) 
+        /// к нормализованному регистру.
         /// </summary>
         /// <param name="text">Исходное значение.</param>
         /// <returns>Нормализованное значение, 
@@ -329,7 +334,10 @@ namespace Model.Models
         {
             text = text.Trim();
 
-            string[] parts = text.Split('-', StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = text.Split(
+                '-', 
+                StringSplitOptions.RemoveEmptyEntries
+            );
 
             for (int i = 0; i < parts.Length; i++)
             {
@@ -371,12 +379,12 @@ namespace Model.Models
         {
             var stringBuilder = new StringBuilder();
 
-            string Gender = RussianVowelsHelper.GetGenderText(this);
+            string gender = RussianVowelsHelper.GetGenderText(this);
 
             stringBuilder.AppendLine($"Имя: {Name}");
             stringBuilder.AppendLine($"Фамилия: {Surname}");
             stringBuilder.AppendLine($"Возраст: {Age}");
-            stringBuilder.AppendLine($"Пол: {Gender}");
+            stringBuilder.AppendLine($"Пол: {gender}");
 
             return stringBuilder.ToString().TrimEnd();
         }
@@ -396,7 +404,8 @@ namespace Model.Models
             {
                 throw new ArgumentOutOfRangeException(
                     nameof(value),
-                    $"Возраст должен быть от {MinAgePerson} до {MaxAgePerson}."
+                    $"Возраст должен быть " +
+                    $"от {MinAgePerson} до {MaxAgePerson}."
                 );
             }
         }

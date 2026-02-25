@@ -1,4 +1,7 @@
-﻿namespace Model.Sources
+﻿using System;
+using System.Collections.Generic;
+
+namespace Model.Sources
 {
     /// <summary>
     /// Источник данных для <see cref="Adult"/>, 
@@ -37,7 +40,10 @@
         /// <exception cref="InvalidOperationException">
         /// Если файл не найден или не содержит непустых строк.
         /// </exception>
-        public AdultFileSource(string passportsIssuedByPath, string workplaceNamesPath)
+        public AdultFileSource(
+            string passportsIssuedByPath, 
+            string workplaceNamesPath
+        )
         {
             PassportsIssuedBy = FileSourceLoader.LoadRequired(
                 passportsIssuedByPath,

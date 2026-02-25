@@ -1,8 +1,11 @@
-﻿using Model.Factories;
+﻿using Model.Collections;
+using Model.Enums;
+using Model.Factories;
 using Model.Interfaces;
 using Model.Models;
 using Model.Sources;
-using static System.Net.Mime.MediaTypeNames;
+using System;
+using System.IO;
 
 namespace SecondLab
 {
@@ -18,65 +21,122 @@ namespace SecondLab
             IPersonNameSource personSource = new PersonNameFileSource(
                 malePath: MalePath,
                 femalePath: FemalePath,
-                surnamePath: SurnamePath);
+                surnamePath: SurnamePath
+            );
 
             IAdultDataSource adultSource = new AdultFileSource(
                 passportsIssuedByPath: PassportsIssuedByPath,
-                workplaceNamesPath: WorkplaceNamesPath);
+                workplaceNamesPath: WorkplaceNamesPath
+            );
 
             IChildEducationSource childSource = new ChildEducationFileSource(
                 kinderGardensPath: KinderGardensPath,
-                schoolsPath: SchoolsPath);
+                schoolsPath: SchoolsPath
+            );
 
             IPersonFactory<Adult> adultFactory =
-                new RandomAdultFactory(personSource, adultSource, random);
+                new RandomAdultFactory(
+                    personSource,
+                    adultSource,
+                    random
+                );
 
             IPersonFactory<Child> childFactory =
-                new RandomChildFactory(personSource, adultSource, childSource, random);
+                new RandomChildFactory(
+                    personSource,
+                    adultSource,
+                    childSource,
+                    random
+                );
 
-            // a) Создаём список и добавляем 7 человек в случайном порядке.
-            List<Person> personList = new();
+            WriteTaskHeader(
+                'a',
+                "Создаём список и добавляем 7 человек в случайном порядке."
+            );
+
+            PersonList personList = new();
 
             for (int i = 0; i < 7; i++)
             {
                 int pick = random.Next(2);
-                Person p = pick == 0 ? adultFactory.Create() : childFactory.Create();
-                personList.Add(p);
+                Person person = pick == 0 
+                    ? adultFactory.Create() 
+                    : childFactory.Create();
+                
+                personList.Add(person);
             }
 
-            // b) Вывод описания всех людей списка.
+            WaitForKey();
+
+            WriteTaskHeader(
+                'b',
+                "Выводим описание всех людей списка."
+            );
+
             WriteGreenHeader("=== Описание всех людей ===");
             for (int i = 0; i < personList.Count; i++)
             {
-                WriteRedHeader($"--- #{i + 1} ({personList[i].GetType().Name}) ---");
-                //Console.WriteLine();
+                WriteRedHeader($"--- #{i + 1} " +
+                    $"({personList[i].GetType().Name}) ---"
+                );
+
                 Console.WriteLine(personList[i].GetInfo());
                 Console.WriteLine();
             }
 
-            // c) Проверка 4-го человека и вызов специфичного метода.
+            WaitForKey();
+
+            WriteTaskHeader(
+                'c',
+                "Определяем тип 4-го человека и вызываем специфичный метод."
+            );
+
             Person fourth = personList[3];
 
             WriteGreenHeader("=== Проверка 4-го человека ===");
-            Console.WriteLine($"4-й человек имеет тип: {fourth.GetType().Name}");
+            Console.WriteLine(
+                $"4-й человек имеет тип: " +
+                $"{fourth.GetType().Name}"
+            );
 
-            if (fourth is Adult a)
+            if (fourth is Adult adult)
             {
-                // Метод только для Adult.
-                a.WorkplaceName = string.Empty;
-                Console.WriteLine("WorkplaceName очищено (Adult).");
+                if (adult.Status != MaritalStatus.Single)
+                {
+                    Console.WriteLine("=== Вызов Divorce ===");
+
+                    adult.Divorce();
+
+                    Console.WriteLine($"Брак очищено: {adult.Status}.");
+                }
+                else
+                {
+                    Console.WriteLine("=== Вызов Marry ===");
+
+                    adult.Marry(adultFactory.Create());
+
+                    Console.WriteLine($"Добавлен партнер: {adult.Partner}.");
+                }
             }
-            else if (fourth is Child c)
+
+            else if (fourth is Child child)
             {
-                // Метод только для Child.
-                c.ClearEducationPlace();
+                Console.WriteLine("=== Вызов EducationPlaceName ===");
+
+                child.ClearEducationPlace();
+                
                 Console.WriteLine(
-                    "Вызван Child.ClearEducationPlace() место обучения очищено.");
+                    $"Место обучения очищено: {child.EducationPlaceName}."
+                );
             }
 
             Console.WriteLine();
+
             WriteGreenHeader("=== Описание 4-го после вызова метода ===");
+
             Console.WriteLine(fourth.GetInfo());
+
+            WaitForKey();
         }
 
         private static void WriteGreenHeader(string text)
@@ -107,39 +167,97 @@ namespace SecondLab
         /// <summary>
         /// Путь к файлу со списком мужских имён.
         /// </summary>
-        private const string MalePath = DataDir + "/MalesNames.txt";
+        private static readonly string MalePath = Path.Combine(
+            DataDir, 
+            "MalesNames.txt"
+        );
 
         /// <summary>
         /// Путь к файлу со списком женских имён.
         /// </summary>
-        private const string FemalePath = DataDir + "/FemalesNamesPerson.txt";
+        private static readonly string FemalePath = Path.Combine(
+            DataDir, 
+            "FemalesNamesPerson.txt"
+        );
 
         /// <summary>
         /// Путь к файлу со списком фамилий.
         /// </summary>
-        private const string SurnamePath = DataDir + "/DataSurnamesPerson.txt";
+        private static readonly string SurnamePath = Path.Combine(
+            DataDir, 
+            "DataSurnamesPerson.txt"
+        );
 
         /// <summary>
         /// Путь к файлу со списком "кем выдан паспорт".
         /// </summary>
-        private const string PassportsIssuedByPath =
-            DataDir + "/DataPassportIssuedBy.txt";
+        private static readonly string PassportsIssuedByPath = Path.Combine(
+            DataDir, 
+            "DataPassportIssuedBy.txt"
+        );
 
         /// <summary>
         /// Путь к файлу со списком мест работы.
         /// </summary>
-        private const string WorkplaceNamesPath =
-            DataDir + "/DataWorkplaces.txt";
+        private static readonly string WorkplaceNamesPath = Path.Combine(
+            DataDir,
+            "DataWorkplaces.txt"
+        );
 
         /// <summary>
         /// Путь к файлу со списком детских садов.
         /// </summary>
-        private const string KinderGardensPath =
-            DataDir + "/DataKinderGardens.txt";
+        private static readonly string KinderGardensPath = Path.Combine(
+            DataDir,
+            "DataKinderGardens.txt"
+        );
 
         /// <summary>
         /// Путь к файлу со списком школ.
         /// </summary>
-        private const string SchoolsPath = DataDir + "/DataSchools.txt";
+        private static readonly string SchoolsPath = Path.Combine(
+            DataDir,
+            "DataSchools.txt"
+        );
+
+        /// <summary>
+        /// Метод ожидающий нажатия клавиши для продолжения, 
+        /// с выводом сообщения.
+        /// </summary>
+        /// <param name="message">
+        /// Сообщение, выводимое перед ожиданием нажатия клавиши 
+        /// </param>
+        private static void WaitForKey
+            (string message = "Нажмите любую клавишу для продолжения..."
+        )
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine(message);
+
+            Console.ForegroundColor = oldColor;
+
+            Console.ReadKey(intercept: true);
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Подсветка заголовка задачи с указанием буквы задачи и текста
+        /// </summary>
+        /// <param name="taskLetter"> Буква пункта задания </param>
+        /// <param name="text"> Название задания </param>
+        private static void WriteTaskHeader(char taskLetter, string text)
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"[{taskLetter}] ");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(text);
+
+            Console.ForegroundColor = oldColor;
+        }
     }
 }

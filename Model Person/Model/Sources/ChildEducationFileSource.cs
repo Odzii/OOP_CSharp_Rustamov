@@ -47,6 +47,7 @@
                 "детских садов",
                 nameof(kinderGardensPath)
             );
+
             Schools = FileSourceLoader.LoadRequired(
                 schoolsPath,
                 "школ",

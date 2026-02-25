@@ -40,34 +40,33 @@ namespace Model.Models
         }
 
         /// <summary>
-        /// Получить значение возраста.
+        /// Проверка корректного задания возраста <see cref="Child"/>
         /// </summary>
-        public new int Age
+        /// <param name="value">
+        /// Возраст (целочисленный тип)
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Бросает исключение о выходе за пределы.
+        /// </exception>
+        protected override void ValidateAge(int value)
         {
-            get => base.Age;
+            base.ValidateAge(value);
 
-            set
+            if (value > MaxAgeChild)
             {
-                if (value > MaxAgeChild)
-                {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        //TODO: magic (to const) +
-                        $"Для Child возраст должен быть не больше " +
-                        $"{Child.MaxAgeChild} лет"
-                    );
-                }
-
-                base.Age = value;
+                throw new ArgumentOutOfRangeException(
+                    nameof(value),
+                    $"Для Child возраст должен быть не больше " +
+                    $"{MaxAgeChild} лет."
+                );
             }
         }
 
         /// <summary>
-        /// Создает пустой объект <see cref="Adult"/>.
+        /// Создает пустой объект <see cref="Child"/>.
         /// </summary>
         public Child()
         {
-
         }
 
         /// <summary>
@@ -93,16 +92,11 @@ namespace Model.Models
             }
         }
 
-        /// <summary>
-        /// Установить родителей для <see cref="Child"/>.
-        /// </summary>
-        /// <param name="mother"></param>
-        /// <param name="father"></param>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns>
-        /// <see cref="Father"/> Отец и
-        /// <see cref="Mother"/> мать.
-        /// </returns>
+        /// <param name="mother">Мать ребёнка (может быть null).</param>
+        /// <param name="father">Отец ребёнка (может быть null).</param>
+        /// <exception cref="ArgumentException">
+        /// Возраст матери должен быть не меньше 18.
+        /// </exception>
         public void SetParents(Adult? mother, Adult? father)
         {
             if (mother is not null && mother.Age < Adult.MinAgeAdult)
@@ -140,7 +134,7 @@ namespace Model.Models
                 throw new ArgumentException(
                     "Название детского сада/школы не может быть пустым.",
                     nameof(educationPlaceName)
-                    );
+                );
             }
 
             EducationPlaceName = educationPlaceName;
@@ -156,7 +150,7 @@ namespace Model.Models
 
         /// <summary>
         /// Возращает основную иформацию об <see cref="Child"/>,
-        /// в виде строки типа <see cref="String"/>.
+        /// в виде строки типа <see cref="string"/>.
         /// </summary>
         /// <returns> 
         /// текстовое представление <see cref="Child"/>
@@ -173,22 +167,18 @@ namespace Model.Models
             }
             else if (Mother is not null && Father is null)
             {
-                stringBuilder.AppendLine($"Мать: " +
-                    $"{Mother.ToBaseString()}");
+                stringBuilder.AppendLine($"Мать: {Mother.ToBaseString()}");
                 stringBuilder.AppendLine("Отец: не указан");
             }
             else if (Mother is null && Father is not null)
             {
                 stringBuilder.AppendLine("Мать: не указана");
-                stringBuilder.AppendLine($"Отец: " +
-                    $"{Father.ToBaseString()}");
+                stringBuilder.AppendLine($"Отец: {Father.ToBaseString()}");
             }
             else
             {
-                stringBuilder.AppendLine($"Мать: " +
-                    $"{Mother!.ToBaseString()}");
-                stringBuilder.AppendLine($"Отец: " +
-                    $"{Father!.ToBaseString()}");
+                stringBuilder.AppendLine($"Мать: {Mother!.ToBaseString()}");
+                stringBuilder.AppendLine($"Отец: {Father!.ToBaseString()}");
             }
 
             stringBuilder.AppendLine(

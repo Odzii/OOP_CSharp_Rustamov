@@ -1,4 +1,7 @@
-﻿namespace Model.Helpers
+﻿using System;
+using System.Collections.Generic;
+
+namespace Model.Helpers
 {
     //TODO: XML +
     /// <summary>
@@ -31,7 +34,7 @@
         /// </exception>
         public static T NextItem<T>(
             this Random random,
-            IReadOnlyList<T> items, 
+            IReadOnlyList<T>? items, 
             string listName
         )
         {

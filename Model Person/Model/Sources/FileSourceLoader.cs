@@ -1,9 +1,12 @@
-﻿namespace Model.Sources
+﻿using System;
+using System.Collections.Generic;
+
+namespace Model.Sources
 {
     /// <summary>
     /// Вспомогательный класс для загрузки списков строк из файлов.
     /// </summary>
-    public static class FileSourceLoader
+    internal static class FileSourceLoader
     {
         /// <summary>
         /// Проверяет корректность пути к файлу.
@@ -41,7 +44,7 @@
         /// Если файл не найден или не содержит ни одной непустой строки.
         /// </exception>
         internal static IReadOnlyList<string> LoadRequired(
-            string path,
+            string? path,
             string description,
             string paramName
         )

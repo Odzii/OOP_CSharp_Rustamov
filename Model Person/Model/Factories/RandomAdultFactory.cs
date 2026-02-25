@@ -1,5 +1,4 @@
-﻿using Model.HelperMethods;
-using System.Xml.Linq;
+﻿using System;
 
 namespace Model.Factories
 {
@@ -9,6 +8,50 @@ namespace Model.Factories
     /// </summary>
     public sealed class RandomAdultFactory : IPersonFactory<Adult>
     {
+        /// <summary>
+        /// Длина серии паспорта
+        /// </summary>
+        private const int PassportSeriesLength = Passport.LengthSeries;
+
+        /// <summary>
+        /// Длина номера паспорта
+        /// </summary>
+        private const int PassportNumberLength = Passport.LengthNumbers;
+
+        /// <summary>
+        /// Вероятность брака
+        /// </summary>
+        private const double MarriageProbability = 0.6;
+
+        /// <summary>
+        /// Вероятность того, что <see cref="Adult"/>
+        /// будет иметь работу.
+        /// </summary>
+        private const double JobProbability = 0.85;
+
+        /// <summary>
+        /// Минимальная разница в возрасте партнёра 
+        /// относительно исходного взрослого.
+        /// </summary>
+        /// <remarks>
+        /// Используется при генерации случайного партнёра:
+        /// партнёр может быть младше
+        /// на заданное количество лет.
+        /// </remarks>
+        private const int PartnerAgeDeltaMin = -10;
+
+        /// <summary>
+        /// Верхняя граница (не включительно) разницы в возрасте партнёра
+        /// относительно исходного взрослого.
+        /// </summary>
+        /// <remarks>
+        /// Используется в <see cref="Random.Next(int,int)"/> 
+        /// как верхняя граница (exclusive),
+        /// поэтому значение на 1 больше максимально допустимой разницы.
+        /// Например, при значении 11 фактический максимум составляет 10 лет.
+        /// </remarks>
+        private const int PartnerAgeDeltaMaxExclusive = 11;
+
         /// <summary>
         /// Инициализация экземпляра класса <see cref="Random"/>.
         /// </summary>
@@ -23,27 +66,6 @@ namespace Model.Factories
         /// Путь к файлам с названием места работы и выдачи паспорта. 
         /// </summary>
         private readonly IAdultDataSource _adultData;
-
-        /// <summary>
-        /// Длина серии паспорта
-        /// </summary>
-        private const int PassportSeriesLength = Passport.LengthSeries;
-
-        /// <summary>
-        /// Длмна номера паспорта
-        /// </summary>
-        private const int PassportNumberLength = Passport.LenghtNumbers;
-
-        /// <summary>
-        /// Вероятность брака
-        /// </summary>
-        private const double MarriageProbability = 0.6;
-
-        /// <summary>
-        /// Вероятность того, что <see cref="Adult"/>
-        /// будет иметь работу.
-        /// </summary>
-        private const double JobProbability = 0.85;
 
         /// <summary>
         /// Инициализация файла хранящего путь с параметрами, 
@@ -66,13 +88,15 @@ namespace Model.Factories
         {
             _names = names 
                 ?? throw new ArgumentNullException(nameof(names),
-                "Источник имён не задан (null).");
+                "Источник имён не задан."
+            );
             _adultData = 
                 adultData 
                 ?? throw new ArgumentNullException(
                     nameof(adultData),
                     $"Для {adultData} подан неверный тип данных на вход."
                 );
+
             _random = 
                 random 
                 ?? throw new ArgumentNullException(
@@ -86,7 +110,8 @@ namespace Model.Factories
         /// возрастом от 18 лет (включительно), а также с вероятностью 
         /// <see cref="MarriageProbability"/> состоящим в браке. 
         /// Создается серия и номер паспорта длиной 
-        /// <see cref="PassportSeriesLength"/> и <see cref="PassportNumberLength"/>.
+        /// <see cref="PassportSeriesLength"/> 
+        /// и <see cref="PassportNumberLength"/>.
         /// Также задается случайно выбранное место работы из файла txt.
         /// </summary>
         /// <returns>
@@ -105,7 +130,12 @@ namespace Model.Factories
 
                 Adult partner = CreateSingleAdult(forceGender: partnerGender);
 
-                partner.Age = ClampAdultAge(adult.Age + _random.Next(-10, 11));
+                partner.Age = ClampAdultAge(
+                    adult.Age + _random.Next(
+                        PartnerAgeDeltaMin, 
+                        PartnerAgeDeltaMaxExclusive
+                    )
+                );
 
                 adult.Marry(partner);
             }
@@ -114,7 +144,22 @@ namespace Model.Factories
         }
 
         /// <summary>
-        /// Взависимости от типа <see cref="Gender"/>, поданого на вход метода
+        /// Статический метод создания случайного экземпляра класса 
+        /// <see cref="Adult"/>
+        /// </summary>
+        /// <param name="names"></param>
+        /// <param name="adultData"></param>
+        /// <param name="random"></param>
+        /// <returns></returns>
+        public static Adult CreateRandom(
+            IPersonNameSource names,
+            IAdultDataSource adultData,
+            Random random
+        )
+            => new RandomAdultFactory(names, adultData, random).Create();
+
+        /// <summary>
+        /// В зависимости от типа <see cref="Gender"/>, 
         /// происходит создание случайного экземпляра класса <see cref="Adult"/>.
         /// В случае, если подано <see cref="null"/>, 
         /// то создается случайный экземпляр класса <see cref="Adult"/>,
@@ -123,11 +168,9 @@ namespace Model.Factories
         /// противоположного пола.
         /// </summary>
         /// <param name="forceGender">
-        /// <see cref="Gender"/> может быть <see cref="null"/>
+        /// <see cref="Gender"/> может быть <see langword="null"/>
         /// </param>
-        /// <returns>
-        /// Экземпляр класса <see cref="Adult"/>
-        /// </see></returns>
+        /// <returns>Экземпляр класса <see cref="Adult"/>.</returns>
         private Adult CreateSingleAdult(Gender? forceGender = null)
         {
             Adult adult = new Adult();
@@ -216,7 +259,7 @@ namespace Model.Factories
         }
 
         /// <summary>
-        /// Формирует соучайный день выдачи паспорта 
+        /// Формирует случайный день выдачи паспорта 
         /// </summary>
         /// <param name="random"></param>
         /// <param name="fromInclusive"></param>
@@ -230,7 +273,9 @@ namespace Model.Factories
         )
         {
             if (fromInclusive > toInclusive)
+            {
                 throw new ArgumentException("Неверный диапазон дат.");
+            }    
 
             int from = fromInclusive.DayNumber;
             int to = toInclusive.DayNumber;
@@ -255,7 +300,11 @@ namespace Model.Factories
             DateOnly birthDate = NextDate(random, birthFrom, birthTo);
 
             DateOnly issueFrom = birthDate.AddYears(Adult.MinAgeAdult);
-            if (issueFrom > today) issueFrom = today;
+
+            if (issueFrom > today)
+            {
+                issueFrom = today;
+            }
 
             return NextDate(random, issueFrom, today);
         }

@@ -5,3 +5,4 @@ global using Model.Helpers;
 global using Model.Interfaces;
 global using Model.Models;
 global using Model.Sources;
+global using Model.HelperMethods;

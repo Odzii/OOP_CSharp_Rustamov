@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Model.HelperMethods
 {
@@ -12,7 +13,7 @@ namespace Model.HelperMethods
         /// <summary>
         /// Длина номера паспорта РФ
         /// </summary>
-        public const int LenghtNumbers = 6;
+        public const int LengthNumbers = 6;
 
         /// <summary>
         /// Длина серии паспорта РФ
@@ -43,35 +44,15 @@ namespace Model.HelperMethods
         /// <summary>
         /// Регулярное выражение для количества чисел в серии паспорта.
         /// </summary>
-        private static string _seriesRegex =
-            string.Format(
-                @"^(\d){0}$",
-                "{" + $"{LengthSeries}" + "}"
-            );
+        private static readonly Regex _seriesRegex = new(
+            @"^\d{4}$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant
+        );
 
-        /// <summary>
-        /// Паттерн для номера паспорта
-        /// </summary>
-        private static string _numbersRegex
-            = string.Format(@"^(\d){0}$",
-                "{" + $"{LenghtNumbers}" + "}"
-            );
-
-        /// <summary>
-        /// Паттерн для серии паспорта
-        /// </summary>
-        private static readonly Regex _countSeries =
-            new(pattern: _seriesRegex,
-                RegexOptions.Compiled
-            );
-
-        /// <summary>
-        /// Регулярное выражение для количества чисел в серии паспорта.
-        /// </summary>
-        private static readonly Regex _countNumbers =
-            new(pattern: _numbersRegex,
-                RegexOptions.Compiled
-            );
+        private static readonly Regex _numbersRegex = new(
+            @"^\d{6}$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant
+        );
 
         /// <summary>
         /// Задает серию паспорта.
@@ -81,12 +62,13 @@ namespace Model.HelperMethods
             get => _series;
             set
             {
-                if (string.IsNullOrWhiteSpace(value)
-                    | !_countSeries.IsMatch(value)
-)
+                if (string.IsNullOrWhiteSpace(value) 
+                    || !_seriesRegex.IsMatch(value)
+                )
                 {
                     throw new ArgumentException(
-                        "Серия паспорта не может быть пустой.",
+                        $"Серия паспорта " +
+                        $"должна состоять из {LengthSeries} цифр.",
                         nameof(value)
                     );
                 }
@@ -103,12 +85,13 @@ namespace Model.HelperMethods
             get => _numbers;
             set
             {
-                if (string.IsNullOrWhiteSpace(value)
-                | !_countNumbers.IsMatch(value)
-            )
+                if (string.IsNullOrWhiteSpace(value) 
+                    || !_numbersRegex.IsMatch(value)
+                )
                 {
                     throw new ArgumentException(
-                        "Номер паспорта не может быть пустым.",
+                        $"Номер паспорта " +
+                        $"должен состоять из {LengthNumbers} цифр.",
                         nameof(value)
                     );
                 }
@@ -133,7 +116,7 @@ namespace Model.HelperMethods
                     );
                 }
 
-                _issuedBy = value;
+                _issuedBy = value.Trim();
             }
         }
 
@@ -152,6 +135,7 @@ namespace Model.HelperMethods
                         nameof(value)
                     );
                 }
+
                 _issueDate = value;
             }
         }

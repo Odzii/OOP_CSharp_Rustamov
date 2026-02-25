@@ -1,4 +1,6 @@
-﻿namespace Model.Helpers
+﻿using System;
+
+namespace Model.Helpers
 {
     //TODO: XML +
     /// <summary>
@@ -103,6 +105,14 @@
         /// </exception>
         private static bool EndsWithRussianVowel(string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentException(
+                    "Строка не может быть пустой.",
+                    nameof(text)
+                );
+            }
+
             char lastChar = char.ToLowerInvariant(text[^1]);
             return RussianVowels.IndexOf(lastChar) >= 0;
         }
@@ -121,10 +131,16 @@
         /// </exception>
         public static string GetGenderText(Person person)
         {
-            bool isRussian = person.Language == Language.Russian;
 
-            if (!isRussian)
+            if (person is null)
+            {
+                throw new ArgumentNullException(nameof(person));
+            }
+
+            if (person.Language != Language.Russian)
+            {
                 return person.Gender.ToString();
+            }
 
             return person.Gender == Gender.Male 
                 ? "Мужской" 

@@ -34,4 +34,12 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\odzii\source\repos\OOP_CSharp_Rustamov\Model Person\Model\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\odzii\source\repos\OOP_CSharp_Rustamov\Model Person\Model\.editorconfig" />
+  </ItemGroup>
+
 </Project>

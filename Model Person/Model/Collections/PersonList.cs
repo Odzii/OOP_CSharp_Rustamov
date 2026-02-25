@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Model.Collections
 {
@@ -10,7 +11,7 @@ namespace Model.Collections
     {
         //TODO: XML +
         /// <summary>
-        /// Инициализация списка <see cref="Person"/>.
+        /// Коллекция элементов списка.
         /// </summary>
         private readonly List<Person> _items = new();
 
@@ -32,16 +33,19 @@ namespace Model.Collections
         /// <param name="index">Индекс элемента.</param>
         /// <returns>Элемент типа <see cref="Person"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Бросается, если <paramref name="index"/> находится вне диапазона списка.
+        /// Бросается, если <paramref name="index"/> 
+        /// находится вне диапазона списка.
         /// </exception>
         public Person this[int index] => GetAt(index);
 
         /// <summary>
         /// Добавляет человека в список.
         /// </summary>
-        /// <param name="person">Добавляемый объект <see cref="Person"/>.</param>
+        /// <param name="person">Добавляемый объект <see cref="Person"/>.
+        /// </param>
         /// <exception cref="ArgumentNullException">
-        /// Бросается, если <paramref name="person"/> равен <see langword="null"/>.
+        /// Бросается, если <paramref name="person"/> 
+        /// равен <see langword="null"/>.
         /// </exception>
         public void Add(Person person)
         {
@@ -90,7 +94,8 @@ namespace Model.Collections
         /// <param name="person">Искомый объект <see cref="Person"/>.</param>
         /// <returns>Индекс элемента или -1, если элемент не найден.</returns>
         /// <exception cref="ArgumentNullException">
-        /// Бросается, если <paramref name="person"/> равен <see langword="null"/>.
+        /// Бросается, если <paramref name="person"/> 
+        /// равен <see langword="null"/>.
         /// </exception>
         public int IndexOf(Person person)
         {
@@ -125,16 +130,12 @@ namespace Model.Collections
         /// Возвращает непараметризованный перечислитель по элементам списка.
         /// </summary>
         /// <returns>Перечислитель.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        /// <summary>
-        /// Валидация индекса списка <see cref="PersonList"/>.
-        /// </summary>
-        /// <param name="index"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <param name="index">Индекс для проверки.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Бросается, если индекс вне диапазона <see cref="[0; Count)"/>.
+        /// </exception>
         private void ValidateIndex(int index)
         {
             if ((uint)index >= (uint)_items.Count)

@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace Model.Sources
 {
@@ -25,11 +28,11 @@ namespace Model.Sources
                 throw new ArgumentException(
                     "Путь к файлу не может быть пустым, " +
                     "состоять только из пробелов или быть null.",
-                    path
+                    nameof(path)
                 );
             }
 
-            var result = new List<string>();
+            List<string> result = new List<string>();
 
             foreach (string line in File.ReadLines(path, Encoding.UTF8))
             {
