@@ -14,6 +14,7 @@ namespace SecondLab
     /// </summary>
     internal static class Program
     {
+        //TODO: XML
         private static void Main()
         {
             Random random = new Random();
@@ -139,6 +140,7 @@ namespace SecondLab
             WaitForKey();
         }
 
+        //TODO: XML
         private static void WriteGreenHeader(string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
@@ -149,6 +151,7 @@ namespace SecondLab
             Console.ForegroundColor = oldColor;
         }
 
+        //TODO: XML
         private static void WriteRedHeader(string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;

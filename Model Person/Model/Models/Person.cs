@@ -8,7 +8,7 @@ namespace Model.Models
     /// <see cref="Person"/>
     /// Представляет человека с именем и фамилией, возрастом и полом.
     /// </summary>
-    // TODO: abstract +
+    // TODO: RSDN
     public abstract class Person
     {
         /// <summary>
@@ -50,8 +50,6 @@ namespace Model.Models
         /// что имя и фамилия ещё не заданы.
         /// </remarks>
         private Language _language = Language.Null;
-
-        // TODO: refactor + deleted flag IsRussian
 
         /// <summary>
         /// Возвращает язык, на котором записаны имя и фамилия.
@@ -192,7 +190,6 @@ namespace Model.Models
         /// </returns>
         internal string ToBaseString()
         {
-            // TODO: RSDN +
             string gender = RussianVowelsHelper.GetGenderText(this);
             return $"{Name}\t{Surname}\t{Age}\t{gender}";
         }

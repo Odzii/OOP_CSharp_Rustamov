@@ -2,7 +2,7 @@
 
 namespace Model.Factories
 {
-    //TODO: XML +
+    //TODO: WTF?
     /// <summary>
     /// Фабрика для создания случайных экземпляров <see cref="Child"/>.
     /// Использует источники имён/фамилий,
@@ -10,7 +10,6 @@ namespace Model.Factories
     /// </summary>
     public sealed class RandomChildFactory : IPersonFactory<Child>
     {
-
         /// <summary>
         /// Минимальный возраст (в полных годах), 
         /// начиная с которого ребёнку выбирается школа,
@@ -121,16 +120,15 @@ namespace Model.Factories
 
             child.SetParents(mother, father);
 
-            //TODO: magic (to const) + 
             string education = child.Age < MinAgeForSchool
                 ? _random.NextItem(
                     _childData.KinderGardens,
                     nameof(_childData.KinderGardens)
-                )
+                    )
                 : _random.NextItem(
                     _childData.Schools,
                     nameof(_childData.Schools)
-                );
+                    );
 
             child.SetEducationPlace(education);
 

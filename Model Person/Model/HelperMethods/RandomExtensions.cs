@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Model.Helpers
 {
-    //TODO: XML +
+    //TODO: WTF?
     /// <summary>
     /// Набор расширений для генератора случайных чисел <see cref="Random"/>.
     /// </summary>
@@ -38,7 +38,6 @@ namespace Model.Helpers
             string listName
         )
         {
-            //TODO: {} +
             if (random is null)
             {
                 throw new ArgumentNullException(nameof(random));

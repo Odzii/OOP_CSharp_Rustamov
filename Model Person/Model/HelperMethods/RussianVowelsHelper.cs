@@ -2,7 +2,6 @@
 
 namespace Model.Helpers
 {
-    //TODO: XML +
     /// <summary>
     /// Вспомогательные методы для работы с русскими словами
     /// и отображением пола в русскоязычном виде.
@@ -86,6 +85,7 @@ namespace Model.Helpers
         /// </returns>
         private static bool IsCyrillicLetter(char ch)
         {
+            //TODO: RSDN
             ch = char.ToLowerInvariant(ch);
             return ch is >= 'а' and <= 'я' or 'ё';
         }
@@ -131,7 +131,6 @@ namespace Model.Helpers
         /// </exception>
         public static string GetGenderText(Person person)
         {
-
             if (person is null)
             {
                 throw new ArgumentNullException(nameof(person));

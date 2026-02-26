@@ -40,7 +40,6 @@ namespace Model.HelperMethods
         /// </summary>
         private DateOnly _issueDate = default;
 
-        //TODO: RSDN +
         /// <summary>
         /// Регулярное выражение для количества чисел в серии паспорта.
         /// </summary>
@@ -49,6 +48,7 @@ namespace Model.HelperMethods
             RegexOptions.Compiled | RegexOptions.CultureInvariant
         );
 
+        //TODO: XML
         private static readonly Regex _numbersRegex = new(
             @"^\d{6}$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant
@@ -62,6 +62,7 @@ namespace Model.HelperMethods
             get => _series;
             set
             {
+                //TODO: refactor regex
                 if (string.IsNullOrWhiteSpace(value) 
                     || !_seriesRegex.IsMatch(value)
                 )
@@ -85,6 +86,8 @@ namespace Model.HelperMethods
             get => _numbers;
             set
             {
+                //TODO: refactor regex
+
                 if (string.IsNullOrWhiteSpace(value) 
                     || !_numbersRegex.IsMatch(value)
                 )

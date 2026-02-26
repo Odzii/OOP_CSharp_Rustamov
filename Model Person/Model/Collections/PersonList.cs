@@ -9,7 +9,6 @@ namespace Model.Collections
     /// </summary>
     public class PersonList : IEnumerable<Person>
     {
-        //TODO: XML +
         /// <summary>
         /// Коллекция элементов списка.
         /// </summary>
@@ -53,7 +52,7 @@ namespace Model.Collections
             {
                 throw new ArgumentNullException(nameof(person), 
                     "Невозможно добавить null в список."
-                );
+                    );
             }
 
             _items.Add(person);
@@ -103,7 +102,7 @@ namespace Model.Collections
             {
                 throw new ArgumentNullException(nameof(person), 
                     "Нельзя передавать null."
-                );
+                    );
             }
 
             return _items.IndexOf(person);
@@ -144,7 +143,7 @@ namespace Model.Collections
                     nameof(index),
                     index,
                     "Индекс находится вне диапазона списка."
-                );
+                    );
             }
         }
     }

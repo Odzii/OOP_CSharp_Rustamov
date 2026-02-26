@@ -46,15 +46,15 @@ namespace Model.Sources
         )
         {
             PassportsIssuedBy = FileSourceLoader.LoadRequired(
-                passportsIssuedByPath,
-                "мест выдачи паспорта",
-                nameof(passportsIssuedByPath)
-            );
+                    passportsIssuedByPath,
+                    "мест выдачи паспорта",
+                    nameof(passportsIssuedByPath)
+                );
             WorkplaceNames = FileSourceLoader.LoadRequired(
-                workplaceNamesPath,
-                "мест работы",
-                nameof(workplaceNamesPath)
-            );
+                    workplaceNamesPath,
+                    "мест работы",
+                    nameof(workplaceNamesPath)
+                );
         }
     }
 }

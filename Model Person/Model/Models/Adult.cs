@@ -64,11 +64,6 @@ namespace Model.Models
             }
         }
 
-        // TODO: refactor +
-        // delete property age and add ovveride
-        /// <see cref="ValidateAge(int)"/>
-        //TODO: duplication + solve with virtual in Person
-
         /// <summary>
         /// Создает пустой объект <see cref="Adult"/>
         /// </summary>
@@ -165,11 +160,6 @@ namespace Model.Models
             _passport = passport;
         }
 
-        //TODO: to property + 
-
-        //TODO: remove + 
-
-        //TODO: XML + 
         /// <summary>
         /// Установить брак с партнером <see cref="Adult"/>
         /// противоположного пола.
@@ -235,7 +225,6 @@ namespace Model.Models
                     "Развод невозможен: нет зарегистрированного брака."
                 );
             }
-            //TODO: RSDN + 
             Adult exPartner = Partner;
 
             Partner = null;
@@ -268,7 +257,7 @@ namespace Model.Models
             if (_passport is not null)
             {
                 stringBuilder.AppendLine($"Паспорт: " +
-                $"{_passport.Series}\t{_passport.Number}");
+                    $"{_passport.Series}\t{_passport.Number}");
                 stringBuilder.AppendLine($"Кем выдан: " +
                     $"{_passport.IssuedBy}");
                 stringBuilder.AppendLine($"Дата выдачи: " +
@@ -281,8 +270,8 @@ namespace Model.Models
 
             stringBuilder.AppendLine(
                 string.IsNullOrWhiteSpace(WorkplaceName)
-                ? "Безработный"
-                : $"Место работы: { WorkplaceName }"
+                    ? "Безработный"
+                    : $"Место работы: { WorkplaceName }"
             );
 
             return stringBuilder.ToString().TrimEnd();

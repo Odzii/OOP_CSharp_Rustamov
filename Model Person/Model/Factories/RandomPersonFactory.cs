@@ -2,7 +2,7 @@
 
 namespace Model.Factories
 {
-    
+    //TODO: WTF?
     /// <summary>
     /// Создаёт случайный экземпляр класса <see cref="Person"/> 
     /// на основе источника имён.

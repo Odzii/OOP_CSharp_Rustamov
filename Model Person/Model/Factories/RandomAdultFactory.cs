@@ -2,6 +2,7 @@
 
 namespace Model.Factories
 {
+    //TODO: WTF?
     /// <summary>
     /// Создаёт случайные экземпляры <see cref="Adult"/> 
     /// на основе базового класса <see cref="Person"/>.
@@ -189,12 +190,12 @@ namespace Model.Factories
                 : _random.NextItem(
                     _names.FemaleNames, 
                     nameof(_names.FemaleNames)
-                );
+                    );
 
             string surname = _random.NextItem(
                 _names.Surnames, 
                 nameof(_names.Surnames)
-            );
+                );
 
             surname = RussianVowelsHelper.FixFemaleRussianSurname(
                 surname, 
@@ -220,13 +221,12 @@ namespace Model.Factories
 
             adult.SetPassport(series, number, issuedBy, issueDate);
 
-            //TODO: magic (to const) + 
             if (_random.NextDouble() < JobProbability)
             {
                 string work = _random.NextItem(
                     _adultData.WorkplaceNames,
                     nameof(_adultData.WorkplaceNames)
-                );
+                    );
 
                 adult.WorkplaceName = work;
             }
@@ -318,7 +318,6 @@ namespace Model.Factories
         private static int Pow10(int n)
         {
             int x = 1;
-            //TODO: {} + 
             for (int i = 0; i < n; i++)
             {
                 x *= 10;
