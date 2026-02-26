@@ -209,6 +209,7 @@ namespace SecondLab
             WaitForKey();
         }
 
+        // TODO: XML + added one method for color text
         /// <summary>
         /// Позволяет закрасить текст заданным цветом
         /// </summary>
