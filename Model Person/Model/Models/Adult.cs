@@ -7,7 +7,7 @@ namespace Model.Models
     /// <summary>
     /// Взрослый человек: паспорт, семейное положение, место работы
     /// </summary>
-    public class Adult : Person
+    public class Adult : PersonBase
     {
         /// <summary>
         /// Минимальный возраст взрослого человека.
@@ -45,7 +45,6 @@ namespace Model.Models
         private bool IsMarried
             => Status == MaritalStatus.Married;
 
-        // TODO: validation + 
         /// <summary>
         /// Место работы.
         /// </summary>
@@ -86,7 +85,8 @@ namespace Model.Models
             string surname,
             int age,
             Gender gender
-            ) : base(name, surname, MinAgeAdult, gender)
+        ) 
+            : base(name, surname, MinAgeAdult, gender)
         {
             Age = age;
         }
@@ -178,29 +178,30 @@ namespace Model.Models
             if (partner is null)
             {
                 throw new ArgumentNullException(
-                    "Значение не может быть null, " +
-                    "партнер должен быть указан.",
-                    nameof(partner)
+                        "Значение не может быть null, " +
+                        "партнер должен быть указан.",
+                        nameof(partner)
                     );
             }
 
             if (ReferenceEquals(this, partner))
             {
                 throw new InvalidOperationException(
-                    "Нельзя вступить в брак с самим собой."
+                        "Нельзя вступить в брак с самим собой."
                     );
             }
 
             if (this.IsMarried)
             {
                 throw new InvalidOperationException(
-                    "Этот человек уже состоит в браке.");
+                        "Этот человек уже состоит в браке."
+                    );
             }
 
             if (partner.IsMarried)
             {
                 throw new InvalidOperationException(
-                    "Партнер уже состоит в браке."
+                        "Партнер уже состоит в браке."
                     );
             }
 
@@ -222,12 +223,13 @@ namespace Model.Models
             if (!IsMarried || Partner is null)
             {
                 throw new InvalidOperationException(
-                    "Развод невозможен: нет зарегистрированного брака."
-                );
+                        "Развод невозможен: нет зарегистрированного брака."
+                    );
             }
             Adult exPartner = Partner;
 
             Partner = null;
+
             Status = MaritalStatus.Divorced;
 
             exPartner.Partner = null;
@@ -258,8 +260,10 @@ namespace Model.Models
             {
                 stringBuilder.AppendLine($"Паспорт: " +
                     $"{_passport.Series}\t{_passport.Number}");
+
                 stringBuilder.AppendLine($"Кем выдан: " +
                     $"{_passport.IssuedBy}");
+
                 stringBuilder.AppendLine($"Дата выдачи: " +
                     $"{_passport.IssueDate:dd.MM.yyyy}");
             }
@@ -267,11 +271,10 @@ namespace Model.Models
             {
                 stringBuilder.AppendLine("Пасспорт: данные отсутвуют");
             }
-
-            stringBuilder.AppendLine(
-                string.IsNullOrWhiteSpace(WorkplaceName)
-                    ? "Безработный"
-                    : $"Место работы: { WorkplaceName }"
+                stringBuilder.AppendLine(
+                    string.IsNullOrWhiteSpace(WorkplaceName)
+                        ? "Безработный"
+                        : $"Место работы: { WorkplaceName }"
             );
 
             return stringBuilder.ToString().TrimEnd();
@@ -293,9 +296,9 @@ namespace Model.Models
             if ( value < MinAgeAdult )
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(value),
-                    $"Для Adult возраст не должен быть меньше { MinAgeAdult }."
-                );
+                        nameof(value),
+                        $"Для Adult возраст не должен быть меньше { MinAgeAdult }."
+                    );
             }
         }
     }

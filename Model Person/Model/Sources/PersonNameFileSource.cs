@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Model.Sources
 {
     /// <summary>
-    /// Источник имён и фамилий для <see cref="Person"/>, 
+    /// Источник имён и фамилий для <see cref="PersonBase"/>, 
     /// читающий данные из файлов.
     /// </summary>
     public sealed class PersonNameFileSource : IPersonNameSource

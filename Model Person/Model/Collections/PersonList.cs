@@ -4,15 +4,15 @@ using System.Collections.Generic;
 namespace Model.Collections
 {
     /// <summary>
-    /// Представляет список объектов <see cref="Person"/> 
+    /// Представляет список объектов <see cref="PersonBase"/> 
     /// и базовые операции добавления, удаления и поиска.
     /// </summary>
-    public class PersonList : IEnumerable<Person>
+    public class PersonList : IEnumerable<PersonBase>
     {
         /// <summary>
         /// Коллекция элементов списка.
         /// </summary>
-        private readonly List<Person> _items = new();
+        private readonly List<PersonBase> _items = new();
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="PersonList"/>.
@@ -30,23 +30,23 @@ namespace Model.Collections
         /// Возвращает элемент списка по индексу.
         /// </summary>
         /// <param name="index">Индекс элемента.</param>
-        /// <returns>Элемент типа <see cref="Person"/>.</returns>
+        /// <returns>Элемент типа <see cref="PersonBase"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Бросается, если <paramref name="index"/> 
         /// находится вне диапазона списка.
         /// </exception>
-        public Person this[int index] => GetAt(index);
+        public PersonBase this[int index] => GetAt(index);
 
         /// <summary>
         /// Добавляет человека в список.
         /// </summary>
-        /// <param name="person">Добавляемый объект <see cref="Person"/>.
+        /// <param name="person">Добавляемый объект <see cref="PersonBase"/>.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// Бросается, если <paramref name="person"/> 
         /// равен <see langword="null"/>.
         /// </exception>
-        public void Add(Person person)
+        public void Add(PersonBase person)
         {
             if (person is null)
             {
@@ -76,12 +76,12 @@ namespace Model.Collections
         /// Возвращает элемент списка по индексу.
         /// </summary>
         /// <param name="index">Индекс элемента.</param>
-        /// <returns>Элемент типа <see cref="Person"/>.</returns>
+        /// <returns>Элемент типа <see cref="PersonBase"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Бросается, если <paramref name="index"/> 
         /// находится вне диапазона списка.
         /// </exception>
-        public Person GetAt(int index)
+        public PersonBase GetAt(int index)
         {
             ValidateIndex(index);
             return _items[index];
@@ -90,13 +90,13 @@ namespace Model.Collections
         /// <summary>
         /// Возвращает индекс указанного человека в списке.
         /// </summary>
-        /// <param name="person">Искомый объект <see cref="Person"/>.</param>
+        /// <param name="person">Искомый объект <see cref="PersonBase"/>.</param>
         /// <returns>Индекс элемента или -1, если элемент не найден.</returns>
         /// <exception cref="ArgumentNullException">
         /// Бросается, если <paramref name="person"/> 
         /// равен <see langword="null"/>.
         /// </exception>
-        public int IndexOf(Person person)
+        public int IndexOf(PersonBase person)
         {
             if (person is null)
             {
@@ -119,8 +119,8 @@ namespace Model.Collections
         /// <summary>
         /// Возвращает перечислитель по элементам списка.
         /// </summary>
-        /// <returns>Перечислитель <see cref="Person"/>.</returns>
-        public IEnumerator<Person> GetEnumerator()
+        /// <returns>Перечислитель <see cref="PersonBase"/>.</returns>
+        public IEnumerator<PersonBase> GetEnumerator()
         {
             return _items.GetEnumerator();
         }

@@ -5,7 +5,7 @@ namespace Model.Models
     /// <summary>
     /// Ребенок: родители и детский сад/школа.
     /// </summary>
-    public class Child : Person
+    public class Child : PersonBase
     {
         /// <summary>
         /// Максимальный возраст ребенка.
@@ -56,9 +56,9 @@ namespace Model.Models
             {
                 throw new ArgumentOutOfRangeException(
                     nameof(value),
-                    $"Для Child возраст должен быть не больше " +
-                    $"{MaxAgeChild} лет."
-                );
+                        $"Для Child возраст должен быть не больше " +
+                        $"{MaxAgeChild} лет."
+                    );
             }
         }
 
@@ -102,19 +102,19 @@ namespace Model.Models
             if (mother is not null && mother.Age < Adult.MinAgeAdult)
             {
                 throw new ArgumentException(
-                    $"Мать должна быть {nameof(Adult)} " +
-                    $"или/и возраст не меньше {Adult.MinAgeAdult}",
-                    nameof(mother)
-                );
+                        $"Мать должна быть {nameof(Adult)} " +
+                        $"или/и возраст не меньше {Adult.MinAgeAdult}",
+                        nameof(mother)
+                    );
             }
 
             if (father is not null && father.Age < Adult.MinAgeAdult)
             {
                 throw new ArgumentException(
-                    $"Отец должен быть {nameof(Adult)} " +
-                    $"или/и возраст не меньше {Adult.MinAgeAdult}",
-                    nameof(father)
-                );
+                        $"Отец должен быть {nameof(Adult)} " +
+                        $"или/и возраст не меньше {Adult.MinAgeAdult}",
+                        nameof(father)
+                    );
             }
 
             Father = father;
@@ -132,9 +132,9 @@ namespace Model.Models
             if (string.IsNullOrWhiteSpace(educationPlaceName))
             {
                 throw new ArgumentException(
-                    "Название детского сада/школы не может быть пустым.",
-                    nameof(educationPlaceName)
-                );
+                        "Название детского сада/школы не может быть пустым.",
+                        nameof(educationPlaceName)
+                    );
             }
 
             EducationPlaceName = educationPlaceName;

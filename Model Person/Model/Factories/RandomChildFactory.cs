@@ -23,9 +23,9 @@ namespace Model.Factories
         private readonly Random _random;
 
         /// <summary>
-        /// Фабрика для генерации базовых данных <see cref="Person"/>.
+        /// Фабрика для генерации базовых данных <see cref="PersonBase"/>.
         /// </summary>
-        private readonly IPersonFactory<Person> _personFactory;
+        private readonly IPersonFactory<PersonBase> _personFactory;
 
         /// <summary>
         /// Фабрика для генерации базовых данных <see cref="Adult"/>.
@@ -72,18 +72,18 @@ namespace Model.Factories
             _names = names ?? throw new ArgumentNullException(nameof(names));
             _adultData = adultData 
                 ?? throw new ArgumentNullException(
-                    nameof(adultData)
-                );
+                        nameof(adultData)
+                    );
 
             _childData = childData 
                 ?? throw new ArgumentNullException(
                     nameof(childData)
-                );
+                    );
 
             _random = random 
                 ?? throw new ArgumentNullException(
-                    nameof(random)
-                );
+                        nameof(random)
+                    );
 
             _personFactory = new RandomPersonFactory(_names, _random);
 
@@ -98,7 +98,7 @@ namespace Model.Factories
         /// </returns>
         public Child Create()
         {
-            Person basePerson = _personFactory.Create();
+            PersonBase basePerson = _personFactory.Create();
             Adult baseAdult = _adultFactory.Create();
 
             Child child = new Child

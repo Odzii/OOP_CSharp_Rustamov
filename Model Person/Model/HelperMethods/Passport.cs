@@ -41,20 +41,6 @@ namespace Model.HelperMethods
         private DateOnly _issueDate = default;
 
         /// <summary>
-        /// Регулярное выражение для количества чисел в серии паспорта.
-        /// </summary>
-        private static readonly Regex _seriesRegex = new(
-            @"^\d{4}$",
-            RegexOptions.Compiled | RegexOptions.CultureInvariant
-        );
-
-        //TODO: XML
-        private static readonly Regex _numbersRegex = new(
-            @"^\d{6}$",
-            RegexOptions.Compiled | RegexOptions.CultureInvariant
-        );
-
-        /// <summary>
         /// Задает серию паспорта.
         /// </summary>
         public string Series
@@ -62,16 +48,18 @@ namespace Model.HelperMethods
             get => _series;
             set
             {
-                //TODO: refactor regex
+                //TODO: refactor regex +
+                Regex seriesRegex = ValidationPassort(LengthSeries);
+
                 if (string.IsNullOrWhiteSpace(value) 
-                    || !_seriesRegex.IsMatch(value)
+                    || !seriesRegex.IsMatch(value)
                 )
                 {
                     throw new ArgumentException(
-                        $"Серия паспорта " +
-                        $"должна состоять из {LengthSeries} цифр.",
-                        nameof(value)
-                    );
+                            $"Серия паспорта " +
+                            $"должна состоять из {LengthSeries} цифр.",
+                            nameof(value)
+                        );
                 }
 
                 _series = value.Trim();
@@ -86,17 +74,18 @@ namespace Model.HelperMethods
             get => _numbers;
             set
             {
-                //TODO: refactor regex
+                //TODO: refactor regex + 
+                Regex numbersRegex = ValidationPassort(LengthNumbers);
 
                 if (string.IsNullOrWhiteSpace(value) 
-                    || !_numbersRegex.IsMatch(value)
+                    || !numbersRegex.IsMatch(value)
                 )
                 {
                     throw new ArgumentException(
-                        $"Номер паспорта " +
-                        $"должен состоять из {LengthNumbers} цифр.",
-                        nameof(value)
-                    );
+                            $"Номер паспорта " +
+                            $"должен состоять из {LengthNumbers} цифр.",
+                            nameof(value)
+                        );
                 }
 
                 _numbers = value.Trim();
@@ -114,9 +103,9 @@ namespace Model.HelperMethods
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException(
-                        "Кем выдан паспорт — обязательное поле.",
-                        nameof(value)
-                    );
+                            "Кем выдан паспорт — обязательное поле.",
+                            nameof(value)
+                        );
                 }
 
                 _issuedBy = value.Trim();
@@ -134,9 +123,9 @@ namespace Model.HelperMethods
                 if (value == default)
                 {
                     throw new ArgumentException(
-                        "Дата выдачи паспорта должна быть задана.",
-                        nameof(value)
-                    );
+                            "Дата выдачи паспорта должна быть задана.",
+                            nameof(value)
+                        );
                 }
 
                 _issueDate = value;
@@ -169,6 +158,23 @@ namespace Model.HelperMethods
             Number = number;
             IssuedBy = issuedBy;
             IssueDate = issueDate;
+        }
+
+        private static Regex ValidationPassort(int length)
+        {
+            if (length <= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                        nameof(length)
+                    );
+            }
+
+            string pattern = $@"^\d{{{length}}}$";
+
+            return new Regex(
+                    pattern,
+                    RegexOptions.Compiled | RegexOptions.CultureInvariant
+                );
         }
     }
 }

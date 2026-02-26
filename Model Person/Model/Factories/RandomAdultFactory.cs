@@ -5,7 +5,7 @@ namespace Model.Factories
     //TODO: WTF?
     /// <summary>
     /// Создаёт случайные экземпляры <see cref="Adult"/> 
-    /// на основе базового класса <see cref="Person"/>.
+    /// на основе базового класса <see cref="PersonBase"/>.
     /// </summary>
     public sealed class RandomAdultFactory : IPersonFactory<Adult>
     {
@@ -89,21 +89,21 @@ namespace Model.Factories
         {
             _names = names 
                 ?? throw new ArgumentNullException(nameof(names),
-                "Источник имён не задан."
-            );
+                        "Источник имён не задан."
+                    );
             _adultData = 
                 adultData 
                 ?? throw new ArgumentNullException(
-                    nameof(adultData),
-                    $"Для {adultData} подан неверный тип данных на вход."
-                );
+                        nameof(adultData),
+                        $"Для {adultData} подан неверный тип данных на вход."
+                    );
 
             _random = 
                 random 
                 ?? throw new ArgumentNullException(
-                    nameof(random),
-                    $"Для {random} подан неверный тип данных на вход."
-                );
+                        nameof(random),
+                        $"Для {random} подан неверный тип данных на вход."
+                    );
         }
 
         /// <summary>
@@ -133,9 +133,9 @@ namespace Model.Factories
 
                 partner.Age = ClampAdultAge(
                     adult.Age + _random.Next(
-                        PartnerAgeDeltaMin, 
-                        PartnerAgeDeltaMaxExclusive
-                    )
+                            PartnerAgeDeltaMin, 
+                            PartnerAgeDeltaMaxExclusive
+                        )
                 );
 
                 adult.Marry(partner);
@@ -185,16 +185,16 @@ namespace Model.Factories
 
             adult.Name = gender == Gender.Male
                 ? _random.NextItem(
-                    _names.MaleNames, 
-                    nameof(_names.MaleNames))
+                        _names.MaleNames, 
+                        nameof(_names.MaleNames))
                 : _random.NextItem(
-                    _names.FemaleNames, 
-                    nameof(_names.FemaleNames)
+                        _names.FemaleNames, 
+                        nameof(_names.FemaleNames)
                     );
 
             string surname = _random.NextItem(
-                _names.Surnames, 
-                nameof(_names.Surnames)
+                    _names.Surnames, 
+                    nameof(_names.Surnames)
                 );
 
             surname = RussianVowelsHelper.FixFemaleRussianSurname(
@@ -204,7 +204,7 @@ namespace Model.Factories
 
             adult.Surname = surname;
 
-            adult.Age = _random.Next(Adult.MinAgeAdult, Person.MaxAgePerson + 1);
+            adult.Age = _random.Next(Adult.MinAgeAdult, PersonBase.MaxAgePerson + 1);
 
             string series = _random.Next(0, Pow10(PassportSeriesLength))
                 .ToString($"D{PassportSeriesLength}");
@@ -224,8 +224,8 @@ namespace Model.Factories
             if (_random.NextDouble() < JobProbability)
             {
                 string work = _random.NextItem(
-                    _adultData.WorkplaceNames,
-                    nameof(_adultData.WorkplaceNames)
+                        _adultData.WorkplaceNames,
+                        nameof(_adultData.WorkplaceNames)
                     );
 
                 adult.WorkplaceName = work;
@@ -250,9 +250,9 @@ namespace Model.Factories
                 return Adult.MinAgeAdult;
             }
 
-            if (age > Person.MaxAgePerson)
+            if (age > PersonBase.MaxAgePerson)
             {
-                return Person.MaxAgePerson;
+                return PersonBase.MaxAgePerson;
             }
 
             return age;
@@ -295,6 +295,7 @@ namespace Model.Factories
             DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 
             DateOnly birthFrom = today.AddYears(-age - 1).AddDays(1);
+
             DateOnly birthTo = today.AddYears(-age);
 
             DateOnly birthDate = NextDate(random, birthFrom, birthTo);

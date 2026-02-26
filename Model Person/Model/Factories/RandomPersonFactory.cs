@@ -4,10 +4,10 @@ namespace Model.Factories
 {
     //TODO: WTF?
     /// <summary>
-    /// Создаёт случайный экземпляр класса <see cref="Person"/> 
+    /// Создаёт случайный экземпляр класса <see cref="PersonBase"/> 
     /// на основе источника имён.
     /// </summary>
-    public sealed class RandomPersonFactory : IPersonFactory<Person>
+    public sealed class RandomPersonFactory : IPersonFactory<PersonBase>
     {
         /// <summary>
         /// Количество возможных значений пола, используемых при генерации.
@@ -27,7 +27,7 @@ namespace Model.Factories
         /// <summary>
         /// Инициализация файла хранящего путь с параметрами, 
         /// которые необходимы для создания случайного экземпляра
-        /// класса <see cref="Person"/>.
+        /// класса <see cref="PersonBase"/>.
         /// </summary>
         /// <param name="names">Имя, фамилия.</param>
         /// <param name="random">
@@ -39,48 +39,51 @@ namespace Model.Factories
         /// </exception>
         public RandomPersonFactory(IPersonNameSource names, Random random)
         {
-            _names = names ?? throw new ArgumentNullException(nameof(names));
-            _random = random ?? throw new ArgumentNullException(nameof(random));
+            _names = names 
+                ?? throw new ArgumentNullException(nameof(names));
+
+            _random = random 
+                ?? throw new ArgumentNullException(nameof(random));
         }
 
         /// <summary>
         /// Создаёт случайного человека.
         /// </summary>
         /// <returns>
-        /// Случайно сгенерированный экземпляр <see cref="Person"/>
+        /// Случайно сгенерированный экземпляр <see cref="PersonBase"/>
         /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Бросается, если в <see cref="IPersonNameSource"/> отсутствуют данные
         /// (пустые списки имён/фамилий).
         /// </exception>
-        public Person Create()
+        public PersonBase Create()
         {
             Gender gender = CreateRandomGender();
 
             string name = gender == Gender.Male
                 ? _random.NextItem(
-                    _names.MaleNames, 
-                    nameof(_names.MaleNames)
-                )
+                        _names.MaleNames, 
+                        nameof(_names.MaleNames)
+                    )
                 : _random.NextItem(
-                    _names.FemaleNames, 
-                    nameof(_names.FemaleNames)
-                );
+                        _names.FemaleNames, 
+                        nameof(_names.FemaleNames)
+                    );
 
             string surname = _random.NextItem(
-                _names.Surnames,
-                nameof(_names.Surnames)
-            );
+                    _names.Surnames,
+                    nameof(_names.Surnames)
+                );
 
             surname = RussianVowelsHelper.FixFemaleRussianSurname(
-                surname, 
-                gender
-            );
+                    surname, 
+                    gender
+                );
 
             int age = _random.Next(
-                Person.MinAgePerson, 
-                Person.MaxAgePerson + 1
-            );
+                    PersonBase.MinAgePerson, 
+                    PersonBase.MaxAgePerson + 1
+                );
 
             return age < Adult.MinAgeAdult
                 ? new Child(name, surname, age, gender)

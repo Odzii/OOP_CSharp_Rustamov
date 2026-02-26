@@ -15,24 +15,66 @@ namespace SecondLab
     internal static class Program
     {
         //TODO: XML
+        /// <summary>
+        /// Тестирование методов проекта <see cref="Model"/>
+        /// в соответствии с заданием.
+        /// </summary>
         private static void Main()
         {
             Random random = new Random();
 
+            string DataDir = "DataRandomPerson";
+
+            string MalePath = Path.Combine(
+                DataDir,
+                "MalesNames.txt"
+            );
+
+            string FemalePath = Path.Combine(
+                DataDir,
+                "FemalesNamesPerson.txt"
+            );
+
+            string SurnamePath = Path.Combine(
+                DataDir,
+                "DataSurnamesPerson.txt"
+            );
+
+            string PassportsIssuedByPath = Path.Combine(
+                DataDir,
+                "DataPassportIssuedBy.txt"
+            );
+
+            string WorkplaceNamesPath = Path.Combine(
+                DataDir,
+                "DataWorkplaces.txt"
+            );
+
+            string KinderGardensPath = Path.Combine(
+                DataDir,
+                "DataKinderGardens.txt"
+            );
+
+             string SchoolsPath = Path.Combine(
+                DataDir,
+                "DataSchools.txt"
+            );
+
+
             IPersonNameSource personSource = new PersonNameFileSource(
-                malePath: MalePath,
-                femalePath: FemalePath,
-                surnamePath: SurnamePath
+                MalePath,
+                FemalePath,
+                SurnamePath
             );
 
             IAdultDataSource adultSource = new AdultFileSource(
-                passportsIssuedByPath: PassportsIssuedByPath,
-                workplaceNamesPath: WorkplaceNamesPath
+                PassportsIssuedByPath,
+                WorkplaceNamesPath
             );
 
             IChildEducationSource childSource = new ChildEducationFileSource(
-                kinderGardensPath: KinderGardensPath,
-                schoolsPath: SchoolsPath
+                KinderGardensPath,
+                SchoolsPath
             );
 
             IPersonFactory<Adult> adultFactory =
@@ -60,7 +102,7 @@ namespace SecondLab
             for (int i = 0; i < 7; i++)
             {
                 int pick = random.Next(2);
-                Person person = pick == 0 
+                PersonBase person = pick == 0 
                     ? adultFactory.Create() 
                     : childFactory.Create();
                 
@@ -92,7 +134,7 @@ namespace SecondLab
                 "Определяем тип 4-го человека и вызываем специфичный метод."
             );
 
-            Person fourth = personList[3];
+            PersonBase fourth = personList[3];
 
             WriteGreenHeader("=== Проверка 4-го человека ===");
             Console.WriteLine(
@@ -162,66 +204,7 @@ namespace SecondLab
             Console.ForegroundColor = oldColor;
         }
 
-        /// <summary>
-        /// Каталог с файлами исходных данных для генерации людей.
-        /// </summary>
-        private const string DataDir = "DataRandomPerson";
 
-        /// <summary>
-        /// Путь к файлу со списком мужских имён.
-        /// </summary>
-        private static readonly string MalePath = Path.Combine(
-            DataDir, 
-            "MalesNames.txt"
-        );
-
-        /// <summary>
-        /// Путь к файлу со списком женских имён.
-        /// </summary>
-        private static readonly string FemalePath = Path.Combine(
-            DataDir, 
-            "FemalesNamesPerson.txt"
-        );
-
-        /// <summary>
-        /// Путь к файлу со списком фамилий.
-        /// </summary>
-        private static readonly string SurnamePath = Path.Combine(
-            DataDir, 
-            "DataSurnamesPerson.txt"
-        );
-
-        /// <summary>
-        /// Путь к файлу со списком "кем выдан паспорт".
-        /// </summary>
-        private static readonly string PassportsIssuedByPath = Path.Combine(
-            DataDir, 
-            "DataPassportIssuedBy.txt"
-        );
-
-        /// <summary>
-        /// Путь к файлу со списком мест работы.
-        /// </summary>
-        private static readonly string WorkplaceNamesPath = Path.Combine(
-            DataDir,
-            "DataWorkplaces.txt"
-        );
-
-        /// <summary>
-        /// Путь к файлу со списком детских садов.
-        /// </summary>
-        private static readonly string KinderGardensPath = Path.Combine(
-            DataDir,
-            "DataKinderGardens.txt"
-        );
-
-        /// <summary>
-        /// Путь к файлу со списком школ.
-        /// </summary>
-        private static readonly string SchoolsPath = Path.Combine(
-            DataDir,
-            "DataSchools.txt"
-        );
 
         /// <summary>
         /// Метод ожидающий нажатия клавиши для продолжения, 

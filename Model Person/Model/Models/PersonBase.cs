@@ -5,11 +5,11 @@ namespace Model.Models
 {
 
     /// <summary>
-    /// <see cref="Person"/>
+    /// <see cref="PersonBase"/>
     /// Представляет человека с именем и фамилией, возрастом и полом.
     /// </summary>
-    // TODO: RSDN
-    public abstract class Person
+    // TODO: RSDN +
+    public abstract class PersonBase
     {
         /// <summary>
         /// Имя
@@ -73,20 +73,19 @@ namespace Model.Models
                 | RegexOptions.CultureInvariant);
 
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="Person"/>.
+        /// Инициализирует новый экземпляр класса <see cref="PersonBase"/>.
         /// </summary>
         /// <remarks>
         /// По умолчанию имя и фамилия пустые, возраст равен 0,
         /// пол равен <see cref="Gender.Unknown"/>, 
         /// язык равен <see cref="Language.Null"/>.
         /// </remarks>
-        public Person()
+        public PersonBase()
         {
-
         }
 
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="Person"/> 
+        /// Инициализирует новый экземпляр класса <see cref="PersonBase"/> 
         /// с заданными параметрами.
         /// </summary>
         /// <param name="name">Имя человека.</param>
@@ -104,7 +103,7 @@ namespace Model.Models
         /// выходит за диапазон 
         /// <see cref="MinAgePerson"/>–<see cref="MaxAgePerson"/>.
         /// </exception>
-        public Person(string name, string surname, int age, Gender gender)
+        public PersonBase(string name, string surname, int age, Gender gender)
         {
             Name = name;
             Surname = surname;
@@ -173,9 +172,9 @@ namespace Model.Models
                 if (value == Gender.Unknown)
                 {
                     throw new ArgumentException(
-                        "Пол должен быть явно указан Male или Female.",
-                        nameof(value)
-                    );
+                            "Пол должен быть явно указан Male или Female.",
+                            nameof(value)
+                        );
                 }
 
                 _gender = value;
@@ -218,9 +217,9 @@ namespace Model.Models
 
             var (normalized, language) =
                 NormalizeAndDetectLanguage(
-                    value,
-                    paramName
-                );
+                        value,
+                        paramName
+                    );
 
             string otherPart = isName
                 ? _surname
@@ -231,10 +230,10 @@ namespace Model.Models
             if (otherLanguage != Language.Null && otherLanguage != language)
             {
                 throw new ArgumentException(
-                    "Имя и фамилия должны быть написаны на одном языке " +
-                    "(рус/англ).",
-                    paramName
-                );
+                        "Имя и фамилия должны быть написаны на одном языке " +
+                        "(рус/англ).",
+                        paramName
+                    );
             }
 
             _language = language;
@@ -263,10 +262,10 @@ namespace Model.Models
             if (string.IsNullOrWhiteSpace(value))
             {
                 throw new ArgumentException(
-                    "Значение не может быть пустым, " +
-                    "состоять только из пробелов или быть null.",
-                    paramName
-                );
+                        "Значение не может быть пустым, " +
+                        "состоять только из пробелов или быть null.",
+                        paramName
+                    );
             }
 
             string input = value.Trim();
@@ -277,15 +276,16 @@ namespace Model.Models
             if (!isRussian && !isEnglish)
             {
                 throw new ArgumentException(
-                    "Допустимы только русские или английские буквы " +
-                    "и одно тире.",
-                    paramName
-                );
+                        "Допустимы только русские или английские буквы " +
+                        "и одно тире.",
+                        paramName
+                    );
             }
 
             Language language = isRussian
                 ? Language.Russian
                 : Language.English;
+
             return (CapitalizeHyphenated(input), language);
         }
 
@@ -368,7 +368,7 @@ namespace Model.Models
         }
 
         /// <summary>
-        /// Возращает основную иформацию об <see cref="Person"/>,
+        /// Возращает основную иформацию об <see cref="PersonBase"/>,
         /// в виде строки типа <see cref="string"/>.
         /// </summary>
         /// <returns></returns>
@@ -387,7 +387,7 @@ namespace Model.Models
         }
 
         /// <summary>
-        /// Проверка корректного задания возраста <see cref="Person"/>
+        /// Проверка корректного задания возраста <see cref="PersonBase"/>
         /// </summary>
         /// <param name="value">
         /// Возраст (целочисленный тип)
@@ -400,10 +400,10 @@ namespace Model.Models
             if (value < MinAgePerson || value > MaxAgePerson)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(value),
-                    $"Возраст должен быть " +
-                    $"от {MinAgePerson} до {MaxAgePerson}."
-                );
+                        nameof(value),
+                        $"Возраст должен быть " +
+                        $"от {MinAgePerson} до {MaxAgePerson}."
+                    );
             }
         }
     }

@@ -3,12 +3,12 @@
     //TODO: WTF?
     /// <summary>
     /// Интерфейс для создания экземпляра классов
-    /// <see cref="Person"/>,
+    /// <see cref="PersonBase"/>,
     /// <see cref="Adult"/>,
     /// <see cref="Child"/>
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IPersonFactory<out T> where T: Person
+    public interface IPersonFactory<out T> where T: PersonBase
     {
         /// <summary>
         /// Метод для создания экземпляра класса любого из 

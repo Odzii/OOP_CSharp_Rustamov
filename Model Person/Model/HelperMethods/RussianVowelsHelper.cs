@@ -78,16 +78,16 @@ namespace Model.Helpers
         /// <summary>
         /// Определяет, является ли символ кириллической буквой (включая «ё»).
         /// </summary>
-        /// <param name="ch">Проверяемый символ.</param>
+        /// <param name="symbol">Проверяемый символ.</param>
         /// <returns>
         /// <see langword="true"/>, если символ — кириллическая буква; 
         /// иначе <see langword="false"/>.
         /// </returns>
-        private static bool IsCyrillicLetter(char ch)
+        private static bool IsCyrillicLetter(char symbol)
         {
-            //TODO: RSDN
-            ch = char.ToLowerInvariant(ch);
-            return ch is >= 'а' and <= 'я' or 'ё';
+            //TODO: RSDN +
+            symbol = char.ToLowerInvariant(symbol);
+            return symbol is >= 'а' and <= 'я' or 'ё';
         }
 
         /// <summary>
@@ -108,9 +108,9 @@ namespace Model.Helpers
             if (string.IsNullOrEmpty(text))
             {
                 throw new ArgumentException(
-                    "Строка не может быть пустой.",
-                    nameof(text)
-                );
+                        "Строка не может быть пустой.",
+                        nameof(text)
+                    );
             }
 
             char lastChar = char.ToLowerInvariant(text[^1]);
@@ -129,7 +129,7 @@ namespace Model.Helpers
         /// Бросается, если <paramref name="person"/> 
         /// равен <see langword="null"/>.
         /// </exception>
-        public static string GetGenderText(Person person)
+        public static string GetGenderText(PersonBase person)
         {
             if (person is null)
             {
