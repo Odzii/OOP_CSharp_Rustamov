@@ -46,8 +46,8 @@ namespace Model.Helpers
             if (items is null || items.Count == 0)
             {
                 throw new InvalidOperationException(
-                    $"Источник данных не содержит элементов: {listName}."
-                );
+                        $"Источник данных не содержит элементов: {listName}."
+                    );
             }
 
             return items[random.Next(items.Count)];

@@ -77,7 +77,7 @@ namespace Model.Factories
 
             _childData = childData 
                 ?? throw new ArgumentNullException(
-                    nameof(childData)
+                        nameof(childData)
                     );
 
             _random = random 
@@ -157,6 +157,6 @@ namespace Model.Factories
                 childData, 
                 random
             )
-            .Create();
+                .Create();
     }
 }

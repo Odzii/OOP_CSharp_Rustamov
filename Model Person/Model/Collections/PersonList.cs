@@ -51,7 +51,7 @@ namespace Model.Collections
             if (person is null)
             {
                 throw new ArgumentNullException(nameof(person), 
-                    "Невозможно добавить null в список."
+                        "Невозможно добавить null в список."
                     );
             }
 
@@ -84,6 +84,7 @@ namespace Model.Collections
         public PersonBase GetAt(int index)
         {
             ValidateIndex(index);
+
             return _items[index];
         }
 
@@ -100,8 +101,9 @@ namespace Model.Collections
         {
             if (person is null)
             {
-                throw new ArgumentNullException(nameof(person), 
-                    "Нельзя передавать null."
+                throw new ArgumentNullException(
+                        nameof(person), 
+                        "Нельзя передавать null."
                     );
             }
 
@@ -140,9 +142,9 @@ namespace Model.Collections
             if ((uint)index >= (uint)_items.Count)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(index),
-                    index,
-                    "Индекс находится вне диапазона списка."
+                        nameof(index),
+                        index,
+                        "Индекс находится вне диапазона списка."
                     );
             }
         }

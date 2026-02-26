@@ -49,7 +49,7 @@ namespace Model.HelperMethods
             set
             {
                 //TODO: refactor regex +
-                Regex seriesRegex = ValidationPassort(LengthSeries);
+                Regex seriesRegex = ValidationPassport(LengthSeries);
 
                 if (string.IsNullOrWhiteSpace(value) 
                     || !seriesRegex.IsMatch(value)
@@ -75,7 +75,7 @@ namespace Model.HelperMethods
             set
             {
                 //TODO: refactor regex + 
-                Regex numbersRegex = ValidationPassort(LengthNumbers);
+                Regex numbersRegex = ValidationPassport(LengthNumbers);
 
                 if (string.IsNullOrWhiteSpace(value) 
                     || !numbersRegex.IsMatch(value)
@@ -160,7 +160,15 @@ namespace Model.HelperMethods
             IssueDate = issueDate;
         }
 
-        private static Regex ValidationPassort(int length)
+        /// <summary>
+        /// Проверка на количество цифр по длине
+        /// </summary>
+        /// <param name="length"> Длина</param>
+        /// <returns> Возвращает <see langword="Regex"/></returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Бросает исключение, если длина равна или меньше нуля.
+        /// </exception>
+        private static Regex ValidationPassport(int length)
         {
             if (length <= 0)
             {

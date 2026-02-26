@@ -62,6 +62,8 @@ namespace SecondLab
                     "DataSchools.txt"
                 );
 
+            int countList = 7;
+
 
             IPersonNameSource personSource = new PersonNameFileSource(
                     MalePath,
@@ -105,7 +107,7 @@ namespace SecondLab
 
             PersonList personList = new();
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < countList; i++)
             {
                 int pick = random.Next(2);
                 PersonBase person = pick == 0 
@@ -157,21 +159,31 @@ namespace SecondLab
 
             if (fourth is Adult adult)
             {
-                if (adult.Status != MaritalStatus.Single)
+                if (adult.Status == MaritalStatus.Married && adult.Partner != null)
                 {
                     Console.WriteLine("=== Вызов Divorce ===");
 
                     adult.Divorce();
 
-                    Console.WriteLine($"Брак очищено: {adult.Status}.");
+                    Console.WriteLine($"Брак очищен: {adult.Status}.");
                 }
                 else
                 {
                     Console.WriteLine("=== Вызов Marry ===");
 
-                    adult.Marry(adultFactory.Create());
+                    Adult partner;
 
-                    Console.WriteLine($"Добавлен партнер: {adult.Partner}.");
+                    do
+                    {
+                        partner = adultFactory.Create();
+                    }
+                    while (partner.Status == MaritalStatus.Married
+                           || partner.Partner != null
+                           || partner.Gender == adult.Gender);
+
+                    adult.Marry(partner);
+
+                    Console.WriteLine($"Добавлен партнер: {adult.Partner?.Surname}.");
                 }
             }
 
@@ -202,13 +214,16 @@ namespace SecondLab
         /// </summary>
         /// <param name="text"> Текст</param>
         /// <param name="consoleColor"> Цвет</param>
-        private static void ColorHeader(string text, ConsoleColor consoleColor)
+        private static void ColorHeader(
+            string text, 
+            ConsoleColor consoleColor
+        )
         {
             if (consoleColor is ConsoleColor cs)
             {
                 Console.ForegroundColor = cs;
             }
-            
+
             Console.WriteLine(text);
             Console.ResetColor();
         }
