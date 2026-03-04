@@ -25,85 +25,67 @@ namespace SecondLab
         {
             Random random = new Random();
 
-            string DataDir = "DataRandomPerson";
+            string dataDir = "DataRandomPerson";
 
-            string MalePath = Path.Combine(
-                    DataDir,
-                    "MalesNames.txt"
-                );
+            string malePath = Path.Combine(dataDir, "MalesNames.txt");
 
-            string FemalePath = Path.Combine(
-                    DataDir,
-                    "FemalesNamesPerson.txt"
-                );
+            string femalePath = Path.Combine(dataDir, "FemalesNamesPerson.txt");
 
-            string SurnamePath = Path.Combine(
-                    DataDir,
-                    "DataSurnamesPerson.txt"
-                );
+            string surnamePath = Path.Combine(dataDir, "DataSurnamesPerson.txt");
 
-            string PassportsIssuedByPath = Path.Combine(
-                    DataDir,
-                    "DataPassportIssuedBy.txt"
-                );
+            string passportsIssuedByPath = Path.Combine(
+                dataDir,
+                "DataPassportIssuedBy.txt");
 
-            string WorkplaceNamesPath = Path.Combine(
-                    DataDir,
-                    "DataWorkplaces.txt"
-                );
+            string workplaceNamesPath = Path.Combine(
+                dataDir,
+                "DataWorkplaces.txt");
 
-            string KinderGardensPath = Path.Combine(
-                    DataDir,
-                    "DataKinderGardens.txt"
-                );
+            string kinderGardensPath = Path.Combine(
+                dataDir,
+                "DataKinderGardens.txt");
 
-             string SchoolsPath = Path.Combine(
-                    DataDir,
-                    "DataSchools.txt"
-                );
+             string schoolsPath = Path.Combine(
+                dataDir,
+                "DataSchools.txt");
 
             int countList = 7;
 
 
             IPersonNameSource personSource = new PersonNameFileSource(
-                    MalePath,
-                    FemalePath,
-                    SurnamePath
-                );
+                malePath,
+                femalePath,
+                surnamePath);
 
             IAdultDataSource adultSource = new AdultFileSource(
-                    PassportsIssuedByPath,
-                    WorkplaceNamesPath
-                );
+                passportsIssuedByPath,
+                workplaceNamesPath);
 
             IChildEducationSource childSource = new ChildEducationFileSource(
-                    KinderGardensPath,
-                    SchoolsPath
-                );
+                kinderGardensPath,
+                schoolsPath);
 
             IPersonFactory<Adult> adultFactory =
                 new RandomAdultFactory(
-                        personSource,
-                        adultSource,
-                        random
-                    );
+                    personSource,
+                    adultSource,
+                    random);
 
             IPersonFactory<Child> childFactory =
                 new RandomChildFactory(
-                        personSource,
-                        adultSource,
-                        childSource,
-                        random
-                    );
+                    personSource,
+                    adultSource,
+                    childSource,
+                    random);
 
             ConsoleColor colorTask = ConsoleColor.Green;
 
             ConsoleColor colorHeader = ConsoleColor.Red;
 
             ColorHeader(
-                    "a) Создаём список и добавляем 7 человек в случайном порядке.",
-                    colorTask
-                );
+                "a) Создаём список " +
+                "и добавляем 7 человек в случайном порядке.",
+                colorTask);
 
             PersonList personList = new();
 
@@ -120,20 +102,19 @@ namespace SecondLab
             WaitForKey();
 
             ColorHeader(
-                    "b) Выводим описание всех людей списка.",
-                    colorTask
-                );
+                "b) Выводим описание всех людей списка.",
+                colorTask);
 
-            ColorHeader("=== Описание всех людей ===", 
-                    ConsoleColor.Green
-                );
+            ColorHeader(
+                "=== Описание всех людей ===", 
+                ConsoleColor.Green);
 
             for (int i = 0; i < personList.Count; i++)
             {
-                ColorHeader($"--- #{i + 1} " +
-                        $"({personList[i].GetType().Name}) ---",
-                        colorHeader
-                    );
+                ColorHeader(
+                    $"--- #{i + 1} " +
+                    $"({personList[i].GetType().Name}) ---",
+                    colorHeader);
 
                 Console.WriteLine(personList[i].GetInfo());
                 Console.WriteLine();
@@ -142,20 +123,18 @@ namespace SecondLab
             WaitForKey();
 
             ColorHeader(
-                    "c) Определяем тип 4-го человека и вызываем специфичный метод.",
-                    colorTask
-                );
+                "c) Определяем тип 4-го человека и вызываем специфичный метод.",
+                colorTask);
 
             PersonBase fourth = personList[3];
 
-            ColorHeader("=== Проверка 4-го человека ===", 
-                    colorHeader
-                );
+            ColorHeader(
+                "=== Проверка 4-го человека ===", 
+                colorHeader);
 
             Console.WriteLine(
-                    $"4-й человек имеет тип: " +
-                    $"{fourth.GetType().Name}"
-                );
+                $"4-й человек имеет тип: " +
+                $"{fourth.GetType().Name}");
 
             if (fourth is Adult adult)
             {
@@ -183,7 +162,9 @@ namespace SecondLab
 
                     adult.Marry(partner);
 
-                    Console.WriteLine($"Добавлен партнер: {adult.Partner?.Surname}.");
+                    Console.WriteLine(
+                        $"Добавлен партнер: " +
+                        $"{adult.Partner?.Surname}.");
                 }
             }
 
@@ -194,22 +175,21 @@ namespace SecondLab
                 child.ClearEducationPlace();
                 
                 Console.WriteLine(
-                    $"Место обучения очищено: {child.EducationPlaceName}."
-                );
+                    $"Место обучения очищено: {child.EducationPlaceName}.");
             }
 
             Console.WriteLine();
 
-            ColorHeader("=== Описание 4-го после вызова метода ===", 
-                    colorTask
-                );
+            ColorHeader(
+                "=== Описание 4-го после вызова метода ===", 
+                 colorTask);
 
             Console.WriteLine(fourth.GetInfo());
 
             WaitForKey();
         }
 
-        // TODO: XML + added one method for color text
+        // TODO: XML + added the method for color text
         /// <summary>
         /// Позволяет закрасить текст заданным цветом
         /// </summary>
@@ -217,12 +197,11 @@ namespace SecondLab
         /// <param name="consoleColor"> Цвет</param>
         private static void ColorHeader(
             string text, 
-            ConsoleColor consoleColor
-        )
+            ConsoleColor consoleColor)
         {
-            if (consoleColor is ConsoleColor cs)
+            if (consoleColor is ConsoleColor color)
             {
-                Console.ForegroundColor = cs;
+                Console.ForegroundColor = color;
             }
 
             Console.WriteLine(text);
@@ -236,9 +215,8 @@ namespace SecondLab
         /// <param name="message">
         /// Сообщение, выводимое перед ожиданием нажатия клавиши 
         /// </param>
-        private static void WaitForKey
-            (string message = "Нажмите любую клавишу для продолжения..."
-        )
+        private static void WaitForKey(
+            string message = "Нажмите любую клавишу для продолжения...")
         {
             ColorHeader(message, ConsoleColor.DarkGray);
 

@@ -52,14 +52,12 @@ namespace Model.HelperMethods
                 Regex seriesRegex = ValidationPassport(LengthSeries);
 
                 if (string.IsNullOrWhiteSpace(value) 
-                    || !seriesRegex.IsMatch(value)
-                )
+                    || !seriesRegex.IsMatch(value))
                 {
                     throw new ArgumentException(
-                            $"Серия паспорта " +
-                            $"должна состоять из {LengthSeries} цифр.",
-                            nameof(value)
-                        );
+                        $"Серия паспорта " +
+                        $"должна состоять из {LengthSeries} цифр.",
+                        nameof(value));
                 }
 
                 _series = value.Trim();
@@ -78,14 +76,12 @@ namespace Model.HelperMethods
                 Regex numbersRegex = ValidationPassport(LengthNumbers);
 
                 if (string.IsNullOrWhiteSpace(value) 
-                    || !numbersRegex.IsMatch(value)
-                )
+                    || !numbersRegex.IsMatch(value))
                 {
                     throw new ArgumentException(
-                            $"Номер паспорта " +
-                            $"должен состоять из {LengthNumbers} цифр.",
-                            nameof(value)
-                        );
+                        $"Номер паспорта " +
+                        $"должен состоять из {LengthNumbers} цифр.",
+                        nameof(value));
                 }
 
                 _numbers = value.Trim();
@@ -103,9 +99,8 @@ namespace Model.HelperMethods
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException(
-                            "Кем выдан паспорт — обязательное поле.",
-                            nameof(value)
-                        );
+                        "Кем выдан паспорт — обязательное поле.",
+                        nameof(value));
                 }
 
                 _issuedBy = value.Trim();
@@ -123,9 +118,8 @@ namespace Model.HelperMethods
                 if (value == default)
                 {
                     throw new ArgumentException(
-                            "Дата выдачи паспорта должна быть задана.",
-                            nameof(value)
-                        );
+                        "Дата выдачи паспорта должна быть задана.",
+                        nameof(value));
                 }
 
                 _issueDate = value;
@@ -151,8 +145,7 @@ namespace Model.HelperMethods
             string series, 
             string number, 
             string issuedBy, 
-            DateOnly issueDate
-        )
+            DateOnly issueDate)
         {
             Series = series;
             Number = number;
@@ -172,17 +165,14 @@ namespace Model.HelperMethods
         {
             if (length <= 0)
             {
-                throw new ArgumentOutOfRangeException(
-                        nameof(length)
-                    );
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
 
             string pattern = $@"^\d{{{length}}}$";
 
             return new Regex(
-                    pattern,
-                    RegexOptions.Compiled | RegexOptions.CultureInvariant
-                );
+                pattern,
+                RegexOptions.Compiled | RegexOptions.CultureInvariant);
         }
     }
 }

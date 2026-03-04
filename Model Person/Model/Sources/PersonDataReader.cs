@@ -28,8 +28,7 @@ namespace Model.Sources
                 throw new ArgumentException(
                     "Путь к файлу не может быть пустым, " +
                     "состоять только из пробелов или быть null.",
-                    nameof(path)
-                );
+                    nameof(path));
             }
 
             List<string> result = new List<string>();

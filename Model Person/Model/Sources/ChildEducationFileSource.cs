@@ -39,20 +39,17 @@
         /// </exception>
         public ChildEducationFileSource(
             string kinderGardensPath,
-            string schoolsPath
-        )
+            string schoolsPath)
         {
             KinderGardens = FileSourceLoader.LoadRequired(
                 kinderGardensPath,
                 "детских садов",
-                nameof(kinderGardensPath)
-            );
+                nameof(kinderGardensPath));
 
             Schools = FileSourceLoader.LoadRequired(
                 schoolsPath,
                 "школ",
-                nameof(schoolsPath)
-            );
+                nameof(schoolsPath));
         }
     }
 }

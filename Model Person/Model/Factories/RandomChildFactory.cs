@@ -2,7 +2,7 @@
 
 namespace Model.Factories
 {
-    //TODO: WTF?
+    //TODO: WTF? +
     /// <summary>
     /// Фабрика для создания случайных экземпляров <see cref="Child"/>.
     /// Использует источники имён/фамилий,
@@ -66,24 +66,20 @@ namespace Model.Factories
             IPersonNameSource names,
             IAdultDataSource adultData,
             IChildEducationSource childData,
-            Random random
-        )
+            Random random)
         {
             _names = names ?? throw new ArgumentNullException(nameof(names));
             _adultData = adultData 
                 ?? throw new ArgumentNullException(
-                        nameof(adultData)
-                    );
+                nameof(adultData));
 
             _childData = childData 
                 ?? throw new ArgumentNullException(
-                        nameof(childData)
-                    );
+                nameof(childData));
 
             _random = random 
                 ?? throw new ArgumentNullException(
-                        nameof(random)
-                    );
+                nameof(random));
 
             _personFactory = new RandomPersonFactory(_names, _random);
 
@@ -123,12 +119,10 @@ namespace Model.Factories
             string education = child.Age < MinAgeForSchool
                 ? _random.NextItem(
                     _childData.KinderGardens,
-                    nameof(_childData.KinderGardens)
-                    )
+                    nameof(_childData.KinderGardens))
                 : _random.NextItem(
                     _childData.Schools,
-                    nameof(_childData.Schools)
-                    );
+                    nameof(_childData.Schools));
 
             child.SetEducationPlace(education);
 
@@ -144,19 +138,16 @@ namespace Model.Factories
         /// <param name="childData"></param>
         /// <param name="random"></param>
         /// <returns> Cлучайного <see cref="Child"/></returns>
-        public static Child CreateRandom
-        (
+        public static Child CreateRandom(
             IPersonNameSource names,
             IAdultDataSource adultData,
             IChildEducationSource childData,
-            Random random
-        )
+            Random random)
             => new RandomChildFactory(
                 names, 
                 adultData, 
                 childData, 
-                random
-            )
-                .Create();
+                random)
+            .Create();
     }
 }

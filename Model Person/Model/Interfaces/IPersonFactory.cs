@@ -1,6 +1,6 @@
 ﻿namespace Model.Interfaces
 {
-    //TODO: WTF?
+    //TODO: WTF? +
     /// <summary>
     /// Интерфейс для создания экземпляра классов
     /// <see cref="PersonBase"/>,

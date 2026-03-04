@@ -2,7 +2,7 @@
 
 namespace Model.Factories
 {
-    //TODO: WTF?
+    //TODO: WTF? +
     /// <summary>
     /// Создаёт случайные экземпляры <see cref="Adult"/> 
     /// на основе базового класса <see cref="PersonBase"/>.
@@ -88,22 +88,19 @@ namespace Model.Factories
             Random random)
         {
             _names = names 
-                ?? throw new ArgumentNullException(nameof(names),
-                        "Источник имён не задан."
-                    );
-            _adultData = 
-                adultData 
                 ?? throw new ArgumentNullException(
-                        nameof(adultData),
-                        $"Для {adultData} подан неверный тип данных на вход."
-                    );
+                    nameof(names),
+                    "Источник имён не задан.");
+           
+            _adultData = adultData 
+                ?? throw new ArgumentNullException(
+                    nameof(adultData),
+                    $"Для {adultData} подан неверный тип данных на вход.");
 
-            _random = 
-                random 
+            _random = random 
                 ?? throw new ArgumentNullException(
-                        nameof(random),
-                        $"Для {random} подан неверный тип данных на вход."
-                    );
+                    nameof(random),
+                    $"Для {random} подан неверный тип данных на вход.");
         }
 
         /// <summary>
@@ -133,10 +130,8 @@ namespace Model.Factories
 
                 partner.Age = ClampAdultAge(
                     adult.Age + _random.Next(
-                            PartnerAgeDeltaMin, 
-                            PartnerAgeDeltaMaxExclusive
-                        )
-                );
+                    PartnerAgeDeltaMin, 
+                    PartnerAgeDeltaMaxExclusive));
 
                 adult.Marry(partner);
             }
@@ -155,8 +150,7 @@ namespace Model.Factories
         public static Adult CreateRandom(
             IPersonNameSource names,
             IAdultDataSource adultData,
-            Random random
-        )
+            Random random)
             => new RandomAdultFactory(names, adultData, random).Create();
 
         /// <summary>
@@ -185,26 +179,25 @@ namespace Model.Factories
 
             adult.Name = gender == Gender.Male
                 ? _random.NextItem(
-                        _names.MaleNames, 
-                        nameof(_names.MaleNames))
+                    _names.MaleNames, 
+                    nameof(_names.MaleNames))
                 : _random.NextItem(
-                        _names.FemaleNames, 
-                        nameof(_names.FemaleNames)
-                    );
+                    _names.FemaleNames, 
+                    nameof(_names.FemaleNames));
 
             string surname = _random.NextItem(
-                    _names.Surnames, 
-                    nameof(_names.Surnames)
-                );
+                _names.Surnames, 
+                nameof(_names.Surnames));
 
             surname = RussianVowelsHelper.FixFemaleRussianSurname(
                 surname, 
-                gender
-            );
+                gender);
 
             adult.Surname = surname;
 
-            adult.Age = _random.Next(Adult.MinAgeAdult, PersonBase.MaxAgePerson + 1);
+            adult.Age = _random.Next(
+                Adult.MinAgeAdult, 
+                PersonBase.MaxAgePerson + 1);
 
             string series = _random.Next(0, Pow10(PassportSeriesLength))
                 .ToString($"D{PassportSeriesLength}");
@@ -214,8 +207,7 @@ namespace Model.Factories
 
             string issuedBy = _random.NextItem(
                 _adultData.PassportsIssuedBy,
-                nameof(_adultData.PassportsIssuedBy)
-            );
+                nameof(_adultData.PassportsIssuedBy));
 
             DateOnly issueDate = CreateRandomIssueDate(_random, adult.Age);
 
@@ -224,9 +216,8 @@ namespace Model.Factories
             if (_random.NextDouble() < JobProbability)
             {
                 string work = _random.NextItem(
-                        _adultData.WorkplaceNames,
-                        nameof(_adultData.WorkplaceNames)
-                    );
+                    _adultData.WorkplaceNames,
+                    nameof(_adultData.WorkplaceNames));
 
                 adult.WorkplaceName = work;
             }
@@ -269,8 +260,7 @@ namespace Model.Factories
         private static DateOnly NextDate(
             Random random, 
             DateOnly fromInclusive, 
-            DateOnly toInclusive
-        )
+            DateOnly toInclusive)
         {
             if (fromInclusive > toInclusive)
             {

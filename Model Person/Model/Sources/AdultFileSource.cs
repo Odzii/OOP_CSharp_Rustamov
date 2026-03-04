@@ -41,20 +41,18 @@ namespace Model.Sources
         /// Если файл не найден или не содержит непустых строк.
         /// </exception>
         public AdultFileSource(
-            string passportsIssuedByPath, 
-            string workplaceNamesPath
-        )
+            string passportsIssuedByPath,
+            string workplaceNamesPath)
         {
             PassportsIssuedBy = FileSourceLoader.LoadRequired(
-                    passportsIssuedByPath,
-                    "мест выдачи паспорта",
-                    nameof(passportsIssuedByPath)
-                );
+                passportsIssuedByPath,
+                "мест выдачи паспорта",
+                nameof(passportsIssuedByPath));
+
             WorkplaceNames = FileSourceLoader.LoadRequired(
-                    workplaceNamesPath,
-                    "мест работы",
-                    nameof(workplaceNamesPath)
-                );
+                workplaceNamesPath,
+                "мест работы",
+                nameof(workplaceNamesPath));
         }
     }
 }

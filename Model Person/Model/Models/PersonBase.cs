@@ -60,7 +60,8 @@ namespace Model.Models
         /// Регулярное выражение для проверки слова на русском языке.
         /// </summary>
         private static readonly Regex _russianWordRegex =
-            new(@"^[А-Яа-яЁё]+(-[А-Яа-яЁё]+)?$",
+            new(
+                @"^[А-Яа-яЁё]+(-[А-Яа-яЁё]+)?$",
                 RegexOptions.Compiled
                 | RegexOptions.CultureInvariant);
 
@@ -68,7 +69,8 @@ namespace Model.Models
         /// Регулярное выражение для проверки слова на английском языке.
         /// </summary>
         private static readonly Regex _englishWordRegex =
-            new(@"^[A-Za-z]+(-[A-Za-z]+)?$",
+            new(
+                @"^[A-Za-z]+(-[A-Za-z]+)?$",
                 RegexOptions.Compiled
                 | RegexOptions.CultureInvariant);
 
@@ -172,9 +174,8 @@ namespace Model.Models
                 if (value == Gender.Unknown)
                 {
                     throw new ArgumentException(
-                            "Пол должен быть явно указан Male или Female.",
-                            nameof(value)
-                        );
+                        "Пол должен быть явно указан Male или Female.",
+                        nameof(value));
                 }
 
                 _gender = value;
@@ -216,10 +217,7 @@ namespace Model.Models
                 : nameof(Surname);
 
             var (normalized, language) =
-                NormalizeAndDetectLanguage(
-                        value,
-                        paramName
-                    );
+                NormalizeAndDetectLanguage(value, paramName);
 
             string otherPart = isName
                 ? _surname
@@ -230,10 +228,9 @@ namespace Model.Models
             if (otherLanguage != Language.Null && otherLanguage != language)
             {
                 throw new ArgumentException(
-                        "Имя и фамилия должны быть написаны на одном языке " +
-                        "(рус/англ).",
-                        paramName
-                    );
+                    "Имя и фамилия должны быть написаны на одном языке " +
+                    "(рус/англ).",
+                    paramName);
             }
 
             _language = language;
@@ -256,16 +253,14 @@ namespace Model.Models
         private static (string Normalized, Language Language)
             NormalizeAndDetectLanguage(
                 string value,
-                string paramName
-            )
+                string paramName)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
                 throw new ArgumentException(
-                        "Значение не может быть пустым, " +
-                        "состоять только из пробелов или быть null.",
-                        paramName
-                    );
+                    "Значение не может быть пустым, " +
+                    "состоять только из пробелов или быть null.",
+                    paramName);
             }
 
             string input = value.Trim();
@@ -276,10 +271,9 @@ namespace Model.Models
             if (!isRussian && !isEnglish)
             {
                 throw new ArgumentException(
-                        "Допустимы только русские или английские буквы " +
-                        "и одно тире.",
-                        paramName
-                    );
+                    "Допустимы только русские или английские буквы " +
+                    "и одно тире.",
+                    paramName);
             }
 
             Language language = isRussian
@@ -333,8 +327,7 @@ namespace Model.Models
 
             string[] parts = text.Split(
                 '-', 
-                StringSplitOptions.RemoveEmptyEntries
-            );
+                StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < parts.Length; i++)
             {
@@ -400,10 +393,9 @@ namespace Model.Models
             if (value < MinAgePerson || value > MaxAgePerson)
             {
                 throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        $"Возраст должен быть " +
-                        $"от {MinAgePerson} до {MaxAgePerson}."
-                    );
+                    nameof(value),
+                    $"Возраст должен быть " +
+                    $"от {MinAgePerson} до {MaxAgePerson}.");
             }
         }
     }

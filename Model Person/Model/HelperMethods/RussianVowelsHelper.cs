@@ -34,8 +34,7 @@ namespace Model.Helpers
         /// </remarks>
         public static string FixFemaleRussianSurname(
             string surname, 
-            Gender gender
-        )
+            Gender gender)
         {
             if (string.IsNullOrWhiteSpace(surname))
             {
@@ -108,9 +107,8 @@ namespace Model.Helpers
             if (string.IsNullOrEmpty(text))
             {
                 throw new ArgumentException(
-                        "Строка не может быть пустой.",
-                        nameof(text)
-                    );
+                    "Строка не может быть пустой.",
+                    nameof(text));
             }
 
             char lastChar = char.ToLowerInvariant(text[^1]);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Model.Helpers
 {
-    //TODO: WTF?
+    //TODO: WTF? +
     /// <summary>
     /// Набор расширений для генератора случайных чисел <see cref="Random"/>.
     /// </summary>
@@ -34,9 +34,8 @@ namespace Model.Helpers
         /// </exception>
         public static T NextItem<T>(
             this Random random,
-            IReadOnlyList<T>? items, 
-            string listName
-        )
+            IReadOnlyList<T>? items,
+            string listName)
         {
             if (random is null)
             {
@@ -46,8 +45,7 @@ namespace Model.Helpers
             if (items is null || items.Count == 0)
             {
                 throw new InvalidOperationException(
-                        $"Источник данных не содержит элементов: {listName}."
-                    );
+                    $"Источник данных не содержит элементов: {listName}.");
             }
 
             return items[random.Next(items.Count)];

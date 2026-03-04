@@ -2,7 +2,7 @@
 
 namespace Model.Factories
 {
-    //TODO: WTF?
+    //TODO: WTF? +
     /// <summary>
     /// Создаёт случайный экземпляр класса <see cref="PersonBase"/> 
     /// на основе источника имён.
@@ -62,28 +62,24 @@ namespace Model.Factories
 
             string name = gender == Gender.Male
                 ? _random.NextItem(
-                        _names.MaleNames, 
-                        nameof(_names.MaleNames)
-                    )
+                    _names.MaleNames, 
+                    nameof(_names.MaleNames))
                 : _random.NextItem(
-                        _names.FemaleNames, 
-                        nameof(_names.FemaleNames)
-                    );
+                    _names.FemaleNames, 
+                    nameof(_names.FemaleNames));
 
             string surname = _random.NextItem(
-                    _names.Surnames,
-                    nameof(_names.Surnames)
-                );
+                _names.Surnames,
+                nameof(_names.Surnames));
 
-            surname = RussianVowelsHelper.FixFemaleRussianSurname(
+            surname = RussianVowelsHelper
+                .FixFemaleRussianSurname(
                     surname, 
-                    gender
-                );
+                    gender);
 
             int age = _random.Next(
-                    PersonBase.MinAgePerson, 
-                    PersonBase.MaxAgePerson + 1
-                );
+                PersonBase.MinAgePerson, 
+                PersonBase.MaxAgePerson + 1);
 
             return age < Adult.MinAgeAdult
                 ? new Child(name, surname, age, gender)

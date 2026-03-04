@@ -1,6 +1,6 @@
 ﻿namespace Model.Interfaces
 {
-    //TODO: WTF?
+    //TODO: WTF? +
     /// <summary>
     /// Источник данных с именами и фамилиями для создания <see cref="PersonBase"/>.
     /// Предоставляет отдельные списки мужских и женских имён, 

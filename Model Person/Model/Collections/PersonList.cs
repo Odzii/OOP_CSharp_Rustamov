@@ -51,8 +51,7 @@ namespace Model.Collections
             if (person is null)
             {
                 throw new ArgumentNullException(nameof(person), 
-                        "Невозможно добавить null в список."
-                    );
+                    "Невозможно добавить null в список.");
             }
 
             _items.Add(person);
@@ -102,9 +101,8 @@ namespace Model.Collections
             if (person is null)
             {
                 throw new ArgumentNullException(
-                        nameof(person), 
-                        "Нельзя передавать null."
-                    );
+                    nameof(person), 
+                    "Нельзя передавать null.");
             }
 
             return _items.IndexOf(person);
@@ -142,10 +140,9 @@ namespace Model.Collections
             if ((uint)index >= (uint)_items.Count)
             {
                 throw new ArgumentOutOfRangeException(
-                        nameof(index),
-                        index,
-                        "Индекс находится вне диапазона списка."
-                    );
+                    nameof(index),
+                    index,
+                    "Индекс находится вне диапазона списка.");
             }
         }
     }

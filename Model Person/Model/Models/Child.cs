@@ -56,9 +56,7 @@ namespace Model.Models
             {
                 throw new ArgumentOutOfRangeException(
                     nameof(value),
-                        $"Для Child возраст должен быть не больше " +
-                        $"{MaxAgeChild} лет."
-                    );
+                    $"Для Child возраст должен быть не больше {MaxAgeChild} лет.");
             }
         }
 
@@ -79,8 +77,8 @@ namespace Model.Models
             Gender gender,
             Adult? mother = null,
             Adult? father = null,
-            string? educationPlaceName = null
-        ) : base(name, surname, MaxAgeChild, gender)
+            string? educationPlaceName = null) 
+            : base(name, surname, MaxAgeChild, gender)
         {
             Age = age;
 
@@ -102,22 +100,21 @@ namespace Model.Models
             if (mother is not null && mother.Age < Adult.MinAgeAdult)
             {
                 throw new ArgumentException(
-                        $"Мать должна быть {nameof(Adult)} " +
-                        $"или/и возраст не меньше {Adult.MinAgeAdult}",
-                        nameof(mother)
-                    );
+                    $"Мать должна быть {nameof(Adult)} " +
+                    $"или/и возраст не меньше {Adult.MinAgeAdult}",
+                    nameof(mother));
             }
 
             if (father is not null && father.Age < Adult.MinAgeAdult)
             {
                 throw new ArgumentException(
-                        $"Отец должен быть {nameof(Adult)} " +
-                        $"или/и возраст не меньше {Adult.MinAgeAdult}",
-                        nameof(father)
-                    );
+                    $"Отец должен быть {nameof(Adult)} " +
+                    $"или/и возраст не меньше {Adult.MinAgeAdult}",
+                    nameof(father));
             }
 
             Father = father;
+
             Mother = mother;
         }
 
@@ -132,9 +129,8 @@ namespace Model.Models
             if (string.IsNullOrWhiteSpace(educationPlaceName))
             {
                 throw new ArgumentException(
-                        "Название детского сада/школы не может быть пустым.",
-                        nameof(educationPlaceName)
-                    );
+                    "Название детского сада/школы не может быть пустым.",
+                    nameof(educationPlaceName));
             }
 
             EducationPlaceName = educationPlaceName;

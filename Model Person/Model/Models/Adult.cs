@@ -68,7 +68,6 @@ namespace Model.Models
         /// </summary>
         public Adult() : base()
         {
-
         }
 
         /// <summary>
@@ -84,8 +83,7 @@ namespace Model.Models
             string name,
             string surname,
             int age,
-            Gender gender
-        ) 
+            Gender gender) 
             : base(name, surname, MinAgeAdult, gender)
         {
             Age = age;
@@ -114,21 +112,13 @@ namespace Model.Models
             string passportNumber,
             string passportIssuedBy,
             DateOnly issueDate,
-            string workplaceName
-        ) : this(
-                name,
-                surname,
-                age,
-                gender
-            )
+            string workplaceName) : this(name, surname, age, gender)
         {
-
             SetPassport(
                 passportSeries,
                 passportNumber,
                 passportIssuedBy,
-                issueDate
-            );
+                issueDate);
 
             WorkplaceName = workplaceName;
         }
@@ -147,15 +137,13 @@ namespace Model.Models
             string series,
             string number,
             string issuedBy,
-            DateOnly issueDate
-        )
+            DateOnly issueDate)
         {
             Passport passport = new Passport(
                 series, 
                 number, 
                 issuedBy, 
-                issueDate
-            );
+                issueDate);
 
             _passport = passport;
         }
@@ -178,31 +166,27 @@ namespace Model.Models
             if (partner is null)
             {
                 throw new ArgumentNullException(
-                        "Значение не может быть null, " +
-                        "партнер должен быть указан.",
-                        nameof(partner)
-                    );
+                    "Значение не может быть null, " +
+                    "партнер должен быть указан.",
+                    nameof(partner));
             }
 
             if (ReferenceEquals(this, partner))
             {
                 throw new InvalidOperationException(
-                        "Нельзя вступить в брак с самим собой."
-                    );
+                    "Нельзя вступить в брак с самим собой.");
             }
 
             if (this.IsMarried)
             {
                 throw new InvalidOperationException(
-                        "Этот человек уже состоит в браке."
-                    );
+                    "Этот человек уже состоит в браке.");
             }
 
             if (partner.IsMarried)
             {
                 throw new InvalidOperationException(
-                        "Партнер уже состоит в браке."
-                    );
+                    "Партнер уже состоит в браке.");
             }
 
             Partner = partner;
@@ -223,8 +207,7 @@ namespace Model.Models
             if (!IsMarried || Partner is null)
             {
                 throw new InvalidOperationException(
-                        "Развод невозможен: нет зарегистрированного брака."
-                    );
+                    "Развод невозможен: нет зарегистрированного брака.");
             }
             Adult exPartner = Partner;
 
@@ -296,9 +279,8 @@ namespace Model.Models
             if ( value < MinAgeAdult )
             {
                 throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        $"Для Adult возраст не должен быть меньше { MinAgeAdult }."
-                    );
+                    nameof(value),
+                    $"Для Adult возраст не должен быть меньше { MinAgeAdult }.");
             }
         }
     }

@@ -25,8 +25,7 @@ namespace Model.Sources
                 throw new ArgumentException(
                     "Путь к файлу не может быть пустым, " +
                     "состоять только из пробелов или быть null.",
-                    paramName
-                );
+                    paramName);
             }
         }
 
@@ -46,8 +45,7 @@ namespace Model.Sources
         internal static IReadOnlyList<string> LoadRequired(
             string? path,
             string description,
-            string paramName
-        )
+            string paramName)
         {
             ValidatePath(path, paramName);
 
@@ -57,8 +55,7 @@ namespace Model.Sources
             {
                 throw new InvalidOperationException(
                     $"Файл со списком {description} пустой или не найден: " +
-                    $"\"{path}\"."
-                );
+                    $"\"{path}\".");
             }
 
             return items;

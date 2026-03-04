@@ -48,26 +48,22 @@ namespace Model.Sources
         public PersonNameFileSource(
             string malePath, 
             string femalePath, 
-            string surnamePath
-        )
+            string surnamePath)
         {
             MaleNames = FileSourceLoader.LoadRequired(
                 malePath,
                 "мужских имён",
-                nameof(malePath)
-            );
+                nameof(malePath));
 
             FemaleNames = FileSourceLoader.LoadRequired(
                 femalePath,
                 "женских имён",
-                nameof(femalePath)
-            );
+                nameof(femalePath));
 
             Surnames = FileSourceLoader.LoadRequired(
                 surnamePath,
                 "фамилий",
-                nameof(surnamePath)
-            );
+                nameof(surnamePath));
         }
     }
 }
