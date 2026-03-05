@@ -2,7 +2,6 @@
 
 namespace Model.Factories
 {
-    //TODO: WTF? +
     /// <summary>
     /// Фабрика для создания случайных экземпляров <see cref="Child"/>.
     /// Использует источники имён/фамилий,

@@ -16,7 +16,6 @@ namespace SecondLab
     /// </summary>
     internal static class Program
     {
-        //TODO: XML +
         /// <summary>
         /// Тестирование методов проекта <see cref="Model"/>
         /// в соответствии с заданием.
@@ -25,6 +24,7 @@ namespace SecondLab
         {
             Random random = new Random();
 
+            //TODO: RSDN
             string dataDir = "DataRandomPerson";
 
             string malePath = Path.Combine(dataDir, "MalesNames.txt");
@@ -138,7 +138,8 @@ namespace SecondLab
 
             if (fourth is Adult adult)
             {
-                if (adult.Status == MaritalStatus.Married && adult.Partner != null)
+                if (adult.Status == MaritalStatus.Married 
+                    && adult.Partner != null)
                 {
                     Console.WriteLine("=== Вызов Divorce ===");
 
@@ -189,7 +190,6 @@ namespace SecondLab
             WaitForKey();
         }
 
-        // TODO: XML + added the method for color text
         /// <summary>
         /// Позволяет закрасить текст заданным цветом
         /// </summary>

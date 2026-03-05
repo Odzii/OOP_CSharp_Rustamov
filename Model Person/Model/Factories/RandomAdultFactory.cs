@@ -2,7 +2,6 @@
 
 namespace Model.Factories
 {
-    //TODO: WTF? +
     /// <summary>
     /// Создаёт случайные экземпляры <see cref="Adult"/> 
     /// на основе базового класса <see cref="PersonBase"/>.

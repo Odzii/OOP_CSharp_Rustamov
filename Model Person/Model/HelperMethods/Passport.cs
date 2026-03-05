@@ -48,7 +48,6 @@ namespace Model.HelperMethods
             get => _series;
             set
             {
-                //TODO: refactor regex +
                 Regex seriesRegex = ValidationPassport(LengthSeries);
 
                 if (string.IsNullOrWhiteSpace(value) 
@@ -72,7 +71,6 @@ namespace Model.HelperMethods
             get => _numbers;
             set
             {
-                //TODO: refactor regex + 
                 Regex numbersRegex = ValidationPassport(LengthNumbers);
 
                 if (string.IsNullOrWhiteSpace(value) 

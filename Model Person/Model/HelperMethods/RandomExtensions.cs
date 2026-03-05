@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Model.Helpers
 {
-    //TODO: WTF? +
     /// <summary>
     /// Набор расширений для генератора случайных чисел <see cref="Random"/>.
     /// </summary>

@@ -8,7 +8,6 @@ namespace Model.Models
     /// <see cref="PersonBase"/>
     /// Представляет человека с именем и фамилией, возрастом и полом.
     /// </summary>
-    // TODO: RSDN +
     public abstract class PersonBase
     {
         /// <summary>

@@ -84,7 +84,6 @@ namespace Model.Helpers
         /// </returns>
         private static bool IsCyrillicLetter(char symbol)
         {
-            //TODO: RSDN +
             symbol = char.ToLowerInvariant(symbol);
             return symbol is >= 'а' and <= 'я' or 'ё';
         }

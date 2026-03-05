@@ -1,6 +1,5 @@
 ﻿namespace Model.Interfaces
 {
-    //TODO: WTF? +
     /// <summary>
     /// Источник данных, необходимых для задания места обучения <see cref="Child"/>
     /// списки детских садов и школ.
