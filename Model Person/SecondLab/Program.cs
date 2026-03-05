@@ -24,29 +24,29 @@ namespace SecondLab
         {
             Random random = new Random();
 
-            //TODO: RSDN
-            string dataDir = "DataRandomPerson";
+            //TODO: RSDN +
+            string dataDirectory = "DataRandomPerson";
 
-            string malePath = Path.Combine(dataDir, "MalesNames.txt");
+            string malePath = Path.Combine(dataDirectory, "MalesNames.txt");
 
-            string femalePath = Path.Combine(dataDir, "FemalesNamesPerson.txt");
+            string femalePath = Path.Combine(dataDirectory, "FemalesNamesPerson.txt");
 
-            string surnamePath = Path.Combine(dataDir, "DataSurnamesPerson.txt");
+            string surnamePath = Path.Combine(dataDirectory, "DataSurnamesPerson.txt");
 
             string passportsIssuedByPath = Path.Combine(
-                dataDir,
+                dataDirectory,
                 "DataPassportIssuedBy.txt");
 
             string workplaceNamesPath = Path.Combine(
-                dataDir,
+                dataDirectory,
                 "DataWorkplaces.txt");
 
             string kinderGardensPath = Path.Combine(
-                dataDir,
+                dataDirectory,
                 "DataKinderGardens.txt");
 
              string schoolsPath = Path.Combine(
-                dataDir,
+                dataDirectory,
                 "DataSchools.txt");
 
             int countList = 7;
