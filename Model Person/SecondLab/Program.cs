@@ -24,7 +24,6 @@ namespace SecondLab
         {
             Random random = new Random();
 
-            //TODO: RSDN +
             string dataDirectory = "DataRandomPerson";
 
             string malePath = Path.Combine(dataDirectory, "MalesNames.txt");
