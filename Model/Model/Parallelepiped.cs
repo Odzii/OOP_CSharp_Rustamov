@@ -101,6 +101,13 @@ namespace Model
                 $"| Объем: {Volume:F2}";
         }
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса 
+        /// <see cref="Parallelepiped"/> с указанной длиной, шириной и высотой.
+        /// </summary>
+        /// <param name="length">Длина пирамиды.</param>
+        /// <param name="width">Ширина пирамиды.</param>
+        /// <param name="height">Высота пирамиды.</param>
         public Parallelepiped(double length, double width, double height)
         {
             Length = length;
