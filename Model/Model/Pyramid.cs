@@ -99,7 +99,7 @@ namespace Model
         {
             return $"Тип фигуры: {FigureType} " +
                 $"| Основание: {BaseWidth} " +
-                $"| х {BaseLength} " +
+                $"х {BaseLength} " +
                 $"| Высота пирамиды: {Height} " +
                 $"| Объем: {Volume:F2}";
         }
