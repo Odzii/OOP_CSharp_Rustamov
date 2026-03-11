@@ -68,13 +68,6 @@ namespace Model
         /// </exception>
         protected static void ValidatePositive(double value, string parameterName)
         {
-            if (Double.IsNegative(value))
-            {
-                throw new ArgumentOutOfRangeException(
-                    parameterName,
-                    "Значение должно быть больше нуля.");
-            }
-
             if (Double.IsNaN(value))
             {
                 throw new ArgumentOutOfRangeException(
@@ -87,6 +80,13 @@ namespace Model
                 throw new ArgumentOutOfRangeException(
                 parameterName,
                 "Значение не должно быть бесконечно большим");
+            }
+
+            if (value <= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    parameterName,
+                    "Значение должно быть больше нуля.");
             }
         }
 

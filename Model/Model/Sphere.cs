@@ -20,7 +20,7 @@ namespace Model
         /// <summary>
         /// Радиус сферы, определяющий её размер. 
         /// </summary>
-        private double _radius = 0.0;
+        private double _radius;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса Sphere с указанным радиусом.
@@ -78,7 +78,7 @@ namespace Model
         public override string GetDescription()
         {
             return $"Тип фигуры: {FigureType} " +
-                $"| Радиус: {Radius}" +
+                $"| Радиус: {Radius} " +
                 $"| Объём: {Volume:F2}";
         }
     }

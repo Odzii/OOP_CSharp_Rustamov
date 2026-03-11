@@ -16,17 +16,17 @@ namespace Model
         /// <summary>
         /// Длина основания пирамиды.
         /// </summary>
-        private double _baseLength = 0.0;
+        private double _baseLength;
 
         /// <summary>
         /// Ширина основания пирамиды.
         /// </summary>
-        private double _baseWidth = 0.0;
+        private double _baseWidth;
 
         /// <summary>
         /// Высота пирамиды.
         /// </summary>
-        private double _height = 0.0;
+        private double _height;
 
         /// <summary>
         /// Получает или задаёт длину основания пирамиды.
@@ -86,7 +86,7 @@ namespace Model
         /// <summary>
         /// Получает объём пирамиды.
         /// </summary>
-        public override double Volume => 1.0 / 2.0 * BaseArea * Height;
+        public override double Volume => 1.0 / 3.0 * BaseArea * Height;
 
         /// <summary>
         /// Возвращает строковое описание пирамиды
@@ -97,10 +97,11 @@ namespace Model
         /// </returns>
         public override string GetDescription()
         {
-            return $"Тип фигуры: {FigureType}" +
-                $"| Ширина основания: {BaseWidth}" +
-                $"| Длина основания: {BaseLength}" +
-                $"| Высота пирамиды: {Height}";
+            return $"Тип фигуры: {FigureType} " +
+                $"| Основание: {BaseWidth} " +
+                $"| х {BaseLength} " +
+                $"| Высота пирамиды: {Height} " +
+                $"| Объем: {Volume:F2}";
         }
 
         /// <summary>
