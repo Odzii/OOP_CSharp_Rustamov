@@ -1,4 +1,5 @@
 ﻿using Model;
+using System.Diagnostics;
 
 
 namespace ConsoleLoader
@@ -13,7 +14,7 @@ namespace ConsoleLoader
     /// о типах фигур и их объёмах. </remarks> 
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             while (true)
             {
@@ -39,7 +40,7 @@ namespace ConsoleLoader
         /// Создаёт экземпляр класса, реализующего интерфейс IVolumeFigure,
         /// </summary>
         /// <returns>Экземпляр класса</returns>
-        static IVolumeFigure CreateFigure()
+        private static IVolumeFigure CreateFigure()
         {
             Console.WriteLine("Выберите фигуру:");
             Console.WriteLine("1 - Сфера");
@@ -47,16 +48,34 @@ namespace ConsoleLoader
             Console.WriteLine("3 - Параллелепипед");
             Console.WriteLine("0 - Выход");
 
-            string? choice = Console.ReadLine();
+            int choice;
+
+            while (true)
+            {
+                Console.WriteLine("Пожалуйста, введите корректный выбор.");
+
+                if (int.TryParse(Console.ReadLine(), out int value))
+                {
+                    choice = value;
+
+                    if (choice <= 3 || choice >= 0)
+                    {
+                        break;
+                    }
+                }
+            }
 
             switch (choice)
             {
-                //TODO: {}
-                case "1":
+                //TODO: {} +
+                case 1:
+                {
                     double radius = ReadPositiveDouble("Введите радиус: ");
                     return new Sphere(radius);
+                }
 
-                case "2":
+                case 2:
+                {
                     double baseLength = ReadPositiveDouble(
                         "Введите длину основания: ");
 
@@ -67,8 +86,10 @@ namespace ConsoleLoader
                         "Введите высоту пирамиды: ");
 
                     return new Pyramid(baseLength, baseWidth, pyramidHeight);
+                }
 
-                case "3":
+                case 3:
+                {
                     double length = ReadPositiveDouble("Введите длину: ");
 
                     double width = ReadPositiveDouble("Введите ширину: ");
@@ -76,18 +97,21 @@ namespace ConsoleLoader
                     double height = ReadPositiveDouble("Введите высоту: ");
 
                     return new Parallelepiped(length, width, height);
+                }
 
-                case "0":
+                case 0:
+                {
                     Console.WriteLine("Выход из программы.");
-
                     Environment.Exit(0);
-
-                    return null;
+                    throw new UnreachableException();
+                }
 
                 default:
-                    Console.WriteLine("Неверный выбор. Попробуйте снова.");
-                    //TODO: refactor
-                    return CreateFigure();
+                {
+                    throw new UnreachableException(
+                        "Получено недопустимое значение пункта меню.");
+                }
+                    //TODO: Refactor +
             }
         }
 
@@ -97,17 +121,16 @@ namespace ConsoleLoader
         /// </summary>
         /// <param name="prompt"></param>
         /// <returns></returns>
-        static double ReadPositiveDouble(string prompt)
+        private static double ReadPositiveDouble(string prompt)
         {
-            //TODO: refactor
-            double value;
-            do
+            //TODO: refactor +
+            while (true)
             {
                 Console.Write(prompt);
 
                 string? input = Console.ReadLine();
 
-                if (double.TryParse(input, out value) && value > 0)
+                if (double.TryParse(input, out double value) && value > 0)
                 {
                     return value;
                 }
@@ -115,7 +138,7 @@ namespace ConsoleLoader
                 {
                     Console.WriteLine("Пожалуйста, введите положительное число.");
                 }
-            } while (true);
+            }
         }
     }
 }
