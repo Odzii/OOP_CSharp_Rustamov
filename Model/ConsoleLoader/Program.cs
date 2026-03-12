@@ -1,6 +1,4 @@
-﻿using System;
-
-using Model;
+﻿using Model;
 
 
 namespace ConsoleLoader
@@ -53,6 +51,7 @@ namespace ConsoleLoader
 
             switch (choice)
             {
+                //TODO: {}
                 case "1":
                     double radius = ReadPositiveDouble("Введите радиус: ");
                     return new Sphere(radius);
@@ -87,7 +86,7 @@ namespace ConsoleLoader
 
                 default:
                     Console.WriteLine("Неверный выбор. Попробуйте снова.");
-
+                    //TODO: refactor
                     return CreateFigure();
             }
         }
@@ -100,6 +99,7 @@ namespace ConsoleLoader
         /// <returns></returns>
         static double ReadPositiveDouble(string prompt)
         {
+            //TODO: refactor
             double value;
             do
             {
