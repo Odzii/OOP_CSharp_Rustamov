@@ -1,6 +1,7 @@
-﻿using Model;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using System.Globalization;
 
+using Model;
 
 namespace ConsoleLoader
 {
@@ -24,7 +25,7 @@ namespace ConsoleLoader
 
                     Console.WriteLine();
                     Console.WriteLine($"Тип фигуры: {figure.FigureType}\n");
-                    Console.WriteLine($"Объём: {figure.Volume:F2}\n");
+                    Console.WriteLine($"Объём: {figure.Volume:G}\n");
                     Console.WriteLine(figure.GetDescription());
                     Console.WriteLine();
 
@@ -54,7 +55,8 @@ namespace ConsoleLoader
             {
                 string? input = Console.ReadLine();
 
-                if (int.TryParse(Console.ReadLine(), out int value))
+                if (int.TryParse(input, out int value)
+                    && value >= 0 && value <= 3)
                 {
                     choice = value;
 
@@ -71,58 +73,62 @@ namespace ConsoleLoader
             {
                 //TODO: {} +
                 case 1:
-                {
-                    double radius = ReadPositiveDouble("Введите радиус: ");
-                    return new Sphere(radius);
-                }
+                    {
+                        double radius = ReadPositiveDouble("Введите радиус: ");
+                        return new Sphere(radius);
+                    }
 
                 case 2:
-                {
-                    double baseLength = ReadPositiveDouble(
-                        "Введите длину основания: ");
+                    {
+                        double baseLength = ReadPositiveDouble(
+                            "Введите длину основания: ");
 
-                    double baseWidth = ReadPositiveDouble(
-                        "Введите ширину основания: ");
+                        double baseWidth = ReadPositiveDouble(
+                            "Введите ширину основания: ");
 
-                    double pyramidHeight = ReadPositiveDouble(
-                        "Введите высоту пирамиды: ");
+                        double pyramidHeight = ReadPositiveDouble(
+                            "Введите высоту пирамиды: ");
 
-                    return new Pyramid(baseLength, baseWidth, pyramidHeight);
-                }
+                        return new Pyramid(baseLength, baseWidth, pyramidHeight);
+                    }
 
                 case 3:
-                {
-                    double length = ReadPositiveDouble("Введите длину: ");
+                    {
+                        double length = ReadPositiveDouble("Введите длину: ");
 
-                    double width = ReadPositiveDouble("Введите ширину: ");
+                        double width = ReadPositiveDouble("Введите ширину: ");
 
-                    double height = ReadPositiveDouble("Введите высоту: ");
+                        double height = ReadPositiveDouble("Введите высоту: ");
 
-                    return new Parallelepiped(length, width, height);
-                }
+                        return new Parallelepiped(length, width, height);
+                    }
 
                 case 0:
-                {
-                    Console.WriteLine("Выход из программы.");
-                    Environment.Exit(0);
-                    throw new UnreachableException();
-                }
+                    {
+                        Console.WriteLine("Выход из программы.");
+                        Environment.Exit(0);
+                        throw new UnreachableException();
+                    }
 
                 default:
-                {
-                    throw new UnreachableException(
-                        "Получено недопустимое значение пункта меню.");
-                }
+                    {
+                        throw new UnreachableException(
+                            "Получено недопустимое значение пункта меню.");
+                    }
                     //TODO: Refactor +
             }
         }
 
         /// <summary>
         /// Валидирует, что введённое значение является положительным числом, 
-        /// а также обеспечивает повторный запрос ввода, если это не так.
+        /// а также не пустым значением, обеспечивает повторный запрос ввода, 
+        /// если это не так. 
         /// </summary>
         /// <param name="prompt"></param>
-        /// <returns></returns>
+        /// <returns>Возвращает введеное значение.</returns>
+        /// </remarks>Введеное значение одинаково обрабатывается 
+        /// с введеным разделителем "." или ",".
+        /// </remarks>
         private static double ReadPositiveDouble(string prompt)
         {
             //TODO: refactor +
@@ -130,18 +136,47 @@ namespace ConsoleLoader
             {
                 Console.Write(prompt);
 
-                string? input = Console.ReadLine();
+                string? input = Console.ReadLine()?.Trim();
 
-                if (double.TryParse(input, out double value) 
-                    && value > 0
-                    && double.IsFinite(value))
+                if (string.IsNullOrWhiteSpace(input))
                 {
-                    return value;
+                    Console.WriteLine("Пустой ввод. Введите число.");
+                    continue;
                 }
-                else
+
+                bool parsed =
+                    double.TryParse(
+                        input, 
+                        NumberStyles.Float, 
+                        CultureInfo.CurrentCulture, 
+                        out double value) 
+                        || double.TryParse(
+                        input, 
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture, 
+                        out value);
+
+                if (!parsed)
                 {
-                    Console.WriteLine("Пожалуйста, введите положительное число.");
+                    Console.WriteLine(
+                        "Неверный формат числа. Используйте, " +
+                        "например: 12,5 или 12.5");
+                    continue;
                 }
+
+                if (!double.IsFinite(value))
+                {
+                    Console.WriteLine("Введите конечное число.");
+                    continue;
+                }
+
+                if (value <= 0)
+                {
+                    Console.WriteLine("Введите число больше нуля.");
+                    continue;
+                }
+
+                return value;
             }
         }
     }

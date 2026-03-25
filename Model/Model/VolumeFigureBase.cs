@@ -84,5 +84,28 @@
             }
         }
 
+
+        /// <summary>
+        /// Проверяет что вычисленный объём не является бесконечно большим.
+        /// </summary>
+        /// <param name="volume">Формула вычисляемого объема.</param>
+        /// <param name="figureType">Тип объемной фигуры</param>
+        /// <returns>Вычисленный объем.</returns>
+        /// <exception cref="OverflowException">Выбрасывает исключение в случае,
+        /// если объём слишком велик</exception>
+        protected static double ValidateVolume(
+            double volume, 
+            string figureType)
+        {
+            if (!double.IsFinite(volume))
+            {
+                throw new OverflowException(
+                    $"Объём фигуры \"{figureType}\" слишком велик " +
+                    $"и не может быть представлен типом double.");
+            }
+
+            return volume;
+        }
+
     }
 }

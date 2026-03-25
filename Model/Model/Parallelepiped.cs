@@ -79,7 +79,15 @@
         /// <summary>
         /// Получает объём параллелепипеда.
         /// </summary>
-        public override double Volume => Length * Width * Height;
+        public override double Volume
+        {
+            get 
+            {
+                double volume = Length * Width * Height;
+
+                return ValidateVolume(volume, "параллелепипед");
+            }
+        }
 
         /// <summary>
         /// Возвращает строковое описание параллелепипеда 
@@ -92,7 +100,7 @@
                 $"| Длина: {Length} " +
                 $"| Ширина: {Width} " +
                 $"| Высота: {Height} " +
-                $"| Объем: {Volume:F2}";
+                $"| Объем: {Volume:G}";
         }
 
         /// <summary>

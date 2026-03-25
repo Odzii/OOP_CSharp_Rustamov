@@ -80,7 +80,15 @@
         /// <summary>
         /// Получает объём пирамиды.
         /// </summary>
-        public override double Volume => 1.0 / 3.0 * BaseArea * Height;
+        public override double Volume
+        {
+            get 
+            {
+                double volume = 1.0 / 3.0 * BaseArea * Height;
+
+                return ValidateVolume(volume, "пирамида");
+            }
+        }
 
         /// <summary>
         /// Возвращает строковое описание пирамиды
@@ -95,7 +103,7 @@
                 $"| Основание: {BaseWidth} " +
                 $"х {BaseLength} " +
                 $"| Высота пирамиды: {Height} " +
-                $"| Объем: {Volume:F2}";
+                $"| Объем: {Volume:G}";
         }
 
         /// <summary>

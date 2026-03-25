@@ -44,10 +44,16 @@
         /// <remarks>
         /// Объем сферы рассчитывается по формуле (4/3) × π × <see cref="Radius"/>³, 
         /// где <see cref="Radius"/> - это текущий радиус сферы.</remarks>
-        public override double Volume => 
-            4.0 / 3.0 
-            * Math.PI 
-            * Math.Pow(Radius, 3);
+        public override double Volume
+        {
+            get 
+            {
+                double volume = 4.0 / 3.0 * Math.PI * Math.Pow(Radius, 3);
+
+                return ValidateVolume(volume, "сфера");
+            }
+        }
+
 
         /// <summary>
         /// Возвращает строку, описывающую фигуру, включая её тип, радиус и объём.
@@ -61,7 +67,7 @@
         {
             return $"Тип фигуры: {FigureType} " +
                 $"| Радиус: {Radius} " +
-                $"| Объём: {Volume:F2}";
+                $"| Объём: {Volume:G}";
         }
 
         /// <summary>
