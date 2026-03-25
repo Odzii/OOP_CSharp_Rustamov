@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace ConsoleLoader
 {
     /// <summary>
-    /// Точка входу в программу, 
+    /// Точка входа в программу, 
     /// которая служит для загрузки и демонстрации функциональности классов,
     /// </summary>
     /// </remarks>В данном случае, 
@@ -52,17 +52,19 @@ namespace ConsoleLoader
 
             while (true)
             {
-                Console.WriteLine("Пожалуйста, введите корректный выбор.");
+                string? input = Console.ReadLine();
 
                 if (int.TryParse(Console.ReadLine(), out int value))
                 {
                     choice = value;
 
-                    if (choice <= 3 || choice >= 0)
+                    if (choice <= 3 && choice >= 0)
                     {
                         break;
                     }
                 }
+
+                Console.WriteLine("Пожалуйста, введите корректный выбор.");
             }
 
             switch (choice)
@@ -130,7 +132,9 @@ namespace ConsoleLoader
 
                 string? input = Console.ReadLine();
 
-                if (double.TryParse(input, out double value) && value > 0)
+                if (double.TryParse(input, out double value) 
+                    && value > 0
+                    && double.IsFinite(value))
                 {
                     return value;
                 }
