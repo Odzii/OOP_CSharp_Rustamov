@@ -23,6 +23,7 @@ namespace View
         public VolumeFiguresForm()
         {
             InitializeComponent();
+
             _figures.Add(new Sphere(3));
             _figures.Add(new Pyramid(2, 4, 6));
             _figures.Add(new Parallelepiped(2, 3, 4));
@@ -227,6 +228,7 @@ namespace View
             }
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Обрабатывает выбор пункта меню сохранения.
         /// </summary>
@@ -237,6 +239,7 @@ namespace View
             SaveFigures();
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Обрабатывает выбор пункта меню загрузки.
         /// </summary>
@@ -247,6 +250,7 @@ namespace View
             LoadFigures();
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Обрабатывает выбор пункта меню загрузки.
         /// </summary>

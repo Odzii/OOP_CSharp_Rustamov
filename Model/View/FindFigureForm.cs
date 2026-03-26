@@ -47,6 +47,7 @@ namespace View
             return volume.ToString("F6");
         }
 
+        //TODO: duplication
         /// <summary>
         /// Преобразует строку в необязательное число типа <see cref="double"/>.
         /// </summary>

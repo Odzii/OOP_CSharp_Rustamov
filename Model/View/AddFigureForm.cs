@@ -104,6 +104,7 @@ namespace View
             }
         }
 
+        //TODO: duplication
         /// <summary>
         /// Обрабатывает нажатие кнопки <c>OK</c>, 
         /// создаёт фигуру по введённым данным
@@ -155,6 +156,7 @@ namespace View
 
             switch (selectedType)
             {
+                //TODО: отступы
                 case "Сфера":
                     {
                         double radius = ParsePositiveDouble(
@@ -206,6 +208,7 @@ namespace View
             }
         }
 
+        //TODO: условная компиляция
         /// <summary>
         /// Обрабатывает событие загрузки формы.
         /// </summary>
@@ -218,6 +221,7 @@ namespace View
 
             switch (selectedType)
             {
+                //TODО: отступы
                 case "Сфера":
                     {
                         sphereRadiusTextBox.Text

@@ -88,6 +88,7 @@ namespace View.Serialization
         {
             switch (figure)
             {
+                //TODO: {}
                 case Sphere sphere:
                     return new FigureData
                     {
@@ -133,6 +134,7 @@ namespace View.Serialization
         {
             switch (figureData.FigureKind)
             {
+                //TODO: {}
                 case "Сфера":
                     return new Sphere(
                         figureData.Radius 
@@ -156,7 +158,8 @@ namespace View.Serialization
                         figureData.Length 
                         ?? throw new InvalidOperationException(
                             "Не задан Length."),
-                        figureData.Width ?? throw new InvalidOperationException(
+                        figureData.Width 
+                        ?? throw new InvalidOperationException(
                             "Не задан Width."),
                         figureData.Height 
                         ?? throw new InvalidOperationException(
