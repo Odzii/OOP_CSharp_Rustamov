@@ -15,6 +15,16 @@ namespace ConsoleLoader
     /// о типах фигур и их объёмах. </remarks> 
     internal class Program
     {
+        /// <summary>
+        /// Минимальный пункт меню выбора.
+        /// </summary>
+        private const int MinMenuOption = 0;
+        
+        /// <summary>
+        /// Максимальный пункт меню выбора.
+        /// </summary>
+        private const int MaxMenuOption = 3;
+
         private static void Main(string[] args)
         {
             while (true)
@@ -55,13 +65,13 @@ namespace ConsoleLoader
             {
                 string? input = Console.ReadLine();
 
-                //TODO: magic (to const)
+                //TODO: magic (to const) +
                 if (int.TryParse(input, out int value)
-                    && value >= 0 && value <= 3)
+                    && value >= MinMenuOption && value <= MaxMenuOption)
                 {
                     choice = value;
 
-                    if (choice <= 3 && choice >= 0)
+                    if (choice <= MaxMenuOption && choice >= MinMenuOption)
                     {
                         break;
                     }
@@ -72,50 +82,50 @@ namespace ConsoleLoader
 
             switch (choice)
             {
-                //TOOD: отступы
+                //TOOD: отступы +
                 case 1:
-                    {
-                        double radius = ReadPositiveDouble("Введите радиус: ");
-                        return new Sphere(radius);
-                    }
+                {
+                    double radius = ReadPositiveDouble("Введите радиус: ");
+                    return new Sphere(radius);
+                }
 
                 case 2:
-                    {
-                        double baseLength = ReadPositiveDouble(
-                            "Введите длину основания: ");
+                {
+                    double baseLength = ReadPositiveDouble(
+                        "Введите длину основания: ");
 
-                        double baseWidth = ReadPositiveDouble(
-                            "Введите ширину основания: ");
+                    double baseWidth = ReadPositiveDouble(
+                        "Введите ширину основания: ");
 
-                        double pyramidHeight = ReadPositiveDouble(
-                            "Введите высоту пирамиды: ");
+                    double pyramidHeight = ReadPositiveDouble(
+                        "Введите высоту пирамиды: ");
 
-                        return new Pyramid(baseLength, baseWidth, pyramidHeight);
-                    }
+                    return new Pyramid(baseLength, baseWidth, pyramidHeight);
+                }
 
                 case 3:
-                    {
-                        double length = ReadPositiveDouble("Введите длину: ");
+                {
+                    double length = ReadPositiveDouble("Введите длину: ");
 
-                        double width = ReadPositiveDouble("Введите ширину: ");
+                    double width = ReadPositiveDouble("Введите ширину: ");
 
-                        double height = ReadPositiveDouble("Введите высоту: ");
+                    double height = ReadPositiveDouble("Введите высоту: ");
 
-                        return new Parallelepiped(length, width, height);
-                    }
+                    return new Parallelepiped(length, width, height);
+                }
 
                 case 0:
-                    {
-                        Console.WriteLine("Выход из программы.");
-                        Environment.Exit(0);
-                        throw new UnreachableException();
-                    }
+                {
+                    Console.WriteLine("Выход из программы.");
+                    Environment.Exit(0);
+                    throw new UnreachableException();
+                }
 
                 default:
-                    {
-                        throw new UnreachableException(
-                            "Получено недопустимое значение пункта меню.");
-                    }
+                {
+                    throw new UnreachableException(
+                        "Получено недопустимое значение пункта меню.");
+                }
             }
         }
 
@@ -143,14 +153,14 @@ namespace ConsoleLoader
                     continue;
                 }
 
-                //TODO: RSDN
-                bool parsed =
+                //TODO: RSDN +
+                bool isValidNumber =
                     double.TryParse(input, NumberStyles.Float, 
                         CultureInfo.CurrentCulture, out double value) 
                     || double.TryParse(input, NumberStyles.Float,
                         CultureInfo.InvariantCulture, out value);
 
-                if (!parsed)
+                if (!isValidNumber)
                 {
                     Console.WriteLine(
                         "Неверный формат числа. Используйте, " +
