@@ -1,6 +1,7 @@
 ﻿using Model;
 using System.Data;
 using System.Linq;
+using View.Helper;
 
 namespace View
 {
@@ -47,53 +48,8 @@ namespace View
             return volume.ToString("F6");
         }
 
-        //TODO: duplication
-        /// <summary>
-        /// Преобразует строку в необязательное число типа <see cref="double"/>.
-        /// </summary>
-        /// <param name="text">Текст, введённый пользователем.</param>
-        /// <param name="fieldName">Имя поля для сообщения об ошибке.</param>
-        /// <returns>
-        /// Значение типа <see cref="double"/>, если поле заполнено корректно;
-        /// иначе <see langword="null"/>, если поле пустое.
-        /// </returns>
-        /// <exception cref="ArgumentException">
-        /// Выбрасывается, если введённое значение не является числом,
-        /// не является конечным числом или является отрицательным.
-        /// </exception>
-        private static double? ParseOptionalDouble(
-            string text,
-            string fieldName)
-        {
-            string normalizedText = text.Trim();
-
-            if (string.IsNullOrWhiteSpace(normalizedText))
-            {
-                return null;
-            }
-
-            bool parsed = double.TryParse(normalizedText, out double value);
-
-            if (!parsed)
-            {
-                throw new ArgumentException(
-                    $"Поле \"{fieldName}\" содержит некорректное число.");
-            }
-
-            if (!double.IsFinite(value))
-            {
-                throw new ArgumentException(
-                    $"Поле \"{fieldName}\" должно содержать конечное число.");
-            }
-
-            if (value < 0)
-            {
-                throw new ArgumentException(
-                    $"Поле \"{fieldName}\" не должно быть отрицательным.");
-            }
-
-            return value;
-        }
+        //TODO: duplication +
+        // Here was method and now it's in the folder Helper
 
         /// <summary>
         /// Обновляет таблицу результатов поиска.
@@ -126,10 +82,11 @@ namespace View
             string selectedType = FigureTypeComboBox.SelectedItem?.ToString()
                 ?? "Все";
 
-            double? minVolume = ParseOptionalDouble(
+            double? minVolume = Validation.ParseOptionalPositiveDouble(
                 MinVolumeTextBox.Text,
                 "Минимальный объем");
-            double? maxVolume = ParseOptionalDouble(
+
+            double? maxVolume = Validation.ParseOptionalPositiveDouble(
                 MaxVolumeTextBox.Text,
                 "Максимальный объем");
 

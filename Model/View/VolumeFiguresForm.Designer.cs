@@ -47,119 +47,119 @@
             MenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // figuresGroupBox
+            // FiguresGroupBox
             // 
             FiguresGroupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             FiguresGroupBox.Controls.Add(FiguresDataGridView);
             FiguresGroupBox.Location = new Point(15, 43);
-            FiguresGroupBox.Name = "figuresGroupBox";
+            FiguresGroupBox.Name = "FiguresGroupBox";
             FiguresGroupBox.Size = new Size(940, 431);
             FiguresGroupBox.TabIndex = 0;
             FiguresGroupBox.TabStop = false;
             FiguresGroupBox.Text = "Список фигур";
             // 
-            // figuresDataGridView
+            // FiguresDataGridView
             // 
             FiguresDataGridView.AllowUserToAddRows = false;
             FiguresDataGridView.AllowUserToDeleteRows = false;
+            FiguresDataGridView.AllowUserToResizeRows = false;
             FiguresDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             FiguresDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             FiguresDataGridView.Columns.AddRange(new DataGridViewColumn[] { FigureVolumeColumn, FigureTypeColumn, FigureDescriptionColumn });
             FiguresDataGridView.Dock = DockStyle.Fill;
             FiguresDataGridView.Location = new Point(3, 19);
-            FiguresDataGridView.MultiSelect = false;
-            FiguresDataGridView.Name = "figuresDataGridView";
+            FiguresDataGridView.Name = "FiguresDataGridView";
             FiguresDataGridView.ReadOnly = true;
             FiguresDataGridView.RowHeadersVisible = false;
             FiguresDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             FiguresDataGridView.Size = new Size(934, 409);
             FiguresDataGridView.TabIndex = 1;
             // 
-            // figureVolumeColumn
+            // FigureVolumeColumn
             // 
             FigureVolumeColumn.HeaderText = "Тип";
-            FigureVolumeColumn.Name = "figureVolumeColumn";
+            FigureVolumeColumn.Name = "FigureVolumeColumn";
             FigureVolumeColumn.ReadOnly = true;
             // 
-            // figureTypeColumn
+            // FigureTypeColumn
             // 
             FigureTypeColumn.HeaderText = "Объем";
-            FigureTypeColumn.Name = "figureTypeColumn";
+            FigureTypeColumn.Name = "FigureTypeColumn";
             FigureTypeColumn.ReadOnly = true;
             // 
-            // figureDescriptionColumn
+            // FigureDescriptionColumn
             // 
             FigureDescriptionColumn.HeaderText = "Описание";
-            FigureDescriptionColumn.Name = "figureDescriptionColumn";
+            FigureDescriptionColumn.Name = "FigureDescriptionColumn";
             FigureDescriptionColumn.ReadOnly = true;
             // 
-            // removeFigureButton
+            // RemoveFigureButton
             // 
             RemoveFigureButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             RemoveFigureButton.Location = new Point(152, 503);
-            RemoveFigureButton.Name = "removeFigureButton";
+            RemoveFigureButton.Name = "RemoveFigureButton";
             RemoveFigureButton.Size = new Size(131, 23);
             RemoveFigureButton.TabIndex = 3;
             RemoveFigureButton.Text = "Удалить фигуру";
             RemoveFigureButton.UseVisualStyleBackColor = true;
             RemoveFigureButton.Click += RemoveFigureButton_Click;
             // 
-            // addFigureButton
+            // AddFigureButton
             // 
             AddFigureButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             AddFigureButton.Location = new Point(15, 503);
-            AddFigureButton.Name = "addFigureButton";
+            AddFigureButton.Name = "AddFigureButton";
             AddFigureButton.Size = new Size(131, 23);
             AddFigureButton.TabIndex = 2;
             AddFigureButton.Text = "Добавить фигуру";
             AddFigureButton.UseVisualStyleBackColor = true;
             AddFigureButton.Click += AddFigureButton_Click;
             // 
-            // findFigureButton
+            // FindFigureButton
             // 
             FindFigureButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             FindFigureButton.Location = new Point(289, 503);
-            FindFigureButton.Name = "findFigureButton";
+            FindFigureButton.Name = "FindFigureButton";
             FindFigureButton.Size = new Size(131, 23);
             FindFigureButton.TabIndex = 4;
             FindFigureButton.Text = "Поиск";
             FindFigureButton.UseVisualStyleBackColor = true;
             FindFigureButton.Click += FindFigureButton_Click;
             // 
-            // menuStrip1
+            // MenuStrip1
             // 
             MenuStrip1.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem });
             MenuStrip1.Location = new Point(0, 0);
-            MenuStrip1.Name = "menuStrip1";
+            MenuStrip1.Name = "MenuStrip1";
             MenuStrip1.Size = new Size(984, 24);
             MenuStrip1.TabIndex = 0;
             MenuStrip1.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem
+            // FileToolStripMenuItem
             // 
             FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SaveToolStripMenuItem, LoadToolStripMenuItem, ExitToolStripMenuItem });
-            FileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            FileToolStripMenuItem.Name = "FileToolStripMenuItem";
             FileToolStripMenuItem.Size = new Size(48, 20);
             FileToolStripMenuItem.Text = "Файл";
             // 
-            // saveToolStripMenuItem
+            // SaveToolStripMenuItem
             // 
-            SaveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            SaveToolStripMenuItem.Size = new Size(180, 22);
+            SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            SaveToolStripMenuItem.Size = new Size(133, 22);
             SaveToolStripMenuItem.Text = "Сохранить";
             SaveToolStripMenuItem.Click += SaveToolStripMenuItem_Click;
             // 
-            // loadToolStripMenuItem
+            // LoadToolStripMenuItem
             // 
-            LoadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            LoadToolStripMenuItem.Size = new Size(180, 22);
+            LoadToolStripMenuItem.Name = "LoadToolStripMenuItem";
+            LoadToolStripMenuItem.Size = new Size(133, 22);
             LoadToolStripMenuItem.Text = "Загрузить";
             LoadToolStripMenuItem.Click += LoadToolStripMenuItem_Click;
             // 
-            // exitToolStripMenuItem
+            // ExitToolStripMenuItem
             // 
-            ExitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            ExitToolStripMenuItem.Size = new Size(180, 22);
+            ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            ExitToolStripMenuItem.Size = new Size(133, 22);
             ExitToolStripMenuItem.Text = "Выход";
             ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
             // 

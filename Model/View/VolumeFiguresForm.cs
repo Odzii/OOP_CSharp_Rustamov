@@ -23,11 +23,6 @@ namespace View
         public VolumeFiguresForm()
         {
             InitializeComponent();
-
-            _figures.Add(new Sphere(3));
-            _figures.Add(new Pyramid(2, 4, 6));
-            _figures.Add(new Parallelepiped(2, 3, 4));
-
             RefreshFiguresGrid();
         }
 
@@ -66,14 +61,22 @@ namespace View
             SaveToolStripMenuItem.Enabled = _figures.Count > 0;
         }
 
+        //TODO: XML
         /// <summary>
-        /// Обрабатывает нажатие кнопки удаления выбранной фигуры.
+        /// 
         /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="e">Аргументы события.</param>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveFigureButton_Click(object sender, EventArgs e)
         {
-            if (FiguresDataGridView.CurrentRow == null)
+            var selectedRows
+                = FiguresDataGridView
+                    .SelectedRows
+                    .OfType<DataGridViewRow>()
+                    .Where(row => !row.IsNewRow)
+                    .ToArray();
+
+            if (selectedRows.Length == 0)
             {
                 MessageBox.Show(
                     this,
@@ -85,10 +88,15 @@ namespace View
                 return;
             }
 
-            int selectedIndex = FiguresDataGridView.CurrentRow.Index;
+            int[] selectedIndexes 
+                = selectedRows
+                    .Select(row => row.Index)
+                    .Where(index => index >= 0 && index < _figures.Count)
+                    .OrderByDescending(index => index)
+                    .ToArray();
 
-            if (selectedIndex < 0
-                || selectedIndex >= _figures.Count)
+
+            if (selectedIndexes.Length == 0)
             {
                 MessageBox.Show(
                     this,
@@ -100,7 +108,11 @@ namespace View
                 return;
             }
 
-            _figures.RemoveAt(selectedIndex);
+            foreach (int index in selectedIndexes)
+            {
+                _figures.RemoveAt(index);
+            }
+
             RefreshFiguresGrid();
         }
 

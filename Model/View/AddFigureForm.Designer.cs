@@ -68,13 +68,13 @@
             // 
             // FigureTypeComboBox
             // 
+            FigureTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             FigureTypeComboBox.FormattingEnabled = true;
             FigureTypeComboBox.Location = new Point(168, 21);
             FigureTypeComboBox.Name = "FigureTypeComboBox";
             FigureTypeComboBox.RightToLeft = RightToLeft.No;
             FigureTypeComboBox.Size = new Size(171, 23);
             FigureTypeComboBox.TabIndex = 0;
-            FigureTypeComboBox.Text = "Выберите фигуру";
             FigureTypeComboBox.SelectedIndexChanged += FigureTypeComboBox_SelectedIndexChanged;
             // 
             // SpherePanel
@@ -305,9 +305,9 @@
         private Label LengthBasePyramidLabel;
         private Panel ParallelepipedPanel;
         private TextBox PyramidHeightTextBox;
-        private TextBox textBox3;
+
         private Label HeightParallelepipedLabel;
-        private TextBox textBox2;
+
         private Label WidthParallelepipedLabel;
         private TextBox ParallelepipedLengthTextBox;
         private Label LengthParallelepipedLabel;

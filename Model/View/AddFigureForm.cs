@@ -1,4 +1,5 @@
 ﻿using Model;
+using View.Helper;
 
 namespace View
 {
@@ -104,41 +105,8 @@ namespace View
             }
         }
 
-        //TODO: duplication
-        /// <summary>
-        /// Обрабатывает нажатие кнопки <c>OK</c>, 
-        /// создаёт фигуру по введённым данным
-        /// и закрывает форму при успешном завершении.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="e">Аргументы события.</param>
-        private static double ParsePositiveDouble(string text, string fieldName)
-        {
-            string normalizedText = text.Trim();
-
-            bool parsed =
-                double.TryParse(normalizedText, out double value);
-
-            if (!parsed)
-            {
-                throw new ArgumentException(
-                    $"Поле \"{fieldName}\" содержит некорректное число.");
-            }
-
-            if (!double.IsFinite(value))
-            {
-                throw new ArgumentException(
-                    $"Поле \"{fieldName}\" должно содержать конечное число.");
-            }
-
-            if (value <= 0)
-            {
-                throw new ArgumentException(
-                    $"Поле \"{fieldName}\" должно быть больше нуля.");
-            }
-
-            return value;
-        }
+        //TODO: duplication+
+        // Here was method and now it's in the folder Helper
 
         /// <summary>
         /// Создаёт объект фигуры на основе выбранного типа 
@@ -156,55 +124,55 @@ namespace View
 
             switch (selectedType)
             {
-                //TODО: отступы
+                //TODО: отступы +
                 case "Сфера":
-                    {
-                        double radius = ParsePositiveDouble(
-                            SphereRadiusTextBox.Text,
-                            "Радиус");
+                {
+                    double radius = Validation.ParseRequiredPositiveDouble(
+                        SphereRadiusTextBox.Text,
+                        "Радиус");
 
-                        return new Sphere(radius);
-                    }
+                    return new Sphere(radius);
+                }
 
                 case "Пирамида":
-                    {
-                        double baseLength = ParsePositiveDouble(
-                            PyramidBaseLengthTextBox.Text,
-                            "Длина основания");
+                {
+                    double baseLength = Validation.ParseRequiredPositiveDouble(
+                        PyramidBaseLengthTextBox.Text,
+                        "Длина основания");
 
-                        double baseWidth = ParsePositiveDouble(
-                            PyramidBaseWidthTextBox.Text,
-                            "Ширина основания");
+                    double baseWidth = Validation.ParseRequiredPositiveDouble(
+                        PyramidBaseWidthTextBox.Text,
+                        "Ширина основания");
 
-                        double height = ParsePositiveDouble(
-                            PyramidHeightTextBox.Text,
-                            "Высота");
+                    double height = Validation.ParseRequiredPositiveDouble(
+                        PyramidHeightTextBox.Text,
+                        "Высота");
 
-                        return new Pyramid(baseLength, baseWidth, height);
-                    }
+                    return new Pyramid(baseLength, baseWidth, height);
+                }
 
                 case "Параллелепипед":
-                    {
-                        double length = ParsePositiveDouble(
-                            ParallelepipedLengthTextBox.Text,
-                            "Длина");
+                {
+                    double length = Validation.ParseRequiredPositiveDouble(
+                        ParallelepipedLengthTextBox.Text,
+                        "Длина");
 
-                        double width = ParsePositiveDouble(
-                            ParallelepipedWidthTextBox.Text,
-                            "Ширина");
+                    double width = Validation.ParseRequiredPositiveDouble(
+                        ParallelepipedWidthTextBox.Text,
+                        "Ширина");
 
-                        double height = ParsePositiveDouble(
-                            ParallelepipedHeightTextBox.Text,
-                            "Высота");
+                    double height = Validation.ParseRequiredPositiveDouble(
+                        ParallelepipedHeightTextBox.Text,
+                        "Высота");
 
-                        return new Parallelepiped(length, width, height);
-                    }
+                    return new Parallelepiped(length, width, height);
+                }
 
                 default:
-                    {
-                        throw new InvalidOperationException(
-                            "Тип фигуры не выбран");
-                    }
+                {
+                    throw new InvalidOperationException(
+                        "Тип фигуры не выбран");
+                }
             }
         }
 
@@ -221,35 +189,35 @@ namespace View
 
             switch (selectedType)
             {
-                //TODО: отступы
+                //TODО: отступы +
                 case "Сфера":
-                    {
-                        SphereRadiusTextBox.Text
-                            = NextPositiveDouble(1, 20).ToString("F2");
-                        break;
-                    }
+                {
+                    SphereRadiusTextBox.Text
+                        = NextPositiveDouble(1, 20).ToString("F2");
+                    break;
+                }
 
                 case "Пирамида":
-                    {
-                        PyramidBaseLengthTextBox.Text
-                            = NextPositiveDouble(1, 20).ToString("F2");
-                        PyramidBaseWidthTextBox.Text
-                            = NextPositiveDouble(1, 20).ToString("F2");
-                        PyramidHeightTextBox.Text
-                            = NextPositiveDouble(1, 20).ToString("F2");
-                        break;
-                    }
+                {
+                    PyramidBaseLengthTextBox.Text
+                        = NextPositiveDouble(1, 20).ToString("F2");
+                    PyramidBaseWidthTextBox.Text
+                        = NextPositiveDouble(1, 20).ToString("F2");
+                    PyramidHeightTextBox.Text
+                        = NextPositiveDouble(1, 20).ToString("F2");
+                    break;
+                }
 
                 case "Параллелепипед":
-                    {
-                        ParallelepipedLengthTextBox.Text
-                            = NextPositiveDouble(1, 20).ToString("F2");
-                        ParallelepipedWidthTextBox.Text
-                            = NextPositiveDouble(1, 20).ToString("F2");
-                        ParallelepipedHeightTextBox.Text
-                            = NextPositiveDouble(1, 20).ToString("F2");
-                        break;
-                    }
+                {
+                    ParallelepipedLengthTextBox.Text
+                        = NextPositiveDouble(1, 20).ToString("F2");
+                    ParallelepipedWidthTextBox.Text
+                        = NextPositiveDouble(1, 20).ToString("F2");
+                    ParallelepipedHeightTextBox.Text
+                        = NextPositiveDouble(1, 20).ToString("F2");
+                    break;
+                }
             }
         }
 

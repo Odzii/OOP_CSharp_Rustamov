@@ -44,105 +44,107 @@
             ((System.ComponentModel.ISupportInitialize)ResultsDataGridView).BeginInit();
             SuspendLayout();
             // 
-            // figureTypeLabel
+            // FigureTypeLabel
             // 
             FigureTypeLabel.Location = new Point(29, 9);
-            FigureTypeLabel.Name = "figureTypeLabel";
+            FigureTypeLabel.Name = "FigureTypeLabel";
             FigureTypeLabel.Size = new Size(73, 15);
             FigureTypeLabel.TabIndex = 0;
             FigureTypeLabel.Text = "Тип фигуры";
             // 
-            // maxVolumeLabel
+            // MaxVolumeLabel
             // 
             MaxVolumeLabel.Location = new Point(441, 9);
-            MaxVolumeLabel.Name = "maxVolumeLabel";
+            MaxVolumeLabel.Name = "MaxVolumeLabel";
             MaxVolumeLabel.Size = new Size(133, 15);
             MaxVolumeLabel.TabIndex = 4;
             MaxVolumeLabel.Text = "Максимальный объем";
             // 
-            // maxVolumeTextBox
+            // MaxVolumeTextBox
             // 
             MaxVolumeTextBox.Location = new Point(441, 36);
-            MaxVolumeTextBox.Name = "maxVolumeTextBox";
+            MaxVolumeTextBox.Name = "MaxVolumeTextBox";
             MaxVolumeTextBox.Size = new Size(179, 23);
             MaxVolumeTextBox.TabIndex = 2;
             // 
-            // searchButton
+            // SearchButton
             // 
             SearchButton.Location = new Point(636, 35);
-            SearchButton.Name = "searchButton";
+            SearchButton.Name = "SearchButton";
             SearchButton.Size = new Size(75, 23);
             SearchButton.TabIndex = 3;
             SearchButton.Text = "Поиск";
             SearchButton.UseVisualStyleBackColor = true;
             SearchButton.Click += SearchButtonClick;
             // 
-            // button2
+            // CloseButton
             // 
             CloseButton.DialogResult = DialogResult.Cancel;
             CloseButton.Location = new Point(717, 35);
-            CloseButton.Name = "button2";
+            CloseButton.Name = "CloseButton";
             CloseButton.Size = new Size(75, 23);
             CloseButton.TabIndex = 4;
             CloseButton.Text = "Закрыть";
             CloseButton.UseVisualStyleBackColor = true;
             // 
-            // minVolumeTextBox
+            // MinVolumeTextBox
             // 
             MinVolumeTextBox.Location = new Point(242, 36);
-            MinVolumeTextBox.Name = "minVolumeTextBox";
+            MinVolumeTextBox.Name = "MinVolumeTextBox";
             MinVolumeTextBox.Size = new Size(179, 23);
             MinVolumeTextBox.TabIndex = 1;
             // 
-            // minVolumeLabel
+            // MinVolumeLabel
             // 
             MinVolumeLabel.Location = new Point(242, 9);
-            MinVolumeLabel.Name = "minVolumeLabel";
+            MinVolumeLabel.Name = "MinVolumeLabel";
             MinVolumeLabel.Size = new Size(129, 15);
             MinVolumeLabel.TabIndex = 9;
             MinVolumeLabel.Text = "Минимальный объем";
             // 
-            // figureTypeComboBox
+            // FigureTypeComboBox
             // 
+            FigureTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             FigureTypeComboBox.FormattingEnabled = true;
             FigureTypeComboBox.Location = new Point(29, 36);
-            FigureTypeComboBox.Name = "figureTypeComboBox";
+            FigureTypeComboBox.Name = "FigureTypeComboBox";
             FigureTypeComboBox.Size = new Size(179, 23);
             FigureTypeComboBox.TabIndex = 0;
             // 
-            // resultsDataGridView
+            // ResultsDataGridView
             // 
             ResultsDataGridView.AllowUserToAddRows = false;
             ResultsDataGridView.AllowUserToDeleteRows = false;
+            ResultsDataGridView.AllowUserToResizeRows = false;
             ResultsDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             ResultsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ResultsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ResultsDataGridView.Columns.AddRange(new DataGridViewColumn[] { ResultTyoeColumn, ResultVolumeColumn, ResultDescriptionColumn });
             ResultsDataGridView.Location = new Point(29, 81);
             ResultsDataGridView.MultiSelect = false;
-            ResultsDataGridView.Name = "resultsDataGridView";
+            ResultsDataGridView.Name = "ResultsDataGridView";
             ResultsDataGridView.ReadOnly = true;
             ResultsDataGridView.RowHeadersVisible = false;
             ResultsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ResultsDataGridView.Size = new Size(763, 181);
             ResultsDataGridView.TabIndex = 5;
             // 
-            // resultTyoeColumn
+            // ResultTyoeColumn
             // 
             ResultTyoeColumn.HeaderText = "Тип";
-            ResultTyoeColumn.Name = "resultTyoeColumn";
+            ResultTyoeColumn.Name = "ResultTyoeColumn";
             ResultTyoeColumn.ReadOnly = true;
             // 
-            // resultVolumeColumn
+            // ResultVolumeColumn
             // 
             ResultVolumeColumn.HeaderText = "Объем";
-            ResultVolumeColumn.Name = "resultVolumeColumn";
+            ResultVolumeColumn.Name = "ResultVolumeColumn";
             ResultVolumeColumn.ReadOnly = true;
             // 
-            // resultDescriptionColumn
+            // ResultDescriptionColumn
             // 
             ResultDescriptionColumn.HeaderText = "Описание";
-            ResultDescriptionColumn.Name = "resultDescriptionColumn";
+            ResultDescriptionColumn.Name = "ResultDescriptionColumn";
             ResultDescriptionColumn.ReadOnly = true;
             // 
             // FindFigureForm
@@ -160,6 +162,7 @@
             Controls.Add(MaxVolumeLabel);
             Controls.Add(FigureTypeLabel);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MinimumSize = new Size(828, 316);
             Name = "FindFigureForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Поиск фигуры";
