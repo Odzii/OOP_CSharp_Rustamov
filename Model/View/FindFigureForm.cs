@@ -179,6 +179,7 @@ namespace View
             catch (Exception ex)
             {
                 MessageBox.Show(
+                    this,
                     ex.Message,
                     "Ошибка поиска",
                     MessageBoxButtons.OK,

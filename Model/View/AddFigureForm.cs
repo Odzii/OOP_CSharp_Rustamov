@@ -46,10 +46,10 @@ namespace View
         /// если пользователь корректно ввёл данные
         /// и нажал кнопку <c>OK</c>; иначе <see langword="null"/>.
         /// </value>
-        public VolumeFigureBase? CreatedFigure 
-        {   
-            get; 
-            private set; 
+        public VolumeFigureBase? CreatedFigure
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -94,6 +94,7 @@ namespace View
             catch (Exception ex)
             {
                 MessageBox.Show(
+                    this,
                     ex.Message,
                     "Ошибочный ввод",
                     MessageBoxButtons.OK,
@@ -212,36 +213,36 @@ namespace View
         /// <param name="e">Аргументы события.</param>
         private void createRandomDataButton_Click(object sender, EventArgs e)
         {
-            string selectedType 
+            string selectedType
                 = figureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
 
             switch (selectedType)
             {
                 case "Сфера":
                     {
-                        sphereRadiusTextBox.Text 
+                        sphereRadiusTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
                         break;
                     }
 
                 case "Пирамида":
                     {
-                        pyramidBaseLengthTextBox.Text 
+                        pyramidBaseLengthTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
-                        pyramidBaseWidthTextBox.Text 
+                        pyramidBaseWidthTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
-                        pyramidHeightTextBox.Text 
+                        pyramidHeightTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
                         break;
                     }
 
                 case "Параллелепипед":
                     {
-                        parallelepipedLengthTextBox.Text 
+                        parallelepipedLengthTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
-                        parallelepipedWidthTextBox.Text 
+                        parallelepipedWidthTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
-                        parallelepipedHeightTextBox.Text 
+                        parallelepipedHeightTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
                         break;
                     }

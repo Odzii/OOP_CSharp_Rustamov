@@ -75,6 +75,7 @@ namespace View
             if (figuresDataGridView.CurrentRow == null)
             {
                 MessageBox.Show(
+                    this,
                     "Выберите фигуру для удаления.",
                     "Удаление",
                     MessageBoxButtons.OK,
@@ -89,6 +90,7 @@ namespace View
                 || selectedIndex >= _figures.Count)
             {
                 MessageBox.Show(
+                    this,
                     "Не удалось определить выбранный объект.",
                     "Ошибка",
                     MessageBoxButtons.OK,
@@ -138,6 +140,7 @@ namespace View
             if (_figures.Count == 0)
             {
                 MessageBox.Show(
+                    this,
                     "Список фигур пуст. Нет данных для сохранения.",
                     "Save",
                     MessageBoxButtons.OK,
@@ -163,6 +166,7 @@ namespace View
                     FigureStorage.Save(saveFileDialog.FileName, _figures);
 
                     MessageBox.Show(
+                        this,
                         "Данные успешно сохранены.",
                         "Сохранение",
                         MessageBoxButtons.OK,
@@ -171,6 +175,7 @@ namespace View
                 catch (Exception ex)
                 {
                     MessageBox.Show(
+                        this,
                         ex.Message,
                         "Ошибка сохранения",
                         MessageBoxButtons.OK,
@@ -213,6 +218,7 @@ namespace View
                 catch (Exception ex)
                 {
                     MessageBox.Show(
+                        this,
                         ex.Message,
                         "Ошибка загрузки",
                         MessageBoxButtons.OK,
