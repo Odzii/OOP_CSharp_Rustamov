@@ -1,21 +1,28 @@
 ﻿using Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace View
 {
-    public partial class addFigureForm : Form
+    /// <summary>
+    /// Представляет форму добавления новой объёмной фигуры.
+    /// </summary>
+    /// <remarks>
+    /// Форма позволяет пользователю выбрать тип фигуры, ввести её параметры,
+    /// сгенерировать случайные данные для отладки и создать объект модели.
+    /// После успешного подтверждения созданная фигура сохраняется в свойстве
+    /// <see cref="CreatedFigure"/>.
+    /// </remarks>
+    public partial class AddFigureForm : Form
     {
+        /// <summary>
+        /// Генератор случайных чисел, 
+        /// используемый для заполнения формы тестовыми данными.
+        /// </summary>
         private readonly Random _random = new();
 
-        public addFigureForm()
+        /// <summary>
+        /// Инициализирует новый экземпляр формы <see cref="AddFigureForm"/>.
+        /// </summary>
+        public AddFigureForm()
         {
             InitializeComponent();
 
@@ -31,18 +38,39 @@ namespace View
 #endif
         }
 
-        public VolumeFigureBase? CreatedFigure { get; private set; }
+        /// <summary>
+        /// Получает созданную фигуру после успешного подтверждения формы.
+        /// </summary>
+        /// <value>
+        /// Экземпляр <see cref="VolumeFigureBase"/>, 
+        /// если пользователь корректно ввёл данные
+        /// и нажал кнопку <c>OK</c>; иначе <see langword="null"/>.
+        /// </value>
+        public VolumeFigureBase? CreatedFigure 
+        {   
+            get; 
+            private set; 
+        }
 
+        /// <summary>
+        /// Обновляет видимость панелей ввода 
+        /// в зависимости от выбранного типа фигуры.
+        /// </summary>
         private void UpdatePanelIsVisibility()
         {
             string selectedType = figureTypeComboBox.SelectedItem?.ToString()
                 ?? string.Empty;
 
-            spherePanel.Visible = true;
+            spherePanel.Visible = selectedType == "Сфера";
             pyramidPanel.Visible = selectedType == "Пирамида";
             parallelepipedPanel.Visible = selectedType == "Параллелепипед";
         }
 
+        /// <summary>
+        /// Обрабатывает изменение выбранного типа фигуры в выпадающем списке.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void figureTypeComboBox_SelectedIndexChanged(
             object sender,
             EventArgs e)
@@ -50,6 +78,11 @@ namespace View
             UpdatePanelIsVisibility();
         }
 
+        /// <summary>
+        /// Обрабатывает изменение выбранного типа фигуры в выпадающем списке.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void okButton_Click(object sender, EventArgs e)
         {
             try
@@ -70,6 +103,13 @@ namespace View
             }
         }
 
+        /// <summary>
+        /// Обрабатывает нажатие кнопки <c>OK</c>, 
+        /// создаёт фигуру по введённым данным
+        /// и закрывает форму при успешном завершении.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private static double ParsePositiveDouble(string text, string fieldName)
         {
             string normalizedText = text.Trim();
@@ -80,24 +120,33 @@ namespace View
             if (!parsed)
             {
                 throw new ArgumentException(
-                    $"Field \"{fieldName}\" contains an invalid number.");
+                    $"Поле \"{fieldName}\" содержит некорректное число.");
             }
 
             if (!double.IsFinite(value))
             {
                 throw new ArgumentException(
-                    $"Field \"{fieldName}\" must contain a finite number.");
+                    $"Поле \"{fieldName}\" должно содержать конечное число.");
             }
 
             if (value <= 0)
             {
                 throw new ArgumentException(
-                    $"Field \"{fieldName}\" must be greater than zero.");
+                    $"Поле \"{fieldName}\" должно быть больше нуля.");
             }
 
             return value;
         }
 
+        /// <summary>
+        /// Создаёт объект фигуры на основе выбранного типа 
+        /// и введённых пользователем параметров.
+        /// </summary>
+        /// <returns>Созданный экземпляр фигуры, 
+        /// наследуемой от <see cref="VolumeFigureBase"/>.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// Выбрасывается, если тип фигуры не выбран или не поддерживается.
+        /// </exception>
         private VolumeFigureBase CreateFigureFromForm()
         {
             string selectedType = figureTypeComboBox.SelectedItem?.ToString()
@@ -109,7 +158,7 @@ namespace View
                     {
                         double radius = ParsePositiveDouble(
                             sphereRadiusTextBox.Text,
-                            "Radius");
+                            "Радиус");
 
                         return new Sphere(radius);
                     }
@@ -118,15 +167,15 @@ namespace View
                     {
                         double baseLength = ParsePositiveDouble(
                             pyramidBaseLengthTextBox.Text,
-                            "Base length");
+                            "Длина основания");
 
                         double baseWidth = ParsePositiveDouble(
                             pyramidBaseWidthTextBox.Text,
-                            "Base width");
+                            "Ширина основания");
 
                         double height = ParsePositiveDouble(
                             pyramidHeightTextBox.Text,
-                            "Height");
+                            "Высота");
 
                         return new Pyramid(baseLength, baseWidth, height);
                     }
@@ -135,15 +184,15 @@ namespace View
                     {
                         double length = ParsePositiveDouble(
                             parallelepipedLengthTextBox.Text,
-                            "Length");
+                            "Длина");
 
                         double width = ParsePositiveDouble(
                             parallelepipedWidthTextBox.Text,
-                            "Width");
+                            "Ширина");
 
                         double height = ParsePositiveDouble(
                             parallelepipedHeightTextBox.Text,
-                            "Height");
+                            "Высота");
 
                         return new Parallelepiped(length, width, height);
                     }
@@ -151,58 +200,64 @@ namespace View
                 default:
                     {
                         throw new InvalidOperationException(
-                            "Figure type is not selected.");
+                            "Тип фигуры не выбран");
                     }
             }
         }
 
-        private void spherePanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void addFigureForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Обрабатывает событие загрузки формы.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void createRandomDataButton_Click(object sender, EventArgs e)
         {
-            string selectedType = figureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
+            string selectedType 
+                = figureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
 
             switch (selectedType)
             {
                 case "Сфера":
                     {
-                        sphereRadiusTextBox.Text = NextPositiveDouble(1, 20).ToString("F2");
+                        sphereRadiusTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString("F2");
                         break;
                     }
 
                 case "Пирамида":
                     {
-                        pyramidBaseLengthTextBox.Text = NextPositiveDouble(1, 20).ToString("F2");
-                        pyramidBaseWidthTextBox.Text = NextPositiveDouble(1, 20).ToString("F2");
-                        pyramidHeightTextBox.Text = NextPositiveDouble(1, 20).ToString("F2");
+                        pyramidBaseLengthTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString("F2");
+                        pyramidBaseWidthTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString("F2");
+                        pyramidHeightTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString("F2");
                         break;
                     }
 
                 case "Параллелепипед":
                     {
-                        parallelepipedLengthTextBox.Text = NextPositiveDouble(1, 20).ToString("F2");
-                        parallelepipedWidthTextBox.Text = NextPositiveDouble(1, 20).ToString("F2");
-                        parallelepipedHeightTextBox.Text = NextPositiveDouble(1, 20).ToString("F2");
+                        parallelepipedLengthTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString("F2");
+                        parallelepipedWidthTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString("F2");
+                        parallelepipedHeightTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString("F2");
                         break;
                     }
             }
         }
 
+        /// <summary>
+        /// Обрабатывает нажатие кнопки генерации случайных данных
+        /// и заполняет поля формы корректными тестовыми значениями.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private double NextPositiveDouble(double min, double max)
         {
             return min + _random.NextDouble() * (max - min);
         }
-
-
-
     }
 
 }

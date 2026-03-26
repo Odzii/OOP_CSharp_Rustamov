@@ -6,8 +6,21 @@ using System.Xml.Serialization;
 
 namespace View.Serialization
 {
+    /// <summary>
+    /// Предоставляет методы сохранения и загрузки фигур в файл.
+    /// </summary>
+    /// <remarks>
+    /// Класс выполняет преобразование объектов бизнес-модели
+    /// в сериализуемые DTO-объекты и обратно.
+    /// </remarks>
     internal static class FigureStorage
     {
+
+        /// <summary>
+        /// Сохраняет коллекцию фигур в файл.
+        /// </summary>
+        /// <param name="filePath">Путь к файлу сохранения.</param>
+        /// <param name="figures">Коллекция фигур для сохранения.</param>
         public static void Save(
             string filePath, 
             IEnumerable<VolumeFigureBase> figures)
@@ -28,6 +41,14 @@ namespace View.Serialization
             }
         }
 
+        /// <summary>
+        /// Загружает коллекцию фигур из файла.
+        /// </summary>
+        /// <param name="filePath">Путь к файлу загрузки.</param>
+        /// <returns>Список загруженных фигур.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// Выбрасывается, если файл не содержит корректных данных.
+        /// </exception>
         public static List<VolumeFigureBase> Load(string filePath)
         {
             XmlSerializer serializer 
@@ -55,6 +76,14 @@ namespace View.Serialization
             }
         }
 
+        /// <summary>
+        /// Преобразует объект бизнес-модели в сериализуемую модель файла.
+        /// </summary>
+        /// <param name="figure">Объект фигуры бизнес-модели.</param>
+        /// <returns>Экземпляр <see cref="FigureData"/>.</returns>
+        /// <exception cref="NotSupportedException">
+        /// Выбрасывается, если тип фигуры не поддерживается.
+        /// </exception>
         private static FigureData ToFigureData(VolumeFigureBase figure)
         {
             switch (figure)
@@ -89,6 +118,17 @@ namespace View.Serialization
             }
         }
 
+        /// <summary>
+        /// Преобразует сериализуемую модель файла в объект бизнес-модели.
+        /// </summary>
+        /// <param name="figureData">Сериализуемые данные фигуры.</param>
+        /// <returns>Экземпляр фигуры, наследуемой от <see cref="VolumeFigureBase"/>.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// Выбрасывается, если в сериализованных данных отсутствуют обязательные параметры.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// Выбрасывается, если тип фигуры не поддерживается.
+        /// </exception>
         private static VolumeFigureBase ToFigureModel(FigureData figureData)
         {
             switch (figureData.FigureKind)

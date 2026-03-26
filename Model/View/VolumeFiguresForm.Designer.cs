@@ -73,7 +73,7 @@
             figuresDataGridView.RowHeadersVisible = false;
             figuresDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             figuresDataGridView.Size = new Size(934, 409);
-            figuresDataGridView.TabIndex = 0;
+            figuresDataGridView.TabIndex = 1;
             // 
             // figureVolumeColumn
             // 
@@ -99,7 +99,7 @@
             removeFigureButton.Location = new Point(152, 503);
             removeFigureButton.Name = "removeFigureButton";
             removeFigureButton.Size = new Size(131, 23);
-            removeFigureButton.TabIndex = 1;
+            removeFigureButton.TabIndex = 3;
             removeFigureButton.Text = "Удалить фигуру";
             removeFigureButton.UseVisualStyleBackColor = true;
             removeFigureButton.Click += removeFigureButton_Click;
@@ -121,7 +121,7 @@
             findFigureButton.Location = new Point(289, 503);
             findFigureButton.Name = "findFigureButton";
             findFigureButton.Size = new Size(131, 23);
-            findFigureButton.TabIndex = 3;
+            findFigureButton.TabIndex = 4;
             findFigureButton.Text = "Поиск";
             findFigureButton.UseVisualStyleBackColor = true;
             findFigureButton.Click += findFigureButton_Click;
@@ -132,7 +132,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(984, 24);
-            menuStrip1.TabIndex = 4;
+            menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem

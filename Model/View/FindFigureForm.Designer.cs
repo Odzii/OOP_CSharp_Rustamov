@@ -32,7 +32,7 @@
             figureTypeLabel = new Label();
             maxVolumeLabel = new Label();
             maxVolumeTextBox = new TextBox();
-            button1 = new Button();
+            searchButton = new Button();
             button2 = new Button();
             minVolumeTextBox = new TextBox();
             minVolumeLabel = new Label();
@@ -65,17 +65,17 @@
             maxVolumeTextBox.Location = new Point(441, 36);
             maxVolumeTextBox.Name = "maxVolumeTextBox";
             maxVolumeTextBox.Size = new Size(179, 23);
-            maxVolumeTextBox.TabIndex = 5;
+            maxVolumeTextBox.TabIndex = 2;
             // 
-            // button1
+            // searchButton
             // 
-            button1.Location = new Point(636, 35);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 6;
-            button1.Text = "Поиск";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            searchButton.Location = new Point(636, 35);
+            searchButton.Name = "searchButton";
+            searchButton.Size = new Size(75, 23);
+            searchButton.TabIndex = 3;
+            searchButton.Text = "Поиск";
+            searchButton.UseVisualStyleBackColor = true;
+            searchButton.Click += searchButtonClick;
             // 
             // button2
             // 
@@ -83,7 +83,7 @@
             button2.Location = new Point(717, 35);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
-            button2.TabIndex = 7;
+            button2.TabIndex = 4;
             button2.Text = "Закрыть";
             button2.UseVisualStyleBackColor = true;
             // 
@@ -92,7 +92,7 @@
             minVolumeTextBox.Location = new Point(242, 36);
             minVolumeTextBox.Name = "minVolumeTextBox";
             minVolumeTextBox.Size = new Size(179, 23);
-            minVolumeTextBox.TabIndex = 8;
+            minVolumeTextBox.TabIndex = 1;
             // 
             // minVolumeLabel
             // 
@@ -108,7 +108,7 @@
             figureTypeComboBox.Location = new Point(29, 36);
             figureTypeComboBox.Name = "figureTypeComboBox";
             figureTypeComboBox.Size = new Size(179, 23);
-            figureTypeComboBox.TabIndex = 10;
+            figureTypeComboBox.TabIndex = 0;
             // 
             // resultsDataGridView
             // 
@@ -125,7 +125,7 @@
             resultsDataGridView.RowHeadersVisible = false;
             resultsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             resultsDataGridView.Size = new Size(763, 181);
-            resultsDataGridView.TabIndex = 11;
+            resultsDataGridView.TabIndex = 5;
             // 
             // resultTyoeColumn
             // 
@@ -155,7 +155,7 @@
             Controls.Add(minVolumeLabel);
             Controls.Add(minVolumeTextBox);
             Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(searchButton);
             Controls.Add(maxVolumeTextBox);
             Controls.Add(maxVolumeLabel);
             Controls.Add(figureTypeLabel);
@@ -176,7 +176,7 @@
         private TextBox textBox1;
         private Label maxVolumeLabel;
         private TextBox maxVolumeTextBox;
-        private Button button1;
+        private Button searchButton;
         private Button button2;
         private TextBox minVolumeTextBox;
         private Label minVolumeLabel;

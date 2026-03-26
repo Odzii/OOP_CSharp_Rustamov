@@ -1,6 +1,6 @@
 ﻿namespace View
 {
-    partial class addFigureForm
+    partial class AddFigureForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addFigureForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddFigureForm));
             figureTypeLabel = new Label();
             figureTypeComboBox = new ComboBox();
             spherePanel = new Panel();
@@ -73,7 +73,7 @@
             figureTypeComboBox.Name = "figureTypeComboBox";
             figureTypeComboBox.RightToLeft = RightToLeft.No;
             figureTypeComboBox.Size = new Size(172, 23);
-            figureTypeComboBox.TabIndex = 1;
+            figureTypeComboBox.TabIndex = 0;
             figureTypeComboBox.Text = "Выберите фигуру";
             figureTypeComboBox.SelectedIndexChanged += figureTypeComboBox_SelectedIndexChanged;
             // 
@@ -86,7 +86,6 @@
             spherePanel.RightToLeft = RightToLeft.No;
             spherePanel.Size = new Size(315, 99);
             spherePanel.TabIndex = 2;
-            spherePanel.Paint += spherePanel_Paint;
             // 
             // sphereRadiusTextBox
             // 
@@ -123,14 +122,14 @@
             pyramidBaseWidthTextBox.Location = new Point(135, 36);
             pyramidBaseWidthTextBox.Name = "pyramidBaseWidthTextBox";
             pyramidBaseWidthTextBox.Size = new Size(172, 23);
-            pyramidBaseWidthTextBox.TabIndex = 6;
+            pyramidBaseWidthTextBox.TabIndex = 2;
             // 
             // pyramidHeightTextBox
             // 
             pyramidHeightTextBox.Location = new Point(135, 67);
             pyramidHeightTextBox.Name = "pyramidHeightTextBox";
             pyramidHeightTextBox.Size = new Size(172, 23);
-            pyramidHeightTextBox.TabIndex = 5;
+            pyramidHeightTextBox.TabIndex = 3;
             // 
             // label3
             // 
@@ -256,12 +255,12 @@
             createRandomDataButton.Name = "createRandomDataButton";
             createRandomDataButton.RightToLeft = RightToLeft.No;
             createRandomDataButton.Size = new Size(131, 23);
-            createRandomDataButton.TabIndex = 7;
+            createRandomDataButton.TabIndex = 4;
             createRandomDataButton.Text = "Случайно";
             createRandomDataButton.UseVisualStyleBackColor = true;
             createRandomDataButton.Click += createRandomDataButton_Click;
             // 
-            // addFigureForm
+            // AddFigureForm
             // 
             AcceptButton = okButton;
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -280,10 +279,9 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "addFigureForm";
+            Name = "AddFigureForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Добавить фигуру";
-            Load += addFigureForm_Load;
             spherePanel.ResumeLayout(false);
             spherePanel.PerformLayout();
             pyramidPanel.ResumeLayout(false);

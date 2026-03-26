@@ -3,10 +3,23 @@ using View.Serialization;
 
 namespace View
 {
+    /// <summary>
+    /// Представляет главную форму приложения для работы со списком объёмных фигур.
+    /// </summary>
+    /// <remarks>
+    /// Форма отображает список фигур в таблице, позволяет добавлять,
+    /// удалять, искать, сохранять и загружать фигуры.
+    /// </remarks>
     public partial class VolumeFiguresForm : Form
     {
+        /// <summary>
+        /// Список фигур, отображаемых на форме.
+        /// </summary>
         private readonly List<VolumeFigureBase> _figures = new();
 
+        /// <summary>
+        /// Инициализирует новый экземпляр формы <see cref="VolumeFiguresForm"/>.
+        /// </summary>
         public VolumeFiguresForm()
         {
             InitializeComponent();
@@ -17,6 +30,9 @@ namespace View
             RefreshFiguresGrid();
         }
 
+        /// <summary>
+        /// Обновляет таблицу фигур в соответствии с текущим содержимым списка.
+        /// </summary>
         private void RefreshFiguresGrid()
         {
             figuresDataGridView.Rows.Clear();
@@ -30,9 +46,30 @@ namespace View
             }
         }
 
+        /// <summary>
+        /// Форматирует объём фигуры для удобного отображения в таблице.
+        /// </summary>
+        /// <param name="volume">Объём фигуры.</param>
+        /// <returns>
+        /// Строковое представление объёма с шестью знаками после запятой.
+        /// </returns>
         private static string FormateVolume(double volume) =>
             volume.ToString("F6");
 
+        /// <summary>
+        /// Обновляет доступность команды сохранения 
+        /// в зависимости от наличия фигур в списке.
+        /// </summary>
+        private void UpdateSaveAvailability()
+        {
+            saveToolStripMenuItem.Enabled = _figures.Count > 0;
+        }
+
+        /// <summary>
+        /// Обрабатывает нажатие кнопки удаления выбранной фигуры.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void removeFigureButton_Click(object sender, EventArgs e)
         {
             if (figuresDataGridView.CurrentRow == null)
@@ -64,27 +101,51 @@ namespace View
             RefreshFiguresGrid();
         }
 
+        /// <summary>
+        /// Обрабатывает нажатие кнопки добавления новой фигуры.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void addFigureButton_Click(object sender, EventArgs e)
         {
-            using addFigureForm addFigureForm = new addFigureForm();
+            using AddFigureForm addFigureForm = new AddFigureForm();
 
             if (addFigureForm.ShowDialog() == DialogResult.OK
-                && addFigureForm.CreateControl != null)
+                && addFigureForm.CreatedFigure != null)
             {
-                _figures.Add(addFigureForm?.CreatedFigure);
+                _figures.Add(addFigureForm.CreatedFigure);
                 RefreshFiguresGrid();
-
+                UpdateSaveAvailability();
             }
         }
 
+        /// <summary>
+        /// Обрабатывает нажатие кнопки поиска фигур.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void findFigureButton_Click(object sender, EventArgs e)
         {
             using FindFigureForm findFigureForm = new FindFigureForm(_figures);
             findFigureForm.ShowDialog();
         }
 
+        /// <summary>
+        /// Сохраняет текущий список фигур в файл.
+        /// </summary>
         private void SaveFigures()
         {
+            if (_figures.Count == 0)
+            {
+                MessageBox.Show(
+                    "Список фигур пуст. Нет данных для сохранения.",
+                    "Save",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                return;
+            }
+
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.Filter = "Volume Figures File (*.vfig)|*.vfig";
@@ -103,7 +164,7 @@ namespace View
 
                     MessageBox.Show(
                         "Данные успешно сохранены.",
-                        "Save",
+                        "Сохранение",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
@@ -118,11 +179,15 @@ namespace View
             }
         }
 
+        /// <summary>
+        /// Загружает список фигур из файла.
+        /// </summary>
         private void LoadFigures()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Volume Figures File (*.vfig)|*.vfig|All files (*.*)|*.*";
+                openFileDialog.Filter 
+                    = "Volume Figures File (*.vfig)|*.vfig|All files (*.*)|*.*";
 
                 if (openFileDialog.ShowDialog() != DialogResult.OK)
                 {
@@ -131,7 +196,8 @@ namespace View
 
                 try
                 {
-                    List<VolumeFigureBase> loadedFigures = FigureStorage.Load(openFileDialog.FileName);
+                    List<VolumeFigureBase> loadedFigures 
+                        = FigureStorage.Load(openFileDialog.FileName);
 
                     _figures.Clear();
                     _figures.AddRange(loadedFigures);
@@ -140,7 +206,7 @@ namespace View
 
                     MessageBox.Show(
                         "Данные успешно загружены.",
-                        "Load",
+                        "Загрузка",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
@@ -148,23 +214,38 @@ namespace View
                 {
                     MessageBox.Show(
                         ex.Message,
-                        "Load error",
+                        "Ошибка загрузки",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
             }
         }
 
+        /// <summary>
+        /// Обрабатывает выбор пункта меню сохранения.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFigures();
         }
 
+        /// <summary>
+        /// Обрабатывает выбор пункта меню загрузки.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadFigures();
         }
 
+        /// <summary>
+        /// Обрабатывает выбор пункта меню загрузки.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
