@@ -55,6 +55,7 @@ namespace ConsoleLoader
             {
                 string? input = Console.ReadLine();
 
+                //TODO: magic (to const)
                 if (int.TryParse(input, out int value)
                     && value >= 0 && value <= 3)
                 {
@@ -71,7 +72,7 @@ namespace ConsoleLoader
 
             switch (choice)
             {
-                //TODO: {} +
+                //TOOD: отступы
                 case 1:
                     {
                         double radius = ReadPositiveDouble("Введите радиус: ");
@@ -115,7 +116,6 @@ namespace ConsoleLoader
                         throw new UnreachableException(
                             "Получено недопустимое значение пункта меню.");
                     }
-                    //TODO: Refactor +
             }
         }
 
@@ -131,7 +131,6 @@ namespace ConsoleLoader
         /// </remarks>
         private static double ReadPositiveDouble(string prompt)
         {
-            //TODO: refactor +
             while (true)
             {
                 Console.Write(prompt);
@@ -144,17 +143,12 @@ namespace ConsoleLoader
                     continue;
                 }
 
+                //TODO: RSDN
                 bool parsed =
-                    double.TryParse(
-                        input, 
-                        NumberStyles.Float, 
-                        CultureInfo.CurrentCulture, 
-                        out double value) 
-                        || double.TryParse(
-                        input, 
-                        NumberStyles.Float,
-                        CultureInfo.InvariantCulture, 
-                        out value);
+                    double.TryParse(input, NumberStyles.Float, 
+                        CultureInfo.CurrentCulture, out double value) 
+                    || double.TryParse(input, NumberStyles.Float,
+                        CultureInfo.InvariantCulture, out value);
 
                 if (!parsed)
                 {
