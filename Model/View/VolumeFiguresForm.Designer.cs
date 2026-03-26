@@ -29,178 +29,178 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VolumeFiguresForm));
-            figuresGroupBox = new GroupBox();
-            figuresDataGridView = new DataGridView();
-            figureVolumeColumn = new DataGridViewTextBoxColumn();
-            figureTypeColumn = new DataGridViewTextBoxColumn();
-            figureDescriptionColumn = new DataGridViewTextBoxColumn();
-            removeFigureButton = new Button();
-            addFigureButton = new Button();
-            findFigureButton = new Button();
-            menuStrip1 = new MenuStrip();
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            saveToolStripMenuItem = new ToolStripMenuItem();
-            loadToolStripMenuItem = new ToolStripMenuItem();
-            exitToolStripMenuItem = new ToolStripMenuItem();
-            figuresGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)figuresDataGridView).BeginInit();
-            menuStrip1.SuspendLayout();
+            FiguresGroupBox = new GroupBox();
+            FiguresDataGridView = new DataGridView();
+            FigureVolumeColumn = new DataGridViewTextBoxColumn();
+            FigureTypeColumn = new DataGridViewTextBoxColumn();
+            FigureDescriptionColumn = new DataGridViewTextBoxColumn();
+            RemoveFigureButton = new Button();
+            AddFigureButton = new Button();
+            FindFigureButton = new Button();
+            MenuStrip1 = new MenuStrip();
+            FileToolStripMenuItem = new ToolStripMenuItem();
+            SaveToolStripMenuItem = new ToolStripMenuItem();
+            LoadToolStripMenuItem = new ToolStripMenuItem();
+            ExitToolStripMenuItem = new ToolStripMenuItem();
+            FiguresGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)FiguresDataGridView).BeginInit();
+            MenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // figuresGroupBox
             // 
-            figuresGroupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            figuresGroupBox.Controls.Add(figuresDataGridView);
-            figuresGroupBox.Location = new Point(15, 43);
-            figuresGroupBox.Name = "figuresGroupBox";
-            figuresGroupBox.Size = new Size(940, 431);
-            figuresGroupBox.TabIndex = 0;
-            figuresGroupBox.TabStop = false;
-            figuresGroupBox.Text = "Список фигур";
+            FiguresGroupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            FiguresGroupBox.Controls.Add(FiguresDataGridView);
+            FiguresGroupBox.Location = new Point(15, 43);
+            FiguresGroupBox.Name = "figuresGroupBox";
+            FiguresGroupBox.Size = new Size(940, 431);
+            FiguresGroupBox.TabIndex = 0;
+            FiguresGroupBox.TabStop = false;
+            FiguresGroupBox.Text = "Список фигур";
             // 
             // figuresDataGridView
             // 
-            figuresDataGridView.AllowUserToAddRows = false;
-            figuresDataGridView.AllowUserToDeleteRows = false;
-            figuresDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            figuresDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            figuresDataGridView.Columns.AddRange(new DataGridViewColumn[] { figureVolumeColumn, figureTypeColumn, figureDescriptionColumn });
-            figuresDataGridView.Dock = DockStyle.Fill;
-            figuresDataGridView.Location = new Point(3, 19);
-            figuresDataGridView.MultiSelect = false;
-            figuresDataGridView.Name = "figuresDataGridView";
-            figuresDataGridView.ReadOnly = true;
-            figuresDataGridView.RowHeadersVisible = false;
-            figuresDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            figuresDataGridView.Size = new Size(934, 409);
-            figuresDataGridView.TabIndex = 1;
+            FiguresDataGridView.AllowUserToAddRows = false;
+            FiguresDataGridView.AllowUserToDeleteRows = false;
+            FiguresDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            FiguresDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            FiguresDataGridView.Columns.AddRange(new DataGridViewColumn[] { FigureVolumeColumn, FigureTypeColumn, FigureDescriptionColumn });
+            FiguresDataGridView.Dock = DockStyle.Fill;
+            FiguresDataGridView.Location = new Point(3, 19);
+            FiguresDataGridView.MultiSelect = false;
+            FiguresDataGridView.Name = "figuresDataGridView";
+            FiguresDataGridView.ReadOnly = true;
+            FiguresDataGridView.RowHeadersVisible = false;
+            FiguresDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            FiguresDataGridView.Size = new Size(934, 409);
+            FiguresDataGridView.TabIndex = 1;
             // 
             // figureVolumeColumn
             // 
-            figureVolumeColumn.HeaderText = "Тип";
-            figureVolumeColumn.Name = "figureVolumeColumn";
-            figureVolumeColumn.ReadOnly = true;
+            FigureVolumeColumn.HeaderText = "Тип";
+            FigureVolumeColumn.Name = "figureVolumeColumn";
+            FigureVolumeColumn.ReadOnly = true;
             // 
             // figureTypeColumn
             // 
-            figureTypeColumn.HeaderText = "Объем";
-            figureTypeColumn.Name = "figureTypeColumn";
-            figureTypeColumn.ReadOnly = true;
+            FigureTypeColumn.HeaderText = "Объем";
+            FigureTypeColumn.Name = "figureTypeColumn";
+            FigureTypeColumn.ReadOnly = true;
             // 
             // figureDescriptionColumn
             // 
-            figureDescriptionColumn.HeaderText = "Описание";
-            figureDescriptionColumn.Name = "figureDescriptionColumn";
-            figureDescriptionColumn.ReadOnly = true;
+            FigureDescriptionColumn.HeaderText = "Описание";
+            FigureDescriptionColumn.Name = "figureDescriptionColumn";
+            FigureDescriptionColumn.ReadOnly = true;
             // 
             // removeFigureButton
             // 
-            removeFigureButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            removeFigureButton.Location = new Point(152, 503);
-            removeFigureButton.Name = "removeFigureButton";
-            removeFigureButton.Size = new Size(131, 23);
-            removeFigureButton.TabIndex = 3;
-            removeFigureButton.Text = "Удалить фигуру";
-            removeFigureButton.UseVisualStyleBackColor = true;
-            removeFigureButton.Click += removeFigureButton_Click;
+            RemoveFigureButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            RemoveFigureButton.Location = new Point(152, 503);
+            RemoveFigureButton.Name = "removeFigureButton";
+            RemoveFigureButton.Size = new Size(131, 23);
+            RemoveFigureButton.TabIndex = 3;
+            RemoveFigureButton.Text = "Удалить фигуру";
+            RemoveFigureButton.UseVisualStyleBackColor = true;
+            RemoveFigureButton.Click += RemoveFigureButton_Click;
             // 
             // addFigureButton
             // 
-            addFigureButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            addFigureButton.Location = new Point(15, 503);
-            addFigureButton.Name = "addFigureButton";
-            addFigureButton.Size = new Size(131, 23);
-            addFigureButton.TabIndex = 2;
-            addFigureButton.Text = "Добавить фигуру";
-            addFigureButton.UseVisualStyleBackColor = true;
-            addFigureButton.Click += addFigureButton_Click;
+            AddFigureButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            AddFigureButton.Location = new Point(15, 503);
+            AddFigureButton.Name = "addFigureButton";
+            AddFigureButton.Size = new Size(131, 23);
+            AddFigureButton.TabIndex = 2;
+            AddFigureButton.Text = "Добавить фигуру";
+            AddFigureButton.UseVisualStyleBackColor = true;
+            AddFigureButton.Click += AddFigureButton_Click;
             // 
             // findFigureButton
             // 
-            findFigureButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            findFigureButton.Location = new Point(289, 503);
-            findFigureButton.Name = "findFigureButton";
-            findFigureButton.Size = new Size(131, 23);
-            findFigureButton.TabIndex = 4;
-            findFigureButton.Text = "Поиск";
-            findFigureButton.UseVisualStyleBackColor = true;
-            findFigureButton.Click += findFigureButton_Click;
+            FindFigureButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            FindFigureButton.Location = new Point(289, 503);
+            FindFigureButton.Name = "findFigureButton";
+            FindFigureButton.Size = new Size(131, 23);
+            FindFigureButton.TabIndex = 4;
+            FindFigureButton.Text = "Поиск";
+            FindFigureButton.UseVisualStyleBackColor = true;
+            FindFigureButton.Click += FindFigureButton_Click;
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(984, 24);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
+            MenuStrip1.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem });
+            MenuStrip1.Location = new Point(0, 0);
+            MenuStrip1.Name = "menuStrip1";
+            MenuStrip1.Size = new Size(984, 24);
+            MenuStrip1.TabIndex = 0;
+            MenuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveToolStripMenuItem, loadToolStripMenuItem, exitToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(48, 20);
-            fileToolStripMenuItem.Text = "Файл";
+            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SaveToolStripMenuItem, LoadToolStripMenuItem, ExitToolStripMenuItem });
+            FileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            FileToolStripMenuItem.Size = new Size(48, 20);
+            FileToolStripMenuItem.Text = "Файл";
             // 
             // saveToolStripMenuItem
             // 
-            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(180, 22);
-            saveToolStripMenuItem.Text = "Сохранить";
-            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
+            SaveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            SaveToolStripMenuItem.Size = new Size(180, 22);
+            SaveToolStripMenuItem.Text = "Сохранить";
+            SaveToolStripMenuItem.Click += SaveToolStripMenuItem_Click;
             // 
             // loadToolStripMenuItem
             // 
-            loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            loadToolStripMenuItem.Size = new Size(180, 22);
-            loadToolStripMenuItem.Text = "Загрузить";
-            loadToolStripMenuItem.Click += loadToolStripMenuItem_Click;
+            LoadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            LoadToolStripMenuItem.Size = new Size(180, 22);
+            LoadToolStripMenuItem.Text = "Загрузить";
+            LoadToolStripMenuItem.Click += LoadToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
-            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(180, 22);
-            exitToolStripMenuItem.Text = "Выход";
-            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            ExitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            ExitToolStripMenuItem.Size = new Size(180, 22);
+            ExitToolStripMenuItem.Text = "Выход";
+            ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
             // 
             // VolumeFiguresForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(984, 561);
-            Controls.Add(findFigureButton);
-            Controls.Add(addFigureButton);
-            Controls.Add(removeFigureButton);
-            Controls.Add(figuresGroupBox);
-            Controls.Add(menuStrip1);
+            Controls.Add(FindFigureButton);
+            Controls.Add(AddFigureButton);
+            Controls.Add(RemoveFigureButton);
+            Controls.Add(FiguresGroupBox);
+            Controls.Add(MenuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MainMenuStrip = menuStrip1;
+            MainMenuStrip = MenuStrip1;
             MinimumSize = new Size(1000, 600);
             Name = "VolumeFiguresForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "RusWin3 Volume edition";
-            figuresGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)figuresDataGridView).EndInit();
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            FiguresGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)FiguresDataGridView).EndInit();
+            MenuStrip1.ResumeLayout(false);
+            MenuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private GroupBox figuresGroupBox;
-        private DataGridView figuresDataGridView;
-        private Button removeFigureButton;
-        private Button addFigureButton;
-        private DataGridViewTextBoxColumn figureVolumeColumn;
-        private DataGridViewTextBoxColumn figureTypeColumn;
-        private DataGridViewTextBoxColumn figureDescriptionColumn;
-        private Button findFigureButton;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem saveToolStripMenuItem;
-        private ToolStripMenuItem loadToolStripMenuItem;
-        private ToolStripMenuItem exitToolStripMenuItem;
+        private GroupBox FiguresGroupBox;
+        private DataGridView FiguresDataGridView;
+        private Button RemoveFigureButton;
+        private Button AddFigureButton;
+        private DataGridViewTextBoxColumn FigureVolumeColumn;
+        private DataGridViewTextBoxColumn FigureTypeColumn;
+        private DataGridViewTextBoxColumn FigureDescriptionColumn;
+        private Button FindFigureButton;
+        private MenuStrip MenuStrip1;
+        private ToolStripMenuItem FileToolStripMenuItem;
+        private ToolStripMenuItem SaveToolStripMenuItem;
+        private ToolStripMenuItem LoadToolStripMenuItem;
+        private ToolStripMenuItem ExitToolStripMenuItem;
     }
 }

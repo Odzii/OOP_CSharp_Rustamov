@@ -36,11 +36,11 @@ namespace View
         /// </summary>
         private void RefreshFiguresGrid()
         {
-            figuresDataGridView.Rows.Clear();
+            FiguresDataGridView.Rows.Clear();
 
             foreach (VolumeFigureBase figure in _figures)
             {
-                figuresDataGridView.Rows.Add(
+                FiguresDataGridView.Rows.Add(
                     figure.FigureType,
                     FormateVolume(figure.Volume),
                     figure.GetDescription());
@@ -63,7 +63,7 @@ namespace View
         /// </summary>
         private void UpdateSaveAvailability()
         {
-            saveToolStripMenuItem.Enabled = _figures.Count > 0;
+            SaveToolStripMenuItem.Enabled = _figures.Count > 0;
         }
 
         /// <summary>
@@ -71,9 +71,9 @@ namespace View
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void removeFigureButton_Click(object sender, EventArgs e)
+        private void RemoveFigureButton_Click(object sender, EventArgs e)
         {
-            if (figuresDataGridView.CurrentRow == null)
+            if (FiguresDataGridView.CurrentRow == null)
             {
                 MessageBox.Show(
                     this,
@@ -85,7 +85,7 @@ namespace View
                 return;
             }
 
-            int selectedIndex = figuresDataGridView.CurrentRow.Index;
+            int selectedIndex = FiguresDataGridView.CurrentRow.Index;
 
             if (selectedIndex < 0
                 || selectedIndex >= _figures.Count)
@@ -109,7 +109,7 @@ namespace View
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void addFigureButton_Click(object sender, EventArgs e)
+        private void AddFigureButton_Click(object sender, EventArgs e)
         {
             using AddFigureForm addFigureForm = new AddFigureForm();
 
@@ -127,7 +127,7 @@ namespace View
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void findFigureButton_Click(object sender, EventArgs e)
+        private void FindFigureButton_Click(object sender, EventArgs e)
         {
             using FindFigureForm findFigureForm = new FindFigureForm(_figures);
             findFigureForm.ShowDialog();
@@ -228,35 +228,35 @@ namespace View
             }
         }
 
-        //TODO: RSDN
+        //TODO: RSDN +
         /// <summary>
         /// Обрабатывает выбор пункта меню сохранения.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFigures();
         }
 
-        //TODO: RSDN
+        //TODO: RSDN +
         /// <summary>
         /// Обрабатывает выбор пункта меню загрузки.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadFigures();
         }
 
-        //TODO: RSDN
+        //TODO: RSDN +
         /// <summary>
         /// Обрабатывает выбор пункта меню загрузки.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }

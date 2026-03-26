@@ -28,11 +28,11 @@ namespace View
             InitializeComponent();
             _figures = figures;
 
-            figureTypeComboBox.Items.Add("Все");
-            figureTypeComboBox.Items.Add("Сфера");
-            figureTypeComboBox.Items.Add("Пирамида");
-            figureTypeComboBox.Items.Add("Параллелепипед");
-            figureTypeComboBox.SelectedIndex = 0;
+            FigureTypeComboBox.Items.Add("Все");
+            FigureTypeComboBox.Items.Add("Сфера");
+            FigureTypeComboBox.Items.Add("Пирамида");
+            FigureTypeComboBox.Items.Add("Параллелепипед");
+            FigureTypeComboBox.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -103,10 +103,10 @@ namespace View
         /// </param>
         private void RefreshResultsGrid(IEnumerable<VolumeFigureBase> figures)
         {
-            resultsDataGridView.Rows.Clear();
+            ResultsDataGridView.Rows.Clear();
             foreach (var figure in figures)
             {
-                resultsDataGridView.Rows.Add(
+                ResultsDataGridView.Rows.Add(
                     figure.FigureType,
                     FormatVolume(figure.Volume),
                     figure.GetDescription());
@@ -123,14 +123,14 @@ namespace View
         /// </exception>
         private List<VolumeFigureBase> FindFigures()
         {
-            string selectedType = figureTypeComboBox.SelectedItem?.ToString()
+            string selectedType = FigureTypeComboBox.SelectedItem?.ToString()
                 ?? "Все";
 
             double? minVolume = ParseOptionalDouble(
-                minVolumeTextBox.Text,
+                MinVolumeTextBox.Text,
                 "Минимальный объем");
             double? maxVolume = ParseOptionalDouble(
-                maxVolumeTextBox.Text,
+                MaxVolumeTextBox.Text,
                 "Максимальный объем");
 
             if (minVolume.HasValue
@@ -170,7 +170,7 @@ namespace View
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void searchButtonClick(object sender, EventArgs e)
+        private void SearchButtonClick(object sender, EventArgs e)
         {
             try
             {

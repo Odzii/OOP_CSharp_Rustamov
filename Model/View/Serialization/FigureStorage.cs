@@ -88,31 +88,31 @@ namespace View.Serialization
         {
             switch (figure)
             {
-                //TODO: {}
+                //TODO: {} +
                 case Sphere sphere:
                     return new FigureData
-                    {
-                        FigureKind = "Сфера",
-                        Radius = sphere.Radius
-                    };
+                {
+                    FigureKind = "Сфера",
+                    Radius = sphere.Radius
+                };
 
                 case Pyramid pyramid:
                     return new FigureData
-                    {
-                        FigureKind = "Пирамида",
-                        BaseLength = pyramid.BaseLength,
-                        BaseWidth = pyramid.BaseWidth,
-                        Height = pyramid.Height
-                    };
+                {
+                    FigureKind = "Пирамида",
+                    BaseLength = pyramid.BaseLength,
+                    BaseWidth = pyramid.BaseWidth,
+                    Height = pyramid.Height
+                };
 
                 case Parallelepiped parallelepiped:
                     return new FigureData
-                    {
-                        FigureKind = "Параллелепипед",
-                        Length = parallelepiped.Length,
-                        Width = parallelepiped.Width,
-                        Height = parallelepiped.Height
-                    };
+                {
+                    FigureKind = "Параллелепипед",
+                    Length = parallelepiped.Length,
+                    Width = parallelepiped.Width,
+                    Height = parallelepiped.Height
+                };
 
                 default:
                     throw new NotSupportedException("Неизвестный тип фигуры.");
@@ -123,9 +123,11 @@ namespace View.Serialization
         /// Преобразует сериализуемую модель файла в объект бизнес-модели.
         /// </summary>
         /// <param name="figureData">Сериализуемые данные фигуры.</param>
-        /// <returns>Экземпляр фигуры, наследуемой от <see cref="VolumeFigureBase"/>.</returns>
+        /// <returns>Экземпляр фигуры, наследуемой 
+        /// от <see cref="VolumeFigureBase"/>.</returns>
         /// <exception cref="InvalidOperationException">
-        /// Выбрасывается, если в сериализованных данных отсутствуют обязательные параметры.
+        /// Выбрасывается, 
+        /// если в сериализованных данных отсутствуют обязательные параметры.
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// Выбрасывается, если тип фигуры не поддерживается.
@@ -134,7 +136,7 @@ namespace View.Serialization
         {
             switch (figureData.FigureKind)
             {
-                //TODO: {}
+                //TODO: {} +
                 case "Сфера":
                     return new Sphere(
                         figureData.Radius 

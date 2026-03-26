@@ -26,10 +26,10 @@ namespace View
         {
             InitializeComponent();
 
-            figureTypeComboBox.Items.Add("Сфера");
-            figureTypeComboBox.Items.Add("Пирамида");
-            figureTypeComboBox.Items.Add("Параллелепипед");
-            figureTypeComboBox.SelectedIndex = 0;
+            FigureTypeComboBox.Items.Add("Сфера");
+            FigureTypeComboBox.Items.Add("Пирамида");
+            FigureTypeComboBox.Items.Add("Параллелепипед");
+            FigureTypeComboBox.SelectedIndex = 0;
 
             UpdatePanelIsVisibility();
 
@@ -58,12 +58,12 @@ namespace View
         /// </summary>
         private void UpdatePanelIsVisibility()
         {
-            string selectedType = figureTypeComboBox.SelectedItem?.ToString()
+            string selectedType = FigureTypeComboBox.SelectedItem?.ToString()
                 ?? string.Empty;
 
-            spherePanel.Visible = selectedType == "Сфера";
-            pyramidPanel.Visible = selectedType == "Пирамида";
-            parallelepipedPanel.Visible = selectedType == "Параллелепипед";
+            SpherePanel.Visible = selectedType == "Сфера";
+            PyramidPanel.Visible = selectedType == "Пирамида";
+            ParallelepipedPanel.Visible = selectedType == "Параллелепипед";
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace View
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void figureTypeComboBox_SelectedIndexChanged(
+        private void FigureTypeComboBox_SelectedIndexChanged(
             object sender,
             EventArgs e)
         {
@@ -83,7 +83,7 @@ namespace View
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void okButton_Click(object sender, EventArgs e)
+        private void OkButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace View
         /// </exception>
         private VolumeFigureBase CreateFigureFromForm()
         {
-            string selectedType = figureTypeComboBox.SelectedItem?.ToString()
+            string selectedType = FigureTypeComboBox.SelectedItem?.ToString()
                 ?? string.Empty;
 
             switch (selectedType)
@@ -160,7 +160,7 @@ namespace View
                 case "Сфера":
                     {
                         double radius = ParsePositiveDouble(
-                            sphereRadiusTextBox.Text,
+                            SphereRadiusTextBox.Text,
                             "Радиус");
 
                         return new Sphere(radius);
@@ -169,15 +169,15 @@ namespace View
                 case "Пирамида":
                     {
                         double baseLength = ParsePositiveDouble(
-                            pyramidBaseLengthTextBox.Text,
+                            PyramidBaseLengthTextBox.Text,
                             "Длина основания");
 
                         double baseWidth = ParsePositiveDouble(
-                            pyramidBaseWidthTextBox.Text,
+                            PyramidBaseWidthTextBox.Text,
                             "Ширина основания");
 
                         double height = ParsePositiveDouble(
-                            pyramidHeightTextBox.Text,
+                            PyramidHeightTextBox.Text,
                             "Высота");
 
                         return new Pyramid(baseLength, baseWidth, height);
@@ -186,15 +186,15 @@ namespace View
                 case "Параллелепипед":
                     {
                         double length = ParsePositiveDouble(
-                            parallelepipedLengthTextBox.Text,
+                            ParallelepipedLengthTextBox.Text,
                             "Длина");
 
                         double width = ParsePositiveDouble(
-                            parallelepipedWidthTextBox.Text,
+                            ParallelepipedWidthTextBox.Text,
                             "Ширина");
 
                         double height = ParsePositiveDouble(
-                            parallelepipedHeightTextBox.Text,
+                            ParallelepipedHeightTextBox.Text,
                             "Высота");
 
                         return new Parallelepiped(length, width, height);
@@ -214,39 +214,39 @@ namespace View
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
-        private void createRandomDataButton_Click(object sender, EventArgs e)
+        private void CreateRandomDataButton_Click(object sender, EventArgs e)
         {
             string selectedType
-                = figureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
+                = FigureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
 
             switch (selectedType)
             {
                 //TODО: отступы
                 case "Сфера":
                     {
-                        sphereRadiusTextBox.Text
+                        SphereRadiusTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
                         break;
                     }
 
                 case "Пирамида":
                     {
-                        pyramidBaseLengthTextBox.Text
+                        PyramidBaseLengthTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
-                        pyramidBaseWidthTextBox.Text
+                        PyramidBaseWidthTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
-                        pyramidHeightTextBox.Text
+                        PyramidHeightTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
                         break;
                     }
 
                 case "Параллелепипед":
                     {
-                        parallelepipedLengthTextBox.Text
+                        ParallelepipedLengthTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
-                        parallelepipedWidthTextBox.Text
+                        ParallelepipedWidthTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
-                        parallelepipedHeightTextBox.Text
+                        ParallelepipedHeightTextBox.Text
                             = NextPositiveDouble(1, 20).ToString("F2");
                         break;
                     }

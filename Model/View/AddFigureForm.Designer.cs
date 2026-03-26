@@ -29,309 +29,293 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddFigureForm));
-            figureTypeLabel = new Label();
-            figureTypeComboBox = new ComboBox();
-            spherePanel = new Panel();
-            sphereRadiusTextBox = new TextBox();
-            radiusLabel = new Label();
-            pyramidPanel = new Panel();
-            pyramidBaseWidthTextBox = new TextBox();
-            pyramidHeightTextBox = new TextBox();
-            label3 = new Label();
-            label2 = new Label();
-            pyramidBaseLengthTextBox = new TextBox();
-            label1 = new Label();
-            parallelepipedPanel = new Panel();
-            parallelepipedHeightTextBox = new TextBox();
-            parallelepipedWidthTextBox = new TextBox();
-            label6 = new Label();
-            label5 = new Label();
-            parallelepipedLengthTextBox = new TextBox();
-            label4 = new Label();
-            okButton = new Button();
-            cancelButton = new Button();
-            createRandomDataButton = new Button();
-            spherePanel.SuspendLayout();
-            pyramidPanel.SuspendLayout();
-            parallelepipedPanel.SuspendLayout();
+            FigureTypeLabel = new Label();
+            FigureTypeComboBox = new ComboBox();
+            SpherePanel = new Panel();
+            SphereRadiusTextBox = new TextBox();
+            RadiusLabel = new Label();
+            PyramidPanel = new Panel();
+            PyramidBaseWidthTextBox = new TextBox();
+            PyramidHeightTextBox = new TextBox();
+            HeightPyramidLabel = new Label();
+            WidthBasePyramidLabel = new Label();
+            PyramidBaseLengthTextBox = new TextBox();
+            LengthBasePyramidLabel = new Label();
+            ParallelepipedPanel = new Panel();
+            ParallelepipedHeightTextBox = new TextBox();
+            ParallelepipedWidthTextBox = new TextBox();
+            HeightParallelepipedLabel = new Label();
+            WidthParallelepipedLabel = new Label();
+            ParallelepipedLengthTextBox = new TextBox();
+            LengthParallelepipedLabel = new Label();
+            OkButton = new Button();
+            CancelButton = new Button();
+            CreateRandomDataButton = new Button();
+            SpherePanel.SuspendLayout();
+            PyramidPanel.SuspendLayout();
+            ParallelepipedPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // figureTypeLabel
+            // FigureTypeLabel
             // 
-            figureTypeLabel.AutoSize = true;
-            figureTypeLabel.Location = new Point(41, 33);
-            figureTypeLabel.Name = "figureTypeLabel";
-            figureTypeLabel.RightToLeft = RightToLeft.No;
-            figureTypeLabel.Size = new Size(91, 20);
-            figureTypeLabel.TabIndex = 0;
-            figureTypeLabel.Text = "Тип фигуры";
+            FigureTypeLabel.AutoSize = true;
+            FigureTypeLabel.Location = new Point(36, 25);
+            FigureTypeLabel.Name = "FigureTypeLabel";
+            FigureTypeLabel.RightToLeft = RightToLeft.No;
+            FigureTypeLabel.Size = new Size(73, 15);
+            FigureTypeLabel.TabIndex = 0;
+            FigureTypeLabel.Text = "Тип фигуры";
             // 
-            // figureTypeComboBox
+            // FigureTypeComboBox
             // 
-            figureTypeComboBox.FormattingEnabled = true;
-            figureTypeComboBox.Location = new Point(192, 28);
-            figureTypeComboBox.Margin = new Padding(3, 4, 3, 4);
-            figureTypeComboBox.Name = "figureTypeComboBox";
-            figureTypeComboBox.RightToLeft = RightToLeft.No;
-            figureTypeComboBox.Size = new Size(195, 28);
-            figureTypeComboBox.TabIndex = 0;
-            figureTypeComboBox.Text = "Выберите фигуру";
-            figureTypeComboBox.SelectedIndexChanged += figureTypeComboBox_SelectedIndexChanged;
+            FigureTypeComboBox.FormattingEnabled = true;
+            FigureTypeComboBox.Location = new Point(168, 21);
+            FigureTypeComboBox.Name = "FigureTypeComboBox";
+            FigureTypeComboBox.RightToLeft = RightToLeft.No;
+            FigureTypeComboBox.Size = new Size(171, 23);
+            FigureTypeComboBox.TabIndex = 0;
+            FigureTypeComboBox.Text = "Выберите фигуру";
+            FigureTypeComboBox.SelectedIndexChanged += FigureTypeComboBox_SelectedIndexChanged;
             // 
-            // spherePanel
+            // SpherePanel
             // 
-            spherePanel.Controls.Add(sphereRadiusTextBox);
-            spherePanel.Controls.Add(radiusLabel);
-            spherePanel.Location = new Point(27, 81);
-            spherePanel.Margin = new Padding(3, 4, 3, 4);
-            spherePanel.Name = "spherePanel";
-            spherePanel.RightToLeft = RightToLeft.No;
-            spherePanel.Size = new Size(376, 132);
-            spherePanel.TabIndex = 2;
+            SpherePanel.Controls.Add(SphereRadiusTextBox);
+            SpherePanel.Controls.Add(RadiusLabel);
+            SpherePanel.Location = new Point(24, 61);
+            SpherePanel.Name = "SpherePanel";
+            SpherePanel.RightToLeft = RightToLeft.No;
+            SpherePanel.Size = new Size(329, 99);
+            SpherePanel.TabIndex = 2;
             // 
-            // sphereRadiusTextBox
+            // SphereRadiusTextBox
             // 
-            sphereRadiusTextBox.Location = new Point(165, 7);
-            sphereRadiusTextBox.Margin = new Padding(3, 4, 3, 4);
-            sphereRadiusTextBox.Name = "sphereRadiusTextBox";
-            sphereRadiusTextBox.Size = new Size(195, 27);
-            sphereRadiusTextBox.TabIndex = 1;
+            SphereRadiusTextBox.Location = new Point(144, 8);
+            SphereRadiusTextBox.Name = "SphereRadiusTextBox";
+            SphereRadiusTextBox.Size = new Size(171, 23);
+            SphereRadiusTextBox.TabIndex = 1;
             // 
-            // radiusLabel
+            // RadiusLabel
             // 
-            radiusLabel.AutoSize = true;
-            radiusLabel.Location = new Point(14, 10);
-            radiusLabel.Name = "radiusLabel";
-            radiusLabel.Size = new Size(59, 20);
-            radiusLabel.TabIndex = 0;
-            radiusLabel.Text = "Радиус:";
+            RadiusLabel.AutoSize = true;
+            RadiusLabel.Location = new Point(12, 12);
+            RadiusLabel.Name = "RadiusLabel";
+            RadiusLabel.Size = new Size(48, 15);
+            RadiusLabel.TabIndex = 0;
+            RadiusLabel.Text = "Радиус:";
             // 
-            // pyramidPanel
+            // PyramidPanel
             // 
-            pyramidPanel.Controls.Add(pyramidBaseWidthTextBox);
-            pyramidPanel.Controls.Add(pyramidHeightTextBox);
-            pyramidPanel.Controls.Add(label3);
-            pyramidPanel.Controls.Add(label2);
-            pyramidPanel.Controls.Add(pyramidBaseLengthTextBox);
-            pyramidPanel.Controls.Add(label1);
-            pyramidPanel.Location = new Point(27, 81);
-            pyramidPanel.Margin = new Padding(3, 4, 3, 4);
-            pyramidPanel.Name = "pyramidPanel";
-            pyramidPanel.RightToLeft = RightToLeft.No;
-            pyramidPanel.Size = new Size(376, 132);
-            pyramidPanel.TabIndex = 3;
+            PyramidPanel.Controls.Add(PyramidBaseWidthTextBox);
+            PyramidPanel.Controls.Add(PyramidHeightTextBox);
+            PyramidPanel.Controls.Add(HeightPyramidLabel);
+            PyramidPanel.Controls.Add(WidthBasePyramidLabel);
+            PyramidPanel.Controls.Add(PyramidBaseLengthTextBox);
+            PyramidPanel.Controls.Add(LengthBasePyramidLabel);
+            PyramidPanel.Location = new Point(24, 61);
+            PyramidPanel.Name = "PyramidPanel";
+            PyramidPanel.RightToLeft = RightToLeft.No;
+            PyramidPanel.Size = new Size(329, 99);
+            PyramidPanel.TabIndex = 3;
             // 
-            // pyramidBaseWidthTextBox
+            // PyramidBaseWidthTextBox
             // 
-            pyramidBaseWidthTextBox.Location = new Point(165, 48);
-            pyramidBaseWidthTextBox.Margin = new Padding(3, 4, 3, 4);
-            pyramidBaseWidthTextBox.Name = "pyramidBaseWidthTextBox";
-            pyramidBaseWidthTextBox.Size = new Size(195, 27);
-            pyramidBaseWidthTextBox.TabIndex = 2;
+            PyramidBaseWidthTextBox.Location = new Point(144, 38);
+            PyramidBaseWidthTextBox.Name = "PyramidBaseWidthTextBox";
+            PyramidBaseWidthTextBox.Size = new Size(171, 23);
+            PyramidBaseWidthTextBox.TabIndex = 2;
             // 
-            // pyramidHeightTextBox
+            // PyramidHeightTextBox
             // 
-            pyramidHeightTextBox.Location = new Point(165, 89);
-            pyramidHeightTextBox.Margin = new Padding(3, 4, 3, 4);
-            pyramidHeightTextBox.Name = "pyramidHeightTextBox";
-            pyramidHeightTextBox.Size = new Size(195, 27);
-            pyramidHeightTextBox.TabIndex = 3;
+            PyramidHeightTextBox.Location = new Point(144, 68);
+            PyramidHeightTextBox.Name = "PyramidHeightTextBox";
+            PyramidHeightTextBox.Size = new Size(171, 23);
+            PyramidHeightTextBox.TabIndex = 3;
             // 
-            // label3
+            // HeightPyramidLabel
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(14, 93);
-            label3.Name = "label3";
-            label3.Size = new Size(62, 20);
-            label3.TabIndex = 4;
-            label3.Text = "Высота:";
+            HeightPyramidLabel.AutoSize = true;
+            HeightPyramidLabel.Location = new Point(12, 72);
+            HeightPyramidLabel.Name = "HeightPyramidLabel";
+            HeightPyramidLabel.Size = new Size(50, 15);
+            HeightPyramidLabel.TabIndex = 4;
+            HeightPyramidLabel.Text = "Высота:";
             // 
-            // label2
+            // WidthBasePyramidLabel
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(14, 52);
-            label2.Name = "label2";
-            label2.Size = new Size(150, 20);
-            label2.TabIndex = 2;
-            label2.Text = "Ширина основания:";
-            label2.TextAlign = ContentAlignment.TopCenter;
+            WidthBasePyramidLabel.AutoSize = true;
+            WidthBasePyramidLabel.Location = new Point(12, 42);
+            WidthBasePyramidLabel.Name = "WidthBasePyramidLabel";
+            WidthBasePyramidLabel.Size = new Size(117, 15);
+            WidthBasePyramidLabel.TabIndex = 2;
+            WidthBasePyramidLabel.Text = "Ширина основания:";
+            WidthBasePyramidLabel.TextAlign = ContentAlignment.TopCenter;
             // 
-            // pyramidBaseLengthTextBox
+            // PyramidBaseLengthTextBox
             // 
-            pyramidBaseLengthTextBox.Location = new Point(165, 7);
-            pyramidBaseLengthTextBox.Margin = new Padding(3, 4, 3, 4);
-            pyramidBaseLengthTextBox.Name = "pyramidBaseLengthTextBox";
-            pyramidBaseLengthTextBox.Size = new Size(195, 27);
-            pyramidBaseLengthTextBox.TabIndex = 1;
+            PyramidBaseLengthTextBox.Location = new Point(144, 8);
+            PyramidBaseLengthTextBox.Name = "PyramidBaseLengthTextBox";
+            PyramidBaseLengthTextBox.Size = new Size(171, 23);
+            PyramidBaseLengthTextBox.TabIndex = 1;
             // 
-            // label1
+            // LengthBasePyramidLabel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(14, 7);
-            label1.Name = "label1";
-            label1.Size = new Size(136, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Длина основания:";
+            LengthBasePyramidLabel.AutoSize = true;
+            LengthBasePyramidLabel.Location = new Point(12, 12);
+            LengthBasePyramidLabel.Name = "LengthBasePyramidLabel";
+            LengthBasePyramidLabel.Size = new Size(107, 15);
+            LengthBasePyramidLabel.TabIndex = 0;
+            LengthBasePyramidLabel.Text = "Длина основания:";
             // 
-            // parallelepipedPanel
+            // ParallelepipedPanel
             // 
-            parallelepipedPanel.Controls.Add(parallelepipedHeightTextBox);
-            parallelepipedPanel.Controls.Add(parallelepipedWidthTextBox);
-            parallelepipedPanel.Controls.Add(label6);
-            parallelepipedPanel.Controls.Add(label5);
-            parallelepipedPanel.Controls.Add(parallelepipedLengthTextBox);
-            parallelepipedPanel.Controls.Add(label4);
-            parallelepipedPanel.Location = new Point(27, 81);
-            parallelepipedPanel.Margin = new Padding(3, 4, 3, 4);
-            parallelepipedPanel.Name = "parallelepipedPanel";
-            parallelepipedPanel.RightToLeft = RightToLeft.No;
-            parallelepipedPanel.Size = new Size(376, 132);
-            parallelepipedPanel.TabIndex = 4;
+            ParallelepipedPanel.Controls.Add(ParallelepipedHeightTextBox);
+            ParallelepipedPanel.Controls.Add(ParallelepipedWidthTextBox);
+            ParallelepipedPanel.Controls.Add(HeightParallelepipedLabel);
+            ParallelepipedPanel.Controls.Add(WidthParallelepipedLabel);
+            ParallelepipedPanel.Controls.Add(ParallelepipedLengthTextBox);
+            ParallelepipedPanel.Controls.Add(LengthParallelepipedLabel);
+            ParallelepipedPanel.Location = new Point(24, 61);
+            ParallelepipedPanel.Name = "ParallelepipedPanel";
+            ParallelepipedPanel.RightToLeft = RightToLeft.No;
+            ParallelepipedPanel.Size = new Size(329, 99);
+            ParallelepipedPanel.TabIndex = 4;
             // 
-            // parallelepipedHeightTextBox
+            // ParallelepipedHeightTextBox
             // 
-            parallelepipedHeightTextBox.Location = new Point(165, 89);
-            parallelepipedHeightTextBox.Margin = new Padding(3, 4, 3, 4);
-            parallelepipedHeightTextBox.Name = "parallelepipedHeightTextBox";
-            parallelepipedHeightTextBox.Size = new Size(195, 27);
-            parallelepipedHeightTextBox.TabIndex = 6;
+            ParallelepipedHeightTextBox.Location = new Point(144, 68);
+            ParallelepipedHeightTextBox.Name = "ParallelepipedHeightTextBox";
+            ParallelepipedHeightTextBox.Size = new Size(171, 23);
+            ParallelepipedHeightTextBox.TabIndex = 6;
             // 
-            // parallelepipedWidthTextBox
+            // ParallelepipedWidthTextBox
             // 
-            parallelepipedWidthTextBox.Location = new Point(165, 48);
-            parallelepipedWidthTextBox.Margin = new Padding(3, 4, 3, 4);
-            parallelepipedWidthTextBox.Name = "parallelepipedWidthTextBox";
-            parallelepipedWidthTextBox.Size = new Size(195, 27);
-            parallelepipedWidthTextBox.TabIndex = 5;
+            ParallelepipedWidthTextBox.Location = new Point(144, 38);
+            ParallelepipedWidthTextBox.Name = "ParallelepipedWidthTextBox";
+            ParallelepipedWidthTextBox.Size = new Size(171, 23);
+            ParallelepipedWidthTextBox.TabIndex = 5;
             // 
-            // label6
+            // HeightParallelepipedLabel
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(14, 93);
-            label6.Name = "label6";
-            label6.Size = new Size(62, 20);
-            label6.TabIndex = 4;
-            label6.Text = "Высота:";
+            HeightParallelepipedLabel.AutoSize = true;
+            HeightParallelepipedLabel.Location = new Point(12, 72);
+            HeightParallelepipedLabel.Name = "HeightParallelepipedLabel";
+            HeightParallelepipedLabel.Size = new Size(50, 15);
+            HeightParallelepipedLabel.TabIndex = 4;
+            HeightParallelepipedLabel.Text = "Высота:";
             // 
-            // label5
+            // WidthParallelepipedLabel
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(14, 52);
-            label5.Name = "label5";
-            label5.Size = new Size(70, 20);
-            label5.TabIndex = 2;
-            label5.Text = "Ширина:";
+            WidthParallelepipedLabel.AutoSize = true;
+            WidthParallelepipedLabel.Location = new Point(12, 42);
+            WidthParallelepipedLabel.Name = "WidthParallelepipedLabel";
+            WidthParallelepipedLabel.Size = new Size(55, 15);
+            WidthParallelepipedLabel.TabIndex = 2;
+            WidthParallelepipedLabel.Text = "Ширина:";
             // 
-            // parallelepipedLengthTextBox
+            // ParallelepipedLengthTextBox
             // 
-            parallelepipedLengthTextBox.Location = new Point(165, 7);
-            parallelepipedLengthTextBox.Margin = new Padding(3, 4, 3, 4);
-            parallelepipedLengthTextBox.Name = "parallelepipedLengthTextBox";
-            parallelepipedLengthTextBox.Size = new Size(195, 27);
-            parallelepipedLengthTextBox.TabIndex = 1;
+            ParallelepipedLengthTextBox.Location = new Point(144, 8);
+            ParallelepipedLengthTextBox.Name = "ParallelepipedLengthTextBox";
+            ParallelepipedLengthTextBox.Size = new Size(171, 23);
+            ParallelepipedLengthTextBox.TabIndex = 1;
             // 
-            // label4
+            // LengthParallelepipedLabel
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(14, 11);
-            label4.Name = "label4";
-            label4.Size = new Size(56, 20);
-            label4.TabIndex = 0;
-            label4.Text = "Длина:";
+            LengthParallelepipedLabel.AutoSize = true;
+            LengthParallelepipedLabel.Location = new Point(12, 12);
+            LengthParallelepipedLabel.Name = "LengthParallelepipedLabel";
+            LengthParallelepipedLabel.Size = new Size(45, 15);
+            LengthParallelepipedLabel.TabIndex = 0;
+            LengthParallelepipedLabel.Text = "Длина:";
             // 
-            // okButton
+            // OkButton
             // 
-            okButton.DialogResult = DialogResult.OK;
-            okButton.Location = new Point(203, 230);
-            okButton.Margin = new Padding(3, 4, 3, 4);
-            okButton.Name = "okButton";
-            okButton.Size = new Size(86, 31);
-            okButton.TabIndex = 5;
-            okButton.Text = "Ок";
-            okButton.UseVisualStyleBackColor = true;
-            okButton.Click += okButton_Click;
+            OkButton.DialogResult = DialogResult.OK;
+            OkButton.Location = new Point(178, 180);
+            OkButton.Name = "OkButton";
+            OkButton.Size = new Size(75, 23);
+            OkButton.TabIndex = 5;
+            OkButton.Text = "Ок";
+            OkButton.UseVisualStyleBackColor = true;
+            OkButton.Click += OkButton_Click;
             // 
-            // cancelButton
+            // CancelButton
             // 
-            cancelButton.DialogResult = DialogResult.Cancel;
-            cancelButton.Location = new Point(301, 230);
-            cancelButton.Margin = new Padding(3, 4, 3, 4);
-            cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(86, 31);
-            cancelButton.TabIndex = 6;
-            cancelButton.Text = "Отмена";
-            cancelButton.UseVisualStyleBackColor = true;
+            CancelButton.DialogResult = DialogResult.Cancel;
+            CancelButton.Location = new Point(263, 180);
+            CancelButton.Name = "CancelButton";
+            CancelButton.Size = new Size(75, 23);
+            CancelButton.TabIndex = 6;
+            CancelButton.Text = "Отмена";
+            CancelButton.UseVisualStyleBackColor = true;
             // 
-            // createRandomDataButton
+            // CreateRandomDataButton
             // 
-            createRandomDataButton.Location = new Point(41, 230);
-            createRandomDataButton.Margin = new Padding(3, 4, 3, 4);
-            createRandomDataButton.Name = "createRandomDataButton";
-            createRandomDataButton.RightToLeft = RightToLeft.No;
-            createRandomDataButton.Size = new Size(150, 31);
-            createRandomDataButton.TabIndex = 4;
-            createRandomDataButton.Text = "Случайно";
-            createRandomDataButton.UseVisualStyleBackColor = true;
-            createRandomDataButton.Click += createRandomDataButton_Click;
+            CreateRandomDataButton.Location = new Point(36, 180);
+            CreateRandomDataButton.Name = "CreateRandomDataButton";
+            CreateRandomDataButton.RightToLeft = RightToLeft.No;
+            CreateRandomDataButton.Size = new Size(131, 23);
+            CreateRandomDataButton.TabIndex = 4;
+            CreateRandomDataButton.Text = "Случайно";
+            CreateRandomDataButton.UseVisualStyleBackColor = true;
+            CreateRandomDataButton.Click += CreateRandomDataButton_Click;
             // 
             // AddFigureForm
             // 
-            AcceptButton = okButton;
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AcceptButton = OkButton;
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            CancelButton = cancelButton;
-            ClientSize = new Size(432, 271);
-            Controls.Add(pyramidPanel);
-            Controls.Add(createRandomDataButton);
-            Controls.Add(cancelButton);
-            Controls.Add(okButton);
-            Controls.Add(figureTypeComboBox);
-            Controls.Add(figureTypeLabel);
-            Controls.Add(parallelepipedPanel);
-            Controls.Add(spherePanel);
+            ClientSize = new Size(372, 220);
+            Controls.Add(PyramidPanel);
+            Controls.Add(CreateRandomDataButton);
+            Controls.Add(CancelButton);
+            Controls.Add(OkButton);
+            Controls.Add(FigureTypeComboBox);
+            Controls.Add(FigureTypeLabel);
+            Controls.Add(ParallelepipedPanel);
+            Controls.Add(SpherePanel);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AddFigureForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Добавить фигуру";
-            spherePanel.ResumeLayout(false);
-            spherePanel.PerformLayout();
-            pyramidPanel.ResumeLayout(false);
-            pyramidPanel.PerformLayout();
-            parallelepipedPanel.ResumeLayout(false);
-            parallelepipedPanel.PerformLayout();
+            SpherePanel.ResumeLayout(false);
+            SpherePanel.PerformLayout();
+            PyramidPanel.ResumeLayout(false);
+            PyramidPanel.PerformLayout();
+            ParallelepipedPanel.ResumeLayout(false);
+            ParallelepipedPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label figureTypeLabel;
-        private ComboBox figureTypeComboBox;
-        private Panel spherePanel;
-        private TextBox sphereRadiusTextBox;
-        private Label radiusLabel;
-        private Panel pyramidPanel;
-        private Label label3;
-        private Label label2;
-        private TextBox pyramidBaseLengthTextBox;
-        private Label label1;
-        private Panel parallelepipedPanel;
-        private TextBox pyramidHeightTextBox;
+        private Label FigureTypeLabel;
+        private ComboBox FigureTypeComboBox;
+        private Panel SpherePanel;
+        private TextBox SphereRadiusTextBox;
+        private Label RadiusLabel;
+        private Panel PyramidPanel;
+        private Label HeightPyramidLabel;
+        private Label WidthBasePyramidLabel;
+        private TextBox PyramidBaseLengthTextBox;
+        private Label LengthBasePyramidLabel;
+        private Panel ParallelepipedPanel;
+        private TextBox PyramidHeightTextBox;
         private TextBox textBox3;
-        private Label label6;
+        private Label HeightParallelepipedLabel;
         private TextBox textBox2;
-        private Label label5;
-        private TextBox parallelepipedLengthTextBox;
-        private Label label4;
-        private TextBox pyramidBaseWidthTextBox;
-        private TextBox parallelepipedHeightTextBox;
-        private TextBox parallelepipedWidthTextBox;
-        private Button okButton;
-        private Button cancelButton;
-        private Button createRandomDataButton;
+        private Label WidthParallelepipedLabel;
+        private TextBox ParallelepipedLengthTextBox;
+        private Label LengthParallelepipedLabel;
+        private TextBox PyramidBaseWidthTextBox;
+        private TextBox ParallelepipedHeightTextBox;
+        private TextBox ParallelepipedWidthTextBox;
+        private Button OkButton;
+        private Button CancelButton;
+        private Button CreateRandomDataButton;
     }
 }
