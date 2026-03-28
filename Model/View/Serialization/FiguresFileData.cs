@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace View.Serialization
+﻿namespace View.Serialization
 {
     /// <summary>
     /// Представляет сериализуемый контейнер списка фигур.

@@ -61,12 +61,11 @@ namespace View
             SaveToolStripMenuItem.Enabled = _figures.Count > 0;
         }
 
-        //TODO: XML
         /// <summary>
-        /// 
+        /// Удаляет выбранные фигуры из таблицы.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void RemoveFigureButton_Click(object sender, EventArgs e)
         {
             var selectedRows

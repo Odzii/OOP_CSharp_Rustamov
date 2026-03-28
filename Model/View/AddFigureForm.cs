@@ -35,7 +35,7 @@ namespace View
             UpdatePanelIsVisibility();
 
 #if !DEBUG
-            createRandomDataButton.Visible = false;
+            CreateRandomDataButton.Visible = false;
 #endif
         }
 
@@ -178,7 +178,7 @@ namespace View
 
         //TODO: условная компиляция
         /// <summary>
-        /// Обрабатывает событие загрузки формы.
+        /// Формирует случайные положительные вещественные числа типа double.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>

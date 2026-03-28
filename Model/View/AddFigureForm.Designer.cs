@@ -1,16 +1,24 @@
 ﻿namespace View
 {
+    /// <summary>
+    /// Класс, который содиржит объекты формы связанные 
+    /// с добавлением параметров и выбора типа фигур в отдельной форме,
+    /// которые вызываются с использованием кнопки "добавить".
+    /// </summary>
     partial class AddFigureForm
     {
         /// <summary>
-        /// Required designer variable.
+        /// Контейнер, содержащий компоненты формы.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Освобождает ресурсы, используемые формой.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">
+        /// Значение <c>true</c>, если нужно освободить управляемые ресурсы;
+        /// иначе — <c>false</c>.
+        /// </param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,8 +31,8 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Инициализирует компоненты формы 
+        /// и задаёт начальные значения их свойств.
         /// </summary>
         private void InitializeComponent()
         {
@@ -293,29 +301,114 @@
 
         #endregion
 
+        /// <summary>
+        /// Ярлык для выбора типа фигуры.
+        /// </summary>
         private Label FigureTypeLabel;
+
+        /// <summary>
+        /// Выпадающий список с доступными типами фигур.
+        /// </summary>
         private ComboBox FigureTypeComboBox;
+
+        /// <summary>
+        /// Панель с параметрами сферы.
+        /// </summary>
         private Panel SpherePanel;
+
+        /// <summary>
+        /// Текстовое поле для ввода радиуса сферы.
+        /// </summary>
         private TextBox SphereRadiusTextBox;
+
+        /// <summary>
+        /// Ярлык для поля радиуса.
+        /// </summary>
         private Label RadiusLabel;
+
+        /// <summary>
+        /// Панель с параметрами пирамиды.
+        /// </summary>
         private Panel PyramidPanel;
+
+        /// <summary>
+        /// Ярлык для поля высоты пирамиды.
+        /// </summary>
         private Label HeightPyramidLabel;
+
+        /// <summary>
+        /// Ярлык для поля ширины основания пирамиды.
+        /// </summary>
         private Label WidthBasePyramidLabel;
+
+        /// <summary>
+        /// Текстовое поле для ввода длины основания пирамиды.
+        /// </summary>
         private TextBox PyramidBaseLengthTextBox;
+
+        /// <summary>
+        /// Ярлык для поля длины основания пирамиды.
+        /// </summary>
         private Label LengthBasePyramidLabel;
+
+        /// <summary>
+        /// Панель с параметрами параллелепипеда.
+        /// </summary>
         private Panel ParallelepipedPanel;
+
+        /// <summary>
+        /// Текстовое поле для ввода высоты пирамиды.
+        /// </summary>
         private TextBox PyramidHeightTextBox;
 
+        /// <summary>
+        /// Ярлык для поля высоты параллелепипеда.
+        /// </summary>
         private Label HeightParallelepipedLabel;
 
+        /// <summary>
+        /// Ярлык для поля ширины параллелепипеда.
+        /// </summary>
         private Label WidthParallelepipedLabel;
+
+        /// <summary>
+        /// Текстовое поле для ввода длины параллелепипеда.
+        /// </summary>
         private TextBox ParallelepipedLengthTextBox;
+
+        /// <summary>
+        /// Ярлык для поля длины параллелепипеда.
+        /// </summary>
         private Label LengthParallelepipedLabel;
+
+        /// <summary>
+        /// Текстовое поле для ввода ширины основания пирамиды.
+        /// </summary>
         private TextBox PyramidBaseWidthTextBox;
+
+        /// <summary>
+        /// Текстовое поле для ввода высоты параллелепипеда.
+        /// </summary>
         private TextBox ParallelepipedHeightTextBox;
+
+        /// <summary>
+        /// Текстовое поле для ввода ширины параллелепипеда.
+        /// </summary>
         private TextBox ParallelepipedWidthTextBox;
+
+        /// <summary>
+        /// Кнопка подтверждения действия.
+        /// </summary>
         private Button OkButton;
+
+        /// <summary>
+        /// Кнопка отмены действия.
+        /// </summary>
         private Button CancelButton;
+
+        /// <summary>
+        /// Кнопка для автоматического заполнения полей случайными данными.
+        /// </summary>
         private Button CreateRandomDataButton;
     }
 }

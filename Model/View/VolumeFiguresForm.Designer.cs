@@ -1,16 +1,23 @@
 ﻿namespace View
 {
+    /// <summary>
+    /// Главная форма приложения, которая содержит объекты интерфейса 
+    /// и их события, методы.
+    /// </summary>
     partial class VolumeFiguresForm
     {
         /// <summary>
-        ///  Required designer variable.
+        /// Контейнер, содержащий компоненты формы.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        /// Освобождает ресурсы, используемые формой.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">
+        /// Значение <c>true</c>, если нужно освободить управляемые ресурсы;
+        /// иначе — <c>false</c>.
+        /// </param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,8 +30,8 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
+        /// Инициализирует компоненты формы 
+        /// и задаёт начальные значения их свойств.
         /// </summary>
         private void InitializeComponent()
         {
@@ -189,18 +196,69 @@
 
         #endregion
 
+        /// <summary>
+        /// Группа элементов управления со списком фигур.
+        /// </summary>
         private GroupBox FiguresGroupBox;
+
+        /// <summary>
+        /// Таблица для отображения списка фигур.
+        /// </summary>
         private DataGridView FiguresDataGridView;
+
+        /// <summary>
+        /// Кнопка удаления выбранной фигуры.
+        /// </summary>
         private Button RemoveFigureButton;
+
+        /// <summary>
+        /// Кнопка добавления новой фигуры.
+        /// </summary>
         private Button AddFigureButton;
+
+        /// <summary>
+        /// Столбец таблицы с объёмом фигуры.
+        /// </summary>
         private DataGridViewTextBoxColumn FigureVolumeColumn;
+
+        /// <summary>
+        /// Столбец таблицы с типом фигуры.
+        /// </summary>
         private DataGridViewTextBoxColumn FigureTypeColumn;
+
+        /// <summary>
+        /// Столбец таблицы с описанием фигуры.
+        /// </summary>
         private DataGridViewTextBoxColumn FigureDescriptionColumn;
+
+        /// <summary>
+        /// Кнопка открытия формы поиска фигур.
+        /// </summary>
         private Button FindFigureButton;
+
+        /// <summary>
+        /// Строка меню формы.
+        /// </summary>
         private MenuStrip MenuStrip1;
+
+        /// <summary>
+        /// Пункт меню "Файл".
+        /// </summary>
         private ToolStripMenuItem FileToolStripMenuItem;
+
+        /// <summary>
+        /// Пункт меню сохранения данных.
+        /// </summary>
         private ToolStripMenuItem SaveToolStripMenuItem;
+
+        /// <summary>
+        /// Пункт меню загрузки данных.
+        /// </summary>
         private ToolStripMenuItem LoadToolStripMenuItem;
+
+        /// <summary>
+        /// Пункт меню выхода из приложения.
+        /// </summary>
         private ToolStripMenuItem ExitToolStripMenuItem;
     }
 }

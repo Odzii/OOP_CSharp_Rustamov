@@ -1,16 +1,24 @@
 ﻿namespace View
 {
+    /// <summary>
+    /// Класс, который содиржит объекты формы связанные 
+    /// с поиском фигур в отдельной форме,
+    /// содержит фильтры по типу фигуры, верхней и нижней границы объема.
+    /// </summary>
     partial class FindFigureForm
     {
         /// <summary>
-        /// Required designer variable.
+        /// Контейнер, содержащий компоненты формы.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Освобождает ресурсы, используемые формой.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">
+        /// Значение <c>true</c>, если нужно освободить управляемые ресурсы;
+        /// иначе — <c>false</c>.
+        /// </param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,8 +31,8 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Инициализирует компоненты формы 
+        /// и задаёт начальные значения их свойств.
         /// </summary>
         private void InitializeComponent()
         {
@@ -173,17 +181,64 @@
 
         #endregion
 
+        /// <summary>
+        /// Ярлык для выбора типа фигуры.
+        /// </summary>
         private Label FigureTypeLabel;
+
+        /// <summary>
+        /// Ярлык для поля максимального объёма.
+        /// </summary>
         private Label MaxVolumeLabel;
+
+        /// <summary>
+        /// Текстовое поле для ввода максимального объёма.
+        /// </summary>
         private TextBox MaxVolumeTextBox;
+
+        /// <summary>
+        /// Кнопка запуска поиска.
+        /// </summary>
         private Button SearchButton;
+
+        /// <summary>
+        /// Кнопка закрытия формы.
+        /// </summary>
         private Button CloseButton;
+
+        /// <summary>
+        /// Текстовое поле для ввода минимального объёма.
+        /// </summary>
         private TextBox MinVolumeTextBox;
+
+        /// <summary>
+        /// Ярлык для поля минимального объёма.
+        /// </summary>
         private Label MinVolumeLabel;
+
+        /// <summary>
+        /// Выпадающий список для выбора типа фигуры.
+        /// </summary>
         private ComboBox FigureTypeComboBox;
+
+        /// <summary>
+        /// Таблица для отображения результатов поиска.
+        /// </summary>
         private DataGridView ResultsDataGridView;
+
+        /// <summary>
+        /// Столбец таблицы с типом фигуры.
+        /// </summary>
         private DataGridViewTextBoxColumn ResultTyoeColumn;
+
+        /// <summary>
+        /// Столбец таблицы с объёмом фигуры.
+        /// </summary>
         private DataGridViewTextBoxColumn ResultVolumeColumn;
+
+        /// <summary>
+        /// Столбец таблицы с описанием фигуры.
+        /// </summary>
         private DataGridViewTextBoxColumn ResultDescriptionColumn;
     }
 }
