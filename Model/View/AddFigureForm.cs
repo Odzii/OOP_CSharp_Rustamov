@@ -14,11 +14,13 @@ namespace View
     /// </remarks>
     public partial class AddFigureForm : Form
     {
+#if DEBUG
         /// <summary>
         /// Генератор случайных чисел, 
         /// используемый для заполнения формы тестовыми данными.
         /// </summary>
         private readonly Random _random = new();
+#endif
 
         /// <summary>
         /// Инициализирует новый экземпляр формы <see cref="AddFigureForm"/>.
@@ -34,8 +36,8 @@ namespace View
 
             UpdatePanelIsVisibility();
 
-#if !DEBUG
-            CreateRandomDataButton.Visible = false;
+#if DEBUG
+            CreateRandomDataButton.Visible = true;
 #endif
         }
 
@@ -176,7 +178,8 @@ namespace View
             }
         }
 
-        //TODO: условная компиляция
+#if DEBUG
+        //TODO: условная компиляция +
         /// <summary>
         /// Формирует случайные положительные вещественные числа типа double.
         /// </summary>
@@ -231,6 +234,7 @@ namespace View
         {
             return min + _random.NextDouble() * (max - min);
         }
+#endif
     }
 
 }

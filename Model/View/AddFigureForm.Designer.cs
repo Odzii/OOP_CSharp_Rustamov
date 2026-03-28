@@ -259,6 +259,7 @@
             // 
             // CreateRandomDataButton
             // 
+#if DEBUG
             CreateRandomDataButton.Location = new Point(36, 180);
             CreateRandomDataButton.Name = "CreateRandomDataButton";
             CreateRandomDataButton.RightToLeft = RightToLeft.No;
@@ -267,6 +268,7 @@
             CreateRandomDataButton.Text = "Случайно";
             CreateRandomDataButton.UseVisualStyleBackColor = true;
             CreateRandomDataButton.Click += CreateRandomDataButton_Click;
+#endif
             // 
             // AddFigureForm
             // 
@@ -275,7 +277,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(372, 220);
             Controls.Add(PyramidPanel);
+
+#if DEBUG
             Controls.Add(CreateRandomDataButton);
+#endif
+
             Controls.Add(CancelButton);
             Controls.Add(OkButton);
             Controls.Add(FigureTypeComboBox);
