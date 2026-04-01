@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="ConsoleLoader/ConsoleLoader.csproj" />
   <Project Path="Model/Model.csproj" />
   <Project Path="View/View.csproj" Id="1b1a2a59-0a45-4aa1-84b5-b5ae0a320b3a" />
 </Solution>
