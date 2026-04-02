@@ -15,16 +15,6 @@ namespace ConsoleLoader
     /// о типах фигур и их объёмах. </remarks> 
     internal class Program
     {
-        /// <summary>
-        /// Минимальный пункт меню выбора.
-        /// </summary>
-        private const int MinMenuOption = 0;
-        
-        /// <summary>
-        /// Максимальный пункт меню выбора.
-        /// </summary>
-        private const int MaxMenuOption = 3;
-
         private static void Main(string[] args)
         {
             while (true)
@@ -53,6 +43,9 @@ namespace ConsoleLoader
         /// <returns>Экземпляр класса</returns>
         private static IVolumeFigure CreateFigure()
         {
+            const int MinMenuOption = 0;
+            const int MaxMenuOption = 3;
+
             Console.WriteLine("Выберите фигуру:");
             Console.WriteLine("1 - Сфера");
             Console.WriteLine("2 - Пирамида");
@@ -62,19 +55,17 @@ namespace ConsoleLoader
             int choice;
 
             while (true)
-            {
+            {   
                 string? input = Console.ReadLine();
 
-                //TODO: magic (to const)
+
                 if (int.TryParse(input, out int value)
                     && value >= MinMenuOption && value <= MaxMenuOption)
                 {
                     choice = value;
-                    //TODO: refactor
-                    if (choice <= MaxMenuOption && choice >= MinMenuOption)
-                    {
-                        break;
-                    }
+                    //TODO: refactor+
+                    // here were a lot unusefull cods for validates user input
+                    break;
                 }
 
                 Console.WriteLine("Пожалуйста, введите корректный выбор.");
