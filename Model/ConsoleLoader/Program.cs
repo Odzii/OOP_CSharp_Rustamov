@@ -63,8 +63,6 @@ namespace ConsoleLoader
                     && value >= MinMenuOption && value <= MaxMenuOption)
                 {
                     choice = value;
-                    //TODO: refactor+
-                    // here were a lot unusefull cods for validates user input
                     break;
                 }
 
