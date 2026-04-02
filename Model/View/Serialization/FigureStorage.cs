@@ -85,7 +85,7 @@ namespace View.Serialization
         {
             switch (figure)
             {
-                //TODO: {} +
+                //TODO: {}
                 case Sphere sphere:
                     return new FigureData
                 {
@@ -133,7 +133,6 @@ namespace View.Serialization
         {
             switch (figureData.FigureKind)
             {
-                //TODO: {} +
                 case "Сфера":
                 {
                     return new Sphere(
