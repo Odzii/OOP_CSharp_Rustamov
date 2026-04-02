@@ -65,12 +65,12 @@ namespace ConsoleLoader
             {
                 string? input = Console.ReadLine();
 
-                //TODO: magic (to const) +
+                //TODO: magic (to const)
                 if (int.TryParse(input, out int value)
                     && value >= MinMenuOption && value <= MaxMenuOption)
                 {
                     choice = value;
-
+                    //TODO: refactor
                     if (choice <= MaxMenuOption && choice >= MinMenuOption)
                     {
                         break;
@@ -82,7 +82,6 @@ namespace ConsoleLoader
 
             switch (choice)
             {
-                //TOOD: отступы +
                 case 1:
                 {
                     double radius = ReadPositiveDouble("Введите радиус: ");
@@ -153,7 +152,6 @@ namespace ConsoleLoader
                     continue;
                 }
 
-                //TODO: RSDN +
                 bool isValidNumber =
                     double.TryParse(input, NumberStyles.Float, 
                         CultureInfo.CurrentCulture, out double value) 
