@@ -3,112 +3,87 @@
 namespace View.Helper
 {
     /// <summary>
-    /// Предоставляет методы для проверки и преобразования строкового ввода в
-    /// положительные вещественные числа.
+    /// Методы проверки и преобразования строкового ввода в положительные числа.
     /// </summary>
-    /// </remarks> Содержит методы по обработке double и Nullable<double>.</remarks>
     internal static class Validation
     {
         /// <summary>
-        /// Преобразует обязательное строковое значение в положительное число 
-        /// типа <see cref="double"/>.
+        /// Проверяет обязательное поле на положительное число.
         /// </summary>
-        /// <param name="text">Строка содержащая числовое значение.</param>
-        /// <param name="fieldName">Отображаемое имя поля, 
-        /// используемое в тексте ошибок.</param>
-        /// <returns>Положительное конечное число типа <see cref="double"/>
-        /// </returns>
-        internal static double ParseRequiredPositiveDouble(
-            string text,
-            string fieldName)
+        internal static bool TryParsePositiveDouble(
+            TextBox textBox,
+            out double inputUser)
         {
-            return ParsePositiveDouble(text, fieldName, allowEmpty: false).Value;
-        }
-
-        /// <summary>
-        /// Преобразует необязательное строковое значение в положительное число
-        /// или в случае пустой строки допускает <see cref="Nullable\"double"\"/>
-        /// типа <see cref="double"/>.
-        /// </summary>
-        /// <param name="text">Строка, содержащая числовое значение.</param>
-        /// <param name="fieldName">Отображаемое имя поля, используемое в тексте ошибок.</param>
-        /// <returns>Положительное конечное число типа <see cref="double"/>,
-        /// либо <see langword="null"/>, если ввод пустой.</returns>
-        internal static double? ParseOptionalPositiveDouble(
-            string text,
-            string fieldName)
-        {
-            return ParsePositiveDouble(text, fieldName, allowEmpty: true);
-        }
-
-        /// <summary>
-        /// Выполняет общую проверку и преобразование строкового значения
-        /// в положительное число типа <see cref="double"/>.
-        /// </summary>
-        /// <param name="text">Строка, содержащая числовое значение.</param>
-        /// <param name="fieldName">Отображаемое имя поля, 
-        /// используемое в тексте ошибок.</param>
-        /// <param name="allowEmpty">
-        /// Флаг, указывающий, допускается ли пустое значение.
-        /// </param>
-        /// <returns>Положительное конечное число типа <see cref="double"/>,
-        /// либо <see langword="null"/>, если пустой ввод допустим.
-        /// </returns>
-        /// <exception cref="ArgumentException">
-        /// Возникает, если обязательное поле не заполнено
-        /// или если значение имеет некорректный формат.
-        /// </exception>
-        /// <exception cref="NotFiniteNumberException">
-        /// Возникает, если введённое значение не является конечным числом.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Возникает, если введённое значение меньше или равно нулю.
-        /// </exception>
-        private static double? ParsePositiveDouble(
-            string text,
-            string fieldName,
-            bool allowEmpty)
-        {
-            string normalizedText = text.Trim();
+            textBox.BackColor = SystemColors.Window;
+            string normalizedText = textBox.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(normalizedText))
             {
-                if (allowEmpty)
-                {
-                    return null;
-                }
-
-                throw new ArgumentException(
-                    $"Поле \"{fieldName}\" обязательно для заполнения");
+                textBox.BackColor = Color.MistyRose;
+                inputUser = 0;
+                return false;
             }
 
-            bool isValidNumber = 
-                double.TryParse(normalizedText, NumberStyles.Float,
-                    CultureInfo.CurrentCulture, out double value)
-                || double.TryParse(normalizedText, NumberStyles.Float,
-                    CultureInfo.InvariantCulture, out value);
+            bool isDouble =
+                double.TryParse(
+                    normalizedText,
+                    NumberStyles.Float,
+                    CultureInfo.CurrentCulture,
+                    out inputUser)
+                || double.TryParse(
+                    normalizedText,
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture,
+                    out inputUser);
 
-            if (!isValidNumber)
+            if (!isDouble || !double.IsFinite(inputUser) || inputUser <= 0)
             {
-                throw new ArgumentException(
-                    $"Поле \"{fieldName}\" содержит неверный формат числа. " +
-                    $"Введите, например, 10,5 или 10.5.");
+                textBox.BackColor = Color.MistyRose;
+                inputUser = 0;
+                return false;
             }
 
-            if (!double.IsFinite(value))
+            return true;
+        }
+
+        /// <summary>
+        /// Проверяет необязательное поле на положительное число.
+        /// Пустая строка допустима.
+        /// </summary>
+        internal static bool TryParseOptionalPositiveDouble(
+            TextBox textBox,
+            out double? value)
+        {
+            textBox.BackColor = SystemColors.Window;
+            string normalizedText = textBox.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(normalizedText))
             {
-                throw new NotFiniteNumberException(
-                    $"Поле \"{fieldName}\" должно содержать конечное число.");
+                value = null;
+                return true;
             }
 
-            if (value <= 0)
+            bool isDouble =
+                double.TryParse(
+                    normalizedText,
+                    NumberStyles.Float,
+                    CultureInfo.CurrentCulture,
+                    out double inputUser)
+                || double.TryParse(
+                    normalizedText,
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture,
+                    out inputUser);
+
+            if (!isDouble || !double.IsFinite(inputUser) || inputUser <= 0)
             {
-                throw new ArgumentOutOfRangeException(
-                    fieldName,
-                    $"Поле \"{fieldName}\" должно быть больше нуля.");
+                textBox.BackColor = Color.MistyRose;
+                value = null;
+                return false;
             }
 
-            return value;
+            value = inputUser;
+            return true;
         }
     }
 }

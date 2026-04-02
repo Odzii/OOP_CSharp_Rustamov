@@ -69,30 +69,28 @@ namespace View
             }
         }
 
-        /// <summary>
-        /// Выполняет поиск фигур по выбранному типу и диапазону объёма.
-        /// </summary>
-        /// <returns>Список фигур, удовлетворяющих условиям поиска.</returns>
-        /// <exception cref="ArgumentException">
-        /// Выбрасывается, если минимальный объём больше максимального
-        /// или если введены некорректные числовые значения.
-        /// </exception>
+
         private List<VolumeFigureBase> FindFigures()
         {
             string selectedType = FigureTypeComboBox.SelectedItem?.ToString()
                 ?? "Все";
 
-            double? minVolume = Validation.ParseOptionalPositiveDouble(
-                MinVolumeTextBox.Text,
-                "Минимальный объем");
+            bool isMinValid = Validation.TryParseOptionalPositiveDouble(
+                MinVolumeTextBox,
+                out double? minVolume);
 
-            double? maxVolume = Validation.ParseOptionalPositiveDouble(
-                MaxVolumeTextBox.Text,
-                "Максимальный объем");
+            bool isMaxValid = Validation.TryParseOptionalPositiveDouble(
+                MaxVolumeTextBox,
+                out double? maxVolume);
 
-            if (minVolume.HasValue
-                && maxVolume.HasValue
-                && minVolume > maxVolume)
+            if (!isMinValid || !isMaxValid)
+            {
+                throw new ArgumentException(
+                    "Минимальный и максимальный объём должны быть " +
+                    "положительными и конечными числами.");
+            }
+
+            if (minVolume.HasValue && maxVolume.HasValue && minVolume > maxVolume)
             {
                 throw new ArgumentException(
                     "Минимальный объём не должен быть больше максимального.");
@@ -102,20 +100,17 @@ namespace View
 
             if (selectedType != "Все")
             {
-                query = query.Where(
-                    figure => figure.FigureType == selectedType);
+                query = query.Where(figure => figure.FigureType == selectedType);
             }
 
             if (minVolume.HasValue)
             {
-                query = query.Where(
-                    figure => figure.Volume >= minVolume.Value);
+                query = query.Where(figure => figure.Volume >= minVolume.Value);
             }
 
             if (maxVolume.HasValue)
             {
-                query = query.Where(
-                    figure => figure.Volume <= maxVolume.Value);
+                query = query.Where(figure => figure.Volume <= maxVolume.Value);
             }
 
             return query.ToList();

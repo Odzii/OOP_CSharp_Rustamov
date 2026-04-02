@@ -1,5 +1,6 @@
 ﻿using Model;
 using View.Helper;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace View
 {
@@ -110,73 +111,109 @@ namespace View
         //TODO: duplication+
         // Here was method and now it's in the folder Helper
 
-        /// <summary>
-        /// Создаёт объект фигуры на основе выбранного типа 
-        /// и введённых пользователем параметров.
-        /// </summary>
-        /// <returns>Созданный экземпляр фигуры, 
-        /// наследуемой от <see cref="VolumeFigureBase"/>.</returns>
-        /// <exception cref="InvalidOperationException">
-        /// Выбрасывается, если тип фигуры не выбран или не поддерживается.
-        /// </exception>
         private VolumeFigureBase CreateFigureFromForm()
         {
-            string selectedType = FigureTypeComboBox.SelectedItem?.ToString()
-                ?? string.Empty;
+            ResetCurrentFigureTextBoxes();
+
+            string selectedType = FigureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
+
+            return selectedType switch
+            {
+                "Сфера" => CreateSphere(),
+                "Пирамида" => CreatePyramid(),
+                "Параллелепипед" => CreateParallelepiped(),
+                _ => throw new InvalidOperationException("Тип фигуры не выбран.")
+            };
+        }
+
+        private Sphere CreateSphere()
+        {
+            if (!Validation.TryParsePositiveDouble(SphereRadiusTextBox, out double radius))
+            {
+                throw new ArgumentException(
+                    "Радиус должен быть положительным и конечным числом.");
+            }
+
+            return new Sphere(radius);
+        }
+
+        private Pyramid CreatePyramid()
+        {
+            bool isValid = true;
+
+            isValid &= Validation.TryParsePositiveDouble(
+                PyramidBaseLengthTextBox, out double baseLength);
+            isValid &= Validation.TryParsePositiveDouble(
+                PyramidBaseWidthTextBox, out double baseWidth);
+            isValid &= Validation.TryParsePositiveDouble(
+                PyramidHeightTextBox, out double height);
+
+            if (!isValid)
+            {
+                throw new ArgumentException(
+                    "Длина, ширина и высота должны быть положительными " +
+                    "и конечными числами.");
+            }
+
+            return new Pyramid(baseLength, baseWidth, height);
+        }
+
+        private Parallelepiped CreateParallelepiped()
+        {
+            bool isValid = true;
+
+            isValid &= Validation.TryParsePositiveDouble(
+                ParallelepipedLengthTextBox, out double length);
+            isValid &= Validation.TryParsePositiveDouble(
+                ParallelepipedWidthTextBox, out double width);
+            isValid &= Validation.TryParsePositiveDouble(
+                ParallelepipedHeightTextBox, out double height);
+
+            if (!isValid)
+            {
+                throw new ArgumentException(
+                    "Длина, ширина и высота должны быть положительными " +
+                    "и конечными числами.");
+            }
+
+            return new Parallelepiped(length, width, height);
+        }
+
+        private void ResetCurrentFigureTextBoxes()
+        {
+            string selectedType = FigureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
 
             switch (selectedType)
             {
-                //TODО: отступы +
                 case "Сфера":
-                {
-                    double radius = Validation.ParseRequiredPositiveDouble(
-                        SphereRadiusTextBox.Text,
-                        "Радиус");
-
-                    return new Sphere(radius);
-                }
+                    ResetTextBoxes(SphereRadiusTextBox);
+                    break;
 
                 case "Пирамида":
-                {
-                    double baseLength = Validation.ParseRequiredPositiveDouble(
-                        PyramidBaseLengthTextBox.Text,
-                        "Длина основания");
-
-                    double baseWidth = Validation.ParseRequiredPositiveDouble(
-                        PyramidBaseWidthTextBox.Text,
-                        "Ширина основания");
-
-                    double height = Validation.ParseRequiredPositiveDouble(
-                        PyramidHeightTextBox.Text,
-                        "Высота");
-
-                    return new Pyramid(baseLength, baseWidth, height);
-                }
+                    ResetTextBoxes(
+                        PyramidBaseLengthTextBox,
+                        PyramidBaseWidthTextBox,
+                        PyramidHeightTextBox);
+                    break;
 
                 case "Параллелепипед":
-                {
-                    double length = Validation.ParseRequiredPositiveDouble(
-                        ParallelepipedLengthTextBox.Text,
-                        "Длина");
-
-                    double width = Validation.ParseRequiredPositiveDouble(
-                        ParallelepipedWidthTextBox.Text,
-                        "Ширина");
-
-                    double height = Validation.ParseRequiredPositiveDouble(
-                        ParallelepipedHeightTextBox.Text,
-                        "Высота");
-
-                    return new Parallelepiped(length, width, height);
-                }
-
-                default:
-                {
-                    throw new InvalidOperationException(
-                        "Тип фигуры не выбран");
-                }
+                    ResetTextBoxes(
+                        ParallelepipedLengthTextBox,
+                        ParallelepipedWidthTextBox,
+                        ParallelepipedHeightTextBox);
+                    break;
             }
         }
+
+        private void ResetTextBoxes(params TextBox[] textBoxes)
+        {
+            foreach (TextBox textBox in textBoxes)
+            {
+                textBox.BackColor = SystemColors.Window;
+            }
+        }
+
+
 
 #if DEBUG
         //TODO: условная компиляция +
