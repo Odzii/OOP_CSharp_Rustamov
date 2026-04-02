@@ -135,38 +135,46 @@ namespace View.Serialization
             {
                 //TODO: {} +
                 case "Сфера":
+                {
                     return new Sphere(
-                        figureData.Radius 
+                        figureData.Radius
                         ?? throw new InvalidOperationException(
                             "Не задан Radius."));
+                }
 
                 case "Пирамида":
+                {
                     return new Pyramid(
-                        figureData.BaseLength 
+                        figureData.BaseLength
                         ?? throw new InvalidOperationException(
                             "Не задан BaseLength."),
-                        figureData.BaseWidth 
+                        figureData.BaseWidth
                         ?? throw new InvalidOperationException(
                             "Не задан BaseWidth."),
-                        figureData.Height 
+                        figureData.Height
                         ?? throw new InvalidOperationException(
                             "Не задан Height."));
+                }
 
                 case "Параллелепипед":
+                {
                     return new Parallelepiped(
-                        figureData.Length 
+                        figureData.Length
                         ?? throw new InvalidOperationException(
                             "Не задан Length."),
-                        figureData.Width 
+                        figureData.Width
                         ?? throw new InvalidOperationException(
                             "Не задан Width."),
-                        figureData.Height 
+                        figureData.Height
                         ?? throw new InvalidOperationException(
                             "Не задан Height."));
+                }
 
                 default:
+                {
                     throw new NotSupportedException(
                         "Неизвестный тип фигуры в файле.");
+                }
             }
         }
     }
