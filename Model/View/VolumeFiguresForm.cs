@@ -147,6 +147,11 @@ namespace View
         /// <summary>
         /// Сохраняет текущий список фигур в файл.
         /// </summary>
+        /// <remarks>
+        /// Если список фигур пуст, метод выводит информационное сообщение
+        /// и не выполняет сохранение.
+        /// В случае ошибки при сохранении отображается сообщение с текстом исключения.
+        /// </remarks>
         private void SaveFigures()
         {
             if (_figures.Count == 0)
@@ -197,8 +202,9 @@ namespace View
         }
 
         /// <summary>
-        /// Загружает список фигур из файла.
-        /// </summary>
+        /// Загружает список фигур из выбранного пользователем файла
+        /// и обновляет отображение данных в таблице.
+        /// </summary
         private void LoadFigures()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())

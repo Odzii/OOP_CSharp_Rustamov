@@ -69,7 +69,17 @@ namespace View
             }
         }
 
-
+        /// <summary>
+        /// Выполняет поиск фигур по выбранному типу и диапазону объёма.
+        /// </summary>
+        /// <returns>
+        /// Список фигур, соответствующих выбранному типу и заданным ограничениям
+        /// по минимальному и максимальному объёму.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// Выбрасывается, если минимальный или максимальный объём
+        /// не является положительным конечным числом,
+        /// либо если минимальный объём больше максимального.</exception>
         private List<VolumeFigureBase> FindFigures()
         {
             string selectedType = FigureTypeComboBox.SelectedItem?.ToString()

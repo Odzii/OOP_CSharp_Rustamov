@@ -43,7 +43,7 @@ namespace View
         }
 
         /// <summary>
-        /// Получает созданную фигуру после успешного подтверждения формы.
+        /// Хранит созданную фигуру после успешного подтверждения формы.
         /// </summary>
         /// <value>
         /// Экземпляр <see cref="VolumeFigureBase"/>, 
@@ -81,9 +81,11 @@ namespace View
         {
             UpdatePanelIsVisibility();
         }
+        
 
         /// <summary>
-        /// Обрабатывает изменение выбранного типа фигуры в выпадающем списке.
+        /// Обработчик нажатия кнопки <c>OK</c>.
+        /// Создаёт фигуру и закрывает форму с <see cref="DialogResult.OK"/> ,
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
@@ -111,6 +113,17 @@ namespace View
         //TODO: duplication+
         // Here was method and now it's in the folder Helper
 
+
+        /// <summary>
+        /// Создает фигуру в зависимости от выбранного в форме типа
+        /// </summary>
+        /// <returns>
+        /// Экземпляр <see cref="VolumeFigureBase"/>, соответствующий выбранному типу фигуры
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// Выбрасывается, если тип фигуры не выбран</exception>
+       
+
         private VolumeFigureBase CreateFigureFromForm()
         {
             ResetCurrentFigureTextBoxes();
@@ -125,7 +138,15 @@ namespace View
                 _ => throw new InvalidOperationException("Тип фигуры не выбран.")
             };
         }
-
+        /// <summary>
+        /// Создаёт объект сферы на основе значения радиуса, введённого в форме.
+        /// </summary>
+        /// <returns>
+        /// Экземпляр <see cref="Sphere"/> с указанным радиусом.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// Выбрасывается, если радиус не является положительным конечным числом.
+        /// </exception>
         private Sphere CreateSphere()
         {
             if (!Validation.TryParsePositiveDouble(SphereRadiusTextBox, out double radius))
@@ -136,7 +157,17 @@ namespace View
 
             return new Sphere(radius);
         }
-
+        /// <summary>
+        /// Создаёт объект пирамиды на основе значений 
+        /// длины, ширины основания и высоты, введённых в форме.
+        /// </summary>
+        /// <returns>
+        /// Экземпляр <see cref="Pyramid"/> с указанными параметрами основания и высоты.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// Выбрасывается, если длина, ширина основания или высота
+        /// не являются положительными конечными числами.
+        /// </exception>
         private Pyramid CreatePyramid()
         {
             bool isValid = true;
@@ -158,6 +189,15 @@ namespace View
             return new Pyramid(baseLength, baseWidth, height);
         }
 
+        /// <summary>
+        /// Создаёт объект параллелепипеда на основе значений длины, ширины и высоты,
+        /// введённых в форме.
+        /// </summary>
+        /// <returns>Экземпляр <see cref="Parallelepiped"/> с указанными длиной, шириной и высотой.</returns>
+        /// <exception cref="ArgumentException">
+        /// Выбрасывается, если длина, ширина или высота
+        /// не являются положительными конечными числами.
+        /// </exception>
         private Parallelepiped CreateParallelepiped()
         {
             bool isValid = true;
@@ -179,6 +219,10 @@ namespace View
             return new Parallelepiped(length, width, height);
         }
 
+
+        /// <summary>
+        /// Сбрасывает текстовые поля, относящиеся к текущему выбранному типу фигуры.
+        /// </summary>
         private void ResetCurrentFigureTextBoxes()
         {
             string selectedType = FigureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
@@ -186,25 +230,38 @@ namespace View
             switch (selectedType)
             {
                 case "Сфера":
+                {
                     ResetTextBoxes(SphereRadiusTextBox);
                     break;
+                }
 
                 case "Пирамида":
+                {
                     ResetTextBoxes(
-                        PyramidBaseLengthTextBox,
-                        PyramidBaseWidthTextBox,
-                        PyramidHeightTextBox);
+                    PyramidBaseLengthTextBox,
+                    PyramidBaseWidthTextBox,
+                    PyramidHeightTextBox);
                     break;
+                }
 
                 case "Параллелепипед":
+                {
                     ResetTextBoxes(
-                        ParallelepipedLengthTextBox,
-                        ParallelepipedWidthTextBox,
-                        ParallelepipedHeightTextBox);
+                    ParallelepipedLengthTextBox,
+                    ParallelepipedWidthTextBox,
+                    ParallelepipedHeightTextBox);
                     break;
+                }
             }
         }
 
+        /// <summary>
+        /// Сбрасывает цвет фона указанных текстовых полей 
+        /// к стандартному системному значению.
+        /// </summary>
+        /// <param name="textBoxes">
+        /// Массив текстовых полей, для которых необходимо сбросить цвет фона.
+        /// </param>
         private void ResetTextBoxes(params TextBox[] textBoxes)
         {
             foreach (TextBox textBox in textBoxes)
