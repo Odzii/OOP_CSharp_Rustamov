@@ -85,34 +85,42 @@ namespace View.Serialization
         {
             switch (figure)
             {
-                //TODO: {}
+                //TODO: {} +
                 case Sphere sphere:
-                    return new FigureData
                 {
-                    FigureKind = "Сфера",
-                    Radius = sphere.Radius
-                };
+                    return new FigureData
+                    {
+                        FigureKind = "Сфера",
+                        Radius = sphere.Radius
+                    };
+                }
 
                 case Pyramid pyramid:
-                    return new FigureData
                 {
-                    FigureKind = "Пирамида",
-                    BaseLength = pyramid.BaseLength,
-                    BaseWidth = pyramid.BaseWidth,
-                    Height = pyramid.Height
-                };
+                    return new FigureData
+                    {
+                        FigureKind = "Пирамида",
+                        BaseLength = pyramid.BaseLength,
+                        BaseWidth = pyramid.BaseWidth,
+                        Height = pyramid.Height
+                    };
+                }
 
                 case Parallelepiped parallelepiped:
-                    return new FigureData
                 {
-                    FigureKind = "Параллелепипед",
-                    Length = parallelepiped.Length,
-                    Width = parallelepiped.Width,
-                    Height = parallelepiped.Height
-                };
+                    return new FigureData
+                    {
+                        FigureKind = "Параллелепипед",
+                        Length = parallelepiped.Length,
+                        Width = parallelepiped.Width,
+                        Height = parallelepiped.Height
+                    };
+                }
 
                 default:
+                {
                     throw new NotSupportedException("Неизвестный тип фигуры.");
+                }
             }
         }
 
