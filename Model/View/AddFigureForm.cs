@@ -29,7 +29,8 @@ namespace View
         public AddFigureForm()
         {
             InitializeComponent();
-
+            
+            //TODO: duplication
             FigureTypeComboBox.Items.Add("Сфера");
             FigureTypeComboBox.Items.Add("Пирамида");
             FigureTypeComboBox.Items.Add("Параллелепипед");
@@ -65,6 +66,7 @@ namespace View
             string selectedType = FigureTypeComboBox.SelectedItem?.ToString()
                 ?? string.Empty;
 
+            //TODO: duplication
             SpherePanel.Visible = selectedType == "Сфера";
             PyramidPanel.Visible = selectedType == "Пирамида";
             ParallelepipedPanel.Visible = selectedType == "Параллелепипед";
@@ -110,10 +112,6 @@ namespace View
             }
         }
 
-        //TODO: duplication+
-        // Here was method and now it's in the folder Helper
-
-
         /// <summary>
         /// Создает фигуру в зависимости от выбранного в форме типа
         /// </summary>
@@ -122,8 +120,6 @@ namespace View
         /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Выбрасывается, если тип фигуры не выбран</exception>
-       
-
         private VolumeFigureBase CreateFigureFromForm()
         {
             ResetCurrentFigureTextBoxes();
@@ -132,6 +128,7 @@ namespace View
 
             return selectedType switch
             {
+                //TODO: duplication
                 "Сфера" => CreateSphere(),
                 "Пирамида" => CreatePyramid(),
                 "Параллелепипед" => CreateParallelepiped(),
@@ -193,6 +190,7 @@ namespace View
         /// Создаёт объект параллелепипеда на основе значений длины, ширины и высоты,
         /// введённых в форме.
         /// </summary>
+        /// //TODO: RSDN
         /// <returns>Экземпляр <see cref="Parallelepiped"/> с указанными длиной, шириной и высотой.</returns>
         /// <exception cref="ArgumentException">
         /// Выбрасывается, если длина, ширина или высота
@@ -229,6 +227,7 @@ namespace View
 
             switch (selectedType)
             {
+                //TODO: duplication
                 case "Сфера":
                 {
                     ResetTextBoxes(SphereRadiusTextBox);
@@ -246,6 +245,7 @@ namespace View
 
                 case "Параллелепипед":
                 {
+                        //TODО: отступы
                     ResetTextBoxes(
                     ParallelepipedLengthTextBox,
                     ParallelepipedWidthTextBox,
@@ -273,7 +273,6 @@ namespace View
 
 
 #if DEBUG
-        //TODO: условная компиляция +
         /// <summary>
         /// Формирует случайные положительные вещественные числа типа double.
         /// </summary>
@@ -286,10 +285,11 @@ namespace View
 
             switch (selectedType)
             {
-                //TODО: отступы +
+                //TODO: duplication
                 case "Сфера":
                 {
                     SphereRadiusTextBox.Text
+                            //TODO: to const
                         = NextPositiveDouble(1, 20).ToString("F2");
                     break;
                 }

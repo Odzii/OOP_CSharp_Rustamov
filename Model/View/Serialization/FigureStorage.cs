@@ -85,7 +85,7 @@ namespace View.Serialization
         {
             switch (figure)
             {
-                //TODO: {} +
+                //TODO: duplication
                 case Sphere sphere:
                 {
                     return new FigureData
@@ -141,6 +141,7 @@ namespace View.Serialization
         {
             switch (figureData.FigureKind)
             {
+                //TODO: duplication
                 case "Сфера":
                 {
                     return new Sphere(

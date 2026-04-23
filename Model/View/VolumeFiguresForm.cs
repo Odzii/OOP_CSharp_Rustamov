@@ -42,6 +42,7 @@ namespace View
             }
         }
 
+        //TODO: duplication
         /// <summary>
         /// Форматирует объём фигуры для удобного отображения в таблице.
         /// </summary>
@@ -245,7 +246,6 @@ namespace View
             }
         }
 
-        //TODO: RSDN +
         /// <summary>
         /// Обрабатывает выбор пункта меню сохранения.
         /// </summary>
@@ -256,7 +256,6 @@ namespace View
             SaveFigures();
         }
 
-        //TODO: RSDN +
         /// <summary>
         /// Обрабатывает выбор пункта меню загрузки.
         /// </summary>
@@ -267,7 +266,6 @@ namespace View
             LoadFigures();
         }
 
-        //TODO: RSDN +
         /// <summary>
         /// Обрабатывает выбор пункта меню загрузки.
         /// </summary>

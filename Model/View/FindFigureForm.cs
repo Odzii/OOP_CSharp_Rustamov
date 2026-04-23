@@ -28,7 +28,7 @@ namespace View
         {
             InitializeComponent();
             _figures = figures;
-
+            //TODO: duplication
             FigureTypeComboBox.Items.Add("Все");
             FigureTypeComboBox.Items.Add("Сфера");
             FigureTypeComboBox.Items.Add("Пирамида");
@@ -45,11 +45,10 @@ namespace View
         /// </returns>
         private static string FormatVolume(double volume)
         {
+            //TODO: duplication
             return volume.ToString("F6");
         }
 
-        //TODO: duplication +
-        // Here was method and now it's in the folder Helper
 
         /// <summary>
         /// Обновляет таблицу результатов поиска.
