@@ -1,5 +1,6 @@
 ﻿using Model;
 using System.Xml.Serialization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace View.Serialization
 {
@@ -12,6 +13,50 @@ namespace View.Serialization
     /// </remarks>
     internal static class FigureStorage
     {
+        private static readonly Dictionary
+            <FigureType,
+                (Func<VolumeFigureBase, FigureData> toData,
+                Func<FigureData, VolumeFigureBase> toModel)> _mappers = new()
+    {
+        [FigureType.Sphere] = (
+            f => new FigureData
+            {
+                FigureKind = FigureType.Sphere,
+                Radius = ((Sphere)f).Radius
+            },
+            d => new Sphere(
+                d.Radius ?? throw new InvalidOperationException("Radius не задан"))
+        ),
+
+        [FigureType.Pyramid] = (
+            f => new FigureData
+            {
+                FigureKind = FigureType.Pyramid,
+                BaseLength = ((Pyramid)f).BaseLength,
+                BaseWidth = ((Pyramid)f).BaseWidth,
+                Height = ((Pyramid)f).Height
+            },
+            d => new Pyramid(
+                d.BaseLength ?? throw new InvalidOperationException("BaseLength не задан"),
+                d.BaseWidth ?? throw new InvalidOperationException("BaseWidth не задан"),
+                d.Height ?? throw new InvalidOperationException("Height не задан"))
+        ),
+
+        [FigureType.Parallelepiped] = (
+            f => new FigureData
+            {
+                FigureKind = FigureType.Parallelepiped,
+                Length = ((Parallelepiped)f).Length,
+                Width = ((Parallelepiped)f).Width,
+                Height = ((Parallelepiped)f).Height
+            },
+            d => new Parallelepiped(
+                d.Length ?? throw new InvalidOperationException("Length не задан"),
+                d.Width ?? throw new InvalidOperationException("Width не задан"),
+                d.Height ?? throw new InvalidOperationException("Height не задан"))
+        )
+    };
+
 
         /// <summary>
         /// Сохраняет коллекцию фигур в файл.
@@ -26,7 +71,15 @@ namespace View.Serialization
 
             foreach (VolumeFigureBase figure in figures)
             {
-                fileData.Figures.Add(ToFigureData(figure));
+                var type = figure switch
+                {
+                    Sphere => FigureType.Sphere,
+                    Pyramid => FigureType.Pyramid,
+                    Parallelepiped => FigureType.Parallelepiped,
+                    _ => throw new NotSupportedException()
+                };
+
+                fileData.Figures.Add(_mappers[type].toData(figure));
             }
 
             XmlSerializer serializer 
@@ -64,126 +117,15 @@ namespace View.Serialization
 
                 List<VolumeFigureBase> figures = new List<VolumeFigureBase>();
 
-                foreach (FigureData figureData in fileData.Figures)
+                foreach (var data in fileData.Figures)
                 {
-                    figures.Add(ToFigureModel(figureData));
+                    figures.Add(_mappers[data.FigureKind].toModel(data));
                 }
-
                 return figures;
-            }
+            } 
         }
 
-        /// <summary>
-        /// Преобразует объект бизнес-модели в сериализуемую модель файла.
-        /// </summary>
-        /// <param name="figure">Объект фигуры бизнес-модели.</param>
-        /// <returns>Экземпляр <see cref="FigureData"/>.</returns>
-        /// <exception cref="NotSupportedException">
-        /// Выбрасывается, если тип фигуры не поддерживается.
-        /// </exception>
-        private static FigureData ToFigureData(VolumeFigureBase figure)
-        {
-            switch (figure)
-            {
-                //TODO: duplication
-                case Sphere sphere:
-                {
-                    return new FigureData
-                    {
-                        FigureKind = "Сфера",
-                        Radius = sphere.Radius
-                    };
-                }
+        //TODO: duplication + Here were methods ToFigureData and ToFigureModel
 
-                case Pyramid pyramid:
-                {
-                    return new FigureData
-                    {
-                        FigureKind = "Пирамида",
-                        BaseLength = pyramid.BaseLength,
-                        BaseWidth = pyramid.BaseWidth,
-                        Height = pyramid.Height
-                    };
-                }
-
-                case Parallelepiped parallelepiped:
-                {
-                    return new FigureData
-                    {
-                        FigureKind = "Параллелепипед",
-                        Length = parallelepiped.Length,
-                        Width = parallelepiped.Width,
-                        Height = parallelepiped.Height
-                    };
-                }
-
-                default:
-                {
-                    throw new NotSupportedException("Неизвестный тип фигуры.");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Преобразует сериализуемую модель файла в объект бизнес-модели.
-        /// </summary>
-        /// <param name="figureData">Сериализуемые данные фигуры.</param>
-        /// <returns>Экземпляр фигуры, наследуемой 
-        /// от <see cref="VolumeFigureBase"/>.</returns>
-        /// <exception cref="InvalidOperationException">
-        /// Выбрасывается, 
-        /// если в сериализованных данных отсутствуют обязательные параметры.
-        /// </exception>
-        /// <exception cref="NotSupportedException">
-        /// Выбрасывается, если тип фигуры не поддерживается.
-        /// </exception>
-        private static VolumeFigureBase ToFigureModel(FigureData figureData)
-        {
-            switch (figureData.FigureKind)
-            {
-                //TODO: duplication
-                case "Сфера":
-                {
-                    return new Sphere(
-                        figureData.Radius
-                        ?? throw new InvalidOperationException(
-                            "Не задан Radius."));
-                }
-
-                case "Пирамида":
-                {
-                    return new Pyramid(
-                        figureData.BaseLength
-                        ?? throw new InvalidOperationException(
-                            "Не задан BaseLength."),
-                        figureData.BaseWidth
-                        ?? throw new InvalidOperationException(
-                            "Не задан BaseWidth."),
-                        figureData.Height
-                        ?? throw new InvalidOperationException(
-                            "Не задан Height."));
-                }
-
-                case "Параллелепипед":
-                {
-                    return new Parallelepiped(
-                        figureData.Length
-                        ?? throw new InvalidOperationException(
-                            "Не задан Length."),
-                        figureData.Width
-                        ?? throw new InvalidOperationException(
-                            "Не задан Width."),
-                        figureData.Height
-                        ?? throw new InvalidOperationException(
-                            "Не задан Height."));
-                }
-
-                default:
-                {
-                    throw new NotSupportedException(
-                        "Неизвестный тип фигуры в файле.");
-                }
-            }
-        }
     }
 }

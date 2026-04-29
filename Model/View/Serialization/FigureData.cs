@@ -16,7 +16,7 @@
         /// Класс используется как промежуточный контейнер данных между
         /// бизнес-моделью и файловым представлением.
         /// </remarks>
-        public string FigureKind { get; set; } = string.Empty;
+        public FigureType FigureKind { get; set; } = default!;
 
         /// <summary>
         /// Получает или задаёт вид фигуры.

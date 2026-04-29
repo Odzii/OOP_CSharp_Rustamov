@@ -22,27 +22,94 @@ namespace View
         /// </summary>
         private readonly Random _random = new();
 #endif
-
+        private readonly Dictionary<FigureType, (
+            Func<VolumeFigureBase> create,
+            Action setVisible,
+            Action reset,
+            Action generateRandom)> _figureMap;
         /// <summary>
         /// Инициализирует новый экземпляр формы <see cref="AddFigureForm"/>.
         /// </summary>
+        /// 
+
         public AddFigureForm()
         {
             InitializeComponent();
-            
-            //TODO: duplication
-            FigureTypeComboBox.Items.Add("Сфера");
-            FigureTypeComboBox.Items.Add("Пирамида");
-            FigureTypeComboBox.Items.Add("Параллелепипед");
+            //TODO: duplication +
+            string precision = FormatPrecision.Short;
+            _figureMap = new Dictionary<FigureType, (
+                Func<VolumeFigureBase>,
+                Action,
+                Action,
+                Action)>
+            {
+                [FigureType.Sphere] = (
+                    () => CreateSphere(),
+                    () => ShowOnly(SpherePanel),
+                    () => ResetTextBoxes(SphereRadiusTextBox),
+                    () => SphereRadiusTextBox.Text = NextPositiveDouble(1, 20).ToString(precision)
+                ),
+
+                [FigureType.Pyramid] = (
+                    () => CreatePyramid(),
+                    () => ShowOnly(PyramidPanel),
+                    () => ResetTextBoxes(
+                        PyramidBaseLengthTextBox,
+                        PyramidBaseWidthTextBox,
+                        PyramidHeightTextBox),
+                    () =>
+                    {
+                        PyramidBaseLengthTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
+                        PyramidBaseWidthTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
+                        PyramidHeightTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
+                    }
+                ),
+
+                [FigureType.Parallelepiped] = (
+                    () => CreateParallelepiped(),
+                    () => ShowOnly(ParallelepipedPanel),
+                    () => ResetTextBoxes(
+                        ParallelepipedLengthTextBox,
+                        ParallelepipedWidthTextBox,
+                        ParallelepipedHeightTextBox),
+                    () =>
+                    {
+                        string precision = FormatPrecision.Short;
+                        ParallelepipedLengthTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
+                        ParallelepipedWidthTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
+                        ParallelepipedHeightTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
+                    }
+                )
+            };
+
+            //TODO: duplication + 
+            FigureTypeComboBox.DataSource = Enum
+                .GetValues(typeof(FigureType))
+                .Cast<FigureType>()
+                .Select(x => new { Value = x, Name = x.ToDisplay() })
+                .ToList();
+
+            FigureTypeComboBox.DisplayMember = "Name";
+            FigureTypeComboBox.ValueMember = "Value";
+
             FigureTypeComboBox.SelectedIndex = 0;
-
+            //TODO: duplication +
             UpdatePanelIsVisibility();
-
+            
 #if DEBUG
             CreateRandomDataButton.Visible = true;
 #endif
         }
+        
+        
+        private void ShowOnly(Control panel)
+        {
+            SpherePanel.Visible = false;
+            PyramidPanel.Visible = false;
+            ParallelepipedPanel.Visible = false;
 
+            panel.Visible = true;
+        }
         /// <summary>
         /// Хранит созданную фигуру после успешного подтверждения формы.
         /// </summary>
@@ -61,15 +128,15 @@ namespace View
         /// Обновляет видимость панелей ввода 
         /// в зависимости от выбранного типа фигуры.
         /// </summary>
+        /// 
+
         private void UpdatePanelIsVisibility()
         {
-            string selectedType = FigureTypeComboBox.SelectedItem?.ToString()
-                ?? string.Empty;
-
-            //TODO: duplication
-            SpherePanel.Visible = selectedType == "Сфера";
-            PyramidPanel.Visible = selectedType == "Пирамида";
-            ParallelepipedPanel.Visible = selectedType == "Параллелепипед";
+            if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
+                _figureMap.TryGetValue(selectedType, out var config))
+            {
+                config.setVisible();
+            }
         }
 
         /// <summary>
@@ -124,17 +191,16 @@ namespace View
         {
             ResetCurrentFigureTextBoxes();
 
-            string selectedType = FigureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
+            //TODO: duplication +
 
-            return selectedType switch
+            if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
+                _figureMap.TryGetValue(selectedType, out var config))
             {
-                //TODO: duplication
-                "Сфера" => CreateSphere(),
-                "Пирамида" => CreatePyramid(),
-                "Параллелепипед" => CreateParallelepiped(),
-                _ => throw new InvalidOperationException("Тип фигуры не выбран.")
-            };
+                return config.create();
+            }
+            throw new InvalidOperationException("Тип фигуры не выбран.");
         }
+
         /// <summary>
         /// Создаёт объект сферы на основе значения радиуса, введённого в форме.
         /// </summary>
@@ -154,6 +220,7 @@ namespace View
 
             return new Sphere(radius);
         }
+
         /// <summary>
         /// Создаёт объект пирамиды на основе значений 
         /// длины, ширины основания и высоты, введённых в форме.
@@ -165,6 +232,7 @@ namespace View
         /// Выбрасывается, если длина, ширина основания или высота
         /// не являются положительными конечными числами.
         /// </exception>
+        /// 
         private Pyramid CreatePyramid()
         {
             bool isValid = true;
@@ -187,14 +255,17 @@ namespace View
         }
 
         /// <summary>
-        /// Создаёт объект параллелепипеда на основе значений длины, ширины и высоты,
-        /// введённых в форме.
+        /// Создаёт экземпляр <see cref="Parallelepiped"/> на основе значений длины,
+        /// ширины и высоты, введённых в форме.
         /// </summary>
-        /// //TODO: RSDN
-        /// <returns>Экземпляр <see cref="Parallelepiped"/> с указанными длиной, шириной и высотой.</returns>
+        /// //TODO: RSDN + ?
+        /// <returns>
+        /// Экземпляр <see cref="Parallelepiped"/> с длиной, шириной и высотой,
+        /// указанными в полях формы.
+        /// </returns>
         /// <exception cref="ArgumentException">
-        /// Выбрасывается, если длина, ширина или высота
-        /// не являются положительными конечными числами.
+        /// Возникает, если в полях длины, ширины или высоты указаны значения,
+        /// которые не являются положительными конечными числами.
         /// </exception>
         private Parallelepiped CreateParallelepiped()
         {
@@ -223,35 +294,11 @@ namespace View
         /// </summary>
         private void ResetCurrentFigureTextBoxes()
         {
-            string selectedType = FigureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
-
-            switch (selectedType)
+            //TODO: duplication +
+            if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
+                _figureMap.TryGetValue(selectedType, out var config))
             {
-                //TODO: duplication
-                case "Сфера":
-                {
-                    ResetTextBoxes(SphereRadiusTextBox);
-                    break;
-                }
-
-                case "Пирамида":
-                {
-                    ResetTextBoxes(
-                    PyramidBaseLengthTextBox,
-                    PyramidBaseWidthTextBox,
-                    PyramidHeightTextBox);
-                    break;
-                }
-
-                case "Параллелепипед":
-                {
-                        //TODО: отступы
-                    ResetTextBoxes(
-                    ParallelepipedLengthTextBox,
-                    ParallelepipedWidthTextBox,
-                    ParallelepipedHeightTextBox);
-                    break;
-                }
+                config.reset();
             }
         }
 
@@ -280,41 +327,12 @@ namespace View
         /// <param name="e">Аргументы события.</param>
         private void CreateRandomDataButton_Click(object sender, EventArgs e)
         {
-            string selectedType
-                = FigureTypeComboBox.SelectedItem?.ToString() ?? string.Empty;
+            //TODO: duplication +
+            var type = (FigureType)FigureTypeComboBox.SelectedValue;
 
-            switch (selectedType)
+            if (_figureMap.TryGetValue(type, out var handlers))
             {
-                //TODO: duplication
-                case "Сфера":
-                {
-                    SphereRadiusTextBox.Text
-                            //TODO: to const
-                        = NextPositiveDouble(1, 20).ToString("F2");
-                    break;
-                }
-
-                case "Пирамида":
-                {
-                    PyramidBaseLengthTextBox.Text
-                        = NextPositiveDouble(1, 20).ToString("F2");
-                    PyramidBaseWidthTextBox.Text
-                        = NextPositiveDouble(1, 20).ToString("F2");
-                    PyramidHeightTextBox.Text
-                        = NextPositiveDouble(1, 20).ToString("F2");
-                    break;
-                }
-
-                case "Параллелепипед":
-                {
-                    ParallelepipedLengthTextBox.Text
-                        = NextPositiveDouble(1, 20).ToString("F2");
-                    ParallelepipedWidthTextBox.Text
-                        = NextPositiveDouble(1, 20).ToString("F2");
-                    ParallelepipedHeightTextBox.Text
-                        = NextPositiveDouble(1, 20).ToString("F2");
-                    break;
-                }
+                handlers.generateRandom();
             }
         }
 

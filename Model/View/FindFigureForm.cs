@@ -28,11 +28,32 @@ namespace View
         {
             InitializeComponent();
             _figures = figures;
-            //TODO: duplication
-            FigureTypeComboBox.Items.Add("Все");
-            FigureTypeComboBox.Items.Add("Сфера");
-            FigureTypeComboBox.Items.Add("Пирамида");
-            FigureTypeComboBox.Items.Add("Параллелепипед");
+            //TODO: duplication + 
+            InitFigureTypeComboBox();
+            
+        }
+
+        private void InitFigureTypeComboBox()
+        {
+            var items = new List<ComboItem<FigureType?>>
+                {
+                    new ComboItem<FigureType?> { Value = null, Name = "Все" }
+                };
+
+            items.AddRange(
+                Enum.GetValues(typeof(FigureType))
+                    .Cast<FigureType>()
+                    .Select(x => new ComboItem<FigureType?>
+                    {
+                        Value = x,
+                        Name = x.ToDisplay()
+                    })
+            );
+
+            FigureTypeComboBox.DataSource = items;
+            FigureTypeComboBox.DisplayMember = "Name";
+            FigureTypeComboBox.ValueMember = "Value";
+
             FigureTypeComboBox.SelectedIndex = 0;
         }
 
@@ -45,8 +66,8 @@ namespace View
         /// </returns>
         private static string FormatVolume(double volume)
         {
-            //TODO: duplication
-            return volume.ToString("F6");
+            //TODO: duplication +
+            return volume.ToString(FormatPrecision.Large);
         }
 
 
@@ -81,8 +102,7 @@ namespace View
         /// либо если минимальный объём больше максимального.</exception>
         private List<VolumeFigureBase> FindFigures()
         {
-            string selectedType = FigureTypeComboBox.SelectedItem?.ToString()
-                ?? "Все";
+            var selectedType = (FigureType?)FigureTypeComboBox.SelectedValue;
 
             bool isMinValid = Validation.TryParseOptionalPositiveDouble(
                 MinVolumeTextBox,
@@ -107,9 +127,10 @@ namespace View
 
             IEnumerable<VolumeFigureBase> query = _figures;
 
-            if (selectedType != "Все")
+            if (selectedType.HasValue)
             {
-                query = query.Where(figure => figure.FigureType == selectedType);
+                string typeString = selectedType.Value.ToDisplay();
+                query = query.Where(figure => figure.FigureType == typeString);
             }
 
             if (minVolume.HasValue)

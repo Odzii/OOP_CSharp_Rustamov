@@ -1,4 +1,5 @@
 using Model;
+using View.Helper;
 using View.Serialization;
 
 namespace View
@@ -42,7 +43,7 @@ namespace View
             }
         }
 
-        //TODO: duplication
+        //TODO: duplication +
         /// <summary>
         /// Форматирует объём фигуры для удобного отображения в таблице.
         /// </summary>
@@ -51,7 +52,7 @@ namespace View
         /// Строковое представление объёма с шестью знаками после запятой.
         /// </returns>
         private static string FormateVolume(double volume) =>
-            volume.ToString("F6");
+            volume.ToString(FormatPrecision.Large);
 
         /// <summary>
         /// Обновляет доступность команды сохранения 
