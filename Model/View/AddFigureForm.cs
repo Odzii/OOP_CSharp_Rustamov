@@ -1,6 +1,5 @@
 ﻿using Model;
 using View.Helper;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace View
 {
@@ -39,7 +38,6 @@ namespace View
         public AddFigureForm()
         {
             InitializeComponent();
-            //TODO: duplication +
             string precision = FormatPrecision.Short;
             _figureMap = new Dictionary<FigureType, (
                 Func<VolumeFigureBase>,
@@ -93,7 +91,6 @@ namespace View
                 )
             };
 
-            //TODO: duplication + 
             FigureTypeComboBox.DataSource = Enum
                 .GetValues(typeof(FigureType))
                 .Cast<FigureType>()
@@ -104,7 +101,6 @@ namespace View
             FigureTypeComboBox.ValueMember = "Value";
 
             FigureTypeComboBox.SelectedIndex = 0;
-            //TODO: duplication +
             UpdatePanelIsVisibility();
             
 #if DEBUG
@@ -206,7 +202,6 @@ namespace View
         {
             ResetCurrentFigureTextBoxes();
 
-            //TODO: duplication +
             if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
                 _figureMap.TryGetValue(selectedType, out var config))
             {
@@ -307,7 +302,6 @@ namespace View
         /// </summary>
         private void ResetCurrentFigureTextBoxes()
         {
-            //TODO: duplication +
             if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
                 _figureMap.TryGetValue(selectedType, out var config))
             {
@@ -340,7 +334,6 @@ namespace View
         /// <param name="e">Аргументы события.</param>
         private void CreateRandomDataButton_Click(object sender, EventArgs e)
         {
-            //TODO: duplication +
             var type = (FigureType)FigureTypeComboBox.SelectedValue;
 
             if (_figureMap.TryGetValue(type, out var handlers))

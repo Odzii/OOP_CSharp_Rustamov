@@ -28,7 +28,6 @@ namespace View
         {
             InitializeComponent();
             _figures = figures;
-            //TODO: duplication + 
             InitFigureTypeComboBox();
             
         }
@@ -73,7 +72,6 @@ namespace View
         /// </returns>
         private static string FormatVolume(double volume)
         {
-            //TODO: duplication +
             return volume.ToString(FormatPrecision.Large);
         }
 

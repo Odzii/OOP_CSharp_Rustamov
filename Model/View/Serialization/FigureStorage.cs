@@ -145,8 +145,5 @@ namespace View.Serialization
                 return figures;
             } 
         }
-
-        //TODO: duplication + Here were methods ToFigureData and ToFigureModel
-
     }
 }

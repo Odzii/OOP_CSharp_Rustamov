@@ -43,7 +43,6 @@ namespace View
             }
         }
 
-        //TODO: duplication +
         /// <summary>
         /// Форматирует объём фигуры для удобного отображения в таблице.
         /// </summary>
