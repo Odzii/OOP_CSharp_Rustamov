@@ -2,11 +2,11 @@
 
 namespace View.Helper
 {
-    //TODO: rename
+    //TODO: rename+
     /// <summary>
     /// Методы проверки и преобразования строкового ввода в положительные числа.
     /// </summary>
-    internal static class Validation
+    internal static class Validator
     {
         /// <summary>
         /// Проверяет и разбирает положительное число из текстового поля.

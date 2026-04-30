@@ -20,6 +20,12 @@ namespace View
         /// используемый для заполнения формы тестовыми данными.
         /// </summary>
         private readonly Random _random = new();
+
+        /// <summary>
+        /// Хранит соответствие между типом фигуры
+        /// и действием генерации случайных данных.
+        /// </summary>
+        private readonly Dictionary<FigureType, Action> _randomDataGenerators;
 #endif
 
         /// <summary>
@@ -29,8 +35,7 @@ namespace View
         private readonly Dictionary<FigureType, (
             Func<VolumeFigureBase> create,
             Action setVisible,
-            Action reset,
-            Action generateRandom)> _figureMap;
+            Action reset)> _figureMap;
 
         /// <summary>
         /// Инициализирует новый экземпляр формы <see cref="AddFigureForm"/>.
@@ -38,58 +43,78 @@ namespace View
         public AddFigureForm()
         {
             InitializeComponent();
-            string precision = FormatPrecision.Short;
+
             _figureMap = new Dictionary<FigureType, (
-                Func<VolumeFigureBase>,
-                Action,
-                Action,
-                Action)>
+                Func<VolumeFigureBase> create,
+                Action setVisible,
+                Action reset)>
+                {
+                    [FigureType.Sphere] = (
+                        () => CreateSphere(),
+                        () => ShowOnly(SpherePanel),
+                        () => ResetTextBoxes(SphereRadiusTextBox)
+                    ),
+
+                    [FigureType.Pyramid] = (
+                        () => CreatePyramid(),
+                        () => ShowOnly(PyramidPanel),
+                        () => ResetTextBoxes(
+                            PyramidBaseLengthTextBox,
+                            PyramidBaseWidthTextBox,
+                            PyramidHeightTextBox)
+                    ),
+
+                    [FigureType.Parallelepiped] = (
+                        () => CreateParallelepiped(),
+                        () => ShowOnly(ParallelepipedPanel),
+                        () => ResetTextBoxes(
+                            ParallelepipedLengthTextBox,
+                            ParallelepipedWidthTextBox,
+                            ParallelepipedHeightTextBox)
+                    )
+                };
+
+#if DEBUG
+            
+            string precision = FormatPrecision.Short;
+
+            _randomDataGenerators = new Dictionary<FigureType, Action>
             {
-                [FigureType.Sphere] = (
-                    () => CreateSphere(),
-                    () => ShowOnly(SpherePanel),
-                    () => ResetTextBoxes(SphereRadiusTextBox),
-                    () => SphereRadiusTextBox.Text 
-                        = NextPositiveDouble(1, 20).ToString(precision)
-                ),
+                [FigureType.Sphere] = () =>
+                {
+                    SphereRadiusTextBox.Text =
+                        NextPositiveDouble(1, 20).ToString(precision);
+                },
 
-                [FigureType.Pyramid] = (
-                    () => CreatePyramid(),
-                    () => ShowOnly(PyramidPanel),
-                    () => ResetTextBoxes(
-                        PyramidBaseLengthTextBox,
-                        PyramidBaseWidthTextBox,
-                        PyramidHeightTextBox),
-                    () =>
-                    {
-                        PyramidBaseLengthTextBox.Text 
-                            = NextPositiveDouble(1, 20).ToString(precision);
-                        PyramidBaseWidthTextBox.Text 
-                            = NextPositiveDouble(1, 20).ToString(precision);
-                        PyramidHeightTextBox.Text 
-                            = NextPositiveDouble(1, 20).ToString(precision);
-                    }
-                ),
+                [FigureType.Pyramid] = () =>
+                {
+                    PyramidBaseLengthTextBox.Text =
+                        NextPositiveDouble(1, 20).ToString(precision);
 
-                [FigureType.Parallelepiped] = (
-                    () => CreateParallelepiped(),
-                    () => ShowOnly(ParallelepipedPanel),
-                    () => ResetTextBoxes(
-                        ParallelepipedLengthTextBox,
-                        ParallelepipedWidthTextBox,
-                        ParallelepipedHeightTextBox),
-                    () =>
-                    {
-                        string precision = FormatPrecision.Short;
-                        ParallelepipedLengthTextBox.Text 
-                            = NextPositiveDouble(1, 20).ToString(precision);
-                        ParallelepipedWidthTextBox.Text 
-                            = NextPositiveDouble(1, 20).ToString(precision);
-                        ParallelepipedHeightTextBox.Text 
-                            = NextPositiveDouble(1, 20).ToString(precision);
-                    }
-                )
+                    PyramidBaseWidthTextBox.Text =
+                        NextPositiveDouble(1, 20).ToString(precision);
+
+                    PyramidHeightTextBox.Text =
+                        NextPositiveDouble(1, 20).ToString(precision);
+                },
+
+                [FigureType.Parallelepiped] = () =>
+                {
+                    ParallelepipedLengthTextBox.Text =
+                        NextPositiveDouble(1, 20).ToString(precision);
+
+                    ParallelepipedWidthTextBox.Text =
+                        NextPositiveDouble(1, 20).ToString(precision);
+
+                    ParallelepipedHeightTextBox.Text =
+                        NextPositiveDouble(1, 20).ToString(precision);
+                }
             };
+
+            CreateRandomDataButton.Visible = true;
+#else
+            CreateRandomDataButton.Visible = false;
+#endif
 
             FigureTypeComboBox.DataSource = Enum
                 .GetValues(typeof(FigureType))
@@ -102,24 +127,6 @@ namespace View
 
             FigureTypeComboBox.SelectedIndex = 0;
             UpdatePanelIsVisibility();
-            
-#if DEBUG
-            CreateRandomDataButton.Visible = true;
-#endif
-        }
-
-        /// <summary>
-        /// Отображает только указанную панель ввода параметров фигуры,
-        /// скрывая панели остальных типов фигур.
-        /// </summary>
-        /// <param name="panel">Панель, которую необходимо отобразить.</param>
-        private void ShowOnly(Control panel)
-        {
-            SpherePanel.Visible = false;
-            PyramidPanel.Visible = false;
-            ParallelepipedPanel.Visible = false;
-
-            panel.Visible = true;
         }
 
         /// <summary>
@@ -137,10 +144,23 @@ namespace View
         }
 
         /// <summary>
+        /// Отображает только указанную панель ввода параметров фигуры,
+        /// скрывая панели остальных типов фигур.
+        /// </summary>
+        /// <param name="panel">Панель, которую необходимо отобразить.</param>
+        private void ShowOnly(Control panel)
+        {
+            SpherePanel.Visible = false;
+            PyramidPanel.Visible = false;
+            ParallelepipedPanel.Visible = false;
+
+            panel.Visible = true;
+        }
+
+        /// <summary>
         /// Обновляет видимость панелей ввода 
         /// в зависимости от выбранного типа фигуры.
         /// </summary>
-        /// 
         private void UpdatePanelIsVisibility()
         {
             if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
@@ -161,11 +181,10 @@ namespace View
         {
             UpdatePanelIsVisibility();
         }
-        
 
         /// <summary>
         /// Обработчик нажатия кнопки <c>OK</c>.
-        /// Создаёт фигуру и закрывает форму с <see cref="DialogResult.OK"/> ,
+        /// Создаёт фигуру и закрывает форму с <see cref="DialogResult.OK"/>.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
@@ -191,13 +210,15 @@ namespace View
         }
 
         /// <summary>
-        /// Создает фигуру в зависимости от выбранного в форме типа
+        /// Создаёт фигуру в зависимости от выбранного в форме типа.
         /// </summary>
         /// <returns>
-        /// Экземпляр <see cref="VolumeFigureBase"/>, соответствующий выбранному типу фигуры
+        /// Экземпляр <see cref="VolumeFigureBase"/>, 
+        /// соответствующий выбранному типу фигуры.
         /// </returns>
         /// <exception cref="InvalidOperationException">
-        /// Выбрасывается, если тип фигуры не выбран</exception>
+        /// Выбрасывается, если тип фигуры не выбран.
+        /// </exception>
         private VolumeFigureBase CreateFigureFromForm()
         {
             ResetCurrentFigureTextBoxes();
@@ -207,6 +228,7 @@ namespace View
             {
                 return config.create();
             }
+
             throw new InvalidOperationException("Тип фигуры не выбран.");
         }
 
@@ -221,7 +243,8 @@ namespace View
         /// </exception>
         private Sphere CreateSphere()
         {
-            if (!Validation.TryParsePositiveDouble(SphereRadiusTextBox, out double radius))
+            if (!Validator.TryParsePositiveDouble(
+                SphereRadiusTextBox, out double radius))
             {
                 throw new ArgumentException(
                     "Радиус должен быть положительным и конечным числом.");
@@ -235,22 +258,24 @@ namespace View
         /// длины, ширины основания и высоты, введённых в форме.
         /// </summary>
         /// <returns>
-        /// Экземпляр <see cref="Pyramid"/> с указанными параметрами основания и высоты.
+        /// Экземпляр <see cref="Pyramid"/> 
+        /// с указанными параметрами основания и высоты.
         /// </returns>
         /// <exception cref="ArgumentException">
         /// Выбрасывается, если длина, ширина основания или высота
         /// не являются положительными конечными числами.
         /// </exception>
-        /// 
         private Pyramid CreatePyramid()
         {
             bool isValid = true;
 
-            isValid &= Validation.TryParsePositiveDouble(
+            isValid &= Validator.TryParsePositiveDouble(
                 PyramidBaseLengthTextBox, out double baseLength);
-            isValid &= Validation.TryParsePositiveDouble(
+
+            isValid &= Validator.TryParsePositiveDouble(
                 PyramidBaseWidthTextBox, out double baseWidth);
-            isValid &= Validation.TryParsePositiveDouble(
+
+            isValid &= Validator.TryParsePositiveDouble(
                 PyramidHeightTextBox, out double height);
 
             if (!isValid)
@@ -264,12 +289,12 @@ namespace View
         }
 
         /// <summary>
-        /// Создаёт экземпляр <see cref="Parallelepiped"/> на основе значений длины,
-        /// ширины и высоты, введённых в форме.
+        /// Создаёт экземпляр <see cref="Parallelepiped"/> 
+        /// на основе значений длины, ширины и высоты, введённых в форме.
         /// </summary>
         /// <returns>
-        /// Экземпляр <see cref="Parallelepiped"/> с длиной, шириной и высотой,
-        /// указанными в полях формы.
+        /// Экземпляр <see cref="Parallelepiped"/> 
+        /// с длиной, шириной и высотой, указанными в полях формы.
         /// </returns>
         /// <exception cref="ArgumentException">
         /// Возникает, если в полях длины, ширины или высоты указаны значения,
@@ -279,11 +304,13 @@ namespace View
         {
             bool isValid = true;
 
-            isValid &= Validation.TryParsePositiveDouble(
+            isValid &= Validator.TryParsePositiveDouble(
                 ParallelepipedLengthTextBox, out double length);
-            isValid &= Validation.TryParsePositiveDouble(
+
+            isValid &= Validator.TryParsePositiveDouble(
                 ParallelepipedWidthTextBox, out double width);
-            isValid &= Validation.TryParsePositiveDouble(
+
+            isValid &= Validator.TryParsePositiveDouble(
                 ParallelepipedHeightTextBox, out double height);
 
             if (!isValid)
@@ -296,9 +323,9 @@ namespace View
             return new Parallelepiped(length, width, height);
         }
 
-
         /// <summary>
-        /// Сбрасывает текстовые поля, относящиеся к текущему выбранному типу фигуры.
+        /// Сбрасывает текстовые поля, относящиеся 
+        /// к текущему выбранному типу фигуры.
         /// </summary>
         private void ResetCurrentFigureTextBoxes()
         {
@@ -324,36 +351,36 @@ namespace View
             }
         }
 
-
-
-#if DEBUG
         /// <summary>
-        /// Формирует случайные положительные вещественные числа типа double.
+        /// Обрабатывает нажатие кнопки генерации случайных данных.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="e">Аргументы события.</param>
         private void CreateRandomDataButton_Click(object sender, EventArgs e)
         {
-            var type = (FigureType)FigureTypeComboBox.SelectedValue;
-
-            if (_figureMap.TryGetValue(type, out var handlers))
+#if DEBUG
+            if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
+                _randomDataGenerators.TryGetValue(
+                    selectedType, out Action generateRandom))
             {
-                handlers.generateRandom();
+                generateRandom();
             }
+#endif
         }
 
+#if DEBUG
         /// <summary>
-        /// Обрабатывает нажатие кнопки генерации случайных данных
-        /// и заполняет поля формы корректными тестовыми значениями.
+        /// Формирует случайное положительное вещественное число.
         /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="e">Аргументы события.</param>
+        /// <param name="min">Минимальное значение.</param>
+        /// <param name="max">Максимальное значение.</param>
+        /// <returns>
+        /// Случайное положительное вещественное число.
+        /// </returns>
         private double NextPositiveDouble(double min, double max)
         {
             return min + _random.NextDouble() * (max - min);
         }
 #endif
     }
-
 }
-

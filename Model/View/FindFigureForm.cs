@@ -109,11 +109,11 @@ namespace View
         {
             var selectedType = (FigureType?)FigureTypeComboBox.SelectedValue;
 
-            bool isMinValid = Validation.TryParseOptionalPositiveDouble(
+            bool isMinValid = Validator.TryParseOptionalPositiveDouble(
                 MinVolumeTextBox,
                 out double? minVolume);
 
-            bool isMaxValid = Validation.TryParseOptionalPositiveDouble(
+            bool isMaxValid = Validator.TryParseOptionalPositiveDouble(
                 MaxVolumeTextBox,
                 out double? maxVolume);
 
