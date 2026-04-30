@@ -26,6 +26,35 @@ namespace View
         /// и действием генерации случайных данных.
         /// </summary>
         private readonly Dictionary<FigureType, Action> _randomDataGenerators;
+
+        /// <summary>
+        /// Обрабатывает нажатие кнопки генерации случайных данных.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
+        private void CreateRandomDataButton_Click(object sender, EventArgs e)
+        {
+
+            if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
+                _randomDataGenerators.TryGetValue(
+                    selectedType, out Action generateRandom))
+            {
+                generateRandom();
+            }
+        }
+
+        /// <summary>
+        /// Формирует случайное положительное вещественное число.
+        /// </summary>
+        /// <param name="min">Минимальное значение.</param>
+        /// <param name="max">Максимальное значение.</param>
+        /// <returns>
+        /// Случайное положительное вещественное число.
+        /// </returns>
+        private double NextPositiveDouble(double min, double max)
+        {
+            return min + _random.NextDouble() * (max - min);
+        }
 #endif
 
         /// <summary>
@@ -75,7 +104,6 @@ namespace View
                 };
 
 #if DEBUG
-    
             string precision = FormatPrecision.Short;
 
             _randomDataGenerators = new Dictionary<FigureType, Action>
@@ -112,8 +140,6 @@ namespace View
             };
 
             CreateRandomDataButton.Visible = true;
-#else
-            CreateRandomDataButton.Visible = false;
 #endif
 
             FigureTypeComboBox.DataSource = Enum
@@ -350,37 +376,5 @@ namespace View
                 textBox.BackColor = SystemColors.Window;
             }
         }
-
-        /// <summary>
-        /// Обрабатывает нажатие кнопки генерации случайных данных.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="e">Аргументы события.</param>
-        private void CreateRandomDataButton_Click(object sender, EventArgs e)
-        {
-#if DEBUG
-            if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
-                _randomDataGenerators.TryGetValue(
-                    selectedType, out Action generateRandom))
-            {
-                generateRandom();
-            }
-#endif
-        }
-
-#if DEBUG
-        /// <summary>
-        /// Формирует случайное положительное вещественное число.
-        /// </summary>
-        /// <param name="min">Минимальное значение.</param>
-        /// <param name="max">Максимальное значение.</param>
-        /// <returns>
-        /// Случайное положительное вещественное число.
-        /// </returns>
-        private double NextPositiveDouble(double min, double max)
-        {
-            return min + _random.NextDouble() * (max - min);
-        }
-#endif
     }
 }

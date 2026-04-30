@@ -58,7 +58,9 @@
             LengthParallelepipedLabel = new Label();
             OkButton = new Button();
             CancelButton = new Button();
+#if debug
             CreateRandomDataButton = new Button();
+#endif
             SpherePanel.SuspendLayout();
             PyramidPanel.SuspendLayout();
             ParallelepipedPanel.SuspendLayout();
@@ -305,7 +307,7 @@
             PerformLayout();
         }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// Ярлык для выбора типа фигуры.
@@ -412,9 +414,11 @@
         /// </summary>
         private Button CancelButton;
 
+#if DEBUG
         /// <summary>
         /// Кнопка для автоматического заполнения полей случайными данными.
         /// </summary>
         private Button CreateRandomDataButton;
+#endif
     }
 }
