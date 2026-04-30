@@ -13,49 +13,70 @@ namespace View.Serialization
     /// </remarks>
     internal static class FigureStorage
     {
+        /// <summary>
+        /// Хранит соответствие между типом фигуры и функциями преобразования
+        /// модели фигуры в данные для сохранения и обратно.
+        /// </summary>
+        /// <remarks>
+        /// Ключом словаря является тип фигуры. Значение содержит функцию преобразования
+        /// объекта <see cref="VolumeFigureBase"/> в объект <see cref="FigureData"/>
+        /// и функцию восстановления объекта <see cref="VolumeFigureBase"/>
+        /// из объекта <see cref="FigureData"/>.
+        /// </remarks>
         private static readonly Dictionary
             <FigureType,
                 (Func<VolumeFigureBase, FigureData> toData,
                 Func<FigureData, VolumeFigureBase> toModel)> _mappers = new()
-    {
-        [FigureType.Sphere] = (
-            f => new FigureData
-            {
-                FigureKind = FigureType.Sphere,
-                Radius = ((Sphere)f).Radius
-            },
-            d => new Sphere(
-                d.Radius ?? throw new InvalidOperationException("Radius не задан"))
-        ),
+                    {
+                        [FigureType.Sphere] = (
+                            f => new FigureData
+                            {
+                                FigureKind = FigureType.Sphere,
+                                Radius = ((Sphere)f).Radius
+                            },
+                            d => new Sphere(
+                                d.Radius 
+                                ?? throw new InvalidOperationException(
+                                    "Radius не задан"))
+                        ),
 
-        [FigureType.Pyramid] = (
-            f => new FigureData
-            {
-                FigureKind = FigureType.Pyramid,
-                BaseLength = ((Pyramid)f).BaseLength,
-                BaseWidth = ((Pyramid)f).BaseWidth,
-                Height = ((Pyramid)f).Height
-            },
-            d => new Pyramid(
-                d.BaseLength ?? throw new InvalidOperationException("BaseLength не задан"),
-                d.BaseWidth ?? throw new InvalidOperationException("BaseWidth не задан"),
-                d.Height ?? throw new InvalidOperationException("Height не задан"))
-        ),
+                        [FigureType.Pyramid] = (
+                            f => new FigureData
+                            {
+                                FigureKind = FigureType.Pyramid,
+                                BaseLength = ((Pyramid)f).BaseLength,
+                                BaseWidth = ((Pyramid)f).BaseWidth,
+                                Height = ((Pyramid)f).Height
+                            },
+                            d => new Pyramid(
+                                d.BaseLength 
+                                ?? throw new InvalidOperationException(
+                                    "BaseLength не задан"),
+                                d.BaseWidth 
+                                ?? throw new InvalidOperationException(
+                                    "BaseWidth не задан"),
+                                d.Height 
+                                ?? throw new InvalidOperationException(
+                                    "Height не задан"))
+                        ),
 
-        [FigureType.Parallelepiped] = (
-            f => new FigureData
-            {
-                FigureKind = FigureType.Parallelepiped,
-                Length = ((Parallelepiped)f).Length,
-                Width = ((Parallelepiped)f).Width,
-                Height = ((Parallelepiped)f).Height
-            },
-            d => new Parallelepiped(
-                d.Length ?? throw new InvalidOperationException("Length не задан"),
-                d.Width ?? throw new InvalidOperationException("Width не задан"),
-                d.Height ?? throw new InvalidOperationException("Height не задан"))
-        )
-    };
+                        [FigureType.Parallelepiped] = (
+                            f => new FigureData
+                            {
+                                FigureKind = FigureType.Parallelepiped,
+                                Length = ((Parallelepiped)f).Length,
+                                Width = ((Parallelepiped)f).Width,
+                                Height = ((Parallelepiped)f).Height
+                            },
+                            d => new Parallelepiped(
+                                d.Length ?? throw new InvalidOperationException(
+                                    "Length не задан"),
+                                d.Width ?? throw new InvalidOperationException(
+                                    "Width не задан"),
+                                d.Height ?? throw new InvalidOperationException(
+                                    "Height не задан"))
+                        )
+                    };
 
 
         /// <summary>

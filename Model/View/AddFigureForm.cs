@@ -22,16 +22,20 @@ namespace View
         /// </summary>
         private readonly Random _random = new();
 #endif
+
+        /// <summary>
+        /// Хранит соответствие между типом фигуры и действиями,
+        /// выполняемыми для этого типа фигуры.
+        /// </summary>
         private readonly Dictionary<FigureType, (
             Func<VolumeFigureBase> create,
             Action setVisible,
             Action reset,
             Action generateRandom)> _figureMap;
+
         /// <summary>
         /// Инициализирует новый экземпляр формы <see cref="AddFigureForm"/>.
         /// </summary>
-        /// 
-
         public AddFigureForm()
         {
             InitializeComponent();
@@ -47,7 +51,8 @@ namespace View
                     () => CreateSphere(),
                     () => ShowOnly(SpherePanel),
                     () => ResetTextBoxes(SphereRadiusTextBox),
-                    () => SphereRadiusTextBox.Text = NextPositiveDouble(1, 20).ToString(precision)
+                    () => SphereRadiusTextBox.Text 
+                        = NextPositiveDouble(1, 20).ToString(precision)
                 ),
 
                 [FigureType.Pyramid] = (
@@ -59,9 +64,12 @@ namespace View
                         PyramidHeightTextBox),
                     () =>
                     {
-                        PyramidBaseLengthTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
-                        PyramidBaseWidthTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
-                        PyramidHeightTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
+                        PyramidBaseLengthTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString(precision);
+                        PyramidBaseWidthTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString(precision);
+                        PyramidHeightTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString(precision);
                     }
                 ),
 
@@ -75,9 +83,12 @@ namespace View
                     () =>
                     {
                         string precision = FormatPrecision.Short;
-                        ParallelepipedLengthTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
-                        ParallelepipedWidthTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
-                        ParallelepipedHeightTextBox.Text = NextPositiveDouble(1, 20).ToString(precision);
+                        ParallelepipedLengthTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString(precision);
+                        ParallelepipedWidthTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString(precision);
+                        ParallelepipedHeightTextBox.Text 
+                            = NextPositiveDouble(1, 20).ToString(precision);
                     }
                 )
             };
@@ -100,8 +111,12 @@ namespace View
             CreateRandomDataButton.Visible = true;
 #endif
         }
-        
-        
+
+        /// <summary>
+        /// Отображает только указанную панель ввода параметров фигуры,
+        /// скрывая панели остальных типов фигур.
+        /// </summary>
+        /// <param name="panel">Панель, которую необходимо отобразить.</param>
         private void ShowOnly(Control panel)
         {
             SpherePanel.Visible = false;
@@ -110,6 +125,7 @@ namespace View
 
             panel.Visible = true;
         }
+
         /// <summary>
         /// Хранит созданную фигуру после успешного подтверждения формы.
         /// </summary>
@@ -129,7 +145,6 @@ namespace View
         /// в зависимости от выбранного типа фигуры.
         /// </summary>
         /// 
-
         private void UpdatePanelIsVisibility()
         {
             if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
@@ -192,7 +207,6 @@ namespace View
             ResetCurrentFigureTextBoxes();
 
             //TODO: duplication +
-
             if (FigureTypeComboBox.SelectedValue is FigureType selectedType &&
                 _figureMap.TryGetValue(selectedType, out var config))
             {
@@ -258,7 +272,6 @@ namespace View
         /// Создаёт экземпляр <see cref="Parallelepiped"/> на основе значений длины,
         /// ширины и высоты, введённых в форме.
         /// </summary>
-        /// //TODO: RSDN + ?
         /// <returns>
         /// Экземпляр <see cref="Parallelepiped"/> с длиной, шириной и высотой,
         /// указанными в полях формы.

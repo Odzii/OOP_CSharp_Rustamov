@@ -33,6 +33,13 @@ namespace View
             
         }
 
+        /// <summary>
+        /// Инициализирует выпадающий список типов фигур.
+        /// </summary>
+        /// <remarks>
+        /// В список добавляется пункт для выбора всех типов фигур,
+        /// а также пункты для каждого значения перечисления <see cref="FigureType"/>.
+        /// </remarks>
         private void InitFigureTypeComboBox()
         {
             var items = new List<ComboItem<FigureType?>>
