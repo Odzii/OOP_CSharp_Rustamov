@@ -14,6 +14,7 @@ namespace View
     /// </remarks>
     public partial class AddFigureForm : Form
     {
+        //TODO: dupblication +
 #if DEBUG
         /// <summary>
         /// Генератор случайных чисел, 
@@ -75,7 +76,7 @@ namespace View
                 };
 
 #if DEBUG
-            
+    
             string precision = FormatPrecision.Short;
 
             _randomDataGenerators = new Dictionary<FigureType, Action>
