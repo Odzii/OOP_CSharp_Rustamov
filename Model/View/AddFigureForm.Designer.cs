@@ -36,7 +36,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddFigureForm));
+            System.ComponentModel.ComponentResourceManager resources =
+                new System.ComponentModel.ComponentResourceManager(
+                    typeof(AddFigureForm));
+
             FigureTypeLabel = new Label();
             FigureTypeComboBox = new ComboBox();
             SpherePanel = new Panel();
@@ -58,9 +61,11 @@
             LengthParallelepipedLabel = new Label();
             OkButton = new Button();
             CancelButton = new Button();
-#if debug
+
+#if DEBUG
             CreateRandomDataButton = new Button();
 #endif
+
             SpherePanel.SuspendLayout();
             PyramidPanel.SuspendLayout();
             ParallelepipedPanel.SuspendLayout();
