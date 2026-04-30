@@ -14,7 +14,6 @@ namespace View
     /// </remarks>
     public partial class AddFigureForm : Form
     {
-        //TODO: dupblication +
 #if DEBUG
         /// <summary>
         /// Генератор случайных чисел, 

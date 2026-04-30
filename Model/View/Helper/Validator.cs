@@ -2,7 +2,6 @@
 
 namespace View.Helper
 {
-    //TODO: rename+
     /// <summary>
     /// Методы проверки и преобразования строкового ввода в положительные числа.
     /// </summary>
