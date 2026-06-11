@@ -50,6 +50,7 @@ public class SphereTests
             Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
+    // Arrange
     [Category("Radius")]
     [TestCase(1.0,
         TestName = "Constructor ValidRadius 1_0 ReturnsCorrectInstance",
@@ -69,6 +70,7 @@ public class SphereTests
         Assert.That(sphere.Radius, Is.EqualTo(radius));
     }
 
+    // Arrange
     [Category("Volume")]
     [TestCase(1.0, 4.1887902047863905,
         TestName = "Volume ValidRadius 1_0 ReturnsCorrectVolume",
@@ -81,7 +83,6 @@ public class SphereTests
         Description = "Проверяет, что объем сферы с радиусом 5.0 вычисляется правильно")]
     public void VolumeValidRadiusReturnsCorrectVolume(double radius, double expectedVolume)
         {
-        // Arrange
         Sphere sphere = new Sphere(radius);
         // Act
         double volume = sphere.Volume;
@@ -89,10 +90,10 @@ public class SphereTests
         Assert.That(volume, Is.EqualTo(expectedVolume).Within(_tolerance));
     }
 
+    // Arrange
     [Category("FigureType")]
     public void FigureTypeReturnsCorrectType()
     {
-        // Arrange
         Sphere sphere = new Sphere(1.0);
         // Act
         string figureType = sphere.FigureType;
@@ -100,11 +101,11 @@ public class SphereTests
         Assert.That(figureType, Is.EqualTo("Sphere"));
     }
 
+    // Arrange
     [Category("GetDescription")]
     [Test]
     public void GetDescriptionReturnsCorrectFormat()
     {
-        // Arrange
         Sphere sphere = new Sphere(1.0);
         string expectedDescription = $"Тип фигуры: {sphere.FigureType} " +
                 $"| Радиус: {sphere.Radius} " +

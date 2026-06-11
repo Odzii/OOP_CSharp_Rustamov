@@ -7,6 +7,7 @@ public class ParallelepipedTests
     /// </summary>
     private const double _tolerance = 1e-6;
 
+    // Arrange
     [Category("BaseLength")]
     [TestCase(
         double.NaN,
@@ -39,7 +40,6 @@ public class ParallelepipedTests
     public void ConstructorInvalidBaseLengthThrowsArgumentOutOfRangeException(
         double baseLength)
     {
-        // Arrange
         double baseWidth = 10.0;
         double height = 15.0;
 
@@ -52,6 +52,7 @@ public class ParallelepipedTests
             Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
+    // Arrange
     [Category("BaseWidth")]
     [TestCase(
     double.NaN,
@@ -84,7 +85,6 @@ public class ParallelepipedTests
     public void ConstructorInvalidBaseWidthThrowsArgumentOutOfRangeException(
     double baseWidth)
     {
-        // Arrange
         double baseLength = 10.0;
         double height = 15.0;
 
@@ -97,6 +97,7 @@ public class ParallelepipedTests
             Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
+    // Arrange
     [Category("Height")]
     [TestCase(
         double.NaN,
@@ -129,7 +130,6 @@ public class ParallelepipedTests
     public void ConstructorInvalidBaseHeightThrowsArgumentOutOfRangeException(
         double Height)
     {
-        // Arrange
         double baseLength = 10.0;
         double baseWidth = 15.0;
 
@@ -142,6 +142,7 @@ public class ParallelepipedTests
             Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
+    // Arrange
     [Category("BaseLength")]
     [TestCase(
         15.5,
@@ -158,7 +159,6 @@ public class ParallelepipedTests
     public void ConstructorValidBaseLengthDoesNotThrow(
         double baseLength)
     {
-        // Arrange
         double baseWidth = 10.0;
         double height = 15.0;
         // Act
@@ -168,6 +168,7 @@ public class ParallelepipedTests
             parallelepiped, Is.EqualTo(parallelepiped));
     }
 
+    // Arrange
     [Category("BaseWidth")]
     [TestCase(
         15.5,
@@ -184,7 +185,6 @@ public class ParallelepipedTests
     public void ConstructorValidBaseWidthDoesNotThrow(
         double baseWidth)
     {
-        // Arrange
         double baseLength = 10.0;
         double height = 15.0;
         // Act
@@ -195,6 +195,7 @@ public class ParallelepipedTests
             Is.EqualTo(parallelepiped));
     }
 
+    // Arrange
     [Category("Height")]
     [TestCase(
         15.5,
@@ -211,7 +212,6 @@ public class ParallelepipedTests
     public void ConstructorValidHeightDoesNotThrow(
         double height)
     {
-        // Arrange
         double baseLength = 10.0;
         double baseWidth = 15.0;
         // Act
@@ -222,6 +222,7 @@ public class ParallelepipedTests
             Is.EqualTo(parallelepiped));
     }
 
+    // Arrange
     [Category("Volume")]
     [TestCase(
         3.5,
@@ -246,7 +247,6 @@ public class ParallelepipedTests
         double baseWidth,
         double expectedBaseArea)
     {
-        // Arrange
         double height = 10.0;
         Parallelepiped parallelepiped = new Parallelepiped(baseLength, baseWidth, height);
         // Act
@@ -273,11 +273,11 @@ public class ParallelepipedTests
             Is.EqualTo("Параллелепипед"));
     }
 
+    // Arrange
     [Category("GetDescription")]
     [Test]
     public void GetDescriptionReturnsCorrectFormat()
     {
-        // Arrange
         double baseLength = 10.0;
         double baseWidth = 15.0;
         double height = 20.0;
