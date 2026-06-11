@@ -11,56 +11,74 @@ public class SphereTests
     [Category("Radius")]
     [TestCase(
         double.NaN,
-        TestName = "Constructor InvalidRadius NaN ThrowsArgumentException",
-        Description = "Проверяет, что создание сферы с NaN радиусом вызывает ArgumentException")]
+        TestName = "Invalid Radius Not A Number",
+        Description =
+            "Проверяет, что создание сферы с NaN радиусом вызывает "
+            + "ArgumentException")]
     [TestCase(
         double.PositiveInfinity,
-        TestName = "Constructor InvalidRadius PositiveInfinity ThrowsArgumentException",
-        Description = "Проверяет, что создание сферы с бесконечным радиусом вызывает ArgumentException")]
+        TestName = "Invalid Radius Positive Infinity",
+        Description =
+            "Проверяет, что создание сферы с бесконечным радиусом "
+            + "вызывает ArgumentException")]
     [TestCase(
         double.NegativeInfinity,
-        TestName = "Constructor InvalidRadius NegativeInfinity ThrowsArgumentException",
-        Description = "Проверяет, что создание сферы с отрицательным бесконечным радиусом вызывает ArgumentException")]
+        TestName = "Invalid Radius Negative Infinity",
+        Description =
+            "Проверяет, что создание сферы с отрицательным бесконечным "
+            + "радиусом вызывает ArgumentException")]
     [TestCase(
         0.0,
-        TestName = "Constructor InvalidRadius Zero ThrowsArgumentException",
-        Description = "Проверяет, что создание сферы с нулевым радиусом вызывает ArgumentException")]
+        TestName = "Invalid Radius Zero",
+        Description =
+            "Проверяет, что создание сферы с нулевым радиусом вызывает "
+            + "ArgumentException")]
     [TestCase(
         -1.0,
-        TestName = "Constructor InvalidRadius Negative ThrowsArgumentException",
-        Description = "Проверяет, что создание сферы с отрицательным радиусом вызывает ArgumentException")]
+        TestName = "Invalid Radius Minus One",
+        Description =
+            "Проверяет, что создание сферы с отрицательным радиусом "
+            + "вызывает ArgumentException")]
     [TestCase(
         -1.0,
-        TestName = "Constructor InvalidRadius Negative ThrowsArgumentException",
-        Description = "Проверяет, что создание сферы с отрицательным радиусом вызывает ArgumentException")]
+        TestName = "Invalid Radius Minus One Again",
+        Description =
+            "Проверяет, что создание сферы с отрицательным радиусом "
+            + "вызывает ArgumentException")]
     [TestCase(
         -10.5,
-        TestName = "Constructor InvalidRadius LargeNegative ThrowsArgumentException",
-        Description = "Проверяет, что создание сферы с большим отрицательным радиусом вызывает ArgumentException")]
+        TestName = "Invalid Radius Minus 10_5",
+        Description =
+            "Проверяет, что создание сферы с большим отрицательным "
+            + "радиусом вызывает ArgumentException")]
     [TestCase(
         -9999.5,
-        TestName = "Constructor InvalidRadius SmallNegative ThrowsArgumentException",
-        Description = "Проверяет, что создание сферы с небольшим отрицательным радиусом вызывает ArgumentException")]
+        TestName = "Invalid Radius Minus 9999_5",
+        Description =
+            "Проверяет, что создание сферы с небольшим отрицательным "
+            + "радиусом вызывает ArgumentException")]
     public void ConstructorInvalidRadiusThrowsArgumentException(double radius)
     {
         // Act
         TestDelegate act = () => new Sphere(radius);
         // Assert
-        Assert.That(act, 
+        Assert.That(act,
             Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
-    // Arrange
     [Category("Radius")]
     [TestCase(1.0,
-        TestName = "Constructor ValidRadius 1_0 ReturnsCorrectInstance",
-        Description = "Проверяет, что можно создать сферу с положительным радиусом")]
+        TestName = "Valid Radius 1",
+        Description =
+            "Проверяет, что можно создать сферу с положительным радиусом")]
     [TestCase(5.0,
-        TestName = "Constructor ValidRadius 5_0 ReturnsCorrectInstance",
-        Description = "Проверяет, что можно создать сферу с положительным радиусом")]
+        TestName = "Valid Radius 5",
+        Description =
+            "Проверяет, что можно создать сферу с положительным радиусом")]
     [TestCase(15.5,
-        TestName = "Constructor ValidRadius 15_5 ReturnsCorrectInstance",
-        Description = "Проверяет, что можно создать сферу с положительным радиусом")]
+        TestName = "Valid Radius 15_5",
+        Description =
+            "Проверяет, что можно создать сферу с положительным радиусом")]
     public void ConstructorValidRadiusReturnsCorrectInstance(double radius)
     {
         // Act
@@ -70,19 +88,27 @@ public class SphereTests
         Assert.That(sphere.Radius, Is.EqualTo(radius));
     }
 
-    // Arrange
     [Category("Volume")]
     [TestCase(1.0, 4.1887902047863905,
-        TestName = "Volume ValidRadius 1_0 ReturnsCorrectVolume",
-        Description = "Проверяет, что объем сферы с радиусом 1.0 вычисляется правильно")]
+        TestName = "Volume Radius 1 Returns Correct Volume",
+        Description =
+            "Проверяет, что объем сферы с радиусом 1.0 вычисляется "
+            + "правильно")]
     [TestCase(2.0, 33.510321638291124,
-        TestName = "Volume ValidRadius 2_0 ReturnsCorrectVolume",
-        Description = "Проверяет, что объем сферы с радиусом 2.0 вычисляется правильно")]
+        TestName = "Volume Radius 2 Returns Correct Volume",
+        Description =
+            "Проверяет, что объем сферы с радиусом 2.0 вычисляется "
+            + "правильно")]
     [TestCase(5.0, 523.5987755982989,
-        TestName = "Volume ValidRadius 5_0 ReturnsCorrectVolume",
-        Description = "Проверяет, что объем сферы с радиусом 5.0 вычисляется правильно")]
-    public void VolumeValidRadiusReturnsCorrectVolume(double radius, double expectedVolume)
-        {
+        TestName = "Volume Radius 5 Returns Correct Volume",
+        Description =
+            "Проверяет, что объем сферы с радиусом 5.0 вычисляется "
+            + "правильно")]
+    public void VolumeValidRadiusReturnsCorrectVolume(
+        double radius, 
+        double expectedVolume)
+    {
+        // Arrange
         Sphere sphere = new Sphere(radius);
         // Act
         double volume = sphere.Volume;
@@ -90,10 +116,10 @@ public class SphereTests
         Assert.That(volume, Is.EqualTo(expectedVolume).Within(_tolerance));
     }
 
-    // Arrange
     [Category("FigureType")]
     public void FigureTypeReturnsCorrectType()
     {
+        // Arrange
         Sphere sphere = new Sphere(1.0);
         // Act
         string figureType = sphere.FigureType;
@@ -101,11 +127,11 @@ public class SphereTests
         Assert.That(figureType, Is.EqualTo("Sphere"));
     }
 
-    // Arrange
     [Category("GetDescription")]
     [Test]
     public void GetDescriptionReturnsCorrectFormat()
     {
+        // Arrange
         Sphere sphere = new Sphere(1.0);
         string expectedDescription = $"Тип фигуры: {sphere.FigureType} " +
                 $"| Радиус: {sphere.Radius} " +
