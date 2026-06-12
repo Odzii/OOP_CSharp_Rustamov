@@ -273,8 +273,11 @@ public class ParallelepipedTests
         // Arrange
         double baseLength = 10.0;
         double baseWidth = 15.0;
+
         // Act
+        //TODO: RSDN
         Parallelepiped parallelepiped = new Parallelepiped(baseLength, baseWidth, height);
+
         // Assert
         Assert.That(
             parallelepiped,
@@ -307,6 +310,7 @@ public class ParallelepipedTests
     {
         // Arrange
         double height = 10.0;
+        //TODO: RSDN
         Parallelepiped parallelepiped = new Parallelepiped(baseLength, baseWidth, height);
         // Act
         double volume = parallelepiped.Volume;
