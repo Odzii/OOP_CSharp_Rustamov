@@ -62,7 +62,7 @@ namespace View
         /// выполняемыми для этого типа фигуры.
         /// </summary>
         private readonly Dictionary<FigureType, (
-            Func<VolumeFigureBase> create,
+            Func<IVolumeFigure> create,
             Action setVisible,
             Action reset)> _figureMap;
 
@@ -74,7 +74,7 @@ namespace View
             InitializeComponent();
 
             _figureMap = new Dictionary<FigureType, (
-                Func<VolumeFigureBase> create,
+                Func<IVolumeFigure> create,
                 Action setVisible,
                 Action reset)>
                 {
@@ -163,7 +163,7 @@ namespace View
         /// если пользователь корректно ввёл данные
         /// и нажал кнопку <c>OK</c>; иначе <see langword="null"/>.
         /// </value>
-        public VolumeFigureBase? CreatedFigure
+        public IVolumeFigure? CreatedFigure
         {
             get;
             private set;
@@ -245,7 +245,7 @@ namespace View
         /// <exception cref="InvalidOperationException">
         /// Выбрасывается, если тип фигуры не выбран.
         /// </exception>
-        private VolumeFigureBase CreateFigureFromForm()
+        private IVolumeFigure CreateFigureFromForm()
         {
             ResetCurrentFigureTextBoxes();
 

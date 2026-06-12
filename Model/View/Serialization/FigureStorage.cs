@@ -86,7 +86,7 @@ namespace View.Serialization
         /// <param name="figures">Коллекция фигур для сохранения.</param>
         public static void Save(
             string filePath, 
-            IEnumerable<VolumeFigureBase> figures)
+            IEnumerable<IVolumeFigure> figures)
         {
             FiguresFileData fileData = new FiguresFileData();
 

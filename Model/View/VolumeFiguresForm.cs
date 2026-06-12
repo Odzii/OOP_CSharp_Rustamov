@@ -16,7 +16,7 @@ namespace View
         /// <summary>
         /// Список фигур, отображаемых на форме.
         /// </summary>
-        private readonly List<VolumeFigureBase> _figures = new();
+        private readonly List<IVolumeFigure> _figures = new();
 
         /// <summary>
         /// Инициализирует новый экземпляр формы <see cref="VolumeFiguresForm"/>.
@@ -34,7 +34,7 @@ namespace View
         {
             FiguresDataGridView.Rows.Clear();
 
-            foreach (VolumeFigureBase figure in _figures)
+            foreach (IVolumeFigure figure in _figures)
             {
                 FiguresDataGridView.Rows.Add(
                     figure.FigureType,

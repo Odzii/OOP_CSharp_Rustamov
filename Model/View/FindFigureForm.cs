@@ -17,14 +17,14 @@ namespace View
         /// <summary>
         /// Список фигур, среди которых выполняется поиск.
         /// </summary>
-        private readonly List<VolumeFigureBase> _figures;
+        private readonly List<IVolumeFigure> _figures;
 
         /// <summary>
         /// Инициализирует новый экземпляр формы <see cref="FindFigureForm"/>.
         /// </summary>
         /// <param name="figures">Список фигур, 
         /// переданный с главной формы.</param>
-        public FindFigureForm(List<VolumeFigureBase> figures)
+        public FindFigureForm(List<IVolumeFigure> figures)
         {
             InitializeComponent();
             _figures = figures;
@@ -82,7 +82,7 @@ namespace View
         /// <param name="figures">
         /// Коллекция фигур, которые нужно отобразить.
         /// </param>
-        private void RefreshResultsGrid(IEnumerable<VolumeFigureBase> figures)
+        private void RefreshResultsGrid(IEnumerable<IVolumeFigure> figures)
         {
             ResultsDataGridView.Rows.Clear();
             foreach (var figure in figures)
@@ -105,7 +105,7 @@ namespace View
         /// Выбрасывается, если минимальный или максимальный объём
         /// не является положительным конечным числом,
         /// либо если минимальный объём больше максимального.</exception>
-        private List<VolumeFigureBase> FindFigures()
+        private List<IVolumeFigure> FindFigures()
         {
             var selectedType = (FigureType?)FigureTypeComboBox.SelectedValue;
 
@@ -130,7 +130,7 @@ namespace View
                     "Минимальный объём не должен быть больше максимального.");
             }
 
-            IEnumerable<VolumeFigureBase> query = _figures;
+            IEnumerable<IVolumeFigure> query = _figures;
 
             if (selectedType.HasValue)
             {
@@ -161,7 +161,7 @@ namespace View
         {
             try
             {
-                List<VolumeFigureBase> foundFigures = FindFigures();
+                List<IVolumeFigure> foundFigures = FindFigures();
                 RefreshResultsGrid(foundFigures);
             }
             catch (Exception ex)
