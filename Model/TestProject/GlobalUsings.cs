@@ -1,5 +1,5 @@
-﻿global using NUnit.Framework.Legacy;
-
-global using Model;
+﻿global using Model;
 
 global using ModelTests;
+
+global using ModelTestsCommon;

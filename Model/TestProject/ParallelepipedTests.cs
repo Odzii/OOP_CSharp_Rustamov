@@ -3,284 +3,91 @@
 /// <summary>
 /// Содержит модульные тесты для класса <see cref="Parallelepiped"/>.
 /// </summary>
-public class ParallelepipedTests
+public class ParallelepipedTests : RectangularBaseFigureTestsBase<Parallelepiped>
 {
     /// <summary>
-    /// Проверяет, что конструктор класса <see cref="Parallelepiped"/>
-    /// выбрасывает исключение
-    /// <see cref="ArgumentOutOfRangeException"/> при некорректной
-    /// длине основания.
+    /// Получает ожидаемый тип фигуры.
     /// </summary>
-    /// <param name="baseLength">Некорректная длина основания.</param>
-    [Category("BaseLength")]
-    [TestCase(
-        double.NaN,
-        TestName = "Invalid Base Length Not A Number",
-        Description = "Проверяет, что нельзя создать параллелепипед с NaN в "
-            + "BaseLength")]
-    [TestCase(
-        double.PositiveInfinity,
-        TestName = "Invalid Base Length Positive Infinity",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "положительной бесконечностью в BaseLength")]
-    [TestCase(
-        double.NegativeInfinity,
-        TestName = "Invalid Base Length Negative Infinity",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательной бесконечностью в BaseLength")]
-    [TestCase(
-        0.0,
-        TestName = "Invalid Base Length Zero",
-        Description = "Проверяет, что нельзя создать параллелепипед с нулевым "
-            + "BaseLength")]
-    [TestCase(
-        -1.0,
-        TestName = "Invalid Base Length Minus One",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательным BaseLength")]
-    [TestCase(
-        -10.5,
-        TestName = "Invalid Base Length Minus 10_5",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательным BaseLength")]
-    [TestCase(
-        -9999.5,
-        TestName = "Invalid Base Length Minus 9999_5",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательным BaseLength")]
-    public void ConstructorInvalidBaseLength(double baseLength)
+    protected override string ExpectedFigureType => "Параллелепипед";
+
+    /// <summary>
+    /// Создает параллелепипед с указанными размерами.
+    /// </summary>
+    /// <param name="baseLength">Длина основания.</param>
+    /// <param name="baseWidth">Ширина основания.</param>
+    /// <param name="height">Высота.</param>
+    /// <returns>Экземпляр класса <see cref="Parallelepiped"/>.</returns>
+    protected override Parallelepiped CreateFigure(
+        double baseLength,
+        double baseWidth,
+        double height)
     {
-        double baseWidth = 10.0;
-        double height = 15.0;
-
-        Action action = () => new Parallelepiped(
-            baseLength,
-            baseWidth,
-            height);
-
-        Assert.That(
-            action,
-            Throws.TypeOf<ArgumentOutOfRangeException>());
+        return new Parallelepiped(baseLength, baseWidth, height);
     }
 
     /// <summary>
-    /// Проверяет, что конструктор класса <see cref="Parallelepiped"/>
-    /// выбрасывает исключение
-    /// <see cref="ArgumentOutOfRangeException"/> при некорректной
-    /// ширине основания.
+    /// Получает длину основания параллелепипеда.
     /// </summary>
-    /// <param name="baseWidth">Некорректная ширина основания.</param>
-    [Category("BaseWidth")]
-    [TestCase(
-        double.NaN,
-        TestName = "Invalid Base Width Not A Number",
-        Description = "Проверяет, что нельзя создать параллелепипед с NaN в "
-            + "BaseWidth")]
-    [TestCase(
-        double.PositiveInfinity,
-        TestName = "Invalid Base Width Positive Infinity",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "положительной бесконечностью в BaseWidth")]
-    [TestCase(
-        double.NegativeInfinity,
-        TestName = "Invalid Base Width Negative Infinity",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательной бесконечностью в BaseWidth")]
-    [TestCase(
-        0.0,
-        TestName = "Invalid Base Width Zero",
-        Description = "Проверяет, что нельзя создать параллелепипед с нулевым "
-            + "BaseWidth")]
-    [TestCase(
-        -1.0,
-        TestName = "Invalid Base Width Minus One",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательным BaseWidth")]
-    [TestCase(
-        -10.5,
-        TestName = "Invalid Base Width Minus 10_5",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательным BaseWidth")]
-    [TestCase(
-        -9999.5,
-        TestName = "Invalid Base Width Minus 9999_5",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательным BaseWidth")]
-    public void ConstructorInvalidBaseWidth(double baseWidth)
+    /// <param name="parallelepiped">Тестируемый параллелепипед.</param>
+    /// <returns>Длина основания параллелепипеда.</returns>
+    protected override double GetBaseLength(Parallelepiped parallelepiped)
     {
-        double baseLength = 10.0;
-        double height = 15.0;
-
-        Action action = () => new Parallelepiped(
-            baseLength,
-            baseWidth,
-            height);
-
-        Assert.That(
-            action,
-            Throws.TypeOf<ArgumentOutOfRangeException>());
+        return parallelepiped.Length;
     }
 
     /// <summary>
-    /// Проверяет, что конструктор класса <see cref="Parallelepiped"/>
-    /// выбрасывает исключение
-    /// <see cref="ArgumentOutOfRangeException"/> при некорректной
-    /// высоте.
+    /// Получает ширину основания параллелепипеда.
     /// </summary>
-    /// <param name="height">Некорректная высота.</param>
-    [Category("Height")]
-    [TestCase(
-        double.NaN,
-        TestName = "Invalid Height Not A Number",
-        Description = "Проверяет, что нельзя создать параллелепипед с NaN в "
-            + "BaseHeight")]
-    [TestCase(
-        double.PositiveInfinity,
-        TestName = "Invalid Height Positive Infinity",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "положительной бесконечностью в BaseHeight")]
-    [TestCase(
-        double.NegativeInfinity,
-        TestName = "Invalid Height Negative Infinity",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательной бесконечностью в BaseHeight")]
-    [TestCase(
-        0.0,
-        TestName = "Invalid Height Zero",
-        Description = "Проверяет, что нельзя создать параллелепипед с нулевым "
-            + "BaseHeight")]
-    [TestCase(
-        -1.0,
-        TestName = "Invalid Height Minus One",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательным BaseHeight")]
-    [TestCase(
-        -10.5,
-        TestName = "Invalid Height Minus 10_5",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательным BaseHeight")]
-    [TestCase(
-        -9999.5,
-        TestName = "Invalid Height Minus 9999_5",
-        Description = "Проверяет, что нельзя создать параллелепипед с "
-            + "отрицательным BaseHeight")]
-    public void ConstructorInvalidBaseHeight(double height)
+    /// <param name="parallelepiped">Тестируемый параллелепипед.</param>
+    /// <returns>Ширина основания параллелепипеда.</returns>
+    protected override double GetBaseWidth(Parallelepiped parallelepiped)
     {
-        double baseLength = 10.0;
-        double baseWidth = 15.0;
-
-        Action action = () => new Parallelepiped(
-            baseLength,
-            baseWidth,
-            height);
-
-        Assert.That(
-            action,
-            Throws.TypeOf<ArgumentOutOfRangeException>());
+        return parallelepiped.Width;
     }
 
     /// <summary>
-    /// Проверяет, что конструктор класса <see cref="Parallelepiped"/>
-    /// создает объект с корректной длиной основания.
+    /// Получает высоту параллелепипеда.
     /// </summary>
-    /// <param name="baseLength">Корректная длина основания.</param>
-    [Category("BaseLength")]
-    [TestCase(
-        15.5,
-        TestName = "Valid Base Length 15_5",
-        Description = "Проверяет, что можно создать параллелепипед с "
-            + "положительным BaseLength 15.5")]
-    [TestCase(
-        500.0,
-        TestName = "Valid Base Length 500",
-        Description = "Проверяет, что можно создать параллелепипед с "
-            + "положительным BaseLength 500.0")]
-    [TestCase(
-        1000.5,
-        TestName = "Valid Base Length 1000_5",
-        Description = "Проверяет, что можно создать параллелепипед с "
-            + "положительным BaseLength 1000.5")]
-    public void ConstructorValidBaseLength(double baseLength)
+    /// <param name="parallelepiped">Тестируемый параллелепипед.</param>
+    /// <returns>Высота параллелепипеда.</returns>
+    protected override double GetHeight(Parallelepiped parallelepiped)
     {
-        double baseWidth = 10.0;
-        double height = 15.0;
-
-        Parallelepiped parallelepiped = new Parallelepiped(
-            baseLength,
-            baseWidth,
-            height);
-
-        Assert.That(parallelepiped, Is.EqualTo(parallelepiped));
+        return parallelepiped.Height;
     }
 
     /// <summary>
-    /// Проверяет, что конструктор класса <see cref="Parallelepiped"/>
-    /// создает объект с корректной шириной основания.
+    /// Получает тип фигуры.
     /// </summary>
-    /// <param name="baseWidth">Корректная ширина основания.</param>
-    [Category("BaseWidth")]
-    [TestCase(
-        15.5,
-        TestName = "Valid Base Width 15_5",
-        Description = "Проверяет, что можно создать параллелепипед с "
-            + "положительным BaseWidth 15.5")]
-    [TestCase(
-        500.0,
-        TestName = "Valid Base Width 500",
-        Description = "Проверяет, что можно создать параллелепипед с "
-            + "положительным BaseWidth 500.0")]
-    [TestCase(
-        1000.5,
-        TestName = "Valid Base Width 1000_5",
-        Description = "Проверяет, что можно создать параллелепипед с "
-            + "положительным BaseWidth 1000.5")]
-    public void ConstructorValidBaseWidthDoes(double baseWidth)
+    /// <param name="parallelepiped">Тестируемый параллелепипед.</param>
+    /// <returns>Тип фигуры.</returns>
+    protected override string GetFigureType(Parallelepiped parallelepiped)
     {
-        double baseLength = 10.0;
-        double height = 15.0;
-
-        Parallelepiped parallelepiped = new Parallelepiped(
-            baseLength,
-            baseWidth,
-            height);
-
-        Assert.That(
-            parallelepiped,
-            Is.EqualTo(parallelepiped));
+        return parallelepiped.FigureType;
     }
 
     /// <summary>
-    /// Проверяет, что конструктор класса <see cref="Parallelepiped"/>
-    /// создает объект с корректной высотой.
+    /// Получает описание параллелепипеда.
     /// </summary>
-    /// <param name="height">Корректная высота.</param>
-    [Category("Height")]
-    [TestCase(
-        15.5,
-        TestName = "Valid Height 15_5",
-        Description = "Проверяет, что можно создать параллелепипед с "
-            + "положительным Height 15.5")]
-    [TestCase(
-        500.0,
-        TestName = "Valid Height 500",
-        Description = "Проверяет, что можно создать параллелепипед с "
-            + "положительным Height 500.0")]
-    [TestCase(
-        1000.5,
-        TestName = "Valid Height 1000_5",
-        Description = "Проверяет, что можно создать параллелепипед с "
-            + "положительным Height 1000.5")]
-    public void ConstructorValidHeight(double height)
+    /// <param name="parallelepiped">Тестируемый параллелепипед.</param>
+    /// <returns>Описание параллелепипеда.</returns>
+    protected override string GetDescription(Parallelepiped parallelepiped)
     {
-        double baseLength = 10.0;
-        double baseWidth = 15.0;
+        return parallelepiped.GetDescription();
+    }
 
-        Parallelepiped parallelepiped = new Parallelepiped(
-            baseLength,
-            baseWidth,
-            height);
-
-        Assert.That(parallelepiped, Is.EqualTo(parallelepiped));
+    /// <summary>
+    /// Создает ожидаемое описание параллелепипеда.
+    /// </summary>
+    /// <param name="parallelepiped">Тестируемый параллелепипед.</param>
+    /// <returns>Ожидаемое описание параллелепипеда.</returns>
+    protected override string CreateExpectedDescription(
+        Parallelepiped parallelepiped)
+    {
+        return $"Тип фигуры: {parallelepiped.FigureType} "
+            + $"| Длина: {parallelepiped.Length} "
+            + $"| Ширина: {parallelepiped.Width} "
+            + $"| Высота: {parallelepiped.Height} "
+            + $"| Объем: {parallelepiped.Volume:G}";
     }
 
     /// <summary>
@@ -289,12 +96,12 @@ public class ParallelepipedTests
     /// </summary>
     /// <param name="baseLength">Длина основания.</param>
     /// <param name="baseWidth">Ширина основания.</param>
-    /// <param name="expectedBaseArea">Ожидаемое значение объема.</param>
+    /// <param name="expectedVolume">Ожидаемый объем.</param>
     [Category("Volume")]
     [TestCase(
         3.5,
         4.0,
-        140,
+        140.0,
         TestName = "Volume 3_5 By 4 By 10 Returns 140",
         Description = "Проверяет, что объем параллелепипеда равен 140.0")]
     [TestCase(
@@ -312,70 +119,17 @@ public class ParallelepipedTests
     public void VolumeValidDimensions(
         double baseLength,
         double baseWidth,
-        double expectedBaseArea)
+        double expectedVolume)
     {
-        double height = 10.0;
-
-        Parallelepiped parallelepiped = new Parallelepiped(
+        Parallelepiped parallelepiped = CreateFigure(
             baseLength,
             baseWidth,
-            height);
+            10.0);
 
-        double volume = parallelepiped.Volume;
+        double actualVolume = parallelepiped.Volume;
 
         Assert.That(
-            volume,
-            Is.EqualTo(expectedBaseArea).Within(Settings.Tolerance));
-    }
-
-    /// <summary>
-    /// Проверяет, что свойство FigureType возвращает корректный тип
-    /// фигуры.
-    /// </summary>
-    [Category("FigureType")]
-    public void FigureTypeReturnsCorrectValue()
-    {
-        double baseLength = 10.0;
-        double baseWidth = 15.0;
-        double height = 20.0;
-
-        Parallelepiped parallelepiped = new Parallelepiped(
-            baseLength,
-            baseWidth,
-            height);
-
-        string figureType = parallelepiped.FigureType;
-
-        Assert.That(figureType, Is.EqualTo("Параллелепипед"));
-    }
-
-    /// <summary>
-    /// Проверяет, что метод GetDescription() возвращает описание
-    /// параллелепипеда в корректном формате.
-    /// </summary>
-    [Category("GetDescription")]
-    [Test]
-    public void GetDescriptionReturnsCorrectFormat()
-    {
-        double baseLength = 10.0;
-        double baseWidth = 15.0;
-        double height = 20.0;
-
-        Parallelepiped parallelepiped = new Parallelepiped(
-            baseLength,
-            baseWidth,
-            height);
-
-        string expectedDescription = $"Тип фигуры: Параллелепипед "
-            + $"| Длина: {baseLength} "
-            + $"| Ширина: {baseWidth} "
-            + $"| Высота: {height} "
-            + $"| Объем: {parallelepiped.Volume:G}";
-
-        string description = parallelepiped.GetDescription();
-
-        Assert.That(
-            description,
-            Is.EqualTo(expectedDescription));
+            actualVolume,
+            Is.EqualTo(expectedVolume).Within(Settings.Tolerance));
     }
 }
