@@ -2,11 +2,6 @@
 
 public class ParallelepipedTests
 {
-    /// <summary>
-    /// Допустимая погрешность для сравнения числовых значений типа double.
-    /// </summary>
-    private const double _tolerance = 1e-6;
-
     [Category("BaseLength")]
     [TestCase(
         double.NaN,
@@ -50,20 +45,14 @@ public class ParallelepipedTests
         Description =
             "Проверяет, что нельзя создать параллелепипед с "
             + "отрицательным BaseLength")]
-    public void ConstructorInvalidBaseLengthThrowsArgumentOutOfRangeException(
-        double baseLength)
+    public void ConstructorInvalidBaseLength( double baseLength)
     {
-        // Arrange
         double baseWidth = 10.0;
         double height = 15.0;
 
-        // Act
-        TestDelegate act = () => new Parallelepiped(baseLength, baseWidth, height);
+        Action action = () => new Parallelepiped(baseLength, baseWidth, height);
 
-        // Assert
-        Assert.That(
-            act,
-            Throws.TypeOf<ArgumentOutOfRangeException>());
+        Assert.That(action, Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
     [Category("BaseWidth")]
@@ -108,20 +97,14 @@ public class ParallelepipedTests
     Description =
         "Проверяет, что нельзя создать параллелепипед с отрицательным "
         + "BaseWidth")]
-    public void ConstructorInvalidBaseWidthThrowsArgumentOutOfRangeException(
-    double baseWidth)
+    public void ConstructorInvalidBaseWidth( double baseWidth)
     {
-        // Arrange
         double baseLength = 10.0;
         double height = 15.0;
 
-        // Act
-        TestDelegate act = () => new Parallelepiped(baseLength, baseWidth, height);
+        Action action = () => new Parallelepiped(baseLength, baseWidth, height);
 
-        // Assert
-        Assert.That(
-            act,
-            Throws.TypeOf<ArgumentOutOfRangeException>());
+        Assert.That(action, Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
     [Category("Height")]
@@ -167,20 +150,14 @@ public class ParallelepipedTests
         Description =
             "Проверяет, что нельзя создать параллелепипед с "
             + "отрицательным BaseHeight")]
-    public void ConstructorInvalidBaseHeightThrowsArgumentOutOfRangeException(
-        double Height)
+    public void ConstructorInvalidBaseHeight(double Height)
     {
-        // Arrange
         double baseLength = 10.0;
         double baseWidth = 15.0;
 
-        // Act
-        TestDelegate act = () => new Parallelepiped(baseLength, baseWidth, Height);
+        Action action = () => new Parallelepiped(baseLength, baseWidth, Height);
 
-        // Assert
-        Assert.That(
-            act,
-            Throws.TypeOf<ArgumentOutOfRangeException>());
+        Assert.That(action, Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
     [Category("BaseLength")]
@@ -202,17 +179,17 @@ public class ParallelepipedTests
         Description =
             "Проверяет, что можно создать параллелепипед с "
             + "положительным BaseLength 1000.5")]
-    public void ConstructorValidBaseLengthDoesNotThrow(
-        double baseLength)
+    public void ConstructorValidBaseLength(double baseLength)
     {
-        // Arrange
         double baseWidth = 10.0;
         double height = 15.0;
-        // Act
-        Parallelepiped parallelepiped = new Parallelepiped(baseLength, baseWidth, height);
-        // Assert
-        Assert.That(
-            parallelepiped, Is.EqualTo(parallelepiped));
+
+        Parallelepiped parallelepiped = new Parallelepiped(
+            baseLength, 
+            baseWidth, 
+            height);
+
+        Assert.That(parallelepiped, Is.EqualTo(parallelepiped));
     }
 
     [Category("BaseWidth")]
@@ -234,15 +211,17 @@ public class ParallelepipedTests
         Description =
             "Проверяет, что можно создать параллелепипед с "
             + "положительным BaseWidth 1000.5")]
-    public void ConstructorValidBaseWidthDoesNotThrow(
+    public void ConstructorValidBaseWidthDoes(
         double baseWidth)
     {
-        // Arrange
         double baseLength = 10.0;
         double height = 15.0;
-        // Act
-        Parallelepiped parallelepiped = new Parallelepiped(baseLength, baseWidth, height);
-        // Assert
+
+        Parallelepiped parallelepiped = new Parallelepiped(
+            baseLength, 
+            baseWidth, 
+            height);
+
         Assert.That(
             parallelepiped,
             Is.EqualTo(parallelepiped));
@@ -267,21 +246,19 @@ public class ParallelepipedTests
         Description =
             "Проверяет, что можно создать параллелепипед с "
             + "положительным Height 1000.5")]
-    public void ConstructorValidHeightDoesNotThrow(
+    public void ConstructorValidHeight(
         double height)
     {
-        // Arrange
         double baseLength = 10.0;
         double baseWidth = 15.0;
 
-        // Act
-        //TODO: RSDN
-        Parallelepiped parallelepiped = new Parallelepiped(baseLength, baseWidth, height);
+        //TODO: RSDN +
+        Parallelepiped parallelepiped = new Parallelepiped(
+            baseLength, 
+            baseWidth, 
+            height);
 
-        // Assert
-        Assert.That(
-            parallelepiped,
-            Is.EqualTo(parallelepiped));
+        Assert.That(parallelepiped, Is.EqualTo(parallelepiped));
     }
 
     [Category("Volume")]
@@ -303,56 +280,63 @@ public class ParallelepipedTests
         90.0,
         TestName = "Volume 3 By 3 By 10 Returns 90",
         Description = "Проверяет, что объем параллелепипеда равен 90.0")]
-    public void VolumeValidDimensionsReturnsCorrectVolume(
+    public void VolumeValidDimensions(
         double baseLength,
         double baseWidth,
         double expectedBaseArea)
     {
-        // Arrange
         double height = 10.0;
-        //TODO: RSDN
-        Parallelepiped parallelepiped = new Parallelepiped(baseLength, baseWidth, height);
-        // Act
+        //TODO: RSDN +
+        Parallelepiped parallelepiped = new Parallelepiped(
+            baseLength, 
+            baseWidth, 
+            height);
+
         double volume = parallelepiped.Volume;
-        // Assert
+
         Assert.That(
-            volume,
-            Is.EqualTo(expectedBaseArea).Within(_tolerance));
+            volume, 
+            Is.EqualTo(expectedBaseArea).Within(Settings.Tolerance));
     }
 
     [Category("FigureType")]
     public void FigureTypeReturnsCorrectValue()
     {
-        // Arrange
         double baseLength = 10.0;
         double baseWidth = 15.0;
         double height = 20.0;
-        Parallelepiped parallelepiped = new Parallelepiped(baseLength, baseWidth, height);
-        // Act
+
+        Parallelepiped parallelepiped = new Parallelepiped(
+            baseLength, 
+            baseWidth, 
+            height);
+
         string figureType = parallelepiped.FigureType;
-        // Assert
-        Assert.That(
-            figureType,
-            Is.EqualTo("Параллелепипед"));
+
+        Assert.That(figureType, Is.EqualTo("Параллелепипед"));
     }
 
     [Category("GetDescription")]
     [Test]
     public void GetDescriptionReturnsCorrectFormat()
     {
-        // Arrange
         double baseLength = 10.0;
         double baseWidth = 15.0;
         double height = 20.0;
-        Parallelepiped parallelepiped = new Parallelepiped(baseLength, baseWidth, height);
+
+        Parallelepiped parallelepiped = new Parallelepiped(
+            baseLength, 
+            baseWidth, 
+            height);
+
         string expectedDescription = $"Тип фигуры: Параллелепипед " +
             $"| Длина: {baseLength} " +
             $"| Ширина: {baseWidth} " +
             $"| Высота: {height} " +
             $"| Объем: {parallelepiped.Volume:G}";
-        // Act
+
         string description = parallelepiped.GetDescription();
-        // Assert
+
         Assert.That(
             description,
             Is.EqualTo(expectedDescription));

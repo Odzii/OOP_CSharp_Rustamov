@@ -2,12 +2,6 @@
 
 public class SphereTests
 {
-    /// <summary>
-    /// Допустимая погрешность для сравнения числовых значений типа double.
-    /// </summary>
-    private const double _tolerance = 1e-6;
-
-    //Arrange
     [Category("Radius")]
     [TestCase(
         double.NaN,
@@ -57,13 +51,11 @@ public class SphereTests
         Description =
             "Проверяет, что создание сферы с небольшим отрицательным "
             + "радиусом вызывает ArgumentException")]
-    public void ConstructorInvalidRadiusThrowsArgumentException(double radius)
+    public void ConstructorInvalidRadius(double radius)
     {
-        // Act
-        TestDelegate act = () => new Sphere(radius);
-        // Assert
-        Assert.That(act,
-            Throws.TypeOf<ArgumentOutOfRangeException>());
+        Action action = () => new Sphere(radius);
+
+        Assert.That(action, Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
     [Category("Radius")]
@@ -79,12 +71,10 @@ public class SphereTests
         TestName = "Valid Radius 15_5",
         Description =
             "Проверяет, что можно создать сферу с положительным радиусом")]
-    public void ConstructorValidRadiusReturnsCorrectInstance(double radius)
+    public void ConstructorValidRadius(double radius)
     {
-        // Act
         Sphere sphere = new Sphere(radius);
 
-        // Assert
         Assert.That(sphere.Radius, Is.EqualTo(radius));
     }
 
@@ -108,22 +98,20 @@ public class SphereTests
         double radius, 
         double expectedVolume)
     {
-        // Arrange
         Sphere sphere = new Sphere(radius);
-        // Act
+
         double volume = sphere.Volume;
-        // Assert
-        Assert.That(volume, Is.EqualTo(expectedVolume).Within(_tolerance));
+
+        Assert.That(volume, Is.EqualTo(expectedVolume).Within(Settings.Tolerance));
     }
 
     [Category("FigureType")]
     public void FigureTypeReturnsCorrectType()
     {
-        // Arrange
         Sphere sphere = new Sphere(1.0);
-        // Act
+
         string figureType = sphere.FigureType;
-        // Assert
+
         Assert.That(figureType, Is.EqualTo("Sphere"));
     }
 
@@ -131,14 +119,15 @@ public class SphereTests
     [Test]
     public void GetDescriptionReturnsCorrectFormat()
     {
-        // Arrange
+
         Sphere sphere = new Sphere(1.0);
+
         string expectedDescription = $"Тип фигуры: {sphere.FigureType} " +
                 $"| Радиус: {sphere.Radius} " +
                 $"| Объём: {sphere.Volume:G}";
-        // Act
+
         string description = sphere.GetDescription();
-        // Assert
+
         Assert.That(description, Is.EqualTo(expectedDescription));
     }
 }

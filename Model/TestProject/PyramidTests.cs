@@ -2,11 +2,6 @@ namespace ModelPyramidTests
 {
     public class PyramidTests
     {
-        /// <summary>
-        /// Допустимая погрешность для сравнения числовых значений типа double.
-        /// </summary>
-        private const double _tolerance = 1e-6;
-
         [Category("BaseLength")]
         [TestCase(
             double.NaN,
@@ -50,20 +45,14 @@ namespace ModelPyramidTests
             Description =
                 "Проверяет, что нельзя создать пирамиду с отрицательным "
                 + "BaseLength")]
-        public void ConstructorInvalidBaseLengthThrowsArgumentOutOfRangeException(
-            double baseLength)
+        public void ConstructorInvalidBaseLength(double baseLength)
         {
-            // Arrange
             double baseWidth = 10.0;
             double height = 15.0;
 
-            // Act
-            TestDelegate act = () => new Pyramid(baseLength, baseWidth, height);
+            Action  action = () => new Pyramid(baseLength, baseWidth, height);
 
-            // Assert
-            Assert.That(
-                act,
-                Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(action, Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Category("BaseWidth")]
@@ -109,20 +98,14 @@ namespace ModelPyramidTests
             Description =
                 "Проверяет, что нельзя создать пирамиду с отрицательным "
                 + "BaseWidth")]
-        public void ConstructorInvalidBaseWidthThrowsArgumentOutOfRangeException(
-            double baseWidth)
+        public void ConstructorInvalidBaseWidth(double baseWidth)
         {
-            // Arrange
             double baseLength = 10.0;
             double height = 15.0;
 
-            // Act
-            TestDelegate act = () => new Pyramid(baseLength, baseWidth, height);
+            Action action = () => new Pyramid(baseLength, baseWidth, height);
 
-            // Assert
-            Assert.That(
-                act,
-                Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(action, Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
         [Category("Height")]
@@ -166,19 +149,15 @@ namespace ModelPyramidTests
             Description =
                 "Проверяет, что нельзя создать пирамиду с отрицательным "
                 + "Height")]
-        public void ConstructorInvalidHeightThrowsArgumentOutOfRangeException(
-            double height)
+        public void ConstructorInvalidHeight(double height)
         {
-            // Arrange
             double baseLength = 10.0;
             double baseWidth = 15.0;
 
-            // Act
-            TestDelegate act = () => new Pyramid(baseLength, baseWidth, height);
+            Action action = () => new Pyramid(baseLength, baseWidth, height);
 
-            // Assert
             Assert.That(
-                act,
+                action,
                 Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
@@ -201,19 +180,14 @@ namespace ModelPyramidTests
             Description =
                 "Проверяет, что конструктор записывает корректное "
                 + "значение BaseLength")]
-        public void ConstructorValidBaseLengthSetsBaseLength(double baseLength)
+        public void ConstructorValidBaseLength(double baseLength)
         {
-            // Arrange
             double baseWidth = 10.0;
             double height = 15.0;
 
-            // Act
             Pyramid pyramid = new Pyramid(baseLength, baseWidth, height);
 
-            // Assert
-            Assert.That(
-                pyramid.BaseLength,
-                Is.EqualTo(baseLength));
+            Assert.That(pyramid.BaseLength, Is.EqualTo(baseLength));
         }
 
         [Category("BaseWidth")]
@@ -235,19 +209,14 @@ namespace ModelPyramidTests
             Description =
                 "Проверяет, что конструктор записывает корректное "
                 + "значение BaseWidth")]
-        public void ConstructorValidBaseWidthSetsBaseWidth(double baseWidth)
+        public void ConstructorValidBaseWidth(double baseWidth)
         {
-            // Arrange
             double baseLength = 10.0;
             double height = 15.0;
 
-            // Act
             Pyramid pyramid = new Pyramid(baseLength, baseWidth, height);
 
-            // Assert
-            Assert.That(
-                pyramid.BaseWidth,
-                Is.EqualTo(baseWidth));
+            Assert.That(pyramid.BaseWidth, Is.EqualTo(baseWidth));
         }
 
         [Category("Height")]
@@ -269,19 +238,14 @@ namespace ModelPyramidTests
             Description =
                 "Проверяет, что конструктор записывает корректное "
                 + "значение Height")]
-        public void ConstructorValidHeightSetsHeight(double height)
+        public void ConstructorValidHeight(double height)
         {
-            // Arrange
             double baseLength = 10.0;
             double baseWidth = 15.0;
 
-            // Act
             Pyramid pyramid = new Pyramid(baseLength, baseWidth, height);
 
-            // Assert
-            Assert.That(
-                pyramid.Height,
-                Is.EqualTo(height));
+            Assert.That(pyramid.Height, Is.EqualTo(height));
         }
 
         [Category("BaseArea")]
@@ -309,22 +273,20 @@ namespace ModelPyramidTests
             Description =
                 "Проверяет, что площадь квадратного основания 3 x 3 "
                 + "равна 9")]
-        public void BaseAreaValidBaseLengthAndBaseWidthReturnsExpectedBaseArea(
+        public void BaseAreaValidBaseLengthAndBaseWidth(
             double baseLength,
             double baseWidth,
             double expectedBaseArea)
         {
-            // Arrange
             double height = 10.0;
+
             Pyramid pyramid = new Pyramid(baseLength, baseWidth, height);
 
-            // Act
             double actualBaseArea = pyramid.BaseArea;
 
-            // Assert
             Assert.That(
                 actualBaseArea,
-                Is.EqualTo(expectedBaseArea).Within(_tolerance));
+                Is.EqualTo(expectedBaseArea).Within(Settings.Tolerance));
         }
 
         [Category("FigureType")]
@@ -332,18 +294,13 @@ namespace ModelPyramidTests
         [Description(
             "Проверяет, что свойство FigureType возвращает строку "
             + "Пирамида")]
-        public void FigureTypeAlwaysReturnsPyramid()
+        public void FigureTypeAlways()
         {
-            // Arrange
             Pyramid pyramid = new Pyramid(10.0, 5.0, 3.0);
 
-            // Act
             string actualFigureType = pyramid.FigureType;
 
-            // Assert
-            Assert.That(
-                actualFigureType,
-                Is.EqualTo("Пирамида"));
+            Assert.That(actualFigureType, Is.EqualTo("Пирамида"));
         }
 
         [Category("Volume")]
@@ -371,22 +328,19 @@ namespace ModelPyramidTests
             Description =
                 "Проверяет, что объём пирамиды 10 x 10 x 10 равен "
                 + "333_333333")]
-        public void VolumeValidValuesReturnsExpectedVolume(
+        public void VolumeValidValues(
             double baseLength,
             double baseWidth,
             double height,
             double expectedVolume)
         {
-            // Arrange
             Pyramid pyramid = new Pyramid(baseLength, baseWidth, height);
 
-            // Act
             double actualVolume = pyramid.Volume;
 
-            // Assert
             Assert.That(
-                actualVolume,
-                Is.EqualTo(expectedVolume).Within(_tolerance));
+                actualVolume, 
+                Is.EqualTo(expectedVolume).Within(Settings.Tolerance));
         }
 
         [Category("GetDescription")]
@@ -394,9 +348,8 @@ namespace ModelPyramidTests
         [Description(
             "Проверяет, что GetDescription возвращает корректное "
             + "описание пирамиды")]
-        public void GetDescriptionValidValuesReturnsExpectedDescription()
+        public void GetDescriptionValidValues()
         {
-            // Arrange
             Pyramid pyramid = new Pyramid(3.0, 3.0, 3.0);
 
             string expectedDescription =
@@ -405,13 +358,9 @@ namespace ModelPyramidTests
                 "| Высота пирамиды: 3 " +
                 "| Объем: 9";
 
-            // Act
             string actualDescription = pyramid.GetDescription();
 
-            // Assert
-            Assert.That(
-                actualDescription,
-                Is.EqualTo(expectedDescription));
+            Assert.That(actualDescription, Is.EqualTo(expectedDescription));
         }
 
         [Category("Volume")]
@@ -419,24 +368,20 @@ namespace ModelPyramidTests
         [Description(
             "Проверяет, что слишком большой объём пирамиды вызывает "
             + "OverflowException")]
-        public void VolumeTooLargeValuesThrowsOverflowException()
+        public void VolumeTooLargeValues()
         {
-            // Arrange
+
             Pyramid pyramid = new Pyramid(
                 double.MaxValue,
                 double.MaxValue,
                 double.MaxValue);
 
-            // Act
-            TestDelegate act = () =>
+            Action action = () =>
             {
                 double volume = pyramid.Volume;
             };
 
-            // Assert
-            Assert.That(
-                act,
-                Throws.TypeOf<OverflowException>());
+            Assert.That(action, Throws.TypeOf<OverflowException>());
         }
     }
 }
