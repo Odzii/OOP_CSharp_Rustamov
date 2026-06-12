@@ -1,158 +1,57 @@
 namespace ModelPyramidTests
 {
+    /// <summary>
+    /// Содержит модульные тесты для класса <see cref="Pyramid"/>.
+    /// </summary>
     public class PyramidTests
     {
+        /// <summary>
+        /// Проверяет, что конструктор класса <see cref="Pyramid"/>
+        /// выбрасывает исключение
+        /// <see cref="ArgumentOutOfRangeException"/> при некорректной
+        /// длине основания.
+        /// </summary>
+        /// <param name="baseLength">Некорректная длина основания.</param>
         [Category("BaseLength")]
         [TestCase(
             double.NaN,
             TestName = "Invalid Base Length Not A Number",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с NaN в "
+            Description = "Проверяет, что нельзя создать пирамиду с NaN в "
                 + "BaseLength")]
         [TestCase(
             double.PositiveInfinity,
             TestName = "Invalid Base Length Positive Infinity",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с положительной "
-                + "бесконечностью в BaseLength")]
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с положительной бесконечностью в BaseLength")]
         [TestCase(
             double.NegativeInfinity,
             TestName = "Invalid Base Length Negative Infinity",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательной "
-                + "бесконечностью в BaseLength")]
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательной бесконечностью в BaseLength")]
         [TestCase(
             0.0,
             TestName = "Invalid Base Length Zero",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с нулевым "
-                + "BaseLength")]
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с нулевым BaseLength")]
         [TestCase(
             -1.0,
             TestName = "Invalid Base Length Minus One",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательным "
-                + "BaseLength")]
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательным BaseLength")]
         [TestCase(
             -10.5,
             TestName = "Invalid Base Length Minus 10_5",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательным "
-                + "BaseLength")]
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательным BaseLength")]
         [TestCase(
             -9999.5,
             TestName = "Invalid Base Length Minus 9999_5",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательным "
-                + "BaseLength")]
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательным BaseLength")]
         public void ConstructorInvalidBaseLength(double baseLength)
         {
             double baseWidth = 10.0;
             double height = 15.0;
-
-            Action  action = () => new Pyramid(baseLength, baseWidth, height);
-
-            Assert.That(action, Throws.TypeOf<ArgumentOutOfRangeException>());
-        }
-
-        [Category("BaseWidth")]
-        [TestCase(
-            double.NaN,
-            TestName = "Invalid Base Width Not A Number",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с NaN в "
-                + "BaseWidth")]
-        [TestCase(
-            double.PositiveInfinity,
-            TestName = "Invalid Base Width Positive Infinity",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с положительной "
-                + "бесконечностью в BaseWidth")]
-        [TestCase(
-            double.NegativeInfinity,
-            TestName = "Invalid Base Width Negative Infinity",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательной "
-                + "бесконечностью в BaseWidth")]
-        [TestCase(
-            0.0,
-            TestName = "Invalid Base Width Zero",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с нулевым "
-                + "BaseWidth")]
-        [TestCase(
-            -1.0,
-            TestName = "Invalid Base Width Minus One",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательным "
-                + "BaseWidth")]
-        [TestCase(
-            -10.5,
-            TestName = "Invalid Base Width Minus 10_5",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательным "
-                + "BaseWidth")]
-        [TestCase(
-            -9999.5,
-            TestName = "Invalid Base Width Minus 9999_5",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательным "
-                + "BaseWidth")]
-        public void ConstructorInvalidBaseWidth(double baseWidth)
-        {
-            double baseLength = 10.0;
-            double height = 15.0;
-
-            Action action = () => new Pyramid(baseLength, baseWidth, height);
-
-            Assert.That(action, Throws.TypeOf<ArgumentOutOfRangeException>());
-        }
-
-        [Category("Height")]
-        [TestCase(
-            double.NaN,
-            TestName = "Invalid Height Not A Number",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с NaN в Height")]
-        [TestCase(
-            double.PositiveInfinity,
-            TestName = "Invalid Height Positive Infinity",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с положительной "
-                + "бесконечностью в Height")]
-        [TestCase(
-            double.NegativeInfinity,
-            TestName = "Invalid Height Negative Infinity",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательной "
-                + "бесконечностью в Height")]
-        [TestCase(
-            0.0,
-            TestName = "Invalid Height Zero",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с нулевым Height")]
-        [TestCase(
-            -1.0,
-            TestName = "Invalid Height Minus One",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательным "
-                + "Height")]
-        [TestCase(
-            -10.5,
-            TestName = "Invalid Height Minus 10_5",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательным "
-                + "Height")]
-        [TestCase(
-            -9999.5,
-            TestName = "Invalid Height Minus 9999_5",
-            Description =
-                "Проверяет, что нельзя создать пирамиду с отрицательным "
-                + "Height")]
-        public void ConstructorInvalidHeight(double height)
-        {
-            double baseLength = 10.0;
-            double baseWidth = 15.0;
 
             Action action = () => new Pyramid(baseLength, baseWidth, height);
 
@@ -161,24 +60,134 @@ namespace ModelPyramidTests
                 Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
+        /// <summary>
+        /// Проверяет, что конструктор класса <see cref="Pyramid"/>
+        /// выбрасывает исключение
+        /// <see cref="ArgumentOutOfRangeException"/> при некорректной
+        /// ширине основания.
+        /// </summary>
+        /// <param name="baseWidth">Некорректная ширина основания.</param>
+        [Category("BaseWidth")]
+        [TestCase(
+            double.NaN,
+            TestName = "Invalid Base Width Not A Number",
+            Description = "Проверяет, что нельзя создать пирамиду с NaN в "
+                + "BaseWidth")]
+        [TestCase(
+            double.PositiveInfinity,
+            TestName = "Invalid Base Width Positive Infinity",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с положительной бесконечностью в BaseWidth")]
+        [TestCase(
+            double.NegativeInfinity,
+            TestName = "Invalid Base Width Negative Infinity",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательной бесконечностью в BaseWidth")]
+        [TestCase(
+            0.0,
+            TestName = "Invalid Base Width Zero",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с нулевым BaseWidth")]
+        [TestCase(
+            -1.0,
+            TestName = "Invalid Base Width Minus One",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательным BaseWidth")]
+        [TestCase(
+            -10.5,
+            TestName = "Invalid Base Width Minus 10_5",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательным BaseWidth")]
+        [TestCase(
+            -9999.5,
+            TestName = "Invalid Base Width Minus 9999_5",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательным BaseWidth")]
+        public void ConstructorInvalidBaseWidth(double baseWidth)
+        {
+            double baseLength = 10.0;
+            double height = 15.0;
+
+            Action action = () => new Pyramid(baseLength, baseWidth, height);
+
+            Assert.That(
+                action,
+                Throws.TypeOf<ArgumentOutOfRangeException>());
+        }
+
+        /// <summary>
+        /// Проверяет, что конструктор класса <see cref="Pyramid"/>
+        /// выбрасывает исключение
+        /// <see cref="ArgumentOutOfRangeException"/> при некорректной
+        /// высоте.
+        /// </summary>
+        /// <param name="height">Некорректная высота пирамиды.</param>
+        [Category("Height")]
+        [TestCase(
+            double.NaN,
+            TestName = "Invalid Height Not A Number",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с NaN в Height")]
+        [TestCase(
+            double.PositiveInfinity,
+            TestName = "Invalid Height Positive Infinity",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с положительной бесконечностью в Height")]
+        [TestCase(
+            double.NegativeInfinity,
+            TestName = "Invalid Height Negative Infinity",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательной бесконечностью в Height")]
+        [TestCase(
+            0.0,
+            TestName = "Invalid Height Zero",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с нулевым Height")]
+        [TestCase(
+            -1.0,
+            TestName = "Invalid Height Minus One",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательным Height")]
+        [TestCase(
+            -10.5,
+            TestName = "Invalid Height Minus 10_5",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательным Height")]
+        [TestCase(
+            -9999.5,
+            TestName = "Invalid Height Minus 9999_5",
+            Description = "Проверяет, что нельзя создать пирамиду " +
+                "с отрицательным Height")]
+        public void ConstructorInvalidHeight(double height)
+        {
+            double baseLength = 10.0;
+            double baseWidth = 15.0;
+
+            Action action = () => new Pyramid(baseLength, baseWidth, height);
+
+            Assert.That(action, Throws.TypeOf<ArgumentOutOfRangeException>());
+        }
+
+        /// <summary>
+        /// Проверяет, что конструктор класса <see cref="Pyramid"/>
+        /// записывает корректную длину основания.
+        /// </summary>
+        /// <param name="baseLength">Корректная длина основания.</param>
         [Category("BaseLength")]
         [TestCase(
             15.5,
             TestName = "Valid Base Length 15_5",
-            Description =
-                "Проверяет, что конструктор записывает корректное "
+            Description = "Проверяет, что конструктор записывает корректное "
                 + "значение BaseLength")]
         [TestCase(
             500.0,
             TestName = "Valid Base Length 500",
-            Description =
-                "Проверяет, что конструктор записывает корректное "
+            Description = "Проверяет, что конструктор записывает корректное "
                 + "значение BaseLength")]
         [TestCase(
             1000.5,
             TestName = "Valid Base Length 1000_5",
-            Description =
-                "Проверяет, что конструктор записывает корректное "
+            Description = "Проверяет, что конструктор записывает корректное "
                 + "значение BaseLength")]
         public void ConstructorValidBaseLength(double baseLength)
         {
@@ -190,24 +199,26 @@ namespace ModelPyramidTests
             Assert.That(pyramid.BaseLength, Is.EqualTo(baseLength));
         }
 
+        /// <summary>
+        /// Проверяет, что конструктор класса <see cref="Pyramid"/>
+        /// записывает корректную ширину основания.
+        /// </summary>
+        /// <param name="baseWidth">Корректная ширина основания.</param>
         [Category("BaseWidth")]
         [TestCase(
             15.5,
             TestName = "Valid Base Width 15_5",
-            Description =
-                "Проверяет, что конструктор записывает корректное "
+            Description = "Проверяет, что конструктор записывает корректное "
                 + "значение BaseWidth")]
         [TestCase(
             500.0,
             TestName = "Valid Base Width 500",
-            Description =
-                "Проверяет, что конструктор записывает корректное "
+            Description = "Проверяет, что конструктор записывает корректное "
                 + "значение BaseWidth")]
         [TestCase(
             1000.5,
             TestName = "Valid Base Width 1000_5",
-            Description =
-                "Проверяет, что конструктор записывает корректное "
+            Description = "Проверяет, что конструктор записывает корректное "
                 + "значение BaseWidth")]
         public void ConstructorValidBaseWidth(double baseWidth)
         {
@@ -219,24 +230,26 @@ namespace ModelPyramidTests
             Assert.That(pyramid.BaseWidth, Is.EqualTo(baseWidth));
         }
 
+        /// <summary>
+        /// Проверяет, что конструктор класса <see cref="Pyramid"/>
+        /// записывает корректную высоту.
+        /// </summary>
+        /// <param name="height">Корректная высота пирамиды.</param>
         [Category("Height")]
         [TestCase(
             15.5,
             TestName = "Valid Height 15_5",
-            Description =
-                "Проверяет, что конструктор записывает корректное "
+            Description = "Проверяет, что конструктор записывает корректное "
                 + "значение Height")]
         [TestCase(
             500.0,
             TestName = "Valid Height 500",
-            Description =
-                "Проверяет, что конструктор записывает корректное "
+            Description = "Проверяет, что конструктор записывает корректное "
                 + "значение Height")]
         [TestCase(
             1000.5,
             TestName = "Valid Height 1000_5",
-            Description =
-                "Проверяет, что конструктор записывает корректное "
+            Description = "Проверяет, что конструктор записывает корректное "
                 + "значение Height")]
         public void ConstructorValidHeight(double height)
         {
@@ -248,31 +261,37 @@ namespace ModelPyramidTests
             Assert.That(pyramid.Height, Is.EqualTo(height));
         }
 
+        /// <summary>
+        /// Проверяет, что свойство BaseArea возвращает корректную площадь
+        /// основания пирамиды.
+        /// </summary>
+        /// <param name="baseLength">Длина основания пирамиды.</param>
+        /// <param name="baseWidth">Ширина основания пирамиды.</param>
+        /// <param name="expectedBaseArea">
+        /// Ожидаемая площадь основания пирамиды.
+        /// </param>
         [Category("BaseArea")]
         [TestCase(
             10.0,
             5.0,
             50.0,
             TestName = "Base Area 10 By 5 Returns 50",
-            Description =
-                "Проверяет, что площадь основания пирамиды 10 x 5 равна "
-                + "50")]
+            Description = "Проверяет, что площадь основания пирамиды " +
+                "10 x 5 равна 50")]
         [TestCase(
             2.5,
             4.0,
             10.0,
             TestName = "Base Area 2_5 By 4 Returns 10",
-            Description =
-                "Проверяет, что площадь основания пирамиды 2_5 x 4 "
-                + "равна 10")]
+            Description = "Проверяет, что площадь основания пирамиды " +
+                "2_5 x 4 равна 10")]
         [TestCase(
             3.0,
             3.0,
             9.0,
             TestName = "Base Area 3 By 3 Returns 9",
-            Description =
-                "Проверяет, что площадь квадратного основания 3 x 3 "
-                + "равна 9")]
+            Description = "Проверяет, что площадь квадратного основания " +
+                "3 x 3 равна 9")]
         public void BaseAreaValidBaseLengthAndBaseWidth(
             double baseLength,
             double baseWidth,
@@ -289,10 +308,13 @@ namespace ModelPyramidTests
                 Is.EqualTo(expectedBaseArea).Within(Settings.Tolerance));
         }
 
+        /// <summary>
+        /// Проверяет, что свойство FigureType возвращает корректный тип
+        /// фигуры.
+        /// </summary>
         [Category("FigureType")]
         [Test]
-        [Description(
-            "Проверяет, что свойство FigureType возвращает строку "
+        [Description("Проверяет, что свойство FigureType возвращает строку "
             + "Пирамида")]
         public void FigureTypeAlways()
         {
@@ -303,6 +325,14 @@ namespace ModelPyramidTests
             Assert.That(actualFigureType, Is.EqualTo("Пирамида"));
         }
 
+        /// <summary>
+        /// Проверяет, что свойство Volume возвращает корректный объем
+        /// пирамиды.
+        /// </summary>
+        /// <param name="baseLength">Длина основания пирамиды.</param>
+        /// <param name="baseWidth">Ширина основания пирамиды.</param>
+        /// <param name="height">Высота пирамиды.</param>
+        /// <param name="expectedVolume">Ожидаемый объем пирамиды.</param>
         [Category("Volume")]
         [TestCase(
             10.0,
@@ -310,8 +340,7 @@ namespace ModelPyramidTests
             3.0,
             50.0,
             TestName = "Volume 10 By 5 By 3 Returns 50",
-            Description =
-                "Проверяет, что объём пирамиды 10 x 5 x 3 равен 50")]
+            Description = "Проверяет, что объём пирамиды 10 x 5 x 3 равен 50")]
         [TestCase(
             3.0,
             3.0,
@@ -325,8 +354,7 @@ namespace ModelPyramidTests
             10.0,
             333.3333333333333,
             TestName = "Volume 10 By 10 By 10 Returns 333_333333",
-            Description =
-                "Проверяет, что объём пирамиды 10 x 10 x 10 равен "
+            Description = "Проверяет, что объём пирамиды 10 x 10 x 10 равен "
                 + "333_333333")]
         public void VolumeValidValues(
             double baseLength,
@@ -339,14 +367,17 @@ namespace ModelPyramidTests
             double actualVolume = pyramid.Volume;
 
             Assert.That(
-                actualVolume, 
+                actualVolume,
                 Is.EqualTo(expectedVolume).Within(Settings.Tolerance));
         }
 
+        /// <summary>
+        /// Проверяет, что метод GetDescription() возвращает корректное
+        /// описание пирамиды.
+        /// </summary>
         [Category("GetDescription")]
         [Test]
-        [Description(
-            "Проверяет, что GetDescription возвращает корректное "
+        [Description("Проверяет, что GetDescription возвращает корректное "
             + "описание пирамиды")]
         public void GetDescriptionValidValues()
         {
@@ -363,14 +394,16 @@ namespace ModelPyramidTests
             Assert.That(actualDescription, Is.EqualTo(expectedDescription));
         }
 
+        /// <summary>
+        /// Проверяет, что вычисление слишком большого объема пирамиды
+        /// выбрасывает исключение <see cref="OverflowException"/>.
+        /// </summary>
         [Category("Volume")]
         [Test]
-        [Description(
-            "Проверяет, что слишком большой объём пирамиды вызывает "
+        [Description("Проверяет, что слишком большой объём пирамиды вызывает "
             + "OverflowException")]
         public void VolumeTooLargeValues()
         {
-
             Pyramid pyramid = new Pyramid(
                 double.MaxValue,
                 double.MaxValue,
